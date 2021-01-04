@@ -1,0 +1,21 @@
+
+8e99c5a912925a3bb68c7e1721c85db1dfe06d8d
+
+
+
+update maximo.maxpropvalue set propvalue = 'http://xx/meaweb' where propname = 'mxe.int.webappurl';
+
+
+DEV1 Production Copy (Non-GDPR Compliant & No DB Access)  http://sv-maxapp-dev1/maximo/ui/login
+DEV2 Production Copy (GDPR Compliant & DB Access) http://sv-maxapp-dev2/maximo/ui/login
+MAXIDEV1 Vanilla (Non-GDPR Compliant & No DB Access) http://sv-maxidev1.sbf.dk/maximo/webclient/login/login.jsp
+
+
+http://sv-maxidev1.sbf.dk/meaweb/wsdl/MX_D365_MXINVOICEInterface.wsdl
+http://sv-maxidev1.sbf.dk/meaweb/schema/service/MXPO
+
+http://sv-maxidev1.sbf.dk/meaweb/wsdl/MXPO.wsdl
+
+
+
+https://developer.ibm.com/static/site-id/155/maximodev/dbcguide/#_script_best_practices

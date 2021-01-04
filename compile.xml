@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<project name="compilehelper" default="compile">
+	<property name="target.dir" value="/opt/IBM/SMP/maximo" />
+	<property name="targetp.dir" value="/opt/IBM/SMP/maximo/applications/maximo/properties/product" />
+	<property name="targettools.dir" value="/opt/IBM/SMP/maximo/tools/maximo" />
+	<property name="targetprodxml.dir" value="/opt/IBM/WebSphere/AppServer/profiles/ctgAppSrv01/installedApps/ctgCell01/MAXIMO.ear/properties.jar/product" />
+	<property name="targetbus.dir" value="/opt/IBM/WebSphere/AppServer/profiles/ctgAppSrv01/installedApps/ctgCell01/MAXIMO.ear/businessobjects.jar/dedir" />
+	<property name="targetbusibm.dir" value="/opt/IBM/WebSphere/AppServer/profiles/ctgAppSrv01/installedApps/ctgCell01/MAXIMO.ear/businessobjects.jar/com/ibm/gbs" />
+	<property name="targetui.dir" value="/opt/IBM/WebSphere/AppServer/profiles/ctgAppSrv01/installedApps/ctgCell01/MAXIMO.ear/maximouiweb.war/WEB-INF/classes/dedir" />
+	<property name="build.rmic" value="sun"/>
+	<property name="maximo.stubversion" value="1.2"/>
+	<property name="maximo.globaldir" value="/opt/IBM/SMP/maximo/applications/globaldir" />
+	<property name="maximo.automationscripts" value="${target.dir}/tools/maximo/en/automationscripts" />
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="./deployment/ant-contrib-1.0b3.jar" />
+		</classpath>
+	</taskdef>
+
+	<target name="compile">
+
+		<!-- Delete Directory contents for refresh -->
+		<echo>Clear any files nor required from target folders</echo>
+		<!-- Automation Script Files -->
+		<if>
+			<available file="${maximo.automationscripts}" type="dir" />
+			<then>
+				<delete>
+					<fileset dir="${maximo.automationscripts}">
+						<include name="**/*" />
+					</fileset>
+				</delete>
+			</then>
+		</if>
+		
+		<!-- Global Directory Files -->
+		<!-- This will blow away any non-required tracking files -->
+		<!-- Comment out section if this is not required
+		<if>
+			<available file="${maximo.globaldir}" type="dir" />
+			<then>
+				<delete>
+		   <fileset dir="${maximo.globaldir}">
+		      <include name="globaldir/**/*"/>
+		   </fileset>
+		</delete>
+			</then>
+		</if>
+		 -->
+
+		<echo>Copy all business required files to target folder ${targetbus.dir}</echo>
+		<copy todir="${targetbus.dir}" overwrite="true">
+			<fileset dir="/opt/IBM/SMP/maximo/applications/maximo/businessobjects/classes/watercorp" excludes="**/*.java"/>	
+				
+		</copy>
+		<echo>Copy all gbs business required files to target folder ${targetbusibm.dir}</echo>
+		<copy todir="${targetbusibm.dir}" overwrite="true">
+			<fileset dir="/opt/IBM/SMP/maximo/applications/maximo/businessobjects/classes/com/ibm/gbs" excludes="**/*.java"/>			
+		</copy>
+			
+		<echo>Copy product xml to  ${targetp.dir}</echo>
+		<copy todir="${targetp.dir}" overwrite="true">
+			<fileset dir="/opt/MaximoTools/workspace/downer_development/applications/maximo/properties/product/" excludes="**/*.java"/>	
+		</copy>
+		
+		<echo>Copy tools to  ${targettools.dir}</echo>
+		<copy todir="${targettools.dir}" overwrite="true">
+			<fileset dir="/opt/MaximoTools/workspace/downer_development/tools/maximo" />	
+		</copy>
+		
+		
+		
+		<echo>Copy all uiweb required files to target folder ${targetui.dir}</echo>
+		<copy todir="${targetui.dir}" overwrite="true">
+			<fileset dir="/opt/IBM/SMP/maximo/applications/maximo/maximouiweb/webmodule/WEB-INF/classes/watercorp" excludes="**/*.java"/>	
+		</copy>
+						
+		
+		<echo>Copy all required files GlobalDir files to ${maximo.globaldir}</echo>
+		<copy todir="${maximo.globaldir}" overwrite="true">
+			<fileset dir="/opt/MaximoTools/workspace/downer_development/applications/globaldir" />
+		</copy>
+		
+		<echo>Copy product xml to WebSphere</echo>
+		<copy todir="${targetprodxml.dir}" overwrite="true">
+			<fileset dir="/opt/IBM/SMP/maximo/applications/maximo/properties/product" />
+		</copy>
+		
+		<echo>Clean all Automation Scripts</echo>
+		<exec dir="${targettools.dir}/internal" executable="/bin/bash">
+			<arg value="-c"/>
+			<arg value="./runscriptfile.sh -cgbsassets -fGBSAutomationScriptCleanAll"/>
+		</exec>
+		
+		<echo>Deploy all Automation Scripts</echo>
+		<exec dir="${targettools.dir}/internal" executable="/bin/bash">
+			<arg value="-c" />
+			<arg value="./runscriptfile.sh -cgbsassets -fGBSAutomationScriptDeploy" />
+		</exec>
+		
+		<echo>Execute RMIC Files</echo>
+		<rmic verify="true" base="/opt/IBM/WebSphere/AppServer/profiles/ctgAppSrv01/installedApps/ctgCell01/MAXIMO.ear/businessobjects.jar" includes="watercorp/**/*.class" stubversion="${maximo.stubversion}" classpath="${target.dir}/applications/maximo/lib/json4j.jar">
+		<!--<rmic verify="true" base="${target.dir}/applications/maximo/businessobjects/classes" includes="com/ibm/gbs/**/*.class" stubversion="${maximo.stubversion}" classpath="${target.dir}/applications/maximo/lib/json4j.jar">
+			<exclude name="**/*Remote.class"/>
+			<exclude name="**/*CronTask.class"/>
+			<exclude name="**/*Fld*.class"/>
+			<exclude name="**/*Comparator*.class"/>
+			<exclude name="**/*Util.class"/>
+			<exclude name="**/*Transformation.class"/>
+			<exclude name="**/*Structure.class"/>
+			<exclude name="**/*Listener.class"/>
+			<exclude name="**/*Filter.class"/>
+			<exclude name="**/*Handler.class"/>
+			<exclude name="**/*Action.class"/>
+			<exclude name="**/*Process.class"/>
+			<exclude name="**/*Condition.class"/>
+			<exclude name="**/*Cache.class"/>-->
+		</rmic>		
+	</target>	
+</project>
