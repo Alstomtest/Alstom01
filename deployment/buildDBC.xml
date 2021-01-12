@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<project name="SB" default="">
+	<description>
+		This file is used generating DBC for Maximo objects.
+	</description>
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="./ant-contrib-1.0b3.jar" />
+		</classpath>
+	</taskdef>
+	<target name="init"
+		description="Initializes the directories and file names">
+		<echo>Init Started</echo>
+		<property name="maximo.dir" value="C:/IBM/SMP/maximo" />
+		<property name="workspace.dir" value="C:/Users/ctix/git/S-BMaximoR1" />		
+		<property name="dbc.source.dir" value="${workspace.dir}/tools/maximo/en" />		
+		<echo>Init Finished</echo>
+	</target>
+	<target name="dbcTableExport" depends="init"
+		description="Exports Table Data to DBC File 1">
+		<!-- Change the following to your table and query -->
+		<property name="dbc.table" value="applicationauth" />
+		<property name="dbc.where" value="optionname in ('SBHHIDEMLOCA','SBHHIDEMLOC')" />
+		<property name="dbc.file" value="sbh_applicationauth_SBHHIDEM" />
+		<property name="dbc.movetosource" value="Y" />
+		
+		<!-- Generate DBC -->
+		<java dir="C:/IBM/SMP/maximo/tools/maximo"
+			classname="psdi.tools.GenInsertDbc"
+			classpath="C:/IBM/SMP/maximo/tools/maximo/classes:C:/IBM/SMP/maximo/applications/maximo/lib/jdom.jar:C:/IBM/SMP/maximo/applications/maximo/lib/log4j-1.2.16.jar:C:/IBM/SMP/maximo/applications/maximo/businessobjects/classes:C:/IBM/SMP/maximo/applications/maximo/lib/j2ee.jar:C:/IBM/SMP/maximo/tools/maximo:C:/IBM/SMP/maximo/applications/maximo/lib/icu4j.jar:C:/IBM/SMP/maximo/applications/maximo/lib/db2jcc.jar:C:\IBM\SMP\maximo\applications\maximo\lib\sqljdbc.jar"
+			fork="true">
+			<arg value="-t${dbc.table}" />
+			<arg value="-w${dbc.where}" />
+			<arg value="-f${dbc.file}" />
+		</java>
+
+		<!-- Delete version in en and move -->
+		<if>
+			<equals arg1="${dbc.movetosource}" arg2="Y" />
+			<then>
+				<echo>Copy to sbdata</echo>	
+				<!-- Copy to source -->
+				<copy
+					todir="C:/Users/ctix/git/S-BMaximoR1/tools/maximo/en/sbdata/"
+					overwrite="true"
+					file="C:/IBM/SMP/maximo/tools/maximo/en/script/${dbc.file}.dbc" />
+				<delete
+					file="C:/IBM/SMP/maximo/tools/maximo/en/script/${dbc.file}.dbc" />
+			</then>
+		</if>		
+		<!-- Remove emty strings -->
+		<echo>Remve empty strings</echo>
+		<echo>${workspace.dir}/tools/maximo/en</echo>			
+		<replaceregexp match="(?-s)^.*string=&quot;&quot;.*\/>" replace="" flags="g" byline="true" encoding="UTF-8">
+			<fileset dir="${dbc.source.dir}/sbdata" includes="**/*.dbc" />
+		</replaceregexp>
+		<replaceregexp match="(?-s)^.*number=&quot;&quot;.*\/>" replace="" flags="g" byline="true" encoding="UTF-8">
+			<fileset dir="${dbc.source.dir}/sbdata" includes="**/*.dbc" />
+		</replaceregexp>
+		<replaceregexp match="(?-s)^.*boolean=&quot;&quot;.*\/>" replace="" flags="g" byline="true" encoding="UTF-8">
+			<fileset dir="${dbc.source.dir}/sbdata" includes="**/*.dbc"  />
+		</replaceregexp>
+		<replaceregexp match="(?-s)^.*date=&quot;&quot;.*\/>" replace="" flags="g" byline="true" encoding="UTF-8">
+			<fileset dir="${dbc.source.dir}/sbdata" includes="**/*.dbc"  />
+		</replaceregexp>		
+		<replaceregexp match="(\r?\n)\s*\r?\n" flags="g" replace="\1" encoding="UTF-8">
+			<fileset dir="${dbc.source.dir}/sbdata" includes="**/*.dbc" />
+		</replaceregexp>
+
+	</target>
+</project>

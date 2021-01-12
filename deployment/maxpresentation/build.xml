@@ -1,0 +1,44 @@
+<project name="maxpresentation" basedir=".">
+
+    <property environment="env" />
+    <property name="proj.home" value="${basedir}" />
+    <property name="lib.location" value="${proj.home}/lib" />
+    <property name="build.location" value="${proj.home}/build" />
+    <property name="classes.location" value="${build.location}\compiledclasses" />
+    <property name="src.location" value="${proj.home}/src" />
+
+
+    <path id="classpath">
+        <fileset dir="${lib.location}">
+            <include name="*.jar" />
+        </fileset>
+    </path>
+
+
+    <target name="clean">
+        <delete failonerror="false" dir="${build.location}" />
+    </target>   
+
+
+    <!-- compile -->
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.location}" />
+        <mkdir dir="${classes.location}" />
+        <javac includeantruntime="true" srcdir="${src.location}" destdir="${classes.location}" classpathref="classpath" />
+    </target>
+
+
+    <!-- run -->
+    <target name="run" depends="compile">
+        <java classname="maxpresentation.GetPresentation" classpath="${classes.location}" classpathref="classpath" >
+        	<arg value="MAXIDEV" />
+        	<arg value="MENUS" />
+        	<arg value="C:/IBM/SMP/maximo/applications/maximo/properties/maximo.properties" /> <!-- command line args -->
+        	<arg value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        	<arg value="ibm-admin" />
+        	<arg value="Dl@4ddd2sbf" />
+        	<arg value="n" />
+        </java>
+    </target>
+
+</project>

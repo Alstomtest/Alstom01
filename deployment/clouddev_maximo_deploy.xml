@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<project name="SOTF" default="">
+	<description>
+		This is the Cloud Dev Deployment Ant. Merges Code with Webspsher Ear.
+	</description>
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="./ant-contrib-1.0b3.jar" />
+		</classpath>
+	</taskdef>
+
+	<target name="init" description="Initializes the directories and file names">
+		<echo>Init Started</echo>
+
+		<property name="maximo.dir" value="F:/IBM/SMP/maximo" />
+		<property name="productxml.target.dir" value="${maximo.dir}/applications/maximo/properties/product" />
+		<property name="dbc.target.dir" value="${maximo.dir}/tools/maximo/en" />
+		<property name="businessObjectPath" value="${maximo.dir}/applications/maximo/businessobjects/classes" />
+		<!-- Edit the following property to specify the directory to be synced. -->
+		<!--<property name="maximo.database.backup.dir" value="E:\MaximoArtifacts" /> -->
+		<property name="dest.env.ihs.dir" value="F:/IBM/HTTPServer/conf" />
+		<property name="maximo.websphere.basedir" value="F:/IBM/WebSphere/AppServer" />
+		<property name="maximo.websphere.appserver.profilename" value="ctgAppSrv01" />
+		<property name="maximo.websphere.deploymentmanager.profilename" value="ctgDmgr01" />
+		<property name="maximo.websphere.cell.name" value="ctgCell01" />
+		<property name="maximo.websphere.earfile.name" value="MAXIMO.ear" />
+		<property name="maximo.websphere.targetdir" value="${maximo.websphere.basedir}/profiles/${maximo.websphere.appserver.profilename}/installedApps/${maximo.websphere.cell.name}/${maximo.websphere.earfile.name}" />
+
+		<property name="maximo.mergedir.temp" value="${maximo.dir}/deployment/mergetemp" />
+		<property name="maximo.propertiesjarfile" value="properties.jar" />
+		<property name="maximo.businessobjectsjarfile" value="businessobjects.jar" />
+		<property name="maximo.commonwebjarfile" value="commonweb.jar" />
+		<property name="maximo.mboejbclientjarfile" value="mboejbclient.jar" />
+		<property name="maximo.mboejbjarfile" value="mboejb.jar" />
+
+		<property name="maximo.postdeploydbscript-target.dir" value="${maximo.dir}/tools/maximo/en/postdeploydb" />
+		<property name="maximo.businessobjectsclasspath" value= "${maximo.propertiesjarfile} lib/ldapbp.jar lib/log4j-1.2.16.jar lib/db2jcc.jar lib/db2jcc_license_cu.jar lib/oraclethin.jar lib/sqljdbc.jar lib/k2client.jar lib/idapi.jar lib/xmlParserAPIs.jar lib/acweb.jar lib/httpclient-4.5.2.jar lib/joda-time-2.8.1.jar lib/aws-java-sdk-core-1.11.5.jar lib/aws-java-sdk-kms-1.11.5.jar lib/aws-java-sdk-s3-1.11.5.jar lib/softlayer-api-client-0.2.3.jar lib/httpcore-4.4.4.jar lib/httpmime-4.2.5.jar lib/commons-net-1.4.0.jar lib/commons-pool-1.5.4.jar lib/jsr181.jar lib/remoteaccess.jar lib/platform-model.jar lib/ssh.jar /lib/api-client.jar /lib/api-dep.jar /lib/oal-api.jar /lib/oal-topomgr.jar /lib/oal-common.jar lib/edm-server.jar /lib/api-dl.jar  /lib/maxcom.jar /lib/icu4j.jar /lib/json4j.jar /lib/jviews-chart.jar /lib/jviews-gantt.jar /lib/jviews-diagrammer.jar lib/jviews-framework-lib.jar lib/jhbasic-2.0_05.jar lib/contentloader.jar lib/oslcquery.jar lib/commons-codec.jar lib/oauth.jar lib/commons-httpclient.jar lib/tdb-0.8.7-patched.jar lib/jena-2.6.3-patched.jar lib/slf4j-log4j12-1.6.4.jar lib/slf4j-api-1.6.4.jar lib/iri-0.8.jar lib/sdb-1.3.2.jar lib/xercesImpl-2.7.1.jar lib/gson-2.2.4.jar lib/freemarker-2.3.22.jar lib/antisamy-1.5.5.jar lib/batik-constants-1.9.1.jar lib/batik-css-1.9.1.jar lib/batik-i18n-1.9.1.jar lib/batik-util-1.9.1.jar lib/xml-apis-ext-1.3.04.jar lib/xmlgraphics-commons-2.2.jar lib/commons-io-2.5.jar lib/commons-logging-1.2.jar lib/nekohtml-1.9.22.jar lib/sac.jar lib/commons-math3-3.6.1.jar lib/GroupDocs.Conversion.jar lib/poi-3.16.jar lib/poi-ooxml-3.16.jar lib/poi-ooxml-schemas-3.16.jar lib/jackson-core-2.8.4.jar lib/jackson-databind-2.8.4.jar lib/jackson-annotations-2.8.4.jar lib/commons-logging-1.1.3.jar lib/commons-codec-1.9.jar lib/docloud_api_java_client-1.0-STABLE-b221.jar"/>
+		<property name="maximo.mbowarclasspath" value="${maximo.businessobjectsjarfile} ${maximo.mboejbclientjarfile} ${maximo.commonwebjarfile} ${maximo.propertiesjarfile} lib/ldapbp.jar lib/xmlbeans-2.3.0.jar lib/log4j-1.2.16.jar lib/db2jcc.jar lib/db2jcc_license_cu.jar lib/oraclethin.jar lib/sqljdbc.jar lib/k2client.jar lib/jdom.jar lib/axis.jar lib/axis-ant.jar lib/commons-discovery.jar lib/commons-logging.jar lib/jaxrpc.jar lib/saaj.jar lib/idapi.jar lib/acweb.jar lib/remoteaccess.jar lib/platform-model.jar lib/ssh.jar /lib/maxcom.jar lib/icu4j.jar lib/junit-4.4.jar lib/jython.jar lib/jaxen-1.1-beta-8.jar" />
+		<property name="maximo.tools.dir" value="${maximo.dir}/tools/maximo" />
+		<property name="targetDeployment.tools.dir" value="${maximo.tools.dir}" />
+
+		<property name="dest.env.maxprop.dir" value="${maximo.dir}/applications/maximo/properties" />
+		<property name="dest.env.ejbxml.dir" value="${maximo.dir}/applications/maximo/mboejb/ejbmodule/META-INF" />
+		<property name="dest.env.webxml.maximouiweb.dir" value="${maximo.dir}/applications/maximo/maximouiweb/webmodule/WEB-INF" />
+		<property name="dest.env.webxml.maxrestweb.dir" value="${maximo.dir}/applications/maximo/maxrestweb/webmodule/WEB-INF" />
+		<property name="dest.env.webxml.mboweb.dir" value="${maximo.dir}/applications/maximo/mboweb/webmodule/WEB-INF" />
+		<property name="dest.env.webxml.meaweb.dir" value="${maximo.dir}/applications/maximo/meaweb/webmodule/WEB-INF" />
+
+		<!-- Propeties that control localdeployment behavior -->
+		<property name="maximo.database.backup.file" value="MAX7604-BLANK-20160725.bak" />
+		<property name="delete.updatedblogs.flag" value="Y" />
+		<property name="cleanall.automationscripts.flag" value="Y" />
+
+		<!-- Work Space Varibles -->
+		<property name="workspace.dir" value="C:/Users/ssonar/git/watercorp_development" />
+		<property name="productxml.source.dir" value="${workspace.dir}/applications/maximo/properties/product" />
+		<property name="dbc.source.dir" value="${workspace.dir}/tools/maximo/en" />
+		<property name="java.customclasses.output.dir" value="${workspace.dir}/build/classes/" />
+
+
+		<mkdir dir="${maximo.mergedir.temp}" />
+		<echo>Init Finished</echo>
+	</target>
+
+	<target name="businessObjectsBuild" depends="init" description="Builds the MAXIMO Business Objects Archive File (businessobjects.jar) file">
+		<echo>BusinessObjectsBuild Started</echo>
+
+		<echo>Make Directory ${maximo.mergedir.temp}/importreports</echo>
+		<mkdir dir="${maximo.mergedir.temp}/importreports" />
+
+		<delete>
+			<fileset dir="${maximo.mergedir.temp}/importreports">
+				<include name="reports.zip" />
+			</fileset>
+		</delete>
+
+		<zip destfile="${maximo.mergedir.temp}/importreports/reports.zip">
+			<fileset dir="${maximo.dir}/reports/birt">
+				<include name="libraries/**/*.*" />
+				<include name="reports/**/*.*" />
+			</fileset>
+		</zip>
+
+		<mkdir dir="${maximo.mergedir.temp}/mxoptimization" />
+		<delete>
+			<fileset dir="${maximo.mergedir.temp}/mxoptimization">
+				<include name="mxoptimization.zip" />
+			</fileset>
+		</delete>
+
+		<zip destfile="${maximo.mergedir.temp}/mxoptimization/mxoptimization.zip">
+			<fileset dir="${maximo.dir}/applications/maximo/optimization">
+				<include name="**/*.*" />
+				<exclude name="mxodmepackages/*.*" />
+				<exclude name="mxodme/src/**/*.*" />
+			</fileset>
+		</zip>
+
+		<echo>businessobjects.jar file=${maximo.mergedir.temp}/${maximo.businessobjectsjarfile}</echo>
+		<jar destfile="${maximo.mergedir.temp}/${maximo.businessobjectsjarfile}" index="true">
+			<fileset dir="${maximo.dir}/applications/maximo/businessobjects/classes">
+				<include name="**/*.*" />
+			</fileset>
+			<fileset dir="${maximo.dir}/applications/maximo/resources">
+				<include name="**/*.*" />
+			</fileset>
+			<fileset dir="${maximo.mergedir.temp}">
+				<include name="importreports/reports.zip" />
+			</fileset>
+			<fileset dir="${maximo.mergedir.temp}">
+				<include name="mxoptimization/mxoptimization.zip" />
+			</fileset>
+			<fileset dir="${maximo.dir}/applications/maximo/optimization">
+				<include name="mxodmepackages/*.*" />
+			</fileset>
+			<manifest>
+				<attribute name="Class-Path" value="${maximo.businessobjectsclasspath}" />
+			</manifest>
+		</jar>
+
+		<ant antfile="ui-schema-generator.xml" dir="${maximo.dir}/applications/maximo/properties" inheritAll="false" target="all" />
+
+		<echo>properties.jar file=${maximo.deploydir.temp}/${maximo.propertiesjarfile}</echo>
+		<jar destfile="${maximo.mergedir.temp}/${maximo.propertiesjarfile}" index="true">
+			<fileset dir="${maximo.dir}/applications/maximo/properties">
+				<include name="**/*.*" />
+				<exclude name="version/*.*" />
+			</fileset>
+		</jar>
+		<!--
+		 Removing this from build as it affects webservice interface deployments
+			 and removes changes made in deployment descripters
+		<echo>mboEJBBuild jar file=${maximo.deploydir.temp}/${maximo.mboejbjarfile}</echo>
+		<jar destfile="${maximo.mergedir.temp}/${maximo.mboejbjarfile}" index="true">
+			<fileset dir="${maximo.dir}/applications/maximo/mboejb/ejbmodule">
+				<include name="**/*.*" />
+				<exclude name="META-INF/MANIFEST.MF" />
+			</fileset>
+			<manifest>
+				<attribute name="Class-Path" value="${maximo.mbowarclasspath}" />
+			</manifest>
+		</jar> -->
+		<!--
+		<unzip dest="${maximo.mergedir.temp}/extract/${maximo.businessobjectsjarfile}">
+			<fileset dir="${maximo.mergedir.temp}">
+				<include name="${maximo.businessobjectsjarfile}" />
+			</fileset>
+		</unzip>-->
+		<copy todir="${maximo.websphere.targetdir}" preservelastmodified="true" includeEmptyDirs="false" overwrite="true">
+			<fileset dir="${maximo.mergedir.temp}">
+				<include name="${maximo.businessobjectsjarfile}" />
+			</fileset>
+		</copy>
+
+		<copy todir="${maximo.websphere.targetdir}" preservelastmodified="true" includeEmptyDirs="false" overwrite="true">
+			<fileset dir="${maximo.mergedir.temp}">
+				<include name="${maximo.propertiesjarfile}" />
+			</fileset>
+		</copy>
+
+		<!-- Removing this from build as it affects webservice interface deployments
+			 and removes changes made in deployment descripters
+		<copy todir="${maximo.websphere.targetdir}" preservelastmodified="true" includeEmptyDirs="false" overwrite="true">
+			<fileset dir="${maximo.mergedir.temp}">
+				<include name="${maximo.mboejbjarfile}" />
+			</fileset>
+		</copy>
+
+		 -->
+		<copy todir="${maximo.websphere.targetdir}/maximouiweb.war" preservelastmodified="true" includeEmptyDirs="false" overwrite="true">
+			<fileset dir="${maximo.dir}/applications/maximo/maximouiweb/webmodule">
+				<exclude name="META-INF/*.*" />
+				<exclude name="WEB-INF/src/**/*.*" />
+				<exclude name="WEB-INF/*.xml" />
+				<exclude name="*.bat" />
+				<exclude name="*.cmd" />
+				<exclude name="*.sh" />
+				<exclude name="*.xml" />
+			</fileset>
+		</copy>
+
+		<echo>Copy WEBXML files to WebSphere Folder</echo>
+		<copy overwrite="true" file="${dest.env.webxml.maximouiweb.dir}\web.xml" tofile="${maximo.websphere.targetdir}/maximouiweb.war/WEB-INF/web.xml" />
+		<copy overwrite="true" file="${dest.env.webxml.maxrestweb.dir}\web.xml" tofile="${maximo.websphere.targetdir}/maxrestweb.war/WEB-INF/web.xml" />
+		<copy overwrite="true" file="${dest.env.webxml.mboweb.dir}\web.xml" tofile="${maximo.websphere.targetdir}/mboweb.war/WEB-INF/web.xml" />
+		<copy overwrite="true" file="${dest.env.webxml.meaweb.dir}\web.xml" tofile="${maximo.websphere.targetdir}/meaweb.war/WEB-INF/web.xml" />
+
+		<echo>BusinessObjectsBuild Finished</echo>
+	</target>
+
+	<target name="stopMaximoServers" depends="init" description="Stop All Maximo Servers">
+
+		<echo>Stop Maximo WebServer</echo>
+		<exec executable="/bin/bash">
+			<arg value="-c" />
+			<arg value="${maximo.websphere.basedir}/profiles/${maximo.websphere.deploymentmanager.profilename}/bin/stopServer.sh webserver1 -username wasadmin -password wasadmin" />
+		</exec>
+
+
+		<echo>Stop Maximo Servers</echo>
+		<exec executable="/bin/bash">
+			<arg value="-c" />
+			<arg value="${maximo.websphere.basedir}/profiles/${maximo.websphere.deploymentmanager.profilename}/bin/stopServer.sh MXServer -username wasadmin -password wasadmin" />
+		</exec>
+
+		<!--
+		<echo>Clearing MaxSession table to enable UpdateDB to run without issue</echo>
+		<echo>Executing: SqlCmd -E -S localhost -Q &quot;delete from maximo.dbo.maxsession&quot;</echo>
+		<exec executable="cmd" failOnError="true">
+			<arg value="/c" />
+			<arg value="SqlCmd -E -S localhost -Q &quot;delete from maximo.dbo.maxsession&quot;" />
+		</exec>
+
+		<echo>Clearing ServerSession table to enable UpdateDB to run without issue</echo>
+		<echo>Executing: SqlCmd -E -S localhost -Q &quot;delete from maximo.dbo.serversession&quot;</echo>
+		<exec executable="cmd" failOnError="true">
+			<arg value="/c" />
+			<arg value="SqlCmd -E -S localhost -Q &quot;delete from maximo.dbo.serversession&quot;" />
+		</exec>
+		-->
+
+	</target>
+
+	<target name="restartMaximoDatabaseService" depends="init" description="Restart the Maximo Database Service">
+
+		<echo>Stop SQL Server Service</echo>
+		<exec executable="/bin/bash" dir="." failOnError="true">
+			<arg value="-c" />
+			<arg value="net stop &quot;SQL Server (MAXDEV)&quot;" />
+		</exec>
+
+		<echo>Start SQL Server Service</echo>
+		<exec executable="cmd" dir="." failOnError="true">
+			<arg value="/c" />
+			<arg value="net start &quot;SQL Server (MAXDEV)&quot;" />
+		</exec>
+
+	</target>
+
+	<target name="executeUpdateDBTask" depends="init" description="Execute UpdateDB Task">
+
+		<echo>Check if updatedb log files to be cleared: ${delete.updatedblogs.flag}</echo>
+		<if>
+			<equals arg1="${delete.updatedblogs.flag}" arg2="Y" />
+			<then>
+				<echo>Deleting all existing files in ${maximo.tools.dir}\log</echo>
+				<delete>
+					<fileset dir="${maximo.tools.dir}\log">
+						<include name="*" />
+					</fileset>
+				</delete>
+			</then>
+		</if>
+
+		<echo>Execute UPDATEDB Task in ${maximo.tools.dir}</echo>
+		<exec executable="cmd" dir="${maximo.tools.dir}" failOnError="true">
+			<arg value="/c" />
+			<arg value="updatedb.bat" />
+		</exec>
+
+	</target>
+
+	<target name="restartMaximoServers" depends="init,stopMaximoServers,startMaximoServers" description="Restart maximo servers" />
+
+	<target name="mapRoleForMaximoLDAPUSers" depends="init" description="Map MAXIMOUSERS group to MAXIMOUSER Role for LDAP Integration">
+		<echo>Adding Maximo Role Mapping for maximouser role</echo>
+		<exec executable="/bin/bash" dir="websphere/" failOnError="true">
+			<arg value="-c" />
+			<arg value="${maximo.websphere.basedir}\profiles\${maximo.websphere.deploymentmanager.profilename}\bin\wsadmin.bat -username wasadmin -password wasadmin -lang jython -f MapUserRoleToApplication.py" />
+		</exec>
+	</target>
+
+	<target name="removeMapRoleForMaximoLDAPUSers" depends="init" description="Map MAXIMOUSERS group to MAXIMOUSER Role for LDAP Integration">
+		<echo>Removing Maximo Role Mapping for maximouser role</echo>
+		<exec executable="/bin/bash" dir="websphere/" failOnError="true">
+			<arg value="-c" />
+			<arg value="${maximo.websphere.basedir}\profiles\${maximo.websphere.deploymentmanager.profilename}\bin\wsadmin.bat -username wasadmin -password wasadmin -lang jython -f RemoveMapUserRoleToApplication.py" />
+		</exec>
+	</target>
+
+	<target name="startMaximoServers" depends="init" description="Start Up Maximo Server">
+
+		<echo>Start Maximo Servers</echo>
+		<exec executable="/bin/bash" dir="websphere/" failOnError="true">
+			<arg value="-c" />
+			<arg value="${maximo.websphere.basedir}/profiles/${maximo.websphere.deploymentmanager.profilename}/bin/wsadmin.sh -username wasadmin -password wasadmin -lang jython -f StartServersPython.py" />
+		</exec>
+
+		<echo>Start Maximo Webserver</echo>
+		<exec executable="/bin/bash" dir="websphere/" failOnError="true">
+			<arg value="-c" />
+			<arg value="${maximo.websphere.basedir}/profiles/${maximo.websphere.deploymentmanager.profilename}/bin/startServer.sh webserver1" />
+		</exec>
+
+	</target>
+
+	<target name="deployAutomationScripts" depends="init" description="Cleans and deploys all Automation Scripts">
+
+		<echo>Check if Automation Scripts are to be cleaned: ${cleanall.automationscripts.flag}</echo>
+		<if>
+			<equals arg1="${cleanall.automationscripts.flag}" arg2="Y" />
+			<then>
+				<echo>Clean all Automation Scripts</echo>
+				<exec dir="${targetDeployment.tools.dir}/internal" executable="cmd">
+					<arg value="/c" />
+					<arg value="runscriptfile.bat -cgbsassets -fGBSAutomationScriptCleanAll" />
+				</exec>
+			</then>
+		</if>
+
+		<echo>Deploy all Automation Scripts</echo>
+
+		<exec dir="${targetDeployment.tools.dir}/internal" executable="cmd">
+			<arg value="/c" />
+			<arg value="runscriptfile.bat -cgbsassets -fGBSAutomationScriptDeploy -x" />
+		</exec>
+	</target>
+
+	<target name="executePostDeploymentScripts" depends="init" description="Execute all post deployment Scripts">
+		<echo>Execute Post Deployment Data Masking Script</echo>
+		<exec executable="cmd" dir="${targetDeployment.tools.dir}/internal" failOnError="true">
+			<arg value="/c" />
+			<arg value="runscriptfile.bat -cpostdeploydb -fpostdeploy-db-dataMasking" />
+		</exec>
+
+		<echo>Execute Post Deployment Script Database Common</echo>
+		<exec executable="cmd" dir="${targetDeployment.tools.dir}/internal" failOnError="true">
+			<arg value="/c" />
+			<arg value="runscriptfile.bat -cpostdeploydb -fpostdeploy-db-common" />
+		</exec>
+
+		<echo>Execute Post Deployment Script Database Target Env: localvm</echo>
+		<exec executable="cmd" dir="${targetDeployment.tools.dir}/internal" failOnError="true">
+			<arg value="/c" />
+			<arg value="runscriptfile.bat -cpostdeploydb -fpostdeploy-db-localvm" />
+		</exec>
+
+	</target>
+
+	<target name="updateTarget">
+		<echo>Copy product xml to  ${productxml.target.dir}</echo>
+		<copy todir="${productxml.target.dir}" overwrite="true">
+			<fileset dir="${productxml.source.dir}" excludes="**/*.java" />
+		</copy>
+
+		<!-- Update gbsassets-->
+		<echo>Delete Automation Scripts ${dbc.target.dir}/gbsassets</echo>
+		<delete dir="${dbc.target.dir}/gbsassets" />
+		<echo>Copy tools to  ${dbc.target.dir}/gbsassets</echo>
+		<copy todir="${dbc.target.dir}/gbsassets" overwrite="true">
+			<fileset dir="${dbc.source.dir}/gbsassets" />
+		</copy>
+
+		<!-- Update Automation Scripts File -->
+		<echo>Delete Automation Scripts ${dbc.target.dir}/automationscripts</echo>
+		<delete dir="${dbc.target.dir}/automationscripts" />
+		<echo>Copy tools to  ${dbc.target.dir}/automationscripts</echo>
+		<copy todir="${dbc.target.dir}/automationscripts" overwrite="true">
+			<fileset dir="${dbc.source.dir}/automationscripts" />
+		</copy>
+
+		<!-- Update Automation Scripts File -->
+		<echo>Delete Automation Scripts ${dbc.target.dir}/sotfconf</echo>
+		<delete dir="${dbc.target.dir}/sotfconf" />
+		<echo>Copy tools to  ${dbc.target.dir}/sotfconf</echo>
+		<copy todir="${dbc.target.dir}/sotfconf" overwrite="true">
+			<fileset dir="${dbc.source.dir}/sotfconf" />
+		</copy>
+
+		<!-- Update Automation Initial Data File -->
+		<!--<echo>Copy tools to  ${dbc.target.dir}/sotfdata</echo>
+		<copy todir="${dbc.target.dir}/sotfdata" overwrite="true">
+			<fileset dir="${dbc.source.dir}/sotfdata" />
+		</copy>-->
+
+		<!-- Update Development File -->
+		<echo>Copy tools to  ${dbc.target.dir}/sotfdev</echo>
+		<copy todir="${dbc.target.dir}/sotfdev" overwrite="true">
+			<fileset dir="${dbc.source.dir}/sotfdev" />
+		</copy>
+
+		<!-- Update Development File -->
+		<echo>Copy Java files to ${businessObjectPath}</echo>
+		<copy todir="${businessObjectPath}" overwrite="true">
+			<fileset dir="${java.customclasses.output.dir}/" />
+		</copy>
+	</target>
+	<target name="deleteCache" description="Deletes cache from Websphere server">
+		<property name="maximo.appserver.cache.path" value="${maximo.websphere.basedir}/profiles/${maximo.websphere.appserver.profilename}" />
+		<echo>delete files from  ${maximo.appserver.cache.path}</echo>
+
+		<delete includeemptydirs="true" verbose="true" failonerror="false" defaultexcludes="false">
+			<fileset dir="${maximo.appserver.cache.path}/temp/ctgNode01/MXServer" includes="**/*" />
+			<fileset dir="${maximo.appserver.cache.path}/wstemp" includes="**/*" />
+			<fileset dir="${maximo.appserver.cache.path}/logs/MXServer" includes="**/*" />
+		</delete>
+	</target>
+
+
+	<target name="dbcTableExport" depends="init" description="Exports Table Data to DBC File">
+
+
+		<!-- Change the following to your table and query -->
+		<property name="dbc.table" value="MAXWSREGISTRY" />
+		<property name="dbc.where" value="WSNAME='WCSAPINT_WCSAPWO'" />
+		<property name="dbc.file" value="MXINT4" />
+		<property name="dbc.movetosource" value="Y" />
+
+
+		<!-- Generate DBC -->
+
+		<java dir="F:/IBM/SMP/maximo/tools/maximo" classname="psdi.tools.GenInsertDbc" classpath="/opt/IBM/SMP/maximo/tools/maximo/classes:/opt/IBM/SMP/maximo/applications/maximo/lib/jdom.jar:/opt/IBM/SMP/maximo/applications/maximo/lib/log4j-1.2.16.jar:/opt/IBM/SMP/maximo/applications/maximo/businessobjects/classes:/opt/IBM/SMP/maximo/applications/maximo/lib/j2ee.jar:/opt/IBM/SMP/maximo/tools/maximo:/opt/IBM/SMP/maximo/applications/maximo/lib/icu4j.jar:/opt/IBM/SMP/maximo/applications/maximo/lib/db2jcc.jar" fork="true">
+			<arg value="-t${dbc.table}" />
+			<arg value="-w${dbc.where}" />
+			<arg value="-f${dbc.file}" />
+		</java>
+
+		<!-- Copy to source -->
+
+
+
+		<!-- Delete version in en -->
+		<if>
+			<equals arg1="${dbc.movetosource}" arg2="Y" />
+			<then>
+				<!-- Copy to source -->
+				<copy todir="/home/developer/git/watercorp_development/tools/maximo/en/sotfdata/" overwrite="true" file="F:/IBM/SMP/maximo/tools/maximo/en/script/${dbc.file}.dbc" />
+				<delete file="F:/IBM/SMP/maximo/tools/maximo/en/script/${dbc.file}.dbc" />
+			</then>
+
+		</if>
+	</target>
+
+
+</project>
