@@ -1,0 +1,17 @@
+/* How to install Release 177
+ *  
+ 1. 
+ 2. Import XML for PO / WOTRACK
+ 3. Import new reports
+		posession_wotrack.rptdesign     	Sund & Baelt Possession Work Order Report
+		posession_wotrack_osf_dag.rptdesign	Sund & Baelt Possession  WO Report - OSF - DAY
+		posession_wotrack_osf_nat.rptdesign	Sund & Baelt Possession  WO Report - OSF - NIGHT
+		posession_wotrack_sbf_dag.rptdesign	Sund & Baelt Possession  WO Report - SBF - DAY
+		posession_wotrack_sbf_nat.rptdesign	Sund & Baelt Possession  WO Report - SBF - NIGHT	 
+		poprint_v2.rptdesign
+		
+ 4. Run DBC script for release 177
+ 5. Import MM package for PO Workflow
+ *
+ / 
+

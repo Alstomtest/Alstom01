@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into ORGANIZATION">
+  <description>GenInsertDbc created this script at Wed Jun 05 12:52:09 CEST 2019</description>
+  <statements>
+	<freeform description="Create application imports for classifications, locations and job plan (xml)">
+		<sql target="all">
+			update maxattributecfg set userdefined=0 where attributename like 'SBH%';
+			update maxattribute set userdefined=0 where attributename like 'SBH%';
+			delete from CURRENCY;
+			delete from sets
+			delete from GLCONFIGURE;
+			delete from glcomponents
+			delete from chartofaccounts;
+			delete from site;
+			delete from organization;
+			delete from FINANCIALPERIODS;
+			delete from locsystem;
+			delete from locations;
+			commit;
+			update maxpropvalue set propvalue = 'SV-CAS@sbf.dk' where propname = 'mail.smtp.host';
+			update maxpropvalue set propvalue = 'kla@sbf.dk' where propname = 'mxe.adminEmail';
+			update maxpropvalue set propvalue = '0' where propname = 'mxe.adminmode.logoutmin';
+		</sql>
+	</freeform>		
+	<insert table="CURRENCY">
+      <insertrow>
+        <columnvalue column="changeby" string="SOW" />
+        <columnvalue column="changedate" date="05-27-2019:06:35:25" />
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="description" string="Danish Krone" />
+        <columnvalue column="currencycode" string="DKK" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changeby" string="SOW" />
+        <columnvalue column="changedate" date="05-27-2019:06:36:45" />
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="description" string="Euro" />
+        <columnvalue column="currencycode" string="EURO" />
+      </insertrow>
+    </insert>
+	<insert table="sets">
+      <insertrow>
+        <columnvalue column="dfltitemstatus" string="ACTIVE" />
+        <columnvalue column="autoupdate" boolean="false" />
+        <columnvalue column="enterdate" date="05-27-2019:07:19:36" />
+        <columnvalue column="enterby" string="SOW" />
+        <columnvalue column="description" string="Sund &amp; Bælt Holding Item Set" />
+        <columnvalue column="settype" string="ITEM" />
+        <columnvalue column="setid" string="SBHITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="dfltitemstatus" string="ACTIVE" />
+        <columnvalue column="autoupdate" boolean="false" />
+        <columnvalue column="enterdate" date="05-27-2019:07:21:39" />
+        <columnvalue column="enterby" string="SOW" />
+        <columnvalue column="description" string="Sund &amp; Bælt Holding Company Set" />
+        <columnvalue column="settype" string="COMPANY" />
+        <columnvalue column="setid" string="SBHCOMP" />
+      </insertrow>
+    </insert>
+	 <insert table="ORGANIZATION">
+      <insertrow>
+        <columnvalue column="category" string="STK" />
+        <columnvalue column="dfltitemstatus" string="ACTIVE" />
+        <columnvalue column="clearingacct" string="0000000-000" />
+        <columnvalue column="companysetid" string="SBHCOMP" />
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="itemsetid" string="SBHITEM" />
+        <columnvalue column="enterdate" date="05-27-2019:11:15:04" />
+        <columnvalue column="enterby" string="SOW" />
+        <columnvalue column="basecurrency2" string="EURO" />
+        <columnvalue column="basecurrency1" string="DKK" />
+        <columnvalue column="description" string="Sund &amp; Bælt Holding" />
+        <columnvalue column="orgid" string="SBH" />
+      </insertrow>
+    </insert>
+    <insert table="SITE">
+      <insertrow>
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="changedate" date="05-27-2019:11:26:03" />
+        <columnvalue column="changeby" string="SOW" />
+        <columnvalue column="enterdate" date="05-27-2019:11:25:44" />
+        <columnvalue column="enterby" string="SOW" />
+        <columnvalue column="description" string="Sund &amp; Bælt" />
+        <columnvalue column="siteid" string="SB" />
+      </insertrow>
+    </insert>
+	<insert table="chartofaccounts">
+      <insertrow>
+        <columnvalue column="oldexpiredate" date="12-31-2019:23:59:00" />
+        <columnvalue column="expiredate" date="12-31-2019:23:59:00" />
+        <columnvalue column="activedate" date="01-01-2019:00:00:00" />
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="accountname" string="Cost Center + Activity Code" />
+        <columnvalue column="glcomp02" string="000" />
+        <columnvalue column="glcomp01" string="0000000" />
+        <columnvalue column="glaccount" string="0000000-000" />
+      </insertrow>
+    </insert>
+	 <insert table="glcomponents">
+      <insertrow>
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="userid" string="SOW" />
+        <columnvalue column="comptext" string="Cost Center" />
+        <columnvalue column="compvalue" string="0000000" />
+        <columnvalue column="glorder" number="0" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="userid" string="SOW" />
+        <columnvalue column="comptext" string="Activity Code" />
+        <columnvalue column="compvalue" string="000" />
+        <columnvalue column="glorder" number="1" />
+      </insertrow>
+    </insert>
+	<insert table="glconfigure">
+      <insertrow>
+        <columnvalue column="gllength" number="7" />
+        <columnvalue column="gltype" string="INTEGER" />
+        <columnvalue column="delimiter" string="-" />
+        <columnvalue column="mandatory" boolean="true" />
+        <columnvalue column="glorder" number="0" />
+        <columnvalue column="glaccountfield" string="COST CENTER" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="gllength" number="3" />
+        <columnvalue column="gltype" string="INTEGER" />
+        <columnvalue column="mandatory" boolean="false" />
+        <columnvalue column="glorder" number="1" />
+        <columnvalue column="glaccountfield" string="ACTIVITY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="gllength" number="7" />
+        <columnvalue column="gltype" string="INTEGER" />
+        <columnvalue column="delimiter" string="-" />
+        <columnvalue column="mandatory" boolean="true" />
+        <columnvalue column="glorder" number="0" />
+        <columnvalue column="glaccountfield" string="COST CENTER" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="gllength" number="3" />
+        <columnvalue column="gltype" string="INTEGER" />
+        <columnvalue column="mandatory" boolean="false" />
+        <columnvalue column="glorder" number="1" />
+        <columnvalue column="glaccountfield" string="ACTIVITY" />
+      </insertrow>
+    </insert>
+	<freeform description="Automatically Generated - Object classes change">
+		<sql target="all">
+			delete from ALNDOMAIN where domainid in ('SBHLOCLEVEL','SBHLOCTYPE');
+			delete from MAXDOMAIN where domainid in ('SBHLOCLEVEL','SBHLOCTYPE');
+		</sql>
+    </freeform>
+	<specify_aln_domain domainid="SBHLOCLEVEL" description="Lokationsniveau" overwrite="true" maxtype="ALN" length="50">
+            <alnvalueinfo value="L0" description="Lokationsniveau 0"/>
+            <alnvalueinfo value="L1" description="Lokationsniveau 1"/>
+            <alnvalueinfo value="L2" description="Lokationsniveau 2"/>
+            <alnvalueinfo value="L3" description="Lokationsniveau 3"/>
+            <alnvalueinfo value="L4" description="Lokationsniveau 4"/>
+            <alnvalueinfo value="L5" description="Lokationsniveau 5"/>
+            <alnvalueinfo value="L6" description="Lokationsniveau 6"/>
+            <alnvalueinfo value="L7" description="Lokationsniveau 7"/>
+	</specify_aln_domain>
+	<specify_aln_domain domainid="SBHLOCTYPE" description="Lokations type" overwrite="true" maxtype="ALN" length="50">
+		<alnvalueinfo value="FGRP" description="Funktionel gruppe"/>
+		<alnvalueinfo value="FPOS" description="Funktionel position"/>
+		<alnvalueinfo value="TOPLEVEL" description="Toplevel"/>
+	</specify_aln_domain>    
+	 <insert table="LOCSYSTEM">
+      <insertrow>
+        <columnvalue column="address" boolean="false" />
+        <columnvalue column="primarysystem" boolean="false" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="siteid" string="SB" />
+        <columnvalue column="network" boolean="false" />
+        <columnvalue column="description" string="Oresund System" />
+        <columnvalue column="systemid" string="ASØ" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="address" boolean="false" />
+        <columnvalue column="primarysystem" boolean="false" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="siteid" string="SB" />
+        <columnvalue column="network" boolean="false" />
+        <columnvalue column="description" string="Storebælt System" />
+        <columnvalue column="systemid" string="SBF" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="address" boolean="false" />
+        <columnvalue column="primarysystem" boolean="true" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="siteid" string="SB" />
+        <columnvalue column="network" boolean="false" />
+        <columnvalue column="description" string="Sund &amp; Bælt Holding Primary System" />
+        <columnvalue column="systemid" string="SBH" />
+      </insertrow>
+    </insert>
+	<modify_attribute attribute="LOCATION" object="LOCATIONS" length="30" />
+	<modify_attribute attribute="ASSETNUM" object="ASSET" length="30" />
+  </statements>
+</script>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="MR-1091">
+    <description>Auto-Generated Script</description>
+    <statements>
+	    <freeform description="Automatically Generated - Object classes change">
+            <sql target="sqlserver">
+				delete from maxdomain where domainid='SBHFNCONOFFSET';
+				delete from numericdomain where domainid='SBHFNCONOFFSET';
+				delete from maxdomain where domainid='SBHPMJBANE';
+				delete from crossoverdomain where domainid='SBHPMJBANE';
+				delete from maxtabledomain where domainid='SBHPMJBANE';
+				update maxattributecfg set REMARKS='Hired To' where objectname = 'ASSET' and attributename ='EQ2';
+				update maxattributecfg set TITLE='Hired To' where objectname = 'ASSET' and attributename ='EQ2';
+				update maxattributecfg set domainid='SBHFNCONOFFSET' where objectname = 'JOBPLAN' and attributename ='FNCONOFFSET';
+				update maxattributecfg set domainid='SBHPMJBANE' where objectname = 'WORKORDER' and attributename ='PMNUM';
+				update MAXPROPVALUE set PROPVALUE='iot18' where PROPNAME='mxe.webclient.skin';
+				update MAXPROPVALUE set PROPVALUE='0' where PROPNAME='mxe.webclient.verticalLabels';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHCREWRANGIST';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHAMCREWRANGIST';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWODOCTILKN';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWODRAPNUM';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOINTERVALSP';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOINTERVALSPANVENDTYN';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOINVESTKODE';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOKORENUM';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOKORKARAKTER';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPFAKSTART';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPSP';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPSPNUM';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOSRRAPPORT';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTIDANKOMST';				
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTIDANMELDT';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTIDANMELDT';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTIDFEJLRET';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTIDANKOMST';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTIDHAENDELSE';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTILLADARB';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTRAFIKSP';				
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTRAKMSLUT';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTRAKMSTART';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTRARETNING';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTRASPOR';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTRAVAMPLAN';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTRAVARIGHED';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOTROLJE';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPFAKSLUT';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOSROID';
+				delete from maxattribute where objectname='WORKORDER' and attributename='SBHWOSRRAP';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSRRAP';				
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSROID';					
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSPFAKSLUT';				
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHCREWRANGIST';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHAMCREWRANGIST';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWODOCTILKN';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWODRAPNUM';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOINTERVALSP';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOINTERVALSPANVENDTYN';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOINVESTKODE';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOKORENUM';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOKORKARAKTER';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSPFAKSTART';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSPSP';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSPSPNUM';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSRRAPPORT';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTIDANKOMST';				
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTIDANMELDT';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTIDANMELDT';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTIDFEJLRET';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTIDANKOMST';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTIDHAENDELSE';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTILLADARB';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTRAFIKSP';				
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTRAKMSLUT';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTRAKMSTART';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTRARETNING';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTRASPOR';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTRAVAMPLAN';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTRAVARIGHED';
+				delete from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOTROLJE';
+				delete from maxattribute where objectname='ASSET' and attributename='SBHASSMAERKE';
+				delete from maxattribute where objectname='ASSET' and attributename='SBHASSTYPE';
+				delete from maxattribute where objectname='ASSET' and attributename='SBHSROID';
+				delete from maxattributecfg where objectname='ASSET' and attributename='SBHASSMAERKE';
+				delete from maxattributecfg where objectname='ASSET' and attributename='SBHASSTYPE';
+				delete from maxattributecfg where objectname='ASSET' and attributename='SBHSROID';
+				delete from maxattribute where objectname='JOBPLAN' and attributename='SBHJPFASTPRIS';
+				delete from maxattributecfg where objectname='JOBPLAN' and attributename='SBHJPFASTPRIS';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMCONTRACTNO';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMINTERVALSP';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMKORE';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMDOCTILKN';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMKORENUM';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMSPSP';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMSPSPNUM';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMTRAKMSLUT';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMTRAKMSTART';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMTRARETNING';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMTRARETNING';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMTRASPOR';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMTRAVAMPLAN';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMTROLJE';				
+				delete from maxattribute where objectname='PM' and attributename='SBHPMTRAVAMPLAN';
+				delete from maxattribute where objectname='PM' and attributename='SBHPMVENDOR';	
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMCONTRACTNO';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMINTERVALSP';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMKORE';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMDOCTILKN';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMKORENUM';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMSPSP';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMSPSPNUM';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMTRAKMSLUT';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMTRAKMSTART';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMTRARETNING';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMTRARETNING';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMTRASPOR';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMTRAVAMPLAN';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMTROLJE';				
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMTRAVAMPLAN';
+				delete from maxattributecfg where objectname='PM' and attributename='SBHPMVENDOR';	
+			</sql>
+        </freeform>
+		<specify_crossover_domain domainid="SBHPMJBANE" description="Crossover Domain from PM to Work Order" overwrite="true" objectname="PM" validationwhereclause="pmnum=:pmnum and siteid=:siteid">
+            <crossovervalueinfo sourcefield="CREWID" destfield="VENDOR"/>
+            <crossovervalueinfo sourcefield="LEAD" destfield="LEAD"/>
+            <crossovervalueinfo sourcefield="NEXTDATE" destfield="SCHEDSTART"/>
+            <crossovervalueinfo sourcefield="SBHPMCONTRACTNO" destfield="CONTRACT"/>
+            <crossovervalueinfo sourcefield="SBHPMDOCTILKN" destfield="SBHWODOCTILKN"/>
+            <crossovervalueinfo sourcefield="SBHPMINTERVALSP" destfield="SBHWOINTERVALSP"/>
+            <crossovervalueinfo sourcefield="SBHPMKORE" destfield="SBHWOKORE"/>
+            <crossovervalueinfo sourcefield="SBHPMKORENUM" destfield="SBHWOKORENUM"/>
+            <crossovervalueinfo sourcefield="SBHPMSPSP" destfield="SBHWOSPSP"/>
+            <crossovervalueinfo sourcefield="SBHPMTRAKMSLUT" destfield="SBHWOTRAKMSLUT"/>
+            <crossovervalueinfo sourcefield="SBHPMTRAKMSTART" destfield="SBHWOTRAKMSTART"/>
+            <crossovervalueinfo sourcefield="SBHPMTRARETNING" destfield="SBHTRAWORETNING"/>
+            <crossovervalueinfo sourcefield="SBHPMTRASPOR" destfield="SBHWOTRASPOR"/>
+            <crossovervalueinfo sourcefield="SBHPMTRAVAMPLAN" destfield="SBHWOTRAVAMPLAN"/>
+            <crossovervalueinfo sourcefield="SBHPMTRAVARIGHED" destfield="SBHWOTRAVARIGHED"/>
+            <crossovervalueinfo sourcefield="SBHPMTROLJE" destfield="SBHWOTROLJE"/>
+        </specify_crossover_domain>
+        <drop_attributes object="WORKORDER">
+            <attrname name="SBHCREWRANGIST"/>
+            <attrname name="SBHAMCREWRANGIST"/>
+            <attrname name="SBHWODOCTILKN"/>
+            <attrname name="SBHWODRAPNUM"/>
+            <attrname name="SBHWOINTERVALSP"/>
+            <attrname name="SBHWOINTERVALSPANVENDTYN"/>
+            <attrname name="SBHWOINVESTKODE"/>
+            <attrname name="SBHWOKORENUM"/>
+            <attrname name="SBHWOKORKARAKTER"/>
+            <attrname name="SBHWOSPFAKSLUT"/>
+            <attrname name="SBHWOSPFAKSTART" />
+            <attrname name="SBHWOSPSP"/>
+            <attrname name="SBHWOSPSPNUM"/>
+            <attrname name="SBHWOSROID"/>
+            <attrname name="SBHWOSRRAP"/>
+            <attrname name="SBHWOSRRAPPORT"/>
+            <attrname name="SBHWOTIDANKOMST"/>
+            <attrname name="SBHWOTIDANMELDT"/>
+            <attrname name="SBHWOTIDFEJLRET"/>
+            <attrname name="SBHWOTIDHAENDELSE"/>
+            <attrname name="SBHWOTILLADARB"/>
+            <attrname name="SBHWOTRAFIKSP"/>
+            <attrname name="SBHWOTRAKMSLUT" />
+            <attrname name="SBHWOTRAKMSTART"/>
+            <attrname name="SBHWOTRARETNING"/>
+            <attrname name="SBHWOTRASPOR"/>
+            <attrname name="SBHWOTRAVAMPLAN"/>
+            <attrname name="SBHWOTRAVARIGHED"/>
+            <attrname name="SBHWOTROLJE"/>	
+        </drop_attributes>
+        <add_attributes object="WORKORDER">
+            <attrdef attribute="FNCONOFFSET" maxtype="DURATION" title="Finish Constraint Offset" remarks="The amount of time (in hours) to be added to the Target Finish date in order to calculate the Finish No Later Than date of the work record." length="8" persistent="false" haslongdesc="false" required="false" mustbe="true" ispositive="true" canautonum="false" userdefined="false" searchtype="NONE"/>
+            <attrdef attribute="SBHAMCREWRANGIST" maxtype="UPPER" title="Rangist" remarks="Rangist" length="12" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="NONE"/>
+            <attrdef attribute="SBHWODOCTILKN" maxtype="YORN" title="Dokumenter tilknyttet" remarks="Documents Attached" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHWODRAPNUM" maxtype="ALN" title="DRAP nr." remarks="DRAP No." length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOINTERVALSP" maxtype="YORN" title="Interval Blocking" remarks="Interval Blocking" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOINTERVALSPANVENDTYN" maxtype="YORN" title="Interval Blocking Used" remarks="Interval Blocking Used" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOINVESTKODE" maxtype="ALN" title="Investment Code" remarks="Investment Code" length="4" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOKORENUM" maxtype="ALN" title="KA nummer" remarks="KA No." length="20" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOKORKARAKTER" maxtype="INTEGER" title="Karakter" remarks="Grade" length="12" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOSPFAKSLUT" maxtype="DATETIME" title="Spærring faktisk slut" remarks="Actual Possession End Date" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOSPFAKSTART" maxtype="DATETIME" title="Spærring faktisk start" remarks="Actual Possession Start Date" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOSPSP" maxtype="YORN" title="Track Possession" remarks="Track Possession" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOSPSPNUM" maxtype="ALN" title="Track Possession No." remarks="Track Possession No." length="20" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOSROID" maxtype="ALN" title="SCADA Tag" remarks="SCADA Tag" length="25" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOSRRAP" maxtype="ALN" title="SR Report OK" remarks="SR Report OK" length="5" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="TEXT"/>
+            <attrdef attribute="SBHWOSRRAPPORT" maxtype="YORN" title="Job Started Y/N" remarks="Job Started Y/N" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOTIDANKOMST" maxtype="DATETIME" title="Response Date" remarks="Response Date" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOTIDANMELDT" maxtype="DATETIME" title="Contact Date" remarks="Contact Date" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOTIDFEJLRET" maxtype="DATETIME" title="Resolution Date" remarks="Resolution Date" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOTIDHAENDELSE" maxtype="DATETIME" title="Reported Date" remarks="Reported Date" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOTILLADARB" maxtype="YORN" title="Work Permit" remarks="Work Permit" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOTRAFIKSP" maxtype="ALN" title="Traffic Isolation" remarks="Traffic Isolation" length="1" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOTRAKMSLUT" maxtype="ALN" title="End Km" remarks="End km" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOTRAKMSTART" maxtype="ALN" title="Start km" remarks="Start km" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOTRARETNING" maxtype="ALN" title="Direction" remarks="Direction" length="50" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOTRASPOR" maxtype="ALN" title="Track" remarks="Track" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOTRAVAMPLAN" maxtype="ALN" title="VAM Marking Plan" remarks="VAM Marking Plan" length="25" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOTRAVARIGHED" maxtype="ALN" title="Duration" remarks="Duration" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOTROLJE" maxtype="YORN" title="Trolley Used" remarks="Trolley Used" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SCHEDSTART" maxtype="DATETIME" title="Scheduled Start" remarks="Date and time the work is scheduled to begin." length="10" persistent="true" haslongdesc="false" required="false" mustbe="true" ispositive="false" canautonum="false" userdefined="false" classname="psdi.app.workorder.FldWOSchedDate" defaultvalue="&amp;SYSDATE&amp;" searchtype="EXACT"/>
+        </add_attributes>
+        <drop_attributes object="ASSET">
+            <attrname name="SBHASSMAERKE"/>
+            <attrname name="SBHASSTYPE"/>
+            <attrname name="SBHSROID"/>
+        </drop_attributes>
+		<add_attributes object="ASSET">
+            <attrdef attribute="SBHASSMAERKE" maxtype="ALN" title="Model" remarks="Model" length="50" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHASSTYPE" maxtype="ALN" title="Type" remarks="Type" length="50" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHSROID" maxtype="ALN" title="SCADA Tag" remarks="SCADA Tag" length="50" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+        <drop_attributes object="JOBPLAN">
+            <attrname name="SBHJPFASTPRIS"/>
+        </drop_attributes>
+		</add_attributes>
+		<add_attributes object="JOBPLAN">
+            <attrdef attribute="SBHJPFASTPRIS" maxtype="AMOUNT" title="Fixed Price" remarks="Fixed Price" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+        </add_attributes>
+        <drop_attributes object="PM">
+            <attrname name="SBHPMCONTRACTNO"/>
+            <attrname name="SBHPMDOCTILKN"/>
+            <attrname name="SBHPMINTERVALSP"/>
+            <attrname name="SBHPMKORE"/>
+            <attrname name="SBHPMKORENUM"/>
+            <attrname name="SBHPMSPSP"/>
+            <attrname name="SBHPMSPSPNUM"/>
+            <attrname name="SBHPMTRAKMSLUT"/>
+            <attrname name="SBHPMTRAKMSTART"/>
+            <attrname name="SBHPMTRARETNING"/>
+            <attrname name="SBHPMTRASPOR"/>
+            <attrname name="SBHPMTRAVAMPLAN"/>
+            <attrname name="SBHPMTRAVARIGHED"/>
+            <attrname name="SBHPMTROLJE"/>			
+            <attrname name="SBHPMVENDOR"/>
+			</drop_attributes>		
+		<add_attributes object="PM">
+            <attrdef attribute="PMNUM" maxtype="UPPER" title="PM" remarks="Identifies the PM. This value must be unique for all PM records." length="31" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="true" userdefined="false" classname="psdi.app.pm.FldPMChild" defaultvalue="&amp;AUTOKEY&amp;" autokey="PMNUM" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHPMCONTRACTNO" maxtype="ALN" title="Contract" remarks="Contract" length="50" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="NONE"/>
+            <attrdef attribute="SBHPMDOCTILKN" maxtype="YORN" title="Document Attached" remarks="Document Attached" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHPMINTERVALSP" maxtype="YORN" title="Interval Blocking" remarks="Interval Blocking" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHPMKORE" maxtype="YORN" title="Traction Interruption" remarks="Traction Interruption" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHPMKORENUM" maxtype="ALN" title="KA No." remarks="KA No." length="20" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHPMSPSP" maxtype="YORN" title="Track Possession" remarks="Track Possession" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHPMSPSPNUM" maxtype="ALN" title="Possession No." remarks="Possession No." length="20" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHPMTRAKMSLUT" maxtype="ALN" title="End Km" remarks="End km" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHPMTRAKMSTART" maxtype="ALN" title="Start km" remarks="Start km" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHPMTRARETNING" maxtype="ALN" title="Direction" remarks="Direction" length="50" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHPMTRASPOR" maxtype="ALN" title="Track" remarks="Track" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHPMTRAVAMPLAN" maxtype="ALN" title="VAM Marking Plan" remarks="VAM Marking Plan" length="25" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHPMTRAVARIGHED" maxtype="ALN" title="Duration" remarks="Duration" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHPMTROLJE" maxtype="YORN" title="Trolly Used" remarks="Trolley Used" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHPMVENDOR" maxtype="UPPER" title="Vendor" remarks="Vendor" sameasobject="COMPANIES" sameasattribute="COMPANY" length="12" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+        </add_attributes>
+		<insert table="MAXDOMAIN">
+		  <insertrow>
+			<columnvalue column="nevercache" boolean="false" />
+			<columnvalue column="internal" number="0" />
+			<columnvalue column="scale" number="0" />
+			<columnvalue column="length" number="8" />
+			<columnvalue column="maxtype" string="DURATION" />
+			<columnvalue column="domaintype" string="NUMERIC" />
+			<columnvalue column="description" string="Time offset on WO between Finish and Start no later than date" />
+			<columnvalue column="domainid" string="SBHFNCONOFFSET" />
+		  </insertrow>
+		</insert>
+		<insert table="NUMERICDOMAIN">
+		  <insertrow>
+			<columnvalue column="valueid" string="SBHFNCONOFFSET|0" />
+			<columnvalue column="description" string="No Displacement" />
+			<columnvalue column="value" number="0.0" />
+			<columnvalue column="domainid" string="SBHFNCONOFFSET" />
+		  </insertrow>
+		  <insertrow>
+			<columnvalue column="valueid" string="SBHFNCONOFFSET|24" />
+			<columnvalue column="description" string="24 hours 1 day" />
+			<columnvalue column="value" number="24.0" />
+			<columnvalue column="domainid" string="SBHFNCONOFFSET" />
+		  </insertrow>
+		  <insertrow>
+			<columnvalue column="valueid" string="SBHFNCONOFFSET|168" />
+			<columnvalue column="description" string="168 hours 7 days" />
+			<columnvalue column="value" number="168.0" />
+			<columnvalue column="domainid" string="SBHFNCONOFFSET" />
+		  </insertrow>
+		  <insertrow>
+			<columnvalue column="valueid" string="SBHFNCONOFFSET|504" />
+			<columnvalue column="description" string="504 hours 21 days" />
+			<columnvalue column="value" number="504.0" />
+			<columnvalue column="domainid" string="SBHFNCONOFFSET" />
+		  </insertrow>
+		  <insertrow>
+			<columnvalue column="valueid" string="SBHFNCONOFFSET|720" />
+			<columnvalue column="description" string="720 hours 30 days" />
+			<columnvalue column="value" number="720.0" />
+			<columnvalue column="domainid" string="SBHFNCONOFFSET" />
+		  </insertrow>
+		  <insertrow>
+			<columnvalue column="valueid" string="SBHFNCONOFFSET|1.440" />
+			<columnvalue column="description" string="1440 hours 60 days" />
+			<columnvalue column="value" number="1440.0" />
+			<columnvalue column="domainid" string="SBHFNCONOFFSET" />
+		  </insertrow>
+		  <insertrow>
+			<columnvalue column="valueid" string="SBHFNCONOFFSET|2.880" />
+			<columnvalue column="description" string="2880 hours 120 days" />
+			<columnvalue column="value" number="2880.0" />
+			<columnvalue column="domainid" string="SBHFNCONOFFSET" />
+		  </insertrow>
+		</insert>
+    </statements>
+</script>

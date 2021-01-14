@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="v1000_dom_WOSTATUS">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <modify_attribute object="APPTBOOK" attribute="WOSTATUS" domain="WOSTATUS"/>
+        <modify_attribute object="DISPATCHASSIGN" attribute="STATUS" domain="WOSTATUS"/> 
+        <modify_attribute object="MAXVARINPUT" attribute="PMALERT" domain="WOSTATUS"/>
+        <modify_attribute object="SKDACTIVITYQBE" attribute="STATUS" domain="WOSTATUS"/>
+        <modify_attribute object="UNASSIGNEDDATEFILTER" attribute="STATUS" domain="WOSTATUS"/>
+        <modify_attribute object="UNASSIGNEDWORKVIEW" attribute="STATUS" domain="WOSTATUS"/>
+        <modify_attribute object="WMASSIGNMENT" attribute="STATUS" domain="WOSTATUS"/>
+        <modify_attribute object="WOACTIVITY" attribute="STATUS" domain="WOSTATUS"/>
+        <modify_attribute object="WOCHANGE" attribute="STATUS" domain="WOSTATUS"/>
+        <modify_attribute object="WORELEASE" attribute="STATUS" domain="WOSTATUS"/>
+        <modify_attribute object="WORKORDER" attribute="STATUS" domain="WOSTATUS"/>
+        <modify_attribute object="WORKTYPE" attribute="COMPLETESTATUS" domain="WOSTATUS"/>
+        <modify_attribute object="WORKTYPE" attribute="STARTSTATUS" domain="WOSTATUS"/>
+    </statements>
+</script>

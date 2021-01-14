@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_129">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM condition where conditionnum='SBHWOCOMP';
+			</sql>
+        </freeform>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOCOMP"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":worktype IN('AKUT','UDSV') and :status IN (select value from synonymdomain where maxvalue ='COMP' and domainid='WOSTATUS')"/>
+                <columnvalue column="description" string="WO Complete Status Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+    </statements>
+</script>

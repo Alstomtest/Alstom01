@@ -1,0 +1,992 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into MAXINTOBJECT">
+  <description>Add object structure and security settings for INVENTORY and METERGROUPS - Tue Sep 10 10:17:19 CEST 2019</description>
+  <statements>
+  	<freeform description="delete custom MAXINTOBJDETAIL">
+		<sql target="sqlserver">		
+			delete from MAXINTOBJECT where intobjectname in ('SBHMETERGROUP','MXSTORELOC','MXITEM','MXINVVENDOR','MXINVENTORY','MXINVBAL');
+			delete from MAXINTOBJDETAIL where intobjectname in ('SBHMETERGROUP','MXSTORELOC','MXITEM','MXINVVENDOR','MXINVENTORY','MXINVBAL');
+			delete from maxintobjcols where intobjectname in ('SBHMETERGROUP','MXSTORELOC','MXITEM','MXINVVENDOR','MXINVENTORY','MXINVBAL');
+			delete from sigoption where app in ('SBHMETERGROUP','MXSTORELOC','MXITEM','MXINVVENDOR','MXINVENTORY','MXINVBAL');
+			delete from applicationauth where app in ('SBHMETERGROUP','MXSTORELOC','MXITEM','MXINVVENDOR','MXINVENTORY','MXINVBAL') and groupname = 'MAXADMIN';
+			delete from MAXAPPS where apptype = 'OS' and app in ('SBHMETERGROUP','MXSTORELOC','MXITEM','MXINVVENDOR','MXINVENTORY','MXINVBAL');
+			commit;
+		</sql>
+	</freeform>    
+    <insert table="MAXINTOBJECT">
+      <insertrow>
+        <columnvalue column="loadqueryfromapp" boolean="false" />
+        <columnvalue column="authapp" string="MXINVBAL" />
+        <columnvalue column="aliasconflict" boolean="false" />
+        <columnvalue column="usewith" string="INTEGRATION" />
+        <columnvalue column="flatsupported" boolean="false" />
+        <columnvalue column="configurable" boolean="true" />
+        <columnvalue column="queryonly" boolean="false" />
+        <columnvalue column="procclass" string="psdi.iface.app.invbalances.MaxInvBalancesProcess" />
+        <columnvalue column="defclass" string="psdi.iface.app.invbalances.MoutInvBalancesProcess" />
+        <columnvalue column="changedate" date="08-13-2019:08:29:30" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="selfreferencing" boolean="false" />
+        <columnvalue column="description" string="Inventory Balance Definition" />
+        <columnvalue column="intobjectname" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="loadqueryfromapp" boolean="false" />
+        <columnvalue column="authapp" string="MXINVENTORY" />
+        <columnvalue column="aliasconflict" boolean="false" />
+        <columnvalue column="usewith" string="INTEGRATION" />
+        <columnvalue column="flatsupported" boolean="false" />
+        <columnvalue column="configurable" boolean="true" />
+        <columnvalue column="queryonly" boolean="false" />
+        <columnvalue column="procclass" string="psdi.iface.app.inventory.MaxInvProcess" />
+        <columnvalue column="defclass" string="psdi.iface.app.inventory.MoutInvProcess" />
+        <columnvalue column="changedate" date="07-10-2019:12:42:37" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="selfreferencing" boolean="false" />
+        <columnvalue column="description" string="Inventory Definition" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="loadqueryfromapp" boolean="false" />
+        <columnvalue column="authapp" string="MXINVVENDOR" />
+        <columnvalue column="aliasconflict" boolean="false" />
+        <columnvalue column="usewith" string="INTEGRATION" />
+        <columnvalue column="flatsupported" boolean="false" />
+        <columnvalue column="configurable" boolean="true" />
+        <columnvalue column="queryonly" boolean="false" />
+        <columnvalue column="procclass" string="psdi.iface.app.invvendor.MaxInvVendorProcess" />
+        <columnvalue column="defclass" string="psdi.iface.app.invvendor.MoutInvVendorProcess" />
+        <columnvalue column="changedate" date="08-12-2019:16:31:28" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="selfreferencing" boolean="false" />
+        <columnvalue column="description" string="Item Vendor Definition" />
+        <columnvalue column="intobjectname" string="MXINVVENDOR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="loadqueryfromapp" boolean="false" />
+        <columnvalue column="authapp" string="MXITEM" />
+        <columnvalue column="aliasconflict" boolean="false" />
+        <columnvalue column="usewith" string="INTEGRATION" />
+        <columnvalue column="flatsupported" boolean="false" />
+        <columnvalue column="configurable" boolean="true" />
+        <columnvalue column="queryonly" boolean="false" />
+        <columnvalue column="procclass" string="psdi.iface.app.item.MaxItemProcess" />
+        <columnvalue column="defclass" string="psdi.iface.app.item.MoutItemProcess" />
+        <columnvalue column="changedate" date="07-03-2019:16:02:02" />
+        <columnvalue column="changeby" string="AOSX" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="selfreferencing" boolean="false" />
+        <columnvalue column="description" string="Item Definition" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="loadqueryfromapp" boolean="false" />
+        <columnvalue column="authapp" string="MXSTORELOC" />
+        <columnvalue column="aliasconflict" boolean="false" />
+        <columnvalue column="usewith" string="INTEGRATION" />
+        <columnvalue column="flatsupported" boolean="false" />
+        <columnvalue column="configurable" boolean="true" />
+        <columnvalue column="queryonly" boolean="false" />
+        <columnvalue column="procclass" string="psdi.iface.app.location.MaxLocProcess" />
+        <columnvalue column="defclass" string="psdi.iface.app.location.MoutLocProcess" />
+        <columnvalue column="changedate" date="07-04-2019:23:03:59" />
+        <columnvalue column="changeby" string="AOSX" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="selfreferencing" boolean="false" />
+        <columnvalue column="description" string="Storeroom Location Definition" />
+        <columnvalue column="intobjectname" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="timelineattribute" string="-1" />
+        <columnvalue column="autopagingthreshold" number="-1" />
+        <columnvalue column="loadqueryfromapp" boolean="false" />
+        <columnvalue column="authapp" string="SBHMETERGROUP" />
+        <columnvalue column="aliasconflict" boolean="false" />
+        <columnvalue column="usewith" string="INTEGRATION" />
+        <columnvalue column="flatsupported" boolean="false" />
+        <columnvalue column="configurable" boolean="true" />
+        <columnvalue column="queryonly" boolean="false" />
+        <columnvalue column="changedate" date="09-10-2019:09:52:35" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="selfreferencing" boolean="false" />
+        <columnvalue column="description" string="Meter groups for SBH" />
+        <columnvalue column="intobjectname" string="SBHMETERGROUP" />
+      </insertrow>
+    </insert>
+    <insert table="MAXINTOBJDETAIL">
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="INVBALANCES" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="INVBALANCES" />
+        <columnvalue column="intobjectname" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="INVVENDOR" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="INVVENDOR" />
+        <columnvalue column="intobjectname" string="MXINVVENDOR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="METERGROUP" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="09-10-2019:09:51:40" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="METERGROUP" />
+        <columnvalue column="intobjectname" string="SBHMETERGROUP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="METERGROUP/METERINGROUP" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="09-10-2019:09:51:59" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="METERINGROUP" />
+        <columnvalue column="objectname" string="METERINGROUP" />
+        <columnvalue column="intobjectname" string="SBHMETERGROUP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="LOCATIONS" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="LOCATIONS" />
+        <columnvalue column="intobjectname" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ITEM" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="ITEM" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ITEM/ITEMCONDITION" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="3" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="3" />
+        <columnvalue column="objectorder" number="2" />
+        <columnvalue column="relation" string="ITEMCONDITION" />
+        <columnvalue column="objectname" string="ITEMCONDITION" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="INVENTORY" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="INVENTORY" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ITEM/CONVERSION" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="CONVERSION" />
+        <columnvalue column="objectname" string="CONVERSION" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ITEM/ITEMSPEC" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="4" />
+        <columnvalue column="changedate" date="05-21-2007:14:34:26" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="4" />
+        <columnvalue column="objectorder" number="3" />
+        <columnvalue column="relation" string="ITEMSPECCLASS" />
+        <columnvalue column="objectname" string="ITEMSPEC" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="INVENTORY/INVCOST" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="INVCOST" />
+        <columnvalue column="objectname" string="INVCOST" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="description" string="Item Organization Details" />
+        <columnvalue column="hierarchypath" string="ITEM/ITEMORGINFO" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="5" />
+        <columnvalue column="changedate" date="04-05-2019:16:14:35" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="5" />
+        <columnvalue column="objectorder" number="4" />
+        <columnvalue column="relation" string="ITEMORGINFO" />
+        <columnvalue column="objectname" string="ITEMORGINFO" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+    </insert>    
+    <insert table="maxintobjcols">
+      <insertrow>
+        <columnvalue column="changedate" date="04-05-2019:16:00:48" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="COSTDATE" />
+        <columnvalue column="objectname" string="INVBALANCES" />
+        <columnvalue column="intobjectname" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="06-18-2007:14:09:51" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="ITEMTYPE" />
+        <columnvalue column="objectname" string="INVBALANCES" />
+        <columnvalue column="intobjectname" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="04-05-2019:16:00:48" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="UNITCOST" />
+        <columnvalue column="objectname" string="INVBALANCES" />
+        <columnvalue column="intobjectname" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="AVBLBALANCE" />
+        <columnvalue column="objectname" string="INVENTORY" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="04-05-2019:16:00:35" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="CATEGORY" />
+        <columnvalue column="objectname" string="INVENTORY" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="CURBAL" />
+        <columnvalue column="objectname" string="INVENTORY" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="06-18-2007:14:12:29" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="ITEMTYPE" />
+        <columnvalue column="objectname" string="INVENTORY" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="04-05-2019:16:14:33" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="NEWCOSTTYPE" />
+        <columnvalue column="objectname" string="INVENTORY" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="06-18-2007:14:12:29" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="NP_STATUSMEMO" />
+        <columnvalue column="objectname" string="INVENTORY" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="RESERVEDQTY" />
+        <columnvalue column="objectname" string="INVENTORY" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="06-18-2007:14:12:29" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="STATUSIFACE" />
+        <columnvalue column="objectname" string="INVENTORY" />
+        <columnvalue column="intobjectname" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="05-09-2007:15:21:33" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="CURRENCYCODE" />
+        <columnvalue column="objectname" string="INVVENDOR" />
+        <columnvalue column="intobjectname" string="MXINVVENDOR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="05-09-2007:15:21:33" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="ITEMTYPE" />
+        <columnvalue column="objectname" string="INVVENDOR" />
+        <columnvalue column="intobjectname" string="MXINVVENDOR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="CLASSSTRUCTUREID" />
+        <columnvalue column="objectname" string="ITEM" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="DESCRIPTION_LONGDESCRIPTION" />
+        <columnvalue column="objectname" string="ITEM" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-04-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="HASLD" />
+        <columnvalue column="objectname" string="ITEM" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="05-21-2007:14:34:26" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="HIERARCHYPATH" />
+        <columnvalue column="objectname" string="ITEM" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="LANGCODE" />
+        <columnvalue column="objectname" string="ITEM" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="05-15-2007:11:46:55" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="NP_STATUSMEMO" />
+        <columnvalue column="objectname" string="ITEM" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="05-15-2007:11:46:55" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="NP_STATUSROLLDOWN" />
+        <columnvalue column="objectname" string="ITEM" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="05-15-2007:11:46:55" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="STATUSIFACE" />
+        <columnvalue column="objectname" string="ITEM" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="DESCRIPTION_LONGDESCRIPTION" />
+        <columnvalue column="objectname" string="ITEMCONDITION" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-04-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="HASLD" />
+        <columnvalue column="objectname" string="ITEMCONDITION" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="LANGCODE" />
+        <columnvalue column="objectname" string="ITEMCONDITION" />
+        <columnvalue column="intobjectname" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="DESCRIPTION_LONGDESCRIPTION" />
+        <columnvalue column="objectname" string="LOCATIONS" />
+        <columnvalue column="intobjectname" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-04-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="HASLD" />
+        <columnvalue column="objectname" string="LOCATIONS" />
+        <columnvalue column="intobjectname" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="LANGCODE" />
+        <columnvalue column="objectname" string="LOCATIONS" />
+        <columnvalue column="intobjectname" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="09-10-2019:09:52:24" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="HASLD" />
+        <columnvalue column="objectname" string="METERGROUP" />
+        <columnvalue column="intobjectname" string="SBHMETERGROUP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="09-10-2019:09:52:24" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="LANGCODE" />
+        <columnvalue column="objectname" string="METERGROUP" />
+        <columnvalue column="intobjectname" string="SBHMETERGROUP" />
+      </insertrow>
+    </insert>
+    <insert table="sigoption">
+      <insertrow>
+        <columnvalue column="prerequisite" string="READ" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Delete MXINVBAL" />
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Insert MXINVBAL" />
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="ALL" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Read MXINVBAL" />
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="DELETE,INSERT" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Save MXINVBAL" />
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="READ" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Delete MXINVENTORY" />
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Insert MXINVENTORY" />
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="ALL" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Read MXINVENTORY" />
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="DELETE,INSERT" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Save MXINVENTORY" />
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="READ" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Delete MXINVVENDOR" />
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Insert MXINVVENDOR" />
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="ALL" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Read MXINVVENDOR" />
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="DELETE,INSERT" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Save MXINVVENDOR" />
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="READ" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="ALL" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="DELETE,INSERT" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="READ" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Delete MXSTORELOC" />
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Insert MXSTORELOC" />
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="ALL" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Read MXSTORELOC" />
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="DELETE,INSERT" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Save MXSTORELOC" />
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="READ" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="SBHMETERGROUP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Delete SBHMETERGROUP" />
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="SBHMETERGROUP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Insert SBHMETERGROUP" />
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="SBHMETERGROUP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="ALL" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Read SBHMETERGROUP" />
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="SBHMETERGROUP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="DELETE,INSERT" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Save SBHMETERGROUP" />
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="SBHMETERGROUP" />
+      </insertrow>
+    </insert>
+    <insert table="applicationauth">
+      <insertrow>
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXINVBAL" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXINVBAL" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXINVBAL" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXINVBAL" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXINVBAL" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXINVENTORY" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXINVENTORY" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXINVENTORY" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXINVENTORY" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXINVENTORY" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXITEM" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXITEM" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXITEM" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXITEM" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXITEM" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXSTORELOC" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXSTORELOC" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXSTORELOC" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXSTORELOC" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="SBHMETERGROUP" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="SBHMETERGROUP" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="SBHMETERGROUP" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="SBHMETERGROUP" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+    </insert>
+    <insert table="MAXAPPS">
+      <insertrow>
+        <columnvalue column="lockenabled" boolean="false" />
+        <columnvalue column="apptype" string="OS" />
+        <columnvalue column="description" string="Inventory Balance Definition" />
+        <columnvalue column="app" string="MXINVBAL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="lockenabled" boolean="false" />
+        <columnvalue column="apptype" string="OS" />
+        <columnvalue column="description" string="Inventory Definition" />
+        <columnvalue column="app" string="MXINVENTORY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="lockenabled" boolean="false" />
+        <columnvalue column="apptype" string="OS" />
+        <columnvalue column="description" string="Item Vendor Definition" />
+        <columnvalue column="app" string="MXINVVENDOR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="lockenabled" boolean="false" />
+        <columnvalue column="apptype" string="OS" />
+        <columnvalue column="description" string="~null~" />
+        <columnvalue column="app" string="MXITEM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="lockenabled" boolean="false" />
+        <columnvalue column="apptype" string="OS" />
+        <columnvalue column="description" string="Storeroom Location Definition" />
+        <columnvalue column="app" string="MXSTORELOC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="lockenabled" boolean="false" />
+        <columnvalue column="apptype" string="OS" />
+        <columnvalue column="description" string="Meter groups for SBH" />
+        <columnvalue column="app" string="SBHMETERGROUP" />
+      </insertrow>
+    </insert>
+  </statements>
+</script>

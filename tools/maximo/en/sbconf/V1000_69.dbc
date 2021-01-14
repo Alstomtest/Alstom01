@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="Workorder attr titles V1000_69">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <modify_attribute object="WORKORDER" attribute="PERSONGROUP" title="Operations Area"/>
+        <modify_attribute object="WORKORDER" attribute="VENDOR" title="Contractor"/> 
+        <modify_attribute object="WORKORDER" attribute="OWNER" title="Operations Manager"/>
+        <modify_attribute object="WORKORDER" attribute="SUPERVISOR" title="Contractor Supervisor"/>
+        <modify_attribute object="WORKORDER" attribute="LEAD" title="Contractor Team Lead"/>
+	</statements>
+</script>

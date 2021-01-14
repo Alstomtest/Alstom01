@@ -1,0 +1,1131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="comments">Copyright (c) 2006 &lt;&lt;Your Company Name here>></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.8.0.v201806261756</property>
+    <html-property name="description">This template will create a report with one or more subreports, each having different data fields.</html-property>
+    <simple-property-list name="includeResource">
+        <value>jobplan</value>
+    </simple-property-list>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.com.ibm.tivoli.maximo.report.script);
+
+mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
+
+mxReportScriptContext.setDefaultLogLevel("DEBUG");
+mxReportScriptContext.setDefaultLogFile("C:/temp/jobplan_print.log");
+
+]]></method>
+    <method name="afterFactory"><![CDATA[MXReportScriptContext.close();]]></method>
+    <property name="theme">MaximoSystemLibrary.maximoTheme</property>
+    <text-property name="displayName">SB specific Jobplan print report</text-property>
+    <property name="layoutPreference">auto layout</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">MaximoSystemLibrary.rptlibrary</property>
+            <property name="namespace">MaximoSystemLibrary</property>
+        </structure>
+    </list-property>
+    <template-parameter-definitions>
+        <template-parameter-definition name="NewTemplateParameterDefinition" id="71">
+            <property name="allowedType">Label</property>
+            <text-property name="description">Double-click to enter the report title.</text-property>
+            <default>
+                <label id="72">
+                    <text-property name="text">Report Title</text-property>
+                </label>
+            </default>
+        </template-parameter-definition>
+    </template-parameter-definitions>
+    <parameters>
+        <scalar-parameter name="where" id="25">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1=1</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="appname" id="731">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramdelimiter" id="733">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramstring" id="732">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="maximoDataSource" id="64" extends="MaximoSystemLibrary.maximoDataSource"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="mainDataSet" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">jpnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">orgid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">siteid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">jpduration</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">status</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">interruptible</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">supervisor</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">crewid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">persongroup</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">owner</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">ownergroup</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">jobplanid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">templatetype</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">longdesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">pluscrevnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">jpnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orgid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">jpduration</property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                </structure>
+                <structure>
+                    <property name="columnName">interruptible</property>
+                </structure>
+                <structure>
+                    <property name="columnName">supervisor</property>
+                </structure>
+                <structure>
+                    <property name="columnName">crewid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">persongroup</property>
+                </structure>
+                <structure>
+                    <property name="columnName">owner</property>
+                </structure>
+                <structure>
+                    <property name="columnName">ownergroup</property>
+                </structure>
+                <structure>
+                    <property name="columnName">jobplanid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">templatetype</property>
+                </structure>
+                <structure>
+                    <property name="columnName">longdesc</property>
+                </structure>
+                <structure>
+                    <property name="columnName">pluscrevnum</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">jpnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">orgid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">siteid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">jpduration</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">interruptible</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">supervisor</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">crewid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">persongroup</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">owner</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">ownergroup</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">jobplanid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">templatetype</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">longdesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">pluscrevnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[maximoDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+maximoDataSet.open();
+
+var sqlText = new String();
+sqlText = "select jobplan.jobplanid, jobplan.jpnum, jobplan.description, jobplan.orgid, jobplan.siteid, jobplan.jpduration,"
++ " jobplan.status, jobplan.interruptible, jobplan.supervisor, jobplan.amcrew, jobplan.persongroup, jobplan.owner,"
++ " jobplan.ownergroup, jobplan.templatetype, longdescription.ldtext, jobplan.pluscrevnum"
++ " from jobplan"
++ " left outer join longdescription "
++ " on longdescription.ldownertable='JOBPLAN' "
++ " and longdescription.ldownercol='DESCRIPTION' "
++ " and longdescription.ldkey=jobplan.jobplanid "
++ " where " + params["where"]
++ " and jobplan.pluscrevnum = (select max(jp.pluscrevnum) from jobplan jp where jobplan.jpnum = jp.jpnum) "
++ " order by jobplan.jpnum";
+
+maximoDataSet.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!maximoDataSet.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["jpnum"] = maximoDataSet.getString("jpnum");
+row["description"] = maximoDataSet.getString("description");
+row["orgid"] = maximoDataSet.getString("orgid");
+row["siteid"] = maximoDataSet.getString("siteid");
+row["jpduration"] = maximoDataSet.getDuration("jpduration");
+row["status"] = maximoDataSet.getString("status");
+row["interruptible"] = maximoDataSet.getBooleanString("interruptible");
+row["supervisor"] = maximoDataSet.getString("supervisor");
+row["crewid"] = maximoDataSet.getString("amcrew");
+row["persongroup"] = maximoDataSet.getString("persongroup");
+row["owner"] = maximoDataSet.getString("owner");
+row["ownergroup"] = maximoDataSet.getString("ownergroup");
+row["jobplanid"] = maximoDataSet.getString("jobplanid");
+row["templatetype"] = maximoDataSet.getString("templatetype");
+row["longdesc"] = maximoDataSet.getHtmlString("ldtext");
+row["pluscrevnum"] = maximoDataSet.getHtmlString("pluscrevnum");
+
+return (true);]]></method>
+        </script-data-set>
+        <script-data-set name="taskDataSet" id="944">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">jptask</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">taskduration</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">nestedjpnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">metername</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">owner</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">ownergroup</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">ldtext</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">jptask</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">taskduration</property>
+                </structure>
+                <structure>
+                    <property name="columnName">nestedjpnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">metername</property>
+                </structure>
+                <structure>
+                    <property name="columnName">owner</property>
+                </structure>
+                <structure>
+                    <property name="columnName">ownergroup</property>
+                </structure>
+                <structure>
+                    <property name="columnName">ldtext</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">jptask</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">taskduration</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">nestedjpnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">metername</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">owner</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">ownergroup</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">ldtext</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[tasksDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+tasksDataSet.open();
+
+var sqlText = new String();
+
+sqlText = "select jobtask.jptask, jobtask.description, jobtask.taskduration, jobtask.nestedjpnum,"
++ " jobtask.metername, jobtask.owner, jobtask.ownergroup "
++ " , longdescription.ldtext "
++ " from jobtask"
++ " left outer join longdescription"
++ " on longdescription.ldownertable='JOBTASK'"
++ " and longdescription.ldownercol='DESCRIPTION'"
++ " and longdescription.ldkey=jobtask.jobtaskid"
++ " where jobtask.jobplanid = " + rows[0]["jobplanid"]
++ " order by jobtask.jptask";
+
+tasksDataSet.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!tasksDataSet.fetch())
+	return (false);
+	
+row["jptask"] = tasksDataSet.getString("jptask");
+row["description"] = tasksDataSet.getString("description");
+//row["taskduration"] = tasksDataSet.getDuration("taskduration");
+//row["nestedjpnum"] = tasksDataSet.getString("nestedjpnum");
+//row["metername"] = tasksDataSet.getString("metername");
+//row["owner"] = tasksDataSet.getString("owner");
+//row["ownergroup"] = tasksDataSet.getString("ownergroup");
+row["ldtext"] = tasksDataSet.getString("ldtext");
+
+return (true);]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="maximoLandscape" id="47" extends="MaximoSystemLibrary.maximoLandscape">
+            <property name="rightMargin">0.4166666666666667in</property>
+            <overridden-values>
+                <ref-entry baseId="304" name="NewGrid2" id="304"/>
+                <ref-entry baseId="305" id="305"/>
+                <ref-entry baseId="306" id="306"/>
+                <ref-entry baseId="307" id="307"/>
+                <ref-entry baseId="308" id="308"/>
+                <ref-entry baseId="309" id="309"/>
+                <ref-entry baseId="310" name="NewImage" id="310"/>
+                <ref-entry baseId="322" name="NewGrid" id="322"/>
+                <ref-entry baseId="323" id="323"/>
+                <ref-entry baseId="324" id="324"/>
+                <ref-entry baseId="325" id="325"/>
+                <ref-entry baseId="326" id="326"/>
+                <ref-entry baseId="328" name="NewText" id="328"/>
+                <ref-entry baseId="327" id="327"/>
+                <ref-entry baseId="329" name="NewGrid1" id="329"/>
+                <ref-entry baseId="330" id="330"/>
+                <ref-entry baseId="331" id="331"/>
+                <ref-entry baseId="332" id="332"/>
+                <ref-entry baseId="333" id="333"/>
+                <ref-entry baseId="334" id="334"/>
+                <ref-entry baseId="335" name="NewAutoText" id="335"/>
+                <ref-entry baseId="336" id="336"/>
+                <ref-entry baseId="337" name="NewText1" id="337"/>
+                <ref-entry baseId="338" id="338"/>
+                <ref-entry baseId="339" name="NewAutoText1" id="339"/>
+            </overridden-values>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="7">
+            <property name="pageBreakInside">auto</property>
+            <property name="height">0.1in</property>
+            <property name="width">10.072916666666666in</property>
+            <property name="dataSet">mainDataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">orgid</property>
+                    <expression name="expression">dataSetRow["orgid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">jpduration</property>
+                    <expression name="expression">dataSetRow["jpduration"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">supervisor</property>
+                    <expression name="expression">dataSetRow["supervisor"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">persongroup</property>
+                    <expression name="expression">dataSetRow["persongroup"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">siteid</property>
+                    <expression name="expression">dataSetRow["siteid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">crewid</property>
+                    <expression name="expression">dataSetRow["crewid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">owner</property>
+                    <expression name="expression">dataSetRow["owner"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ownergroup</property>
+                    <expression name="expression">dataSetRow["ownergroup"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">templatetype</property>
+                    <expression name="expression">dataSetRow["templatetype"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">interruptible</property>
+                    <expression name="expression">dataSetRow["interruptible"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">jobplanid</property>
+                    <expression name="expression" type="javascript">dataSetRow["jobplanid"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">jpnum_desc</property>
+                    <expression name="expression">if (rows[0]["description"] == null || rows[0]["description"] == "")
+rows[0]["jpnum"] 
+else
+rows[0]["jpnum"] + ": " + rows[0]["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">jpkey</property>
+                    <expression name="expression">dataSetRow["jpnum"]+dataSetRow["siteid"]+dataSetRow["orgid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">jpnum</property>
+                    <expression name="expression">dataSetRow["jpnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <expression name="expression">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">longdesc</property>
+                    <expression name="expression">dataSetRow["longdesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">job_plan_id</property>
+                    <expression name="expression" type="javascript">"Teknik Instruks:  " +row["jobplanid"] + "  "</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">pluscrevnum</property>
+                    <text-property name="displayName">pluscrevnum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["pluscrevnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">status</property>
+                    <text-property name="displayName">status</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["status"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">50</property>
+            <column id="83"/>
+            <column id="79"/>
+            <column id="91"/>
+            <column id="87"/>
+            <column id="17"/>
+            <column id="18"/>
+            <header>
+                <row id="209">
+                    <property name="style">title</property>
+                    <cell id="210">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <label id="813">
+                            <property name="textAlign">center</property>
+                            <property name="refTemplateParameter">NewTemplateParameterDefinition</property>
+                            <text-property name="text" key="jobplan_details_title">Job Plan Details</text-property>
+                        </label>
+                    </cell>
+                </row>
+                <row id="219">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">medium</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">medium</property>
+                    <property name="pageBreakAfter">auto</property>
+                    <property name="pageBreakInside">auto</property>
+                    <property name="height">0.08in</property>
+                    <cell id="220">
+                        <property name="colSpan">5</property>
+                        <property name="rowSpan">1</property>
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                    </cell>
+                    <cell id="2524">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <image id="2519">
+                            <property name="display">block</property>
+                            <property name="height">70px</property>
+                            <property name="width">220px</property>
+                            <property name="source">embed</property>
+                            <property name="imageName">SBimage.jpg</property>
+                        </image>
+                    </cell>
+                </row>
+            </header>
+            <group id="1506">
+                <property name="groupName">jobplanGroup</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr" type="javascript">row["jpkey"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["jpnum"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">always-excluding-last</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+                <header>
+                    <row id="2525">
+                        <property name="style">reportheaderlabel</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="textAlign">left</property>
+                        <property name="pageBreakAfter">auto</property>
+                        <property name="pageBreakInside">auto</property>
+                        <cell id="2526"/>
+                        <cell id="2527"/>
+                        <cell id="2528"/>
+                        <cell id="2529"/>
+                        <cell id="2530"/>
+                        <cell id="2531">
+                            <data id="2532">
+                                <property name="fontSize">12pt</property>
+                                <property name="textAlign">left</property>
+                                <property name="resultSetColumn">job_plan_id</property>
+                            </data>
+                        </cell>
+                    </row>
+                    <row id="1507">
+                        <property name="style">reportheaderlabel</property>
+                        <property name="textAlign">left</property>
+                        <property name="pageBreakAfter">auto</property>
+                        <property name="pageBreakInside">auto</property>
+                        <cell id="1508">
+                            <property name="colSpan">5</property>
+                            <property name="rowSpan">1</property>
+                            <data id="1503">
+                                <property name="fontSize">12pt</property>
+                                <property name="textAlign">left</property>
+                                <property name="resultSetColumn">jpnum_desc</property>
+                            </data>
+                        </cell>
+                        <cell id="2542">
+                            <grid id="2544">
+                                <column id="2545"/>
+                                <column id="2546"/>
+                                <row id="2547">
+                                    <cell id="2548">
+                                        <label id="2553">
+                                            <property name="fontSize">12pt</property>
+                                            <property name="textAlign">right</property>
+                                            <text-property name="text">Revision nr.:</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2549">
+                                        <property name="fontSize">10pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">right</property>
+                                        <data id="2568">
+                                            <property name="textAlign">left</property>
+                                            <property name="resultSetColumn">pluscrevnum</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                                <row id="2550">
+                                    <cell id="2551">
+                                        <label id="2554">
+                                            <property name="fontSize">9pt</property>
+                                            <property name="textAlign">right</property>
+                                            <text-property name="text">Status:</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2552">
+                                        <property name="fontWeight">normal</property>
+                                        <property name="textAlign">right</property>
+                                        <data id="2567">
+                                            <property name="fontSize">9pt</property>
+                                            <property name="textAlign">left</property>
+                                            <property name="resultSetColumn">status</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </header>
+            </group>
+            <detail>
+                <row id="1589">
+                    <property name="pageBreakAfter">auto</property>
+                    <property name="pageBreakInside">auto</property>
+                    <property name="height">1.40625in</property>
+                    <cell id="1590">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <table id="898">
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="pageBreakBefore">auto</property>
+                            <property name="width">100%</property>
+                            <property name="dataSet">taskDataSet</property>
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr">(Total.count(BirtComp.notEqual(row["jptask"],null),Total.OVERALL)==0)</expression>
+                                </structure>
+                            </list-property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">description</property>
+                                    <expression name="expression">dataSetRow["description"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">taskduration</property>
+                                    <expression name="expression">dataSetRow["taskduration"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">nestedjpnum</property>
+                                    <expression name="expression">dataSetRow["nestedjpnum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">metername</property>
+                                    <expression name="expression">dataSetRow["metername"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">owner</property>
+                                    <expression name="expression">dataSetRow["owner"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">ownergroup</property>
+                                    <expression name="expression">dataSetRow["ownergroup"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">jptask</property>
+                                    <expression name="expression">dataSetRow["jptask"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">ldtext</property>
+                                    <text-property name="displayName">ldtext</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["ldtext"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="pageBreakInterval">50</property>
+                            <column id="925">
+                                <property name="width">1in</property>
+                            </column>
+                            <column id="926">
+                                <property name="width">3.5in</property>
+                            </column>
+                            <header>
+                                <row id="901">
+                                    <property name="style">tableheaderrow</property>
+                                    <property name="fontSize">larger</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="pageBreakInside">auto</property>
+                                    <cell id="902">
+                                        <property name="colSpan">2</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="style">tableheaderlabel</property>
+                                        <label id="2564">
+                                            <property name="fontSize">12pt</property>
+                                            <property name="color">#7E90BF</property>
+                                            <text-property name="text">test</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                                <row id="908">
+                                    <property name="style">tabledetailslabel</property>
+                                    <property name="pageBreakInside">auto</property>
+                                    <cell id="909">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="2556">
+                                            <property name="fontSize">12pt</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Opgave</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="911">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="2557">
+                                            <property name="fontSize">12pt</property>
+                                            <property name="textAlign">left</property>
+                                            <text-property name="text">Aktivitet</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                            </header>
+                            <detail>
+                                <row id="2561">
+                                    <property name="style">tabledetailsdatarow</property>
+                                    <property name="borderBottomStyle">none</property>
+                                    <property name="borderLeftStyle">none</property>
+                                    <property name="borderRightStyle">none</property>
+                                    <property name="borderTopStyle">none</property>
+                                    <property name="pageBreakInside">auto</property>
+                                    <property name="height">0.5729166666666666in</property>
+                                    <cell id="2562">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="1510">
+                                            <property name="fontSize">10pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">jptask</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="2563">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="959">
+                                            <property name="fontSize">10pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">left</property>
+                                            <property name="resultSetColumn">description</property>
+                                        </data>
+                                        <data id="2560">
+                                            <property name="fontSize">10pt</property>
+                                            <property name="paddingTop">10pt</property>
+                                            <property name="textAlign">left</property>
+                                            <property name="resultSetColumn">ldtext</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </detail>
+                        </table>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">SBimage.jpg</property>
+            <property name="data">
+                /9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEBUSDxAVFhUQFRYVFhUYFRUYFhgYFhcWFhcXFxYY
+                HSggGBslIBgVITEhJSsrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGy8mICUtLS0tLS0tLS0tLS0tLS0t
+                LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAHkBoQMBEQACEQEDEQH/xAAcAAAC
+                AgMBAQAAAAAAAAAAAAAABgUHAQMEAgj/xABNEAABAwIDBAYFBgoIBgMBAAABAAIDBBEFEiEGMUFRBxNh
+                cYGRIjKhsdEUNUJzs8EVFiM0UmJykrLCFzNTVHSCg+Ekk6Kj0vBE4vEl/8QAGgEBAAMBAQEAAAAAAAAA
+                AAAAAAMEBQIBBv/EAC4RAAICAQQABgEEAgMBAQAAAAABAgMRBBIhMRMyM0FRcWEUIoGRUqEjQsHRsf/a
+                AAwDAQACEQMRAD8AvFACAwgMoAQGEBDY7tRSUmk8wDuDG+k/90bu82UtdM7PKiOdsYdkN/SCw6toK0s/
+                T6kWtz3qX9I/8l/ZF+oX+LJLBdsqOqIZHLledOrkGR1+QvoT2AqOzT2Q5fX4JIXQlwdcG0dK+p+SsmDp
+                Re7QHEDKLkZgMtxyuuXVNR3Y4OlZFvauyWUZ2CAEAIAQAgBACAwgMoDCAygBACAEAIAQAgNFbWRwsMk0
+                jWMba7nEAC5sLk9pC9jFyeEeOSissinbX0A/+bD4PB9gUv6e3/FkfjV/Jig2to55mwwTh8j72Aa+2gLj
+                qRbcCvJUWRW5rg9jbBvCZOKIkBACAygBACAEAIAQAgIeTaqha4tdWQgtJBBkbcEGxB13qVUWP/qyPxoL
+                3OabbbD276uM/s5nfwgrpaa1/wDU88ev5JbDMQjqImzQuzMffKbEXsS06HXeCopRcXhncZKSyjrXJ0CA
+                EAIAQAgBACAwgMoDCAEBlAYQCt0gbSmipx1duumJbHfXKB6z7cbXFu0hWNNT4kuekQX27I8dnD0dbOxi
+                BtZMOsnqLvzv9ItBJtYnid5O/Wy71Vz3bFwkc0VLG59sd1ULIsbX7Gw1jC5rWsnAu2QC1yNwfb1h27xw
+                5KxTqJVv5XwQ20qa/JXvRtA6PFRHI0tcxsrXNPAgWIV7VNOnK/BU06xZhl0rJNE45MVp2kh1REC3QgyM
+                BBHME6LpQk/Y53L5PNDjNPM8xwTxyOaMxDHB1he1yRovZVyistBTi3hM71wdAgMIDKAwgMoDCAEAIAQG
+                UBhAZQGEAIDRW0cczDHMxr2OtdrgCDY3Fwe0Bexk4vKPHFSWGUp0j0UcNe5kMbWMEcZytAAub3NgtfSy
+                cq8szdRFKeEHRp85w90n2b17q/SY0/qIvNYxpmEAIAQAgBACAygMIAKAUNtdn6RtFUytpohIGOfnDG5s
+                xNy6/PUqzRbNzjHPBXtrioN4KUWyZxevRv8ANkHc/wC0esTVeqzT0/pon6mqjjAMsjWAmwLnBoJ5XKhS
+                b6JW0uzhqdo6OMXfVwj/AFGE+QN12qpvpM5dkV2yUBuozsygMIDKAwgMoAQAgMIAQAgBAVD0wvPyyIHc
+                IQR3l7r+4LU0K/Y/soarzI9bE7ftpoW09UxzmMvke2xLQTfK5p3gXOo8k1Gkc5boinUbVtY+0G2lBNoy
+                qYCeD7xn/rAv4KjLT2x7RajdCXTJ2OQOF2kEHcQbjzChZInkXxsuBify9sgF2ZXR5N7suXNnvyy6W4Kf
+                x/8Ai8Mi8L/k3jEoCY+e9rh/x9T9dJ/Etyj04/RlW+djR0Ofnc31P87VW1/lX2T6TzMtxZheMoDCAEAI
+                AQAgBACAEAIAQAgBACAygKT6VfnJ31Uf3rX0XpfyZ2p9Q0dGnznD3SfZvXWr9JnOn9RF5LGNMEAIAQAg
+                BACAEAIDKAgduvm2p+qd9ym0/qx+yK7039FBLcMsvXo3+bIO5/2j1iar1Waen9NEJ0yD/hIf8QPs5FNo
+                PO/r/wCEWr8q+yopfVPcfctVFBrg+m49w7gvnW+TZXR7Q9MIDKAwgBAZQGEAIAQAgBAV30vYO58cdUwX
+                6m7JLcGuILXdwN/3le0ViTcH7lTVQylJFUrUKILwHVh+IzQHNTzPjP6riAe8bj4rmUIz8yydRk49Fl7E
+                dIDppG09bbO/RkoAAc7g143AngRpwss7UaTat0C5TqM8SG7aDDqmYM+S1hp8pOYiNr817WGp0tr5qrXO
+                EfMsk84yl08FGY/E9lVMySTrHtkcHPtbMQdXWG662qmnBNGZNNSeSb6O6CeaeRtNVGncI7lwYH5hmAy2
+                O7ndQaqcYxW5ZJaIyk3teC3cBop4Yi2pqTO8uJDywMsLABth3E37Vl2SjJ5isF+EXFcvJy7VbTQ0MeaT
+                0nvvkjB9JxHHsaOJ967pola8I8stUFyV5hmN12K1Yg+UOgjIc9wi9GzG2+l6xOoGptruV6dVdEN2Mv8A
+                JUjOdssZwhvPR/Da7ausDv0+vN/cqn6qX+K/on/Tr5f9if8AjbW4dVSU80vyhkTspD/WLSAQQ/eDYjfc
+                K3+nrugpLhkHizrltfKLOwDG4ayESwO03OafWY7i1w5rOsrlXLay5CamsojNrMDfNmnZWVEPVRH0I3lr
+                SW5nXIHHh4KSm1R/a4pnFle7nOClzjNUd9VOe+aU/wAy1/Ch8L+jO3S+R72Tx6dlA2KAmSqqqiRkeclw
+                a1rWF0jib+i2/tVK6qLtbfEUkWqrGoYXbYn45WVDKmRrqyWR0Ty0yB72+k3R2UA+iAbjTkrdUIOCe1cl
+                ebkpNZLO6MMflqqd7J3Fz4HAZzvc1wOXNzIs4X7lnaupQknHpl3T2OUeTftptqyi/JxgSTuF8t/RYDuL
+                7ewe5c6fTO3l9Ht16hwuxV2U+VYtLKaqslZHCG3ZE7qwS/NYDLpYZTvudys37KElFcv5IK91re5/0Se0
+                myJpad9TR1lSx0IzlrpSWuA37ra8dbqKrUb5KM4rk7sq2x3Rb4OfYrpDc97YK4gl5DWTWA1O4SAaa/pD
+                x5rvUaRJbof0eU6hviRZizy4Up0q/OTvqo/cVr6L0v5M7U+oQ+yeIOp6uOWOMyPGZrGD6T3tLGjuuQpb
+                4KUGm8EdUtsk0WhDsdNO3PiNbO6R2pZE/JEy/BoA1tzWa9RGLxXFY/PZdVLlzN/0I2J19Xhda+GKqe9r
+                MpAeS5rmuAIDmk6HhcW3K7CEL4KTWCrKUqp4yWdshtNHXQ5mjLIywkjvfKTuI5tOtj3rOvpdUsexdqtU
+                0SeLYgyngfPL6sTS423nkB2k2Hio4Rc5KKO5S2rLKmftxVVdSyP5R8lhkeG3YAS0E2Bc46k7tRYarT/S
+                wrg3jLKPjynLGcIc59i5spMWK1gfwLpCW37Wi2iqLUxzzBYLDoftJibgfSNVQOLKr8u0XGtmyAjTRwFi
+                O8eKt2aOElmPBXhqZReHyMmA01VicRqZ62WFj3OEcUBDLBptcu3nW+/l4KvY4UPaopv5ZNBTtW5vBH7S
+                1NdhL43R1rp4pcwyzDMQW20J38d4I3LuqNd6accNfBxY51Yw8r8jdshtXFXMOUZJWevGTe36zT9Jvaq1
+                9Eqnz0WKrlYjZt1821P1TvuXmn9WP2LvTf0UEtwyy8+jsE4VBY2JEmvL8o/VYuq9ZmlR6aErpEwmrhp4
+                3VVeahplsGmNrLOyPOa4OugIt2q3pbISk1GOOCvfCUYrLyID9x7lfKrLzwnAq5krHy4o6SNuro+pY3ML
+                HTMDpw8liztraaUeTSjCaabkNCrk4IAQAgBACAEAIAQAgBAeZGBwIcAQRYgi4IO8EJkFfbQdGEbyX0Un
+                VE69W4Ex/wCUjVo81er1sorE1kqT0qfMRLxDYavh30xeBxjIf7B6XsVyOqql7/2V5UWL2ICeFzHZZGOY
+                7k5pafIqZSUuiJprs8NcQbg2I1B5EbivcZ4Z4fReBVnXUsMx3yxMee9zQT7brBsjtk0a0JboplFbXfn9
+                T9c/3rZo9NfRm2+djR0Ofnc31P8AO1V9f5F9k2k8zLbKyy+fPe1WLuq6uSYn0S4tjHAMabNt37+8lblN
+                argkZVk3OWRh6IvnB3+Hf/HGoNd6f8kml8/8FxrKNEonpG+dKjvZ9kxbWl9JGZf6jNvRvi7qeuY2/oVB
+                ETxwufUd3h2nc4rnVV7q8+6PaJ7Z4+S5sX/N5vqpP4SsmHmRoS6Z83t3L6B9mQWl0PYcCyWpdqQ7qWfq
+                izXvt3kt/dWZrp8qKLulj3I4dqOjupdVSS0uR7Jnl9i7K5pcbuBvoRcmxC7p1kFFKXsc2aaTk3H3GfZj
+                BfwVRTSzODn5XSyZb5bMaS1jb6njrzKr3WePYkuuiauHhQbZTdZVPlkfLIbvkcXOPafu4eC1oxUUkjPb
+                beWPfRRi0FOKj5RMyPOYsudwbe3WXtffvHmqOtrlPG1ZLWmnGOcsadrdpKOShqGR1cLnPieGtD2kkkaA
+                BVqabFYm0+ya22Dg0mUqVsmdk+gtj6509DBK83c6MBx5ubdpPiQsK+O2xr8mrVLMEyrOlX5yd9VH7itL
+                Rel/JS1PqHP0bNBxOC4vbrD4iN+q61fpM50/qIvNYxplI9KPznJ+xH/AFsaP0kZup9Q5dgcTNPXxEH0Z
+                XdU8cCH6DydlK61Ne+tnlEnGaLh2twp1VRywMIDngFt92ZpDgD2Ei3isqmeyaky/bHdFoqPDdha6SYMf
+                A6NocM73WDQL6kG/pHlZac9VWo5TyUY0TzjBdzp2N3vaO9wWRhmjlI+b6o/lH/tu95W/HpfRkPtlsdHW
+                O0sOHxsmqYmPDpLtc9oIu9xGhKzNVVOVjaReosgoYbIjpXxaCdlOIJ45MrpM2R4da4ba9tyl0Vcot5RH
+                qZxklhijshiDoK6B7TvkbG4c2yODHD237wFavhuraIKp7Zply7dfNtT9U77lkaf1Y/ZoXem/ooJbpll6
+                dG/zZB3P+0esTVeqzT0/pohumT80h/xA+zkU+g87+v8A1EWr8q+yopfVPcVqIoS6PpqPcO4L559myj0v
+                D0EAIAQAgBACAEBlAYQAgFvE9rWQV8VG+M/lg09bmFgXlwaC23EtA3/SU8KHKtzXsQyuUZqOBkUBMCA5
+                62himaWTRte08HNBHtXsZOPR44p9opPpA2fZRVWWK/VytztBNy3UhzbnePitjTWuyHPZm31qEuC3tk4D
+                HQUzHb2wR3HI5QSFlXPNkn+S/UsQSKS2u/P6n65/vWxR6a+jOt87Gjoc/O5vqf52qvr/ACL7JtJ5mWzK
+                LtIG8gj2LMXZefR8zhhGh0I0I7RoV9BnPJj9Dv0RfODv8O/+ONU9d6f8ljS+f+C41lGiUT0jfOlR3x/Z
+                MW1pfSRmX+oyL2fjLqynDd5ni9kjSpLX+x/RxBZki/8AF/zeb6qT+ErDh2jUl0z5vbuX0D7MguXoi/MH
+                fXv/AIWLI1vq/wAGhpfJ/I7qoWSD22YTh1UB/YvPgBc+wFS0PFkfsju9N/RQC3TKLD6JcMgnFT18McmU
+                xZc7GutfrL2uNNw8ln62cotYZb0sIyTyiwvxZov7nB/ymfBUvGs/yZb8OHwYOzNF/c4P+Uz4LzxrPkeH
+                D4JKCFrGhkbQ1rRYNAAAHIAblG3l5Z2lgpjpV+cnfVR+4rX0XpfyZ2p9Q0dGnznD3SfZvXWr9JnOn9RF
+                5FYxplI9KPznJ+xH/AFsaL0UZup9QhNnYS+sp2t3meL2PBPsBU1rxCT/AAR1rMkvyXTtrtGKGm6xoDpJ
+                Dkjad17Elx7APuHFY9FPiyx7GjbZsjkqWlq6zEqqOGSpeTM628hjQAXOIY2w0AOi1JRhTBtLooJyslhs
+                sqj6NcPYBnidI7i5z3a+DSAs96y19PBcWmrRTNQ0B7gNwc4DuBK14vKTM99stvo5wSmlw+N81NE9xdJd
+                zo2uJs9wGpCytVZONjSZe08IuGWhm/Fmi/ucH/KZ8FX8az5J/Dh8HqPZ6ja4ObSQAtIIIiYCCNQQbb08
+                Wb9x4cV7HLt1821P1TvuXWn9WP2c3emygluGWXr0cfNkHdJ9o9Ymq9Vmnp/TRC9Mn5pD/iB9nIp9B539
+                f+oi1flX2VFL6p7itRFCXR9NR7h3BfPM2Uel4eggBACAEAIAQAgBACAEBTfS4f8A+g22loGa/wCaRaui
+                9N/Zn6rzjvsLteyrjEcrgKhgs5p06wD6befaOB7FT1GndbyuizTcprD7G1Vic8ySBoLnEANFySbAAcST
+                uCd9HjeOSq6qL8M4oDGCaWmDWufbRzQS4gdrybDsF1pJ/p6ee2Un/wA1nHSLVAss1l4+fdrx/wAfU/XP
+                963KPTj9GVb52MvQ/K1tXKHOAzQ6XNr2e29lX1yexfZNpXiTHnCsdkqMQniiLHU1PG0F4FyZSdzXg2It
+                muLb2qlOpRrTfb//AAsxm5TaXSK86SdmnU9Q6eNv5Gd2a4GjHnVzTyBOo7yOCv6S9SjtfaKl9W2WV0eu
+                iWQDECCfWgkA7TmY63kD5JrV/wAX8jS+f+C5lkmiUN0gyh2J1BabgOa3xbGwH2gjwW1pfSRmX+oxh6Kt
+                m3PlFZK2zI7iK/03EWLh+qATrzPYq+suSWxfyS6ap53Ms3F/zeb6qT+ErPh5kXZdM+b27l9A+zHLl6Iv
+                zB317/4WLI1vq/waGl8g7KoWTzLGHNLXC4cCCOYOhCZxyD5+2owF9FUOieDkJJifwczhrzG4jmtym1WR
+                z7mVZW4PkdOheUXqm31IhcB2DrAfePNU9evKWdI+0Wes8uC5tnjvURdVD6VTU+hDGPWu7TORwA337FPR
+                Xue59Lshus2rC7ZJ4Bh5p6aKEuLjGwAuJJJO9xueFybdijsluk2dwW2KRUvSr85O+qj+9ami9L+SjqfU
+                I3YWvZBiEEkps27mlx3DOxzQT2XIUmpi5VtI4pkozTZfd1iGoUj0nuBxOS3BkYP7gWxo/SRm6l/8hLdE
+                +AF8xrJG+hFdsd/pPIs4jsAJHeexRa23jYiTS15e47+meJ2Wmfb0QZWk8Mzgwj2Nd5LjQNZkjrVrpiLs
+                pigpayGd4JaxxDrb8rmlhIHGwN/BXbq3ZBxRWqltkmXHiG2VHHAZW1Echt6DGODnudwblGo157lkR085
+                Sxg0JXQUc5KVxnCp6Z4FSwtdI0SDkc2p15g6EcCtiqcZr9vsZ04Si+S3OiuUHDWAHVkkgI5EuLh7CD4r
+                L1nql7TemN91VLAmV1Z+EK6KCncTBRSCaeVp9F0jb5ImuG/W9/8AZWox8Ktyl2+iu5eJPbHpdkttz821
+                P1TvuUWn9WP2d3emyglumWXp0cfNkHc/7R6xNV6rNPT+miG6ZPzSH/ED7ORTaDzv6/8AURavyr7KikGh
+                7itUoPovbazaP5PSNdTOY6aYxthb62YuI1yg6i1/MLFqp3z/AHdLs1LLNseO2MdPmyNz2zWGa27NbW3Z
+                dV33wSro9oeggBACAEAIAQGUAIDCAUtpth462qbPJM5rWsawsa0XIaXH1ydL35KzVqZVx2pEFlCnLLPW
+                KbAUcrWiJhgfGAGyRGztNxdf1j27+1eQ1VkXzyJaeD64OaLZ3FYxljxYOaN3WQhzvN1yfNdu6l8uH+zx
+                VWrqQO2JmnI/COIyzNGvVsAiYe8C9/IFP1MY+nFL/Y8CUvPIa8Ow+KCMRwRtYxu4Ae0neT2lVpScnlk0
+                YqKwjqXJ0Ie1nR2Kqd08E3VuksXtc3M0kC1wQQW7hferlOrcI7Wsla3Tb3lMiKXonfm/LVbQ3iGMJPgX
+                Gw8ipZa/jiJGtJ8ssPA8GhpIRDA2zRqSdXOPFzjxKo2WSseZFqEFFYR11EDZGlkjQ5rhYtcAQRyIO9cp
+                tPKOms9iRX9GsXWCWiqH072nM36bWn9XUOHmVbjrJYxNZK8tMs5i8HU7BsXLchxOIDdmEAz+7QrjxKM5
+                2f7PfDtx5jRg/RpTRuz1Mjqh172d6LCd9y25LvE68l1PWTaxHhHkNNFPL5HdjA0ANAAAsANAAOACqFkg
+                Notl/lbw81dREAzIWRPytdqTdwtqdbKaq7w10n9kNlW99tC9/RRTf3mf/t/+Ksfr5fCIv0i+WdNP0cMj
+                GWLEKxgvezZGtF+dgN64esz3FHq02OpMcqGn6uNkeZzura1uZxu52UAXceJKqt5eSylhYNy8PTjxXC4a
+                mMx1EYe08DvB5tI1ae0LqE5QeYs5lFSWGJf9HL4Jetw+ufE4bszQ7Q8CQRcdhBVv9ZuWLI5K/wCmcXmD
+                wSP4GxZ3ovxONo4lkDc3ttZR+JQuof7O9lvvL/RI4BsrDTOMpc+ad/rTynM/uH6I/wDbriy6U1jpfCOo
+                VKPPb+TvxzDflEJi66SLMQc8bsrxlN7A9q4rnslnGfs6nHcsZwKNR0YQyHNJWVL3bsznMcbDtLbq0tbK
+                PCiiB6VPts24f0Z0sT8zpZZAWuaWOyWIc0t4NBBF7g8wvJ62cljGD2Omin2bINmcQpxkpMS/JD1WzRh5
+                aOQdr9w7Fy7q58yhyeqqyPEZcHDR9GueYzV9UZi45nNaMuY/rOJvbsACklrMLbCODiOm5zJ5H6mp2xsa
+                yNoa1gAa0CwAHABUm23llpJJYRqxLD4qiN0U7A9j94PsIO8HtC9jNxeYiUVJYYjz9FVOXXZUStH6JDHW
+                7AbD23Vxa6eOUiq9JH5JrZ/YWkpHCRrXSSN3PkIJB5taAAD22v2qGzVWTWOkSwohHkmcYweCqj6uojD2
+                7xwLTza4ag9yhhZKDzFkkoRksMVafYB9O8uocQmhDt7S1rwe8XAPiLqy9Up+eKZAtPt8rwdTtjppdK3E
+                6iVnFjA2Jp7HZb3C5/URj5IpHXgt+aQyYbh0VPGIoIwxjdwHtJO8ntKgnNzeZMljFRWELuM7Eipkke+u
+                qmtlOsTXjqwLAWDSLW0U9ep2JLavshnRuedzIr+imm/vM/8A2/8AxUv6+Xwjj9IvlndQbANhLMlfVhsb
+                g4MEgDDZ2axaBax495UctVu7ijqOnx/2ZO7T4DHWwGGQluoc1wsS1wvY2O8WJFu1Q1WuuW5E1lamsMr5
+                3RRNfSrjtzyOB8r/AHq9+vX+JU/SS+Rn2V2AgpHiV7jLK31SQGtb2tbrr2k+Sr3aqViwuETV6eMHl8sc
+                VVLAIAQAgMIAQAgBAZQGEAIAQAgBACAEAIAQAgBACAEAIAQAgBACAEAIAQAgBAZQGEAIAQGUBhACAygB
+                AYQAgBACAEAIAQAgBAZQAgMIAQAgBAZQGEAIAQAgBACA4MSxaKD13XdwaNXf7eK7jBy6OJWKPZphdUzD
+                NpC07hbNJbtvo3yXr2x/J4t0vwbDhIPrzTO/1CPY2wXm/wDCHh/kjcXpZKdnWwTyWaRma92Yam2l/BSQ
+                ak8NHE4uKymGG4tUVDgGNYxrbZ32J8Brv7EnXGAhOU+hjUBOCAEAIAQAgBACAEAIAQAgNFUyQgdW8N53
+                bmv7RZerHuePPsLOJ47URSOjzsdlt6WS28A7rnmrEKoyWSvO2SeDs2ZxGaZ7+sdcNaNLAak9g7CubYRj
+                0dVTlLsYVATggBACAEAIDXUxuc0hj8pO51gbeB0XqZ418C7jlRU04aRPmDyRfIwWI1HDv8lPWoS9iCxy
+                j7kXDtBPmGaUhpIuQ1lwL6kaKR1RxwiNWyzyxsFHL/en/uR/+Krbl8Fna/khsWraqmcLyB7HbiWAa8ja
+                2qkhGEyKcpwOjCdpGyODJW5XO0BB9Enl2LydLXKPYXZ4ZPqEnBACAEAIDVUPcGksbmI+jfLfxXqx7njz
+                7EZV4pPGwvdS6DeesBt22AXcYRbxkjlOS5wRsW1rswzRAN42JJ7wpHRx2Rq/8DPDM17Q5hBDhcEKBrHD
+                LCeeTMkgaC5xAA3k7gvD04n4zTjfMzwN/cu/Dl8HHiR+TqpqhsjQ6NwLTx/93Llpp4Z0mnyjavD0EAIA
+                QAgMoDCAEBC7R4x1IyR/1jhv/RHPv5KWqvdyyK2zbwhNZMQ8POpDg7XW5BvrzVtrjBUT5yNdNtXGf6xj
+                mnmLOHx9iquhrosq9e5L0eIxS/1cgPZuPkdVG4NdoljOL6NWMUBnYGB+VuYF2lyQOA5L2EtryeTjuWDD
+                g6FrWU9OXgcnNbbvJ1JXnmeWx5VhIipNq7Egwag2P5QEeYClVH5I/H/B34LislQSeqDWN0vmJueQ0C4n
+                BROoTcjfiVe+LUQlzQLudma0Dz1K5jFP3OpS2+xDu2uHCE+Lv9lN4H5IvH/Aw0cjnMDntyuIuW3vbkL8
+                1A0kydNtcnBimKvhuTBdgIAf1jRcnk3f/wDi7hBS9zic3H2Iz8bSSA2C5Og9Pj3ZVJ4HyyPx/hEy/FGt
+                Fi1z3gekyMF+U8QTuHioVDJLvIo7Wsv/AFLvMX8lL4D+SPx18E3h1a2aMPZexuLHeCN6ilHa8MljJSWU
+                ea/EooReR1r7hvce4JGLl0JTUeyOpsefK4inpy628ueGgd+hXcqlHzMjVrl5UdkeIlrg2eIx5tA7MHMJ
+                5ZhuPeFzt+DvfjsRKqbPI55+m4nzKuRWFgpN5eRp2KjtHI79JwHkP91XvfJZoXBO1UwYxzzuYC4+AuoU
+                svBM3hZFqTa5xPoQjxcSfIBTqj5ZB479keRtXIPXhHm4e8J4C9meeO/gkKTaiF3rhzD2i48x8Fy6JLo7
+                V8X2d4xintfrmfvBR7JfB34kfk5KraSBg9FxeeTR950Xapkzl3RR0YLiJnjLy3LZxFt+mlteK5nDa8HU
+                J7lk8bSU2enfbez0x/l3+y69qliR5bHMRCV0pD5s3V9ZTtvvZ6B8N3ssqVscSLtUsxNuOQNfA8PIFgXA
+                ngRqPh4ryttSR7Yk48iHSwPkcGxtJd2cO0ngrkmkuSnFN9FlN3C6oF5ETiW0EULiyznOG8C1h3kqSFTk
+                skcrVF4PYxCe2b5ISDrpIwm3dxXm2Pye7pfB5p9ooHXDiWEbw8W3b9QvXVJdHitiYp8YfKC6Cnc5oNsx
+                extyOwo61HzMKxy5ijy/HxG4NqIXx33HRw8xv8F6qs+V5Dtx5lgkqapjlbdjg4cfgRw8VG00+TtSUuhQ
+                2iwbqXZ4x+Tcd36J5d3JWqrN3DK1te15RqwLGDA6zrmNx1HLtHwXtlakeV2OI8RSNe0FpDmuG/gQqb4Z
+                bzlCPjlGxshMIfa5zNLHDKewkWsrlcm1yVLIrPBpwjFHwPuNWn1m8+0civZwUkeQm4sbY8fgcLgvP+m8
+                28gqzqkiyrYsk2m4uOKjJD0gBACAwgBACAWdo8DkkkMsXpXAu29iLC2l96sVWpLayvbW28oWZoHMNntL
+                TyII96sJp9Fdprs1r08OzB4nOnjDN4cDfkAbk+S4saUXk7rTcuCxFRLwt7TYzlvDEfSPruHD9Udqnqrz
+                yyvbZjhC9hWHunkDG7t7jyHxU85KCIYRcmWBTQNjYGMFg0WCpNtvLLqWFgUtp8W6x3VRn0GHU/pOH3BW
+                aa8csrW2Z4R52WwzrH9Y8ehGdO13Dy3+SXTwsHlMMvI6KqWxI2nxHrZcjT6EWne7ifuVumG1ZZTtnl8H
+                rZvCTK7rHEhjDw0LjyB4DtS2zbwe1V7uRmxKobTwFzQBlFmgaC53ae1VopylgsTahHJX4BcbDUuPmSr3
+                CRS7Y9OcKSl5lgA73n/c+SpepMueSAkTzOe4uebudqSrqSSwim23yxy2Sp8tPmO+Rxd4DQe72qpc8yLd
+                KxE6toAPk0mb9H23FvbZc1+ZHtnlZX6vFIetlo8tM39Yud7SPuCpWvMi7UsRJGqcwMJltltrfdbtXCzn
+                g7ljHJF/h+lZo137rDb3KTwpsj8WC6Bu0tOdC5w72n7k8GaHjRZk01HUbshP6pyu8hY+a8zOIxCZpOyk
+                P6Unm34Lrx5HngRN0WB0sXpOANuL3aeR0XjsnI9VcInXRYlFI4sidfIAdB6Nt2nNcSjJcs6jKL4R2OFw
+                Qdx0XJ2VtWQGORzD9BxHhfT2K/F5WShJYeCR2aijfKY5AfSF22c5uo37jyv5Li1tLKO6km8MY5dnYHcH
+                DtzuP8Vwq6tkWPCiQ1dUVFG8Na8FjtW3Y2x5g2G8KWKjYiGTlWzuwzadryGzNyE/SHq+PJczpa5R3C5P
+                hmMewAyuMsJGY+s08baXB57krt2rDFlWeUetm4J4cwnGWO2l3N0PZY6BeWuMuhUpR7ODamGInrY5GF25
+                7Q5tzwDgLrulyXDOLlF8o5NnsV6l9nH8m/f2Hg74ru2vcuDmqza+RhxOpppoyx0zObTfceBVeClF5wTz
+                cZLAoU874n5o3WLTa41B+IVtpSXJVTcXwO2F1zamI5m6+q9p3a/cVTnHY+C3CW9cipjmEmB+mrHeqeX6
+                p7ferNdm5FeyG1nvAsYMDsrtY3HUcu0fBLK93Irs28DvFIHNDmm4cLgjcQqeMFvORU2iwLJeWEejvc0f
+                R7R2e73Warc8MrW1Y5RE4XiT4H5mag+s3gR8e1SzgpIjhNxY94fXsmZnjPeOIPIqlKLi8MuRkpLKOleH
+                QIAQAgFrGceJeIqZ2uYAv0Ot7Wbf3qeFXGZFedvOIjHGCAATcgb+faoCdHpD08SsaQQ8AjiCAR43Rfg8
+                aXuItbStlqCykbdum71e034NVyMtscyKko7pYiNmDYS2BvN7vWd9w7FWnNyZYhWoo59o8W6lmVh/KPGn
+                6o/S+C6qr3PJ5bPasITIYnPcGt1c82HaSrTaSyVEm3gfsJw9sEeUWvvc7mfgFTnJyZdhFRREbQY+Mpjg
+                NydC8bgOTTxPapK6n2yKy1dIW6KldLI2Nm9x8hxJ7lYlJRWSCMW3gsOjpmxMaxg0aLd/MntKot7nll6M
+                Ulg4NosR6mL0T6b/AEW9nM+HvIXdUdzOLZ7UJNJTuke1jN7jb4nw3q5J7VkpxW54LFo6ZscbWN3NFu/m
+                T2lUJSy8l+KwsIVdr63NIIgdI9T+0fgPeVZojhZK10svBp2Uos82cjSLX/MfV+8+C9uliODymOZZJza2
+                Iup7j6Dg492o+9Q0vEia5ZiJTWkkAbzoPFW+injJZVLCGMawfQaB5CyoN5eTQSwsEPtdUhsGS+shGnYD
+                cn3KWhfuyRXPEcCYrZULGwyLLDG3kxvu1VCTy2X4rCR6r6QSxmNxIDrXta+hB49y8i8PIksrBHtwGlb6
+                zf3nn4qTxZs48OBn8C0jtzG+Dz8V54kx4cDjqtk2HWORzTyPpD7iu1e/dHLoXsch2cqRoJhb9t49ll14
+                sPg58KXye4dlHk3llHhdx8zZHevZBUN9sm8OwuKD1PWdpmJ1PG3JQynKXZNCEY9EguDsTdsKbLMHjdI3
+                2t0Psyq1Q+MFS5c5IalnMb2vG9hB+IU0llYIovDyWTFIHNDhucAR3HVZ+MGgnkjdo6LrYHW9aP0x4bx4
+                i/sUlUsSI7Y7oiGrpSHWgnlFAHAXe1jst9TYE2NuOipyS8TBci34YmzTOebvcXE8Sbq2kl0VG2+x2wJs
+                EkLSyNlwAHDKL343O83VOzcmW69rXQtY/hnUSej6j7lvZzb4KxVPciCyG1knsriu6CQ/sH+X4KO6Huju
+                mfsxosq5ZNVXUCNjnkEhgubb7L1LLweN4WTzLEyaOzhdsgB89QRyKJuLPGlJCJiuHOgfldqDq13MfFXY
+                TUlkpzg4vB1YFjJgOV1zGTqOLe0fBc2V7uV2dV2beH0O8bw5oIIIcLg8CFT6LeciltFgWS8sI9De5v6P
+                aOz3KzVbnhla2rHKIegrnwvzxnvHAjkVNKKksMijJxeUPWF4kydmZmhHrN4g/DtVKcHF8lyE1I3sqmF5
+                jDhmbqW8bc+5eYeMnWVnBuXgOHFaWSRmSOQMB9Y2JNuQ10XUGk8s5mm+EQ8uygDAYpTnBvc6N8Laj2qV
+                X57XBF4GOnySEFXVNFpKbMR9JsjAD4FcOMH0ztSmu0enVlSfVpLdrpW28hclNsfk93S+DTJhk835zMA3
+                +zjFge9x3opxj5UebJS8zJOjo2RNyxtDR7T3niuJSb7JIxS6N68PRexnZ500hkZIBmto4HSwtoQpoW7V
+                jBBOrc8nLSbMzMeHNma0jcQCTy3Gy6d0WsYOVTJPOSXOFEtPWSuldbQP0jvwuxu/xuot/wALBLs+Xkhp
+                NlpnEudKwk6n1vgplel7ETob9zqw3BZ4CTG+Il2l3B5NuQXM7Iy7Oo1yj0TEonyNDDHn+kSHZe2wGqh/
+                bnkl/djghcRwGomfnkkjuBYAB1gFNC2MVhIhlVKTy2esKwKaB+YPjN9CSHEgX1tu1Sdqkj2FTiyZrBNp
+                1JjHPOHHutZQrb7kst3sLs2y8znFzpWEuJJ9befBWFfFcYIHRJ85JLBsNmg9HNGWE3dYOzHTnu5KOycZ
+                ckkISjwTLmgixFwdCFESi3VbMkPD6d4FiHBrr2BBvoRw7FOruMSIHTzmJJZqsi2WFn62ZzvJth71H+w7
+                /ecOI7OuksRLmfrne++vINA0aN+i7hbt9jiVWTh/FOX+0Z/1fBd+Ovg48B/Iy0TZhfrjGRplyBw7738F
+                BLb7FiO73NONUskseSJ2Ulwubkaa8vBewkovLPLIuSwiGbsiT604v2Mv7SVL4/wiLwPlmXbIcpvNn/2T
+                x/wPA/J4/BVbDrDLmHIO/lfoniVy7R5ssj0w/C1c3R0JP+m7+XRe7K/kb7F7GDX18mjYy3uZb2vTZUvc
+                brH7G/DsEn61ss8urDe1y4919w8FzOyOMRR1CuWctjKoCcgMTwmonAD5IrNJIs1wPJTQsjHpEMq5S7ZH
+                /inL/aM/6vgpPHXwR+A/klKSiq42BjZYrNFhdribKJyg3nBKozSxk2S0lW9pa6eNocLHKw3se9FKC9ht
+                m/c56HZaNhvI4vtwtlb4jefNeyub6PI0pdk8BbQKEmIHEtmGPJdE7ITqRa7f9lNG5rshlSn0R8GztVG7
+                NHIwHmHOHmMq7dsH2iNVTT4JeDCZHua6rlEmS9mBoDbkWudNVG5peXglUG/Nyc1ZsswnNC8sO+28eB3h
+                exueMNHMqV2jphNawWLYpLccxafHSy5fhv5Ol4iPFTBVTtyPEcTHetYlziOQ4L1OEeVyGpy4fBMQxhrQ
+                0bmgAdwFlE3kkSwRuMYfJMCy8eXeLtdmaeYIKkhJR5OJwcuCG/FKT+1Z5FS+Ovgh8B/JI4ZhlTAC1ksZ
+                aeDg4gd1lHKcJdokjCcemS1KJLETZCf1QbW7QVG8exIs+5CYlsu1xLoXBhP0SPR8OIU0bmuGRSpzyiPg
+                wGrjdmjLQRxDveCNV27YNcnCqmnwS2G4ZP14mqJGkhpaA3iO2wAUUpx27YokjCW7dInFETYBACAEAIAQ
+                AgBACAEAIAQAgBACAEAIAQAgBACAEAIAQAgBACAEAIAQAgBACAEAIAQAgBACAEAIAQAgBACAEAIAQAgB
+                ACAEAIAQAgBACAEAIAQAgBACAEAIAQAgBACAEAIAQAgBACAEAIAQAgBACAEAIAQAgBACAEAIAQAgBACA
+                EAIAQAgBACAAgBACAEAIAQAgBAf/2Q==
+</property>
+        </structure>
+    </list-property>
+</report>

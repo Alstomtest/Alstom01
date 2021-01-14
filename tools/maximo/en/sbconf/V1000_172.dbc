@@ -1,0 +1,1292 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_172">
+    <description>Auto-Generated Script </description>
+    <statements>
+         <!-- MR-1459 -->    
+        <specify_crossover_domain domainid="SBHPMJBANE" description="PM to Work Order" overwrite="true" objectname="PM" validationwhereclause="pmnum=:pmnum and siteid=:siteid">
+            <crossovervalueinfo sourcefield="FNCONOFFSET" destfield="FNCONOFFSET"/>
+            <crossovervalueinfo sourcefield="LEAD" destfield="LEAD"/>
+            <crossovervalueinfo sourcefield="NEXTDATE" destfield="SCHEDSTART"/>
+            <crossovervalueinfo sourcefield="OWNER" destfield="OWNER"/>
+            <crossovervalueinfo sourcefield="SBHINVCOST" destfield="SBHINVCOST"/>
+            <crossovervalueinfo sourcefield="SBHPMDOCTILKN" destfield="SBHWODOCTILKN"/>
+            <crossovervalueinfo sourcefield="SBHPMINTERVALSP" destfield="SBHWOINTERVALSP"/>
+            <crossovervalueinfo sourcefield="SBHPMJERNBANEREGEL" destfield="SBHWOJERNBANEREGEL"/>
+            <crossovervalueinfo sourcefield="SBHPMKORE" destfield="SBHWOKORE"/>
+            <crossovervalueinfo sourcefield="SBHPMKORENUM" destfield="SBHWOKORENUM"/>
+            <crossovervalueinfo sourcefield="SBHPMRASP" destfield="SBHWORASP"/>
+            <crossovervalueinfo sourcefield="SBHPMSPSP" destfield="SBHWOSPSP"/>
+            <crossovervalueinfo sourcefield="SBHPMTRAKMSLUT" destfield="SBHWOTRAKMSLUT"/>
+            <crossovervalueinfo sourcefield="SBHPMTRAKMSTART" destfield="SBHWOTRAKMSTART"/>
+            <crossovervalueinfo sourcefield="SBHPMTRARETNING" destfield="SBHWOTRARETNING"/>
+            <crossovervalueinfo sourcefield="SBHPMTRASPOR" destfield="SBHWOTRASPOR"/>
+            <crossovervalueinfo sourcefield="SBHPMTRAVAMPLAN" destfield="SBHWOTRAVAMPLAN"/>
+            <crossovervalueinfo sourcefield="SBHPMTROLJE" destfield="SBHWOTROLJE"/>
+            <crossovervalueinfo sourcefield="SBHPMVENDOR" destfield="VENDOR"/>
+            <crossovervalueinfo sourcefield="STCONOFFSET" destfield="STCONOFFSET"/>
+        </specify_crossover_domain>
+		<add_attributes object="PM">
+		    <attrdef attribute="SBHPMRASP" maxtype="YORN" title="Road Block" remarks="Road Block" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" defaultvalue="0" searchtype="EXACT"/>
+		</add_attributes>
+		<add_attributes object="WORKORDER">
+		    <attrdef attribute="SBHWORASP" maxtype="YORN" title="Road Block" remarks="Road Block" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" defaultvalue="0" searchtype="EXACT"/>
+		</add_attributes>
+		<create_relationship parent="WORKORDER" name="SBHPOSSWO" child="WORKORDER" whereclause="HISTORYFLAG = 0 &#10;AND ISTASK = 0 &#10;AND WONUM != :WONUM &#10;AND STATUS IN ('WAPPR','APPR','WSCH') &#10;AND (&#10;( :worktype ='SPSP' &#10;AND coalesce(SBHWOSPORNR,0) = coalesce(:SBHWOSPORNR,0) &#10;AND coalesce(SBHWOSPSP,0) = coalesce(:SBHWOSPSP,0) &#10;AND SBHWOKORE IN (0, cast(CASE WHEN :SBHWOKORE = 0 THEN '0' ELSE '1' END as int))&#10;) &#10;OR ( :worktype = 'VEJSP' &#10;AND coalesce(SBHWORASP,0) = coalesce(:SBHWORASP,0)&#10;AND coalesce(SBHWOTRARETNING, 'ABC') = coalesce(:SBHWOTRARETNING, 'ABC') &#10;AND coalesce(SBHWOTRASPOR, 'ABC') = coalesce(:SBHWOTRASPOR, 'ABC') &#10;AND coalesce(SBHWOTRAFIKSP, 'ABC') = coalesce(:SBHWOTRAFIKSP, 'ABC')&#10;)&#10;)&#10;AND (schedstart &gt;= :schedstart AND schedfinish &lt;= coalesce(:schedfinish, getdate()) &#10;AND WONUM NOT IN (SELECT RELATEDRECORD.RELATEDRECKEY FROM RELATEDRECORD WHERE RELATEDRECORD.RECORDKEY = :WONUM AND RELATEDRECORD.SITEID = :SITEID AND CLASS = 'WORKORDER')) &#10;AND ( &#10;workorder.ASSETNUM IN (SELECT a1.ASSETNUM &#10;&#9;&#9;&#9;&#9;FROM ASSET a1 &#10;&#9;&#9;&#9;&#9;WHERE a1.ISLINEAR = 1 &#10;&#9;&#9;&#9;&#9;AND a1.startmeasure &gt;= (SELECT a2.startmeasure&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;FROM asset a2 &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE a2.assetnum = :assetnum) &#10;&#9;&#9;&#9;&#9;AND a1.endmeasure &lt;= (SELECT a3.endmeasure &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;FROM asset a3 &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE a3.assetnum = :assetnum)&#10;&#9;&#9;&#9;)&#10;OR WONUM IN (SELECT multiassetlocci.recordkey &#10;&#9;&#9;&#9;&#9;FROM multiassetlocci &#10;&#9;&#9;&#9;&#9;WHERE (multiassetlocci.recordkey = wonum &#10;&#9;&#9;&#9;&#9;AND multiassetlocci.recordclass = 'WORKORDER' &#10;&#9;&#9;&#9;&#9;AND multiassetlocci.ASSETNUM IN (SELECT ASSET.ASSETNUM &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;FROM ASSET &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE ASSET.ISLINEAR = 1 &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;AND ASSET.startmeasure &gt;= (SELECT coalesce(a2.startmeasure,asset.startmeasure-1) &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;FROM asset a2 &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE a2.assetnum = :assetnum) &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;AND asset.endmeasure &lt;= (SELECT a3.endmeasure &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;FROM asset a3 &#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;WHERE a3.assetnum = :assetnum)&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;)&#10;&#9;&#9;&#9;&#9;&#9;&#9;)&#10;&#9;&#9;&#9;&#9;)&#10;&#9;&#10;&#9;)" remarks="Relationship to WORKORDER object to select potential Candidate records to be related to the 'Possession' Work Order."/>	
+	
+		<!-- MR-1576 -->
+        <freeform description="Automatically Generated - Delete Scripts">
+            <sql target="sqlserver">
+				delete FROM autoscript  where autoscript in ('SBHNEWMULTI','SBHMULTIASSET');
+				delete FROM scriptlaunchpoint  where autoscript in ('SBHNEWMULTI','SBHMULTIASSET');
+				delete FROM autoscriptvars  where autoscript in ('SBHNEWMULTI','SBHMULTIASSET');
+				delete FROM LAUNCHPOINTVARS  where autoscript in ('SBHNEWMULTI','SBHMULTIASSET');
+			</sql>
+        </freeform>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHNEWMULTI"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="SBH New Multi"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants&#10;if(launchPoint==&quot;SBHNEWMULTI&quot;):&#10;   workorderSet=mbo.getMboSet(&quot;WORKORDER&quot;)&#10;   workorderMbo=workorderSet.getMbo(0)&#10;   if (workorderMbo is not None):&#10;      woGlAccount=workorderMbo.getString(&quot;GLACCOUNT&quot;)&#10;      woGlAccountshort=woGlAccount[0:3]&#10;      assetNum=mbo.getString(&quot;assetnum&quot;)&#10;      if(assetNum == &quot;&quot;):&#10;          assetSet = mbo.getMboSet(&quot;LOCATION&quot;)&#10;      else:&#10;          assetSet = mbo.getMboSet(&quot;ASSET&quot;)&#10;      asset = assetSet.getMbo(0)&#10;      if (asset is not None):&#10;             multigl = asset.getString(&quot;GLACCOUNT&quot;)&#10;             multiglshort = multigl[0:3]&#10;      if (not mbo.toBeDeleted()):&#10;                ## Check if GL account are different&#10;                if (woGlAccountshort != multiglshort):&#10;                   ##mbo.setValue(&quot;DESCRIPTION&quot;,assetglshort+&quot;  -  assetnum: &quot;+assetNum+&quot;  -  multifirst: &quot;+multiglshortfirst+&quot;  -  multi: &quot;+multiglshort)&#10;                   errorgroup = &quot;workorder&quot;&#10;                   errorkey = &quot;MultiAssetLegalEntityError&quot;&#10;if(launchPoint==&quot;SBHNEWMULTIWO&quot;):&#10;   assetgl = mbo.getString(&quot;GLACCOUNT&quot;)&#10;   assetglshort = assetgl[0:3]&#10;   multiassetglSet = mbo.getMboSet(&quot;MULTIASSETLOCCI&quot;)&#10;   if (multiassetglSet is not None):&#10;       cCount=multiassetglSet.count()&#10;       for i in range(cCount):&#10;        ## Get MultiAssetLocation all &#10;        multiassetgl=multiassetglSet.getMbo(i)&#10;        assetNum=multiassetgl.getString(&quot;assetnum&quot;)&#10;        ## Verifying if it's an Asset or Location&#10;        if (assetNum == &quot;&quot;):&#10;          assetSet = multiassetgl.getMboSet(&quot;LOCATION&quot;)&#10;        else:&#10;          assetSet = multiassetgl.getMboSet(&quot;ASSET&quot;)&#10;        asset = assetSet.getMbo(0)&#10;        if (asset is not None): &#10;          multigl = asset.getString(&quot;GLACCOUNT&quot;)&#10;          multiglshort = multigl[0:3]&#10;          ## Get first Asset location&#10;          if (i== 0):&#10;             multiglshortfirst = multiglshort&#10;          ## Check if row is to be deleted&#10;          if (not multiassetgl.toBeDeleted()): &#10;             ## Check if GL account are different&#10;             if (assetglshort != multiglshort or multiglshortfirst != multiglshort):&#10;               ##mbo.setValue(&quot;DESCRIPTION&quot;,assetglshort+&quot;  -  assetnum: &quot;+assetNum+&quot;  -  multifirst: &quot;+multiglshortfirst+&quot;  -  multi: &quot;+multiglshort)&#10;               errorgroup = &quot;workorder&quot; &#10;               errorkey = &quot;MultiAssetLegalEntityError&quot;"/>
+                <columnvalue column="createddate" date="01-24-2020:10:54:57"/>
+                <columnvalue column="version" string="ubr 1.0"/>
+                <columnvalue column="statusdate" date="01-24-2020:10:54:57"/>
+                <columnvalue column="changedate" date="01-24-2020:13:27:05"/>
+                <columnvalue column="owner" string="URAX"/>
+                <columnvalue column="createdby" string="URAX"/>
+                <columnvalue column="changeby" string="URAX"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="scriptlaunchpoint" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHNEWMULTI"/>
+                <columnvalue column="autoscript" string="SBHNEWMULTI"/>
+                <columnvalue column="description" string="Sbh New Multi Launch point"/>
+                <columnvalue column="launchpointtype" string="OBJECT"/>
+                <columnvalue column="objectname" string="MULTIASSETLOCCI"/>
+                <columnvalue column="objectevent" number="6"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="scriptlaunchpoint" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHNEWMULTIWO"/>
+                <columnvalue column="autoscript" string="SBHNEWMULTI"/>
+                <columnvalue column="description" string="SBH New Multi Workorder"/>
+                <columnvalue column="launchpointtype" string="OBJECT"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+                <columnvalue column="objectevent" number="6"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        
+		<!-- MR-1614 -->
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM autoscript  where autoscript = 'SBHASSMANDFC';
+				delete FROM scriptlaunchpoint  where autoscript = 'SBHASSMANDFC';
+				delete FROM autoscriptvars  where autoscript = 'SBHASSMANDFC';
+				delete FROM LAUNCHPOINTVARS  where autoscript = 'SBHASSMANDFC';
+			</sql>
+        </freeform>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Mandatory Asset Field Check for Operating Status"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;&#10;if MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;LOCASSETSTATUS&quot;,STATUS, mbo) == &quot;OPERATING&quot;:&#10;    vDESCRIPTION_required==True&#10;    vLOCATION_required==True&#10;    vCLASSIFICATION_required==True    &#10;    vFAILURECODE_required==True&#10;    vGLACCOUNT_required==True&#10;#    SCADATAG_required==True&#10;&#10;    if vDESCRIPTION is None or vLOCATION is None or vCLASSIFICATION is None or vFAILURECODE is None or vGLACCOUNT is None :&#10;     errorgroup = &quot;asset&quot;&#10;     errorkey = &quot;SBHMEMNDASSFC&quot;&#10;     vDESCRIPTION_required==True"/>
+                <columnvalue column="createddate" date="08-16-2019:15:58:12"/>
+                <columnvalue column="statusdate" date="08-16-2019:15:58:12"/>
+                <columnvalue column="changedate" date="12-18-2019:10:21:02"/>
+                <columnvalue column="owner" string="CTIX"/>
+                <columnvalue column="createdby" string="CTIX"/>
+                <columnvalue column="changeby" string="URAX"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="scriptlaunchpoint" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="description" string="Mandatory Asset Field Check for Operating Status"/>
+                <columnvalue column="launchpointtype" string="OBJECT"/>
+                <columnvalue column="objectname" string="ASSET"/>
+                <columnvalue column="objectevent" number="1024"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="STATUS"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="STATUS"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vCLASSIFICATION"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="CLASSIFICATION"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vDESCRIPTION"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="DESCRIPTION"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vFAILURECODE"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="FAILURECODE"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vGLACCOUNT"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="GLACCOUNT"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vLOCATION"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="LOCATION"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vSCADATAG"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="SCADATAG"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vSTATUS"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="STATUS"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vTRACK"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="STATUS"/>
+                <columnvalue column="varbindingvalue" string="STATUS"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vCLASSIFICATION"/>
+                <columnvalue column="varbindingvalue" string="CLASSSTRUCTUREID"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vDESCRIPTION"/>
+                <columnvalue column="varbindingvalue" string="DESCRIPTION"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vFAILURECODE"/>
+                <columnvalue column="varbindingvalue" string="FAILURECODE"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vGLACCOUNT"/>
+                <columnvalue column="varbindingvalue" string="GLACCOUNT"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vLOCATION"/>
+                <columnvalue column="varbindingvalue" string="LOCATION"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vSCADATAG"/>
+                <columnvalue column="varbindingvalue" string="SBHSROID"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vSTATUS"/>
+                <columnvalue column="varbindingvalue" string="STATUS"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vTRACK"/>
+                <columnvalue column="varbindingvalue" string="SBHASSSPORNR"/>
+            </insertrow>
+        </insert>
+        
+		<!-- MR-1457 -->
+       <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM QUERY where app = 'WOTRACK' and clausename not like 'SBH-%';
+			</sql>
+        </freeform>
+       <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM L_QUERY where ownerid in (select queryid from query where app = 'WOTRACK' and clausename like 'SBH-%');
+				insert into l_query (description, ownerid, langcode) values ('Ejer - Afviste arbejdsordrer',(select queryid from query where clausename ='SBH-AO-AFVISTE-EJER'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Fang - Afviste arbejdsordrer',(select queryid from query where clausename ='SBH-AO-AFVISTE-FANG'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Hold - Afviste arbejdsordrer',(select queryid from query where clausename ='SBH-AO-AFVISTE-HOLD'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Mont - Afviste arbejdsordrer',(select queryid from query where clausename ='SBH-AO-AFVISTE-MONT'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Ejer - Akutte og afhjælpende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-AKUT-UDSV-EJER'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Fang - Akutte og afhjælpende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-AKUT-UDSV-FANG'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Hold - Akutte og afhjælpende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-AKUT-UDSV-HOLD'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Mont - Akutte og afhjælpende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-AKUT-UDSV-MONT'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Ejer - Akutte og afhjælpende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-FORV-EJER'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Fang - Akutte og afhjælpende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-FORV-FANG'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Hold - Akutte og afhjælpende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-FORV-HOLD'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Mont - Akutte og afhjælpende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-FORV-MONT'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Ejer -Ikke akutte, afhjælpende og forebyggende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-IKKE-AKUT-UDSV-EJER'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Fang - Ikke akutte, afhjælpende og forebyggende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-IKKE-AKUT-UDSV-FANG'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Hold - Ikke akutte, afhjælpende og forebyggende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-IKKE-AKUT-UDSV-HOLD'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Mont - Ikke akutte, afhjælpende og forebyggende vedligeholdelses arbejdsordrer',(select queryid from query where clausename ='SBH-AO-IKKE-AKUT-UDSV-MONT'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Mine aktive arbejdsordrer',(select queryid from query where clausename ='SBH-AO-RAPPORT-AF'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Ejer - Mine aktive arbejdsordrer',(select queryid from query where clausename ='SBH-AO-RAPPORT-AF-EJER'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Fang - Mine aktive arbejdsordrer',(select queryid from query where clausename ='SBH-AO-RAPPORT-AF-FANG'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Hold - aktive arbejdsordrer',(select queryid from query where clausename ='SBH-AO-RAPPORT-AF-HOLD'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Mont aktive arbejdsordrer',(select queryid from query where clausename ='SBH-AO-RAPPORT-AF-MONT'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Jernbane planlægger - Lbnr. ædringer',(select queryid from query where clausename ='SBH-LBNR-ÆNDRINGER'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('SPORSernbane planlægger - P og KA der mangler bestilling (8 uge frem)',(select queryid from query where clausename ='SBH-SPORSP-KA-BEST'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Jernbane planlægger - SPORSP og KA bestilt men ej modtaget (2 uger frem)',(select queryid from query where clausename ='SBH-SPORSP-KA-MGL'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Jernbane planlægger - Faste SPORSP der mangler fastisk tid eller SR rap. OK',(select queryid from query where clausename ='SBH-SPORSP-MGL-FAK-TID-ELLER-SR-OK'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Jernbane planlægger - Interval SPORSP der mangler intervalsp. brugt eller SR rap. OK',(select queryid from query where clausename ='SBH-SPORSP-MGL-INTERVALSP-BRUGT-ELLER-SR-OK'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Jernbane planlægger - SPORSP - Manglende udarbejdelse af JSP (14 dg frem)',(select queryid from query where clausename ='SBH-SPORSP-MGL-JSP'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Jernbane planlægger - Sporskifteeftersyn uden tilknyttet rapport fra Microting',(select queryid from query where clausename ='SBH-SPSK-EFTERSYN-TILKNYT-DOK'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('TO - Øresund - Alle akutte og afhjælpende AO (site ASØ)',(select queryid from query where clausename ='SBH-TO-AFHV-AKUT-ASØ'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('TO - Storebælt - Alle akutte og afhjælpende AO (site SBF)',(select queryid from query where clausename ='SBH-TO-AFHV-AKUT-SBF'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('TO - Alle akutte og afhjælpende AO (Uden Konto nr)',(select queryid from query where clausename ='SBH-TO-AFHV-AKUT-UDEN-KONTO'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('TO - Alle aktive jobs med TO som fagansvarlig eller SRO som entrp.',(select queryid from query where clausename ='SBH-TO-EGNE-JOBS'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('TO - Sporspærringer med KA 7 dage frem',(select queryid from query where clausename ='SBH-TO-SPORSP-M-KA-7-DAGE'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Trafik - Abne afspaerring 30 dage tidligere og 180 dage frem',(select queryid from query where clausename ='SBH-TRAFIK-AFSP-30-180-DAGE'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Trafik - Nye, ikke FV og ikke underbehandling',(select queryid from query where clausename ='SBH-TRAFIK-NYE-IKKE-UBEH'),'DA');
+				insert into l_query (description, ownerid, langcode) values ('Jernbane planlægger - UT-FEJL GR.1 og Spændingsudligning',(select queryid from query where clausename ='SBH-UT-FEJL GR.1'),'DA');
+			</sql>
+        </freeform>
+        
+        <!-- MR-1595 -->
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM condition  where conditionnum in (select conditionnum from maxdomvalcond where domainid='WOSTATUS');
+			</sql>
+        </freeform>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHINPRGUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME = 'MAXADMIN')  or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ( &#10;'SBHTECHINT','SBHTECHEXT','SBHSUPEREXT1','SBHSUPEREXT2','SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD')  and :status = 'REJ') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHTECHINT','SBHTECHEXT','SBHSUPEREXT1','SBHSUPEREXT2','SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD') and :status = 'APPR')"/>
+                <columnvalue column="description" string="Work Order INPRG Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOAPPRUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME = 'MAXADMIN') or :&amp;USERNAME&amp; IN (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD','SBHSERDESK','SBHSYSADMIN')) and :status IN('WAPPR','WPLAN','PLAN','WMATL')"/>
+                <columnvalue column="description" string="Work Order Approve Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOCANCUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN('MAXADMIN')) and (:status = 'WPLAN' or :status = 'WAPPR') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHSERDESK','SBHPLANRAIL','SBHPLANROAD','SBHSYSADMIN'))"/>
+                <columnvalue column="description" string="Work Order Cancel Work Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOCCMPUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME = 'MAXADMIN') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPEREXT1') and :status IN ('DONE'))"/>
+                <columnvalue column="description" string="Work Order CONTCOMP Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOCLOSUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp;  in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME ='MAXADMIN') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD','SBHSYSADMIN')) and :status = 'COMP'  or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT')) and :status = 'FINCOMP'"/>
+                <columnvalue column="description" string="Work Order Closed Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOCOMPUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME = 'MAXADMIN') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD','SBHSYSADMIN') and :status IN ('FINCOMP','INPRG','WPLAN'))"/>
+                <columnvalue column="description" string="Work Order COMP Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWODONEUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME = 'MAXADMIN') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHTECHINT','SBHTECHEXT','SBHSUPEREXT1','SBHSUPEREXT2','SBHSYSADMIN')  and :status IN ('INPRG'))"/>
+                <columnvalue column="description" string="Work Order DONE Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOFCOMUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME = 'MAXADMIN') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT')) and (:status = 'APPR' or :status = 'CONTCOMP' or :status = 'INPRG')"/>
+                <columnvalue column="description" string="Work Order FINCOMP Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOHDITUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME ='MAXADMIN' or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD') and :status = 'CLOSE'))"/>
+                <columnvalue column="description" string="Work Order History Edit Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOPLANUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME ='MAXADMIN')or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPEREXT1','SBHSUPEREXT2','SBHTECHSUPP') and :status = 'WPLAN')"/>
+                <columnvalue column="description" string="Work Order Plan Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOREJUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME = 'MAXADMIN')&#10;or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHSYSADMIN') and :status = 'CONTCOMP') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPEREXT1') and :status = 'DONE')"/>
+                <columnvalue column="description" string="Work Order REJ Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOWAPPUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME = 'MAXADMIN') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT') and :status = 'APPR')"/>
+                <columnvalue column="description" string="Work Order WAPPR Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOWPLNUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME  = 'MAXADMIN') or &#10;:&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD','SBHSYSADMIN') and :status = 'REJ') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPEREXT1','SBHSUPEREXT2') and :status = 'PLAN') or :&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD','SBHTECHSUPP','SBHSERDESK','SBHSYSADMIN') and :status = 'WAPPR')"/>
+                <columnvalue column="description" string="Work Order WPLAN Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOWPLTUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('MAXADMIN')) or &#10;:&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD','SBHSERDESK') and :status IN('WPLAN','WAPPR'))"/>
+                <columnvalue column="description" string="Work Order WPLANT Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>        
+        <!-- MR-1595 -->   
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM maxdomvalcond where domainid='WOSTATUS';
+			</sql>
+        </freeform>
+       <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|APPR"/>
+                <columnvalue column="conditionnum" string="SBHWOAPPRUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|CAN"/>
+                <columnvalue column="conditionnum" string="SBHWOCANCUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|CLOSE"/>
+                <columnvalue column="conditionnum" string="SBHWOCLOSUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|COMP"/>
+                <columnvalue column="conditionnum" string="SBHWOCOMPUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|CONTCOMP"/>
+                <columnvalue column="conditionnum" string="SBHWOCCMPUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|DONE"/>
+                <columnvalue column="conditionnum" string="SBHWODONEUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|FINCOMP"/>
+                <columnvalue column="conditionnum" string="SBHWOFCOMUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|HISTEDIT"/>
+                <columnvalue column="conditionnum" string="SBHWOHDITUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|INPRG"/>
+                <columnvalue column="conditionnum" string="SBHINPRGUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|PLAN"/>
+                <columnvalue column="conditionnum" string="SBHWOPLANUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|REJ"/>
+                <columnvalue column="conditionnum" string="SBHWOREJUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WAPPR"/>
+                <columnvalue column="conditionnum" string="SBHWOWAPPUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WMATL"/>
+                <columnvalue column="conditionnum" string="SBHWOWPLTUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WPCOND"/>
+                <columnvalue column="conditionnum" string="SBHWOWPLTUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WPLAN"/>
+                <columnvalue column="conditionnum" string="SBHWOWPLNUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WPLANT"/>
+                <columnvalue column="conditionnum" string="SBHWOWPLTUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        
+		<!-- MR-1595 -->
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM applicationauth where groupname='SBHPURCHREQEXT';
+				delete FROM maxgroup where groupname='SBHPURCHREQEXT' and authallsites='1';
+				delete FROM groupuser where groupname='SBHPURCHREQEXT' and userid in ('IBM-EXTLEAD_1','IBM-EXTLEAD_2','IBM-EXTLEAD_3','IBM-EXTLEAD_4','IBM-EXTLEAD_5','IBM-EXTLEAD_6');			
+				delete FROM securityrestrict where groupname='SBHPURCHREQEXT';
+			</sql>
+        </freeform>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="CHANGEPSWD"/>
+                <columnvalue column="optionname" string="READ"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="CHANGEPSWD"/>
+                <columnvalue column="optionname" string="SAVE"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="COMPMASTER"/>
+                <columnvalue column="optionname" string="BOOKMARK"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="BMXVIEWMANAGEWHER"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="BMXVIEWMANAGEWHERRO"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="BOOKMARK"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="CLEAR"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="CREATEREPT"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="INSERT"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="NEXT"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="PREVIOUS"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="READ"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="RUNREPORTS"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="SAVE"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="SEARCHBOOK"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="SEARCHMORE"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="SEARCHSQRY"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="SEARCHTIPS"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="SEARCHVMQR"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="SEARCHWHER"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="SELASPARTS"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="VENDORLIST"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="PR"/>
+                <columnvalue column="optionname" string="VIEWHIST"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="STARTCNTR"/>
+                <columnvalue column="optionname" string="DEFAULT"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="STARTCNTR"/>
+                <columnvalue column="optionname" string="DELETEREPT"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="STARTCNTR"/>
+                <columnvalue column="optionname" string="PASSWORD"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="STARTCNTR"/>
+                <columnvalue column="optionname" string="PERSONAL"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="STARTCNTR"/>
+                <columnvalue column="optionname" string="READ"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="STARTCNTR"/>
+                <columnvalue column="optionname" string="SHOWPORTLETDETAILS"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="STARTCNTR"/>
+                <columnvalue column="optionname" string="UPDATETEMP"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="optionname" string="SBHHIDETECH"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Purchase Requestor (External)"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="groupuser" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="userid" string="IBM-EXTLEAD_1"/>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+            </insertrow>
+        </insert>
+        <insert table="groupuser" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="userid" string="IBM-EXTLEAD_2"/>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+            </insertrow>
+        </insert>
+        <insert table="groupuser" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="userid" string="IBM-EXTLEAD_3"/>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+            </insertrow>
+        </insert>
+        <insert table="groupuser" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="userid" string="IBM-EXTLEAD_4"/>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+            </insertrow>
+        </insert>
+        <insert table="groupuser" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="userid" string="IBM-EXTLEAD_5"/>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+            </insertrow>
+        </insert>
+        <insert table="groupuser" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="userid" string="IBM-EXTLEAD_6"/>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPLABOR"/>
+                <columnvalue column="attributename" string="DISPLAYRATE"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1121"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="LABTRANS"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1113"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="MATUSETRANS"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORMA"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1115"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="TOOLTRANS"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORTOO"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1119"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPLABOR"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1122"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPMATERIAL"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1123"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPSERVICE"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1125"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPTOOL"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORTOO"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1128"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="SERVRECTRANS"/>
+                <columnvalue column="attributename" string="LOADEDCOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORSER"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1117"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="LABTRANS"/>
+                <columnvalue column="attributename" string="PAYRATE"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1114"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPTOOL"/>
+                <columnvalue column="attributename" string="RATE"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORTOO"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1127"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="TOOLTRANS"/>
+                <columnvalue column="attributename" string="TOOLRATE"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORTOO"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1120"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="MATUSETRANS"/>
+                <columnvalue column="attributename" string="UNITCOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORMA"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1116"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="SERVRECTRANS"/>
+                <columnvalue column="attributename" string="UNITCOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORSER"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1118"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPMATERIAL"/>
+                <columnvalue column="attributename" string="UNITCOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1124"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPSERVICE"/>
+                <columnvalue column="attributename" string="UNITCOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1126"/>
+            </insertrow>
+        </insert>
+        
+        <!-- MR-1619 -->
+        <add_attributes object="LABOR">
+            <attrdef attribute="LABORCODE" maxtype="UPPER" title="Labor" remarks="Identifier of the labor record.  This field must be unique within an organization. When you save a labor record, this field becomes read-only." length="20" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="true" userdefined="false" classname="psdi.app.labor.FldLaborLaborcode" autokey="LABORCODE" searchtype="WILDCARD"/>
+        </add_attributes>    
+        
+        <!-- MR-1613 -->
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM condition  where conditionnum  = 'SBHHIDEDELSP';		
+				delete FROM sigoption  where optionname = 'SBHHIDEDEL';			
+				delete FROM applicationauth  where groupname = 'MAXEVERYONE' and optionname = 'SBHHIDEDEL';
+			</sql>
+        </freeform>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHHIDEDELSP"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":assetattrid not in('SBHLOCLEVEL' ,'SBHLOCTYPE')"/>
+                <columnvalue column="description" string="Hide Delete Row (Location Specification tab)"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="sigoption" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="app" string="LOCATION"/>
+                <columnvalue column="optionname" string="SBHHIDEDEL"/>
+                <columnvalue column="description" string="Hide Delete Row button"/>
+                <columnvalue column="esigenabled" number="0"/>
+                <columnvalue column="visible" number="1"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="hasld" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="MAXEVERYONE"/>
+                <columnvalue column="app" string="LOCATION"/>
+                <columnvalue column="optionname" string="SBHHIDEDEL"/>
+            </insertrow>
+        </insert>        
+
+        <!-- MR-1556 -->        
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM ESCNOTIFICATION where escalation in('SBHWOWFINIT','SBHCREATEINVC');
+				delete FROM ESCALATION where escalation in('SBHWOWFINIT','SBHCREATEINVC');
+				delete FROM ESCREFPOINT where escalation in('SBHWOWFINIT','SBHCREATEINVC');
+				delete FROM ACTIONGROUP where member in('SBHWOWFINIT','SBHCREATEINVC');
+				delete FROM ACTION where action in('1008','1012','1013');
+				delete FROM action where action in ('SBHCREATEINVC','SBHWOWFINIT');
+			</sql>
+        </freeform>
+        <insert table="ESCALATION" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="description" string="Initiate WO Workflow"/>
+                <columnvalue column="active" number="1"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+                <columnvalue column="condition" string="status ='DONE'  and istask = 0 and workorderid not in(select ownerid from wfinstance where active =1 and workorder.workorderid = wfinstance.ownerid)"/>
+                <columnvalue column="changeby" string="BKIX"/>
+                <columnvalue column="changedate" date="12-03-2019:15:16:25"/>
+                <columnvalue column="crontaskname" string="ESCALATION"/>
+                <columnvalue column="instancename" string="ESCSBHWOWFINIT"/>
+                <columnvalue column="escalation" string="SBHWOWFINIT"/>
+                <columnvalue column="schedule" string="1h,*,0,*,*,*,*,*,*,*"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="escstatusflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="ESCALATION" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="description" string="Create Invoice from LabTrans (run on site to not block table)"/>
+                <columnvalue column="active" number="0"/>
+                <columnvalue column="objectname" string="SITE"/>
+                <columnvalue column="condition" string="1=1"/>
+                <columnvalue column="changeby" string="BKIX"/>
+                <columnvalue column="changedate" date="12-03-2019:14:39:35"/>
+                <columnvalue column="crontaskname" string="ESCALATION"/>
+                <columnvalue column="instancename" string="ESCSBHCREATEINVC"/>
+                <columnvalue column="escalation" string="SBHCREATEINVC"/>
+                <columnvalue column="schedule" string="2m,*,*,*,*,*,*,*,*,*"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="escstatusflag" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="ESCREFPOINT" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="escalation" string="SBHCREATEINVC"/>
+                <columnvalue column="refpointnum" number="1"/>
+                <columnvalue column="repeat" number="0"/>
+                <columnvalue column="action" string="1013"/>
+            </insertrow>
+        </insert>
+        <insert table="ESCREFPOINT" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="escalation" string="SBHWOWFINIT"/>
+                <columnvalue column="refpointnum" number="1"/>
+                <columnvalue column="eventcondition" string="1=1"/>
+                <columnvalue column="repeat" number="1"/>
+                <columnvalue column="action" string="1008"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTIONGROUP" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1008"/>
+                <columnvalue column="member" string="SBHWOWFINIT"/>
+                <columnvalue column="sequence" number="10"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTIONGROUP" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1012"/>
+                <columnvalue column="member" string="SBHCREATEINVC"/>
+                <columnvalue column="sequence" number="10"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTIONGROUP" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1013"/>
+                <columnvalue column="member" string="SBHCREATEINVC"/>
+                <columnvalue column="sequence" number="10"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTION" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1008"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+                <columnvalue column="type" string="GROUP"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="usewith" string="ESCALATION"/>
+                <columnvalue column="hasld" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTION" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1012"/>
+                <columnvalue column="objectname" string="LABTRANS"/>
+                <columnvalue column="type" string="GROUP"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="usewith" string="ESCALATION"/>
+                <columnvalue column="hasld" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTION" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1013"/>
+                <columnvalue column="objectname" string="SITE"/>
+                <columnvalue column="type" string="GROUP"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="usewith" string="ESCALATION"/>
+                <columnvalue column="hasld" number="0"/>
+            </insertrow>
+        </insert>
+		        <insert table="action" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="SBHCREATEINVC"/>
+                <columnvalue column="description" string="Create INVOICE"/>
+                <columnvalue column="objectname" string="SITE"/>
+                <columnvalue column="type" string="CUSTOM"/>
+                <columnvalue column="value" string="com.ibm.tivoli.maximo.script.ScriptAction"/>
+                <columnvalue column="parameter" string="SBHCREATEINVC,SBHCREATEINVC,SBHCREATEINVC"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="usewith" string="ALL"/>
+                <columnvalue column="hasld" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="action" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="SBHWOWFINIT"/>
+                <columnvalue column="description" string="Initiate Workflow for work order 2"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+                <columnvalue column="type" string="APPACTION"/>
+                <columnvalue column="parameter" string="SBHWOREV"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="usewith" string="ALL"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="value2" string="WFINITIATE"/>
+            </insertrow>
+        </insert>      
+        </statements>
+</script>

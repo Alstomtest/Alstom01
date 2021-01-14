@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="V1000_133">
+  <description>GenInsertDbc created this script at Sat Oct 26 12:18:11 CEST 2019</description>
+  <statements>
+		<modify_attribute object="PM" attribute="SBHPMTRAFIKSP" maxtype="YORN"/>
+		<modify_attribute object="WORKORDER" attribute="SBHWOSPFAKSLUT" title="Actual Possession End Date" remarks="Actual Possession End Date"/>
+		<modify_attribute object="WORELEASE" attribute="SBHWOSPFAKSLUT" title="Actual Possession End Date" remarks="Actual Possession End Date"/>
+		<modify_attribute object="WOCHANGE" attribute="SBHWOSPFAKSLUT" title="Actual Possession End Date" remarks="Actual Possession End Date"/>
+		<modify_attribute object="WOACTIVITY" attribute="SBHWOSPFAKSLUT" title="Actual Possession End Date" remarks="Actual Possession End Date"/>
+		<modify_attribute object="WORKORDER" attribute="SBHWOSPFAKSTART" title="Actual Possession End Date" remarks="Actual Possession Start Date"/>
+		<modify_attribute object="WORELEASE" attribute="SBHWOSPFAKSTART" title="Actual Possession End Date" remarks="Actual Possession Start Date"/>
+		<modify_attribute object="WOCHANGE" attribute="SBHWOSPFAKSTART" title="Actual Possession End Date" remarks="Actual Possession Start Date"/>
+		<modify_attribute object="WOACTIVITY" attribute="SBHWOSPFAKSTART" title="Actual Possession End Date" remarks="Actual Possession Start Date"/>
+	    <add_attributes object="WORKORDER">
+            <attrdef attribute="SBHWOSPOR" maxtype="YORN" title="Track Possession" remarks="Track Possession" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+	    <add_attributes object="WOACTIVITY">
+            <attrdef attribute="SBHWOSPOR" maxtype="YORN" title="Track Lockout" remarks="Track Lockout" sameasobject="WORKORDER" sameasattribute="SBHWOSPOR" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+        <add_attributes object="WOCHANGE">
+            <attrdef attribute="SBHWOSPOR" maxtype="YORN" title="Track Lockout" remarks="Track Lockout" sameasobject="WORKORDER" sameasattribute="SBHWOSPOR" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+        <add_attributes object="WORELEASE">
+            <attrdef attribute="SBHWOSPOR" maxtype="YORN" title="Track Lockout" remarks="Track Lockout" sameasobject="WORKORDER" sameasattribute="SBHWOSPOR" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+		<add_attributes object="POLINE">
+            <attrdef attribute="SBHINVOICED" maxtype="YORN" title="SBH Invoiced" remarks="SBH invoice manually" sameasobject="POLINE" sameasattribute="RECEIPTSCOMPLETE" length="1" persistent="true" haslongdesc="false" required="true" mustbe="true" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+		<freeform description="SBHWOSPOR translation">
+		<sql target="sqlserver">
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPOR');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='SBHWOSPOR');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='SBHWOSPOR');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='SBHWOSPOR');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSPOR');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WOACTIVITY' and attributename='SBHWOSPOR');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WOCHANGE' and attributename='SBHWOSPOR');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORELEASE' and attributename='SBHWOSPOR');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values ((select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='SBHWOSPOR'),'Sporspærring','Sporspærring','DA');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values ((select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='SBHWOSPOR'),'Sporspærring','Sporspærring','DA');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='SBHWOSPOR'),'Sporspærring','Sporspærring','DA');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPOR'),'Sporspærring','Sporspærring','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='SBHWOSPOR'),'Sporspærring','Sporspærring','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='SBHWOSPOR'),'Sporspærring','Sporspærring','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='SBHWOSPOR'),'Sporspærring','Sporspærring','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPOR'),'Sporspærring','Sporspærring','DA');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPFAKSTART');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='SBHWOSPFAKSTART');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='SBHWOSPFAKSTART');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='SBHWOSPFAKSTART');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSPFAKSTART');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WOACTIVITY' and attributename='SBHWOSPFAKSTART');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WOCHANGE' and attributename='SBHWOSPFAKSTART');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORELEASE' and attributename='SBHWOSPFAKSTART');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values ((select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='SBHWOSPFAKSTART'),'Spærring faktisk start','Spærring faktisk start','DA');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values ((select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='SBHWOSPFAKSTART'),'Spærring faktisk start','Spærring faktisk start','DA');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values ((select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='SBHWOSPFAKSTART'),'Spærring faktisk start','Spærring faktisk start','DA');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values ((select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPFAKSTART'),'Spærring faktisk start','Spærring faktisk start','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattributecfg where objectname='WORELEASE' and attributename='SBHWOSPFAKSTART'),'Spærring faktisk start','Spærring faktisk start','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattributecfg where objectname='WOCHANGE' and attributename='SBHWOSPFAKSTART'),'Spærring faktisk start','Spærring faktisk start','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattributecfg where objectname='WOACTIVITY' and attributename='SBHWOSPFAKSTART'),'Spærring faktisk start','Spærring faktisk start','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSPFAKSTART'),'Spærring faktisk start','Spærring faktisk start','DA');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPFAKSLUT');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='SBHWOSPFAKSLUT');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='SBHWOSPFAKSLUT');
+		delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='SBHWOSPFAKSLUT');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSPFAKSLUT');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WOACTIVITY' and attributename='SBHWOSPFAKSLUT');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WOCHANGE' and attributename='SBHWOSPFAKSLUT');
+		delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORELEASE' and attributename='SBHWOSPFAKSLUT');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values ((select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='SBHWOSPFAKSLUT'),'Spærring faktisk slut','Spærring faktisk slut','DA');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values ((select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='SBHWOSPFAKSLUT'),'Spærring faktisk slut','Spærring faktisk slut','DA');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values ((select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='SBHWOSPFAKSLUT'),'Spærring faktisk slut','Spærring faktisk slut','DA');
+		insert into l_maxattribute (ownerid, title, remarks, langcode) values ((select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='SBHWOSPFAKSLUT'),'Spærring faktisk slut','Spærring faktisk slut','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattributecfg where objectname='WORELEASE' and attributename='SBHWOSPFAKSLUT'),'Spærring faktisk slut','Spærring faktisk slut','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattributecfg where objectname='WOCHANGE' and attributename='SBHWOSPFAKSLUT'),'Spærring faktisk slut','Spærring faktisk slut','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattributecfg where objectname='WOACTIVITY' and attributename='SBHWOSPFAKSLUT'),'Spærring faktisk slut','Spærring faktisk slut','DA');
+		insert into l_maxattrcfg (ownerid, title, remarks, langcode) values	((select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='SBHWOSPFAKSLUT'),'Spærring faktisk slut','Spærring faktisk slut','DA');
+		</sql>
+		</freeform>
+  </statements>
+</script>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="view.dbc">
+    <description>Default value from SCHEDSTART on WO</description>
+    <statements>
+    	<freeform description="Default value from SCHEDSTART on WO">
+  			<sql target="sqlserver">
+         		update maxattributecfg set defaultvalue = NULL where objectname = 'WORKORDER' and attributename = 'SCHEDSTART';
+  			</sql>	
+  		</freeform>
+    </statements>
+</script>

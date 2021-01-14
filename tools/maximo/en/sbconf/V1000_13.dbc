@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into sigoption">
+  <description>GenInsertDbc created this script at Tue Jun 18 10:27:43 CEST 2019</description>
+  <statements>
+	<freeform description="c">
+		<sql target="all">
+			delete from sigoption where app in ('MXLASSET_L');		
+		</sql>
+	</freeform>  
+    <insert table="sigoption">
+      <insertrow>
+        <columnvalue column="prerequisite" string="READ" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXLASSET_L" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Delete MXLASSET_L" />
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXLASSET_L" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Insert MXLASSET_L" />
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXLASSET_L" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="ALL" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Read MXLASSET_L" />
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXLASSET_L" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="DELETE,INSERT" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Save MXLASSET_L" />
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXLASSET_L" />
+      </insertrow>
+    </insert>
+  </statements>
+</script>

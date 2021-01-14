@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_149">
+    <description>Auto-Generated Script</description>
+    <statements>
+	<freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='PM' and attributename='SBHINVCOST');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='VENDOR');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='PERSONGROUPTEAM' and attributename='SBHCONMAN');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='PERSONGROUPTEAM' and attributename='SBHOPSMGR');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='POLINE' and attributename='SBHINVOICED');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WOACTIVITY' and attributename='SBHINVCOST');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WOCHANGE' and attributename='SBHINVCOST');            
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORELEASE' and attributename='SBHINVCOST');     
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='PM' and attributename='SBHINVCOST');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='VENDOR');          
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='PERSONGROUPTEAM' and attributename='SBHCONMAN');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='PERSONGROUPTEAM' and attributename='SBHOPSMGR');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='POLINE' and attributename='SBHINVOICED');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='SBHINVCOST');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='SBHINVCOST');            
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='SBHINVCOST');                     
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='SUPERVISOR');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='OWNER');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='PERSONGROUP');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='LEAD');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='SUPERVISOR');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='OWNER');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='PERSONGROUP');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='LEAD');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='PM' and attributename='SUPERVISOR');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='PM' and attributename='OWNER');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='PM' and attributename='PERSONGROUP');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='PM' and attributename='LEAD');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='PM' and attributename='SUPERVISOR');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='PM' and attributename='OWNER');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='PM' and attributename='PERSONGROUP');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='PM' and attributename='LEAD');
+				delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname='PM' and attributename='SBHPMVENDOR');
+				delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname='PM' and attributename='SBHPMVENDOR');				
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Kontrakt Manager','Kontrakt Manager', (select maxattributeid from maxattribute where objectname='PERSONGROUPTEAM' and attributename='SBHCONMAN'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Operations Manager','Operations Manager', (select maxattributeid from maxattribute where objectname='PERSONGROUPTEAM' and attributename='SBHOPSMGR'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('POLINE faktureres af ERP','ERP faktureret', (select maxattributeid from maxattribute where objectname='POLINE' and attributename='SBHINVOICED'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Ingen faktura/Omkostning','Ingen faktura/Omkostning', (select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='SBHINVCOST'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Ingen faktura/Omkostning','Ingen faktura/Omkostning', (select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='SBHINVCOST'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Ingen faktura/Omkostning','Ingen faktura/Omkostning', (select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='SBHINVCOST'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Kontrakt Manager','Kontrakt Manager', (select maxattributeid from maxattributecfg where objectname='PERSONGROUPTEAM' and attributename='SBHCONMAN'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Operations Manager','Operations Manager', (select maxattributeid from maxattributecfg where objectname='PERSONGROUPTEAM' and attributename='SBHOPSMGR'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('POLINE faktureres af ERP','ERP faktureret', (select maxattributeid from maxattributecfg where objectname='POLINE' and attributename='SBHINVOICED'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Ingen faktura/Omkostning','Ingen faktura/Omkostning', (select maxattributeid from maxattributecfg where objectname='WOACTIVITY' and attributename='SBHINVCOST'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Ingen faktura/Omkostning','Ingen faktura/Omkostning', (select maxattributeid from maxattributecfg where objectname='WOCHANGE' and attributename='SBHINVCOST'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Ingen faktura/Omkostning','Ingen faktura/Omkostning', (select maxattributeid from maxattributecfg where objectname='WORELEASE' and attributename='SBHINVCOST'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Supervisor på arbejdet. Maximo kopierer disse oplysninger fra jobplanen, hvis der er en. Du kan ogsø vølge en supervisor.','Fagansvarlig', (select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='SUPERVISOR'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Den person, der for øjeblikket er ansvarlig for arbejdsordren.','Driftsleder', (select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='OWNER'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));	
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Lead-person ansvarlig for arbejdet.','Holdleder', (select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='LEAD'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));	
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Supervisor på arbejdet. Maximo kopierer disse oplysninger fra jobplanen, hvis der er en. Du kan ogsø vølge en supervisor.','Fagansvarlig', (select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='SUPERVISOR'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Den person, der for øjeblikket er ansvarlig for arbejdsordren.','Driftsleder', (select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='OWNER'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Lead-person ansvarlig for arbejdet.','Holdleder', (select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='LEAD'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Angiver den persongruppe, der er ansvarlig for arbejdet. Persongrupper oprettes i applikationen Persongrupper.','Driftsomrøde', (select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='PERSONGROUP'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Den person, der for øjeblikket er ansvarlig for arbejdsordren.','Entreprenør', (select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='VENDOR'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));	
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Angiver den persongruppe, der er ansvarlig for arbejdet. Persongrupper oprettes i applikationen Persongrupper.','Driftsomrøde', (select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='PERSONGROUP'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Den person, der for øjeblikket er ansvarlig for arbejdsordren.','Entreprenør', (select maxattributeid from maxattributecfg where objectname='WORKORDER' and attributename='VENDOR'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)				
+				values ('Supervisor på arbejdet. Maximo kopierer disse oplysninger fra jobplanen, hvis der er en. Du kan ogsø vølge en supervisor.','Fagansvarlig', (select maxattributeid from maxattribute where objectname='PM' and attributename='SUPERVISOR'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Den person, der for øjeblikket er ansvarlig for arbejdsordren.','Driftsleder', (select maxattributeid from maxattribute where objectname='PM' and attributename='OWNER'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));	
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Lead-person ansvarlig for arbejdet.','Holdleder', (select maxattributeid from maxattribute where objectname='PM' and attributename='LEAD'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));	
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Supervisor på arbejdet. Maximo kopierer disse oplysninger fra jobplanen, hvis der er en. Du kan ogsø vølge en supervisor.','Fagansvarlig', (select maxattributeid from maxattributecfg where objectname='PM' and attributename='SUPERVISOR'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Den person, der for øjeblikket er ansvarlig for arbejdsordren.','Driftsleder', (select maxattributeid from maxattributecfg where objectname='PM' and attributename='OWNER'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Lead-person ansvarlig for arbejdet.','Holdleder', (select maxattributeid from maxattributecfg where objectname='PM' and attributename='LEAD'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Angiver den persongruppe, der er ansvarlig for arbejdet. Persongrupper oprettes i applikationen Persongrupper.','Driftsomrøde', (select maxattributeid from maxattribute where objectname='PM' and attributename='PERSONGROUP'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Den person, der for øjeblikket er ansvarlig for arbejdsordren.','Entreprenør', (select maxattributeid from maxattribute where objectname='PM' and attributename='SBHPMVENDOR'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));	
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Angiver den persongruppe, der er ansvarlig for arbejdet. Persongrupper oprettes i applikationen Persongrupper.','Driftsomrøde', (select maxattributeid from maxattributecfg where objectname='PM' and attributename='PERSONGROUP'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Den person, der for øjeblikket er ansvarlig for arbejdsordren.','Entreprenør', (select maxattributeid from maxattributecfg where objectname='PM' and attributename='SBHPMVENDOR'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode, l_maxattrcfgid)
+				values ('Ingen faktura/Omkostning','Ingen faktura/Omkostning', (select maxattributeid from maxattributecfg where objectname='PM' and attributename='SBHINVCOST'),'DA',(select max(l_maxattrcfgid) + 1 from l_maxattrcfg));
+				insert into l_maxattribute (remarks, title, ownerid, langcode, l_maxattributeid)
+				values ('Ingen faktura/Omkostning','Ingen faktura/Omkostning', (select maxattributeid from maxattribute where objectname='PM' and attributename='SBHINVCOST'),'DA',(select max(l_maxattributeid) + 1 from l_maxattribute));	
+				update l_maxattribute set title='Lokation' where ownerid=(select maxattributeid from maxattribute where objectname='workorder' and attributename='location');
+				update l_maxattrcfg set title='Lokation' where ownerid=(select maxattributeid from maxattributecfg where objectname='workorder' and attributename='location');
+				update l_maxattribute set title='Lokation' where ownerid=(select maxattributeid from maxattribute where objectname='pm' and attributename='location');
+				update l_maxattrcfg set title='Lokation' where ownerid=(select maxattributeid from maxattributecfg where objectname='pm' and attributename='location');
+			</sql>
+        </freeform>
+        <add_attributes object="PERSONGROUPTEAM">
+            <attrdef attribute="SBHCONMAN" maxtype="YORN" title="Contractor Manager" remarks="Contractor Manager" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHOPSMGR" maxtype="YORN" title="Ops Manager" remarks="Ops Manager" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+        <add_attributes object="PM">
+            <attrdef attribute="SBHINVCOST" maxtype="YORN" title="Indicator for No invoice/cost" remarks="Indicator for No invoice/cost" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+        <add_attributes object="WOACTIVITY">
+            <attrdef attribute="SBHINVCOST" maxtype="YORN" title="Indicator for No invoice/cost" remarks="Indicator for No invoice/cost" sameasobject="PM" sameasattribute="SBHINVCOST" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+        <add_attributes object="WOCHANGE">
+            <attrdef attribute="SBHINVCOST" maxtype="YORN" title="Indicator for No invoice/cost" remarks="Indicator for No invoice/cost" sameasobject="PM" sameasattribute="SBHINVCOST" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+        <add_attributes object="WORELEASE">
+            <attrdef attribute="SBHINVCOST" maxtype="YORN" title="Indicator for No invoice/cost" remarks="Indicator for No invoice/cost" sameasobject="PM" sameasattribute="SBHINVCOST" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+	</statements>
+</script>

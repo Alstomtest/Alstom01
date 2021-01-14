@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_147">
+    <description>Auto-Generated Script</description>
+    <statements>
+		<freeform description="Create application imports for classifications, locations and job plan (xml)">
+		<sql target="all">
+			update maxattributecfg set userdefined=0 where attributename like 'SBH%';
+			update maxattribute set userdefined=0 where attributename like 'SBH%';
+		</sql>
+		</freeform>
+		<modify_attribute object="PM" attribute="SBHPMTRAFIKSP" required="false" defaultvalue=""/>
+        <add_attributes object="SBREORDERITEMS">
+            <attrdef attribute="STORELOC" maxtype="UPPER" title="Storeloc" remarks="Storeloc The storeroom where the reorder process takes place." sameasobject="LOCATIONS" sameasattribute="LOCATION" length="30" persistent="false" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" classname="psdi.app.inventory.virtual.FldReorderItemsStoreloc" searchtype="NONE"/>
+        </add_attributes>
+    </statements>
+</script>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into securityrestrict">
+  <description>GenInsertDbc created this script at Sat Oct 26 12:03:48 CEST 2019</description>
+  <statements>
+          <freeform description="Automatically Generated - Object classes change">
+            <sql target="sqlserver">
+            delete from securityrestrict where objectname='workorder' and attributename in ('FAILURECODE',
+			'FR1CODE',
+			'FR2CODE',
+			'OWNERGROUP',
+			'PERSONGROUP',
+			'PROBLEMCODE',
+			'SBHWOTRAFIKSP',
+			'SBHWOTRARETNING',
+			'SBHWOTRASPOR',
+			'SCHEDFINISH',
+			'SCHEDSTART',
+			'TARGCOMPDATE',
+			'TARGSTARTDATE') and restriction='REQUIRED';
+			delete from securityrestrict where app='WOTRACK' and attributename='PERSONGROUP' and objectname='WORKORDER' and restriction='REQUIRED' and type='ATTR';
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHASSFCODE','REQUIRED',1,'FAILURECODE','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHWOAPPRCHK','REQUIRED',1,'FAILURECODE','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHWOFLEMCM','REQUIRED',1,'FR1CODE','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHWOFLEMCM','REQUIRED',1,'FR2CODE','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHOWNCHK2','REQUIRED',1,'OWNERGROUP','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHPERGCHK','REQUIRED',1,'PERSONGROUP','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHWOAPPRCHK','REQUIRED',1,'PROBLEMCODE','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHWOWORKT','REQUIRED',1,'SBHWOTRAFIKSP','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHWOWORKT','REQUIRED',1,'SBHWOTRARETNING','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHWOWORKT','REQUIRED',1,'SBHWOTRASPOR','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHPLANCHK','REQUIRED',1,'SCHEDFINISH','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHPLANCHK','REQUIRED',1,'SCHEDSTART','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHWOAPPRCHK','REQUIRED',1,'TARGCOMPDATE','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHWOAPPRCHK','REQUIRED',1,'TARGSTARTDATE','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))        
+            </sql>
+        </freeform>
+  </statements>
+</script>

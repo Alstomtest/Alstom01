@@ -1,0 +1,8 @@
+/* How to install Release 175
+ *  
+ 1. Run DBC script for release 175
+ 2. Import WOTRACK.XML
+ 3. Import SYSTEM.XML
+ 4. Import custom reports (Refer to DEV object for details)
+ / 
+

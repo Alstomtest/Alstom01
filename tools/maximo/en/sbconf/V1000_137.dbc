@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_137">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+                delete FROM autoscript  where autoscript like 'SBH%';
+                delete FROM scriptlaunchpoint  where autoscript = 'SBHLOCMANDFC';
+                delete FROM autoscriptvars  where autoscript = 'SBHLOCMANDFC';
+                delete FROM LAUNCHPOINTVARS  where autoscript =  'SBHLOCMANDFC';
+            </sql>
+        </freeform>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSLOCLVC"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="owneremail" string="somayina@uk.ibm.com"/>
+                <columnvalue column="description" string="Asset Location Level Check"/>
+                <columnvalue column="source" string="#assetnum = mbo.getString(&quot;ASSETNUM&quot;)&#10;if vLOCATTR=='SBHLOCLEVEL' and (vLOCLEVEL == 'L0' or vLOCLEVEL=='L1' or vLOCLEVEL=='L2' or vLOCLEVEL=='L3'):&#10;    errorgroup = &quot;asset&quot;&#10;    errorkey = &quot;SBHMEMNDASSFC&quot;"/>
+                <columnvalue column="createddate" date="08-19-2019:08:21:43"/>
+                <columnvalue column="statusdate" date="08-19-2019:08:21:43"/>
+                <columnvalue column="changedate" date="11-17-2019:22:56:57"/>
+                <columnvalue column="createdbyemail" string="somayina@uk.ibm.com"/>
+                <columnvalue column="owner" string="SOW"/>
+                <columnvalue column="createdby" string="SOW"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHMULTIASSET"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Multi Asset GL Account - Legal Entity validation"/>
+                <columnvalue column="source" string="######################   Solution Description   ########################&#10;##                                                                                                                                                                           ##&#10;##  Securing that we only have one GL Account - Legal Entity registred  on the Workorder .      ##&#10;##      Including the MultiAssetLocCI section.                                                                                            ##&#10;##  Gives a warning, and prevent a save of the workorder                                                                     ##&#10;##                                                                                                                                                                           ##&#10;######################   Solution Description   ########################&#10;from psdi.mbo import MboConstants&#10;assetgl = mbo.getString(&quot;GLACCOUNT&quot;)&#10;assetglshort = assetgl[0:3]&#10;multiassetglSet = mbo.getMboSet(&quot;MULTIASSETLOCCI&quot;)&#10;if (multiassetglSet is not None):&#10;    cCount=multiassetglSet.count()&#10;    for i in range(cCount):&#10;     ## Get MultiAssetLocation all &#10;     multiassetgl=multiassetglSet.getMbo(i)&#10;     assetNum=multiassetgl.getString(&quot;assetnum&quot;)&#10;     ## Verifying if it's an Asset or Location&#10;     if (assetNum == &quot;&quot;):&#10;       assetSet = multiassetgl.getMboSet(&quot;LOCATION&quot;)&#10;     else:&#10;       assetSet = multiassetgl.getMboSet(&quot;ASSET&quot;)&#10;     asset = assetSet.getMbo(0)&#10;     multigl = asset.getString(&quot;GLACCOUNT&quot;)&#10;     multiglshort = multigl[0:3]&#10;     ## Get first Asset location&#10;     if (i== 0):&#10;        multiglshortfirst = multiglshort&#10;     ## Check if row is to be deleted&#10;     if (not multiassetgl.toBeDeleted()): &#10;        ## Check if GL account are different&#10;        if (assetglshort != multiglshort or multiglshortfirst != multiglshort):&#10;          ##mbo.setValue(&quot;DESCRIPTION&quot;,assetglshort+&quot;  -  assetnum: &quot;+assetNum+&quot;  -  multifirst: &quot;+multiglshortfirst+&quot;  -  multi: &quot;+multiglshort)&#10;          errorgroup = &quot;workorder&quot; &#10;          errorkey = &quot;MultiAssetLegalEntityError&quot;"/>
+                <columnvalue column="createddate" date="11-21-2019:14:54:56"/>
+                <columnvalue column="version" string="UBR 1.1"/>
+                <columnvalue column="statusdate" date="11-21-2019:14:54:56"/>
+                <columnvalue column="changedate" date="12-09-2019:10:59:24"/>
+                <columnvalue column="owner" string="URAX"/>
+                <columnvalue column="createdby" string="URAX"/>
+                <columnvalue column="changeby" string="URAX"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHLOC2ASSET"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="owneremail" string="somayina@uk.ibm.com"/>
+                <columnvalue column="description" string="Linear Asset Details Inheritance from Location"/>
+                <columnvalue column="source" string="##############################################################&#10;##                                                                                                                                                                               ##&#10;##  Copies LRM, start and End Measure from location to Asset, if the asset is marked as Linear   ##                         &#10;##                                                                                                                                                                               ##&#10;##############################################################&#10;from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;if (vLOCATI is not None  and vFPOSST is not None and vFPOSEN is not None and  vISLINEAR==1):&#10;    vLRM='METER'&#10;    vASSETSM=vFPOSST&#10;    vASSETEM=vFPOSEN"/>
+                <columnvalue column="createddate" date="10-01-2019:18:55:47"/>
+                <columnvalue column="version" string="UBR 1.0"/>
+                <columnvalue column="statusdate" date="10-01-2019:18:55:47"/>
+                <columnvalue column="changedate" date="12-09-2019:11:00:18"/>
+                <columnvalue column="createdbyemail" string="somayina@uk.ibm.com"/>
+                <columnvalue column="owner" string="SOW"/>
+                <columnvalue column="createdby" string="SOW"/>
+                <columnvalue column="changeby" string="URAX"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="python"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHWOPERGRPCHK"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Person Group Mandatory Check"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;&#10;if MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;WOSTATUS&quot;,vSTATUS, mbo) == &quot;APPR&quot;:&#10;    vLEAD_required=True&#10;    if vLEAD==&quot;-&quot;:&#10;        errorgroup = &quot;workorder&quot;&#10;        errorkey = &quot;SBHWOPERSGCHK&quot;"/>
+                <columnvalue column="createddate" date="10-01-2019:19:31:52"/>
+                <columnvalue column="statusdate" date="10-01-2019:19:31:52"/>
+                <columnvalue column="changedate" date="11-17-2019:22:54:12"/>
+                <columnvalue column="createdbyemail" string="somayina@uk.ibm.com"/>
+                <columnvalue column="owner" string="CTIX"/>
+                <columnvalue column="createdby" string="SOW"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHWOFAILCHK"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="owneremail" string="somayina@uk.ibm.com"/>
+                <columnvalue column="description" string="Work Order Failure Code Validation"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;&#10;if vASSET is None and vFAILCODE is not None:&#10;       vFAILCODE=''"/>
+                <columnvalue column="createddate" date="10-10-2019:11:28:06"/>
+                <columnvalue column="statusdate" date="10-10-2019:11:28:06"/>
+                <columnvalue column="changedate" date="11-17-2019:22:54:16"/>
+                <columnvalue column="createdbyemail" string="somayina@uk.ibm.com"/>
+                <columnvalue column="owner" string="SOW"/>
+                <columnvalue column="createdby" string="SOW"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="python"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHWOSTARTEND"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="owneremail" string="somayina@uk.ibm.com"/>
+                <columnvalue column="description" string="Population of Start and End Measure fields (Roadblock)"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;&#10;if vWORKTYPE=='VEJSP' and onupdate==True and vWORKSM is not None and vWORKSM !=vWORKRBSM:&#10;     vWORKSM=vWORKRBSM&#10;&#10;if vWORKTYPE=='VEJSP' and onupdate==True and vWORKEM is not None and vWORKEM !=vWORKRBEM:&#10;     vWORKEM=vWORKRBEM"/>
+                <columnvalue column="createddate" date="10-11-2019:17:03:21"/>
+                <columnvalue column="statusdate" date="10-11-2019:17:03:21"/>
+                <columnvalue column="changedate" date="11-22-2019:01:35:00"/>
+                <columnvalue column="createdbyemail" string="somayina@uk.ibm.com"/>
+                <columnvalue column="owner" string="SOW"/>
+                <columnvalue column="createdby" string="SOW"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="python"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHCREATEINV2PO"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Create PO from Invoice"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants;&#10;from psdi.server import MXServer&#10;from psdi.security import UserInfo&#10;&#10;&#10;#&#10;debug = False&#10;&#10;#&#10;#DESCRIPTION:Script to demonstrate usage of Run-Script function from GUI&#10;#&#10;#&#10;from psdi.server import MXServer&#10;from psdi.iface.mic import MicService&#10;&#10;#################################################&#10;if debug: &#10;   mxServer = MXServer.getMXServer()&#10;   micService = MicService(mxServer)&#10;   micService.init()&#10;   userInfo = mxServer .getUserInfo(&quot;DHIX&quot;)&#10;&#10;   # Example: Loop over all Users....&#10;   invSet = mxServer.getMboSet(&quot;INVOICE&quot;, userInfo)&#10;   invSet.setWhere(&quot;INVOICENUM = '1083'&quot;)&#10;   invSet.reset()&#10;   mbo = invSet.getMbo(0)&#10;vInvoicenum  = mbo.getString(&quot;Invoicenum&quot;)&#10;#################################################&#10;&#10;list_inv = []&#10;list_det = []&#10;prefix = &quot;LT-&quot;&#10;&#10;#invlineSet = mbo.getMboSet(&quot;INVOICELINE&quot;, &quot;invoicenum='&quot; + vInvoicenum + &quot;'&quot;)&#10;if debug:&#10;      invlineSet = mbo.getMboSet(&quot;INVOICELINE&quot;)&#10;&#10;      #invlineSet = MXServer.getMXServer().getMboSet(&quot;INVOICELINE&quot; , userInfo);&#10;else:&#10;      invlineSet = MXServer.getMXServer().getMboSet(&quot;INVOICELINE&quot; , MXServer.getMXServer().getUserInfo(user));&#10;      &#10;      &#10;invlineSet.setWhere(&quot;invoicenum='&quot; + vInvoicenum + &quot;'&quot;)&#10;invlineSet.reset()&#10;if debug:&#10;      poSet = MXServer.getMXServer().getMboSet(&quot;PO&quot; ,userInfo);&#10;else:&#10;      poSet = MXServer.getMXServer().getMboSet(&quot;PO&quot; , MXServer.getMXServer().getUserInfo(user));&#10;print(&quot;Get PO Set&quot;)&#10;&#10;&#10;po = poSet.add()&#10;print(&quot; Setting Desc and ORG&quot;)&#10;po.setValue(&quot;description&quot;,mbo.getString(&quot;Description&quot;))&#10;po.setValue(&quot;VENDOR&quot;,mbo.getString(&quot;VENDOR&quot;))&#10;po.setValue(&quot;ORGID&quot;,&quot;SBH&quot;)&#10;po.setValue(&quot;ponum&quot;,prefix  + vInvoicenum )&#10;ponum = po.getString(&quot;PONUM&quot;)&#10;poSet.save()&#10;poSet.setWhere(&quot;PONUM = '&quot;+ponum+&quot;'&quot;)&#10;poSet.reset()&#10;po = poSet.getMbo(0)&#10;polineSet = po.getMboSet(&quot;POLINE&quot;);&#10;print(&quot;Po Desc&quot;, mbo.getString(&quot;Description&quot;))&#10;&#10;if invlineSet != None:&#10;&#10;&#10; count  = invlineSet.count()&#10; print(&quot;Count :&quot;,count)&#10; for i in range(count):&#10;&#10;        invline =  invlineSet.getMbo(i)&#10;        poline = polineSet.add(MboConstants.NOACCESSCHECK) &#10;        poline.setValue(&quot;taxexempt&quot;,0)&#10;        poline.setValue(&quot;LINETYPE&quot;,invline.getString(&quot;LINETYPE&quot;))&#10;        print(&quot;LINETYPE :&quot;,invline.getString(&quot;LINETYPE&quot;).replace(u&quot;\xa0&quot;, ''))&#10;        if (invline.getString(&quot;LINETYPE&quot;) == &quot;ITEM&quot;):&#10;             poline.setValue(&quot;ITEMNUM&quot;,invline.getString(&quot;ITEMNUM&quot;))&#10;             poline.setValue(&quot;ITEMSETID&quot;, invline.getString(&quot;ITEMSETID&quot;));&#10;        desc = invline.getString(&quot;description&quot;)&#10;        if (desc != None or desc != &quot;&quot;):&#10;                 poline.setValue(&quot;description&quot;, desc.replace(u&quot;\xa0&quot;, '') ,MboConstants.NOVALIDATION)&#10;                 print(&quot;infLine DESC&quot;, desc)&#10;        else:&#10;                 poline.setValue(&quot;description&quot;, &quot;Created from Invoice: &quot;+vInvoicenum, MboConstants.NOVALIDATION)&#10;                 print(&quot;infLine DESC: is FIX Coded&quot;)        &#10;        &#10;        poline.setValue(&quot;CLASSSTRUCTUREID&quot;, invline.getString(&quot;CLASSSTRUCTUREID&quot;));&#10;        poline.setValue(&quot;COMMODITY&quot;, invline.getString(&quot;COMMODITY&quot;));&#10;        poline.setValue(&quot;COMMODITYGROUP&quot;, invline.getString(&quot;COMMODITYGROUP&quot;));&#10;        poline.setValue(&quot;CONDITIONCODE&quot;, invline.getString(&quot;CONDITIONCODE&quot;));&#10;&#10;    &#10;&#10;        poline.setValue(&quot;DESCRIPTION_LONGDESCRIPTION&quot;, invline.getString(&quot;DESCRIPTION_LONGDESCRIPTION&quot;));&#10;        poline.setValue(&quot;ENTERBY&quot;, invline.getString(&quot;ENTERBY&quot;));&#10;        poline.setValue(&quot;ENTERDATE&quot;, invline.getString(&quot;ENTERDATE&quot;));&#10;        poline.setValue(&quot;HASLD&quot;, invline.getInt(&quot;HASLD&quot;));&#10;&#10;&#10;&#10;        poline.setValue(&quot;LANGCODE&quot;, invline.getString(&quot;LANGCODE&quot;));&#10;        poline.setValue(&quot;LINECOST&quot;, invline.getString(&quot;LINECOST&quot;));&#10;        poline.setValue(&quot;LINECOST2&quot;, invline.getDouble(&quot;LINECOST2&quot;));&#10;&#10;&#10;        poline.setValue(&quot;ORGID&quot;, invline.getString(&quot;ORGID&quot;));&#10;        invoicelinenum= invline.getString(&quot;invoicelinenum&quot;).replace(u'\xa0', '')&#10;        poline.setValue(&quot;polinenum&quot;,  invoicelinenum)&#10;        poline.setValue(&quot;PONUM&quot;, ponum);&#10;        poline.setValue(&quot;PRORATECOST&quot;, invline.getDouble(&quot;PRORATECOST&quot;));&#10;&#10;        poline.setValue(&quot;RECEIPTREQD&quot;, invline.getString(&quot;RECEIPTREQD&quot;));&#10;        poline.setValue(&quot;SITEID&quot;, invline.getString(&quot;SITEID&quot;));&#10;        poline.setValue(&quot;TAX1&quot;, invline.getString(&quot;TAX1&quot;));&#10;        poline.setValue(&quot;TAX1CODE&quot;, invline.getString(&quot;TAX1CODE&quot;));&#10;        poline.setValue(&quot;TAX2&quot;, invline.getString(&quot;TAX2&quot;));&#10;        poline.setValue(&quot;TAX2CODE&quot;, invline.getString(&quot;TAX2CODE&quot;));&#10;        poline.setValue(&quot;TAX3&quot;, invline.getString(&quot;TAX3&quot;));&#10;        poline.setValue(&quot;TAX3CODE&quot;, invline.getString(&quot;TAX3CODE&quot;));&#10;        poline.setValue(&quot;TAX4&quot;, invline.getString(&quot;TAX4&quot;));&#10;        poline.setValue(&quot;TAX4CODE&quot;, invline.getString(&quot;TAX4CODE&quot;));&#10;        poline.setValue(&quot;TAX5&quot;, invline.getString(&quot;TAX5&quot;));&#10;        poline.setValue(&quot;TAX5CODE&quot;, invline.getString(&quot;TAX5CODE&quot;));&#10;        poline.setValue(&quot;TAXEXEMPT&quot;, invline.getString(&quot;TAXEXEMPT&quot;));&#10;        poline.setValue(&quot;UNITCOST&quot;, invline.getDouble(&quot;UNITCOST&quot;));&#10;   &#9;&#9;&#10;poSet.save()"/>
+                <columnvalue column="createddate" date="11-26-2019:15:34:31"/>
+                <columnvalue column="statusdate" date="11-26-2019:15:34:31"/>
+                <columnvalue column="changedate" date="12-02-2019:12:08:36"/>
+                <columnvalue column="owner" string="DHIX"/>
+                <columnvalue column="createdby" string="DHIX"/>
+                <columnvalue column="changeby" string="DHIX"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHSETACTFINISH"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Set Actual Finish Date when Status is DONE"/>
+                <columnvalue column="source" string="if vSTATUS == 'DONE' and status_previous &lt;&gt; status:&#10;  vACTFINISH = vSTATUSDATE"/>
+                <columnvalue column="createddate" date="11-22-2019:12:52:36"/>
+                <columnvalue column="statusdate" date="11-22-2019:12:52:36"/>
+                <columnvalue column="changedate" date="11-22-2019:12:52:36"/>
+                <columnvalue column="owner" string="VDIX"/>
+                <columnvalue column="createdby" string="VDIX"/>
+                <columnvalue column="changeby" string="VDIX"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHWOEDITFD"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Work Order field Control by Status"/>
+                <columnvalue column="source" string="from psdi.server import MXServer&#10;from psdi.mbo import MboRemote&#10;from psdi.mbo import MboConstants&#10;from psdi.mbo import MboSetRemote&#10;vStatus = MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;WOSTATUS&quot;,mbo.getString(&quot;STATUS&quot;), mbo)&#10;print(&quot;vStatus  &quot;, vStatus)&#10;listOfStatus=[&quot;APPR&quot;,&quot;INPRG&quot;,&quot;COMP&quot;,&quot;CLOSED&quot;,&quot;WPLANT&quot;,&quot;WMATL&quot;,&quot;CAN&quot;,&quot;WSCH&quot;]&#10;if vStatus in listOfStatus :&#10;      vWOPRIORITY_readonly=True&#10;      vVENDOR_readonly=True&#10;      vROUTE_readonly=True&#10;      vJPNUM_readonly=True&#10;      vTARGETFINISH_readonly=True&#10;      vTARGETSTART_readonly=True&#10;      vSCHEDSTART_readonly=True&#10;      vSCHEDFINISH_readonly=True&#10;      #mbo.setFieldFlag(&quot;TARGETFINISH&quot;,  MboConstants.READONLY |  MboConstants.NOVALIDATION_AND_NOACTION, True)&#10;      #mbo.setFieldFlag(&quot;SCHEDSTART&quot;,  MboConstants.READONLY |  MboConstants.NOVALIDATION_AND_NOACTION, True)&#10;      #mbo.setFieldFlag(&quot;SCHEDFINISH&quot;,  MboConstants.READONLY |  MboConstants.NOVALIDATION_AND_NOACTION, True)"/>
+                <columnvalue column="createddate" date="08-16-2019:16:15:38"/>
+                <columnvalue column="statusdate" date="08-16-2019:16:15:38"/>
+                <columnvalue column="changedate" date="12-06-2019:11:34:58"/>
+                <columnvalue column="owner" string="CTIX"/>
+                <columnvalue column="createdby" string="CTIX"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHWODESCEDIT"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Description Field Editable for Operations Managers"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants &#10;from psdi.server import MXServer&#10;from psdi.security import UserInfo&#10;from psdi.mbo import Mbo&#10;&#10;status =MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;WOSTATUS&quot;,vSTATUS, mbo)&#10;userInfo = mbo.getUserInfo()&#10;app = mbo.getThisMboSet().getParentApp()&#10;mxServer=MXServer.getMXServer()&#10;if(app == &quot;WOTRACK&quot;):&#10;     mbosetMaxuser = mxServer.getMboSet(&quot;MAXUSER&quot;, userInfo) &#10;     user=mbo.getUserName()&#10;     mbosetMaxuser.setWhere(&quot;userid = '&quot; + user + &quot;'&quot;) &#10;     mbosetMaxuser.reset() &#10;     mboMaxuser = mbosetMaxuser.moveFirst() &#10;     mbosetMaxuser.close() &#10;&#10;     mbosetGroupUser =MXServer.getMXServer().getMboSet(&quot;GROUPUSER&quot;,userInfo) &#10;     mbosetGroupUser.setWhere(&quot;groupname ='SBHSUPERINT'&quot;) &#10;     mbosetGroupUser.reset() &#10;     mboMaxGroup = mbosetGroupUser.moveFirst() &#10;     mbosetMaxuser.close() &#10;&#10;     if (mbosetGroupUser.isEmpty() and vSTATUS&lt;&gt;'WAPPR' and onadd==False): &#10;         mbo.setFieldFlag(&quot;DESCRIPTION&quot;, MboConstants.READONLY, True)"/>
+                <columnvalue column="createddate" date="08-12-2019:14:39:18"/>
+                <columnvalue column="statusdate" date="08-12-2019:14:39:18"/>
+                <columnvalue column="changedate" date="11-17-2019:22:54:26"/>
+                <columnvalue column="owner" string="BKIX"/>
+                <columnvalue column="createdby" string="BKIX"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Mandatory Location Field Check for Operating Status"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;&#10;if  MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;LOCASSETSTATUS&quot;,STATUS, mbo) == 'OPERATING' and vTYPE&lt;&gt;'HOLDING': &#10;   vDESCRIPTION_required=True&#10;   vLOCATION_required=True&#10;   vCLASSIFICATION_required=True&#10;   vSYSTEM_required=True&#10;&#10;   if vDESCRIPTION is None or vLOCATION is None or vCLASSIFICATION is None or vSYSTEM is None :&#10;     errorgroup = &quot;locations&quot;&#10;     errorkey = &quot;SBHMEMNDLOCFD&quot;"/>
+                <columnvalue column="createddate" date="08-16-2019:15:13:41"/>
+                <columnvalue column="statusdate" date="08-16-2019:15:13:41"/>
+                <columnvalue column="changedate" date="12-12-2019:03:19:08"/>
+                <columnvalue column="owner" string="CTIX"/>
+                <columnvalue column="createdby" string="CTIX"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Mandatory Asset Field Check for Operating Status"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;&#10;if MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;LOCASSETSTATUS&quot;,STATUS, mbo) == &quot;OPERATING&quot;:&#10;    vDESCRIPTION_required==True&#10;    vLOCATION_required==True&#10;    vCLASSIFICATION_required==True    &#10;    vFAILURECODE_required==True&#10;    vGLACCOUNT_required==True&#10;#    SCADATAG_required==True&#10;&#10;    if vDESCRIPTION is None or vLOCATION is None or vCLASSIFICATION is None or vFAILURECODE is None or vGLACCOUNT is None :&#10;     errorgroup = &quot;asset&quot;&#10;     errorkey = &quot;SBHMEMNDASSFC&quot;&#10;     vDESCRIPTION_required==True"/>
+                <columnvalue column="createddate" date="08-16-2019:15:58:12"/>
+                <columnvalue column="statusdate" date="08-16-2019:15:58:12"/>
+                <columnvalue column="changedate" date="12-12-2019:00:50:04"/>
+                <columnvalue column="owner" string="CTIX"/>
+                <columnvalue column="createdby" string="CTIX"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHCHKDRAP"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Make DRAP Report fields are mandatory when DRAP Number is populated"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;&#10;if vDRAPNUMBER is None:&#10;    vDRAPREPORTD=''&#10;    vDRAPCONTACTD=''&#10;    vDRAPRESPD=''&#10;    vDRAPRESOD=''&#10;else:&#10;    vDRAPREPORTD_required==TRUE&#10;    vDRAPCONTACTD_required==TRUE&#10;    vDRAPRESPD_required==TRUE&#10;    vDRAPRESOD_required==TRUE"/>
+                <columnvalue column="createddate" date="08-28-2019:15:07:26"/>
+                <columnvalue column="statusdate" date="08-28-2019:15:07:26"/>
+                <columnvalue column="changedate" date="11-27-2019:13:26:52"/>
+                <columnvalue column="owner" string="CTIX"/>
+                <columnvalue column="createdby" string="CTIX"/>
+                <columnvalue column="changeby" string="CTIX"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHAPPROVE"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Approve labor transaction in WOTRACK application"/>
+                <columnvalue column="source" string="from psdi.util import MXApplicationException&#10;from psdi.util.logging import MXLoggerFactory&#10;from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;from java.util import Date&#10;&#10;mxServer = MXServer.getMXServer()&#10;userInfo = mbo.getUserInfo()&#10;UserName = userInfo.getUserName()&#10;&#10;myLogger = MXLoggerFactory.getLogger(&quot;maximo.script.autoscript&quot;)&#10;LOGPREFIX = &quot;AutoScript SBHAPPROVE| &quot;&#10;&#10;try:&#10;&#9;mbo  # @UndefinedVariable&#10;except NameError:&#10;&#9;mbo = None&#10;if mbo is None:&#10;&#9;scriptHomeSet = mxServer.getMboSet(&quot;LABTRANS&quot;, userInfo)&#10;&#9;scriptHomeSet.setWhere(&quot;LABTRANSID=65&quot;)&#10;&#9;scriptHomeSet.reset()&#10;&#9;labtransMbo = scriptHomeSet.getMbo(0)&#10;&#9;testMode = True&#10;else:&#10;    labtransMbo = mbo  # @UndefinedVariable&#10;&#10;myLogger.debug(LOGPREFIX + &quot;====== START SCRIPT ==========&quot;)&#10;myLogger.debug(LOGPREFIX + &quot;Found Labtrans Record &quot; + labtransMbo.getString(&quot;LABORCODE&quot;)) &#10;labtransMbo.approveLaborTransaction()&#10;#labtransMbo.getThisMboSet().save()&#10;myLogger.debug(LOGPREFIX + &quot;====== STOP SCRIPT ==========&quot;)"/>
+                <columnvalue column="createddate" date="11-07-2019:15:46:29"/>
+                <columnvalue column="version" string="1.0"/>
+                <columnvalue column="statusdate" date="11-07-2019:15:46:29"/>
+                <columnvalue column="changedate" date="11-17-2019:22:54:54"/>
+                <columnvalue column="owner" string="TBUX"/>
+                <columnvalue column="createdby" string="TBUX"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="python"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHCREATEINVC"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Create Invoice from LabTrans"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants;&#10;from psdi.server import MXServer&#10;from psdi.security import UserInfo&#10;&#10;&#10;#  Script to create invoices from LaborTrans records. The script uses the internal MBO methods to create the data&#10;&#10;&#10;debug = False&#10;&#10;#&#10;#DESCRIPTION:Script to demonstrate usage of Run-Script function from GUI&#10;#&#10;#&#10;from psdi.server import MXServer&#10;from psdi.iface.mic import MicService&#10;#################################################&#10;&#10;mxServer = MXServer.getMXServer()&#10;micService = MicService(mxServer)&#10;micService.init()&#10;userInfo = mxServer .getSystemUserInfo()&#10;# ExlabtransSetample: Loop over all Users....&#10;labtransSet = mxServer.getMboSet(&quot;LABTRANS&quot;, userInfo)&#10;labtransSet.setWhere(&quot;invoicenum is null and genapprservreceipt = 1&quot;)&#10;labtransSet.setOrderBy(&quot;vendor, refwo&quot;)&#10;labtransSet.reset()&#10;labtrans = labtransSet.getMbo(0)&#10;print(&quot; #########  Count labtransSet:&quot;, labtransSet.count())&#10;&#10;#################################################&#10;&#10;if labtrans!= None:&#10;       vInvoicenum  = labtrans.getString(&quot;labtransid&quot;)&#10;       print(&quot;#########  Invoice Number&quot;, vInvoicenum  )&#10;       print(&quot;Create call Ceate Invoice &quot; )&#10;       createInvSet = labtrans.getMboSet(&quot;CREATEINVOICE&quot;)&#10;       print(&quot;Create got Set Create Invoice &quot; )&#10;       createInvSet = createInvSet.createInvoiceInput(labtransSet)&#10;&#10;&#10;       print(&quot;######### Count for Invoice Set (listed Items in Dialog) &quot;, createInvSet.count())&#10;       for i in range(0, createInvSet.count()):&#10;              createInv = createInvSet.getMbo(i)&#10;&#10;              # IF summarieby is False use LabTrans otherwise use ByWO&#10;              #createInvSet.createInvoicesByWO(labtransSet, createInv )&#10;&#10;              createInvSet.createInvoicesByLabTrans(labtransSet, createInv )&#10;labtransSet.save()"/>
+                <columnvalue column="createddate" date="11-27-2019:15:20:20"/>
+                <columnvalue column="statusdate" date="11-27-2019:15:20:20"/>
+                <columnvalue column="changedate" date="12-02-2019:12:07:36"/>
+                <columnvalue column="owner" string="DHIX"/>
+                <columnvalue column="createdby" string="DHIX"/>
+                <columnvalue column="changeby" string="DHIX"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="python"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="scriptlaunchpoint" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHLOCMANDFC"/>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="description" string="Mandatory Location Field Check for Operating Status"/>
+                <columnvalue column="launchpointtype" string="OBJECT"/>
+                <columnvalue column="objectname" string="LOCATIONS"/>
+                <columnvalue column="objectevent" number="6"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="STATUS"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="STATUS"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vCLASSIFICATION"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="CLASSIFICATION"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vDESCRIPTION"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="DESCRIPTION"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vLOCATION"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="LOCATION"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vSTATUS"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="STATUS"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vSYSTEM"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="SYSTEM"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vTYPE"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="TYPE"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHLOCMANDFC"/>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="STATUS"/>
+                <columnvalue column="varbindingvalue" string="STATUS"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHLOCMANDFC"/>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vCLASSIFICATION"/>
+                <columnvalue column="varbindingvalue" string="CLASSSTRUCTUREID"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHLOCMANDFC"/>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vDESCRIPTION"/>
+                <columnvalue column="varbindingvalue" string="DESCRIPTION"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHLOCMANDFC"/>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vLOCATION"/>
+                <columnvalue column="varbindingvalue" string="LOCATION"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHLOCMANDFC"/>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vSTATUS"/>
+                <columnvalue column="varbindingvalue" string="STATUS"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHLOCMANDFC"/>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vSYSTEM"/>
+                <columnvalue column="varbindingvalue" string="LOCSYSTEM.SYSTEMID"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHLOCMANDFC"/>
+                <columnvalue column="autoscript" string="SBHLOCMANDFC"/>
+                <columnvalue column="varname" string="vTYPE"/>
+                <columnvalue column="varbindingvalue" string="TYPE"/>
+            </insertrow>
+        </insert>
+        <freeform description="Update Maxobjects to userdefined">
+            <sql target="sqlserver"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Object classes change">
+            <sql target="all"/>
+        </freeform>
+    </statements>
+</script>

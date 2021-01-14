@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="WOSTATUS - DO NOT DELETE, JUST ADD OR UPDATE!">
+    <description>Auto-Generated Script</description>
+    <statements>
+	<!-- Line 142 add WOSTATUS from the scratch-->
+		<drop_domain domainid="WOSTATUS"/>
+        <specify_synonym_domain domainid="WOSTATUS" description="WO Status" overwrite="true" maxtype="UPPER" length="16">
+            <synonymvalueinfo value="APPR" maxvalue="APPR" defaults="true" description="Approved"/>
+            <synonymvalueinfo value="WPCOND" maxvalue="APPR" defaults="false" description="Waiting on Plant Cond"/>
+            <synonymvalueinfo value="WPLANT" maxvalue="APPR" defaults="false" description="Waiting on Plant Condition"/>
+            <synonymvalueinfo value="CAN" maxvalue="CAN" defaults="true" description="Canceled"/>
+            <synonymvalueinfo value="CLOSE" maxvalue="CLOSE" defaults="true" description="Closed"/>
+            <synonymvalueinfo value="COMP" maxvalue="COMP" defaults="true" description="Complete"/>
+            <synonymvalueinfo value="FINCOMP" maxvalue="COMP" defaults="false" description="Final Review Complete"/>
+            <synonymvalueinfo value="HISTEDIT" maxvalue="HISTEDIT" defaults="true" description="Edited in History"/>
+            <synonymvalueinfo value="CONTCOMP" maxvalue="INPRG" defaults="false" description="Contractor Review Complete"/>
+            <synonymvalueinfo value="DONE" maxvalue="INPRG" defaults="false" description="Work Done"/>
+            <synonymvalueinfo value="INPRG" maxvalue="INPRG" defaults="true" description="In Progress"/>
+            <synonymvalueinfo value="REJ" maxvalue="INPRG" defaults="false" description="Rejected"/>
+            <synonymvalueinfo value="PLAN" maxvalue="WAPPR" defaults="false" description="Planned"/>
+            <synonymvalueinfo value="WAPPR" maxvalue="WAPPR" defaults="true" description="Waiting on Approval"/>
+            <synonymvalueinfo value="WPLAN" maxvalue="WAPPR" defaults="false" description="Waiting on Planning"/>
+            <synonymvalueinfo value="WMATL" maxvalue="WMATL" defaults="true" description="Waiting on Material"/>
+            <synonymvalueinfo value="WSCH" maxvalue="WSCH" defaults="true" description="Waiting to be Scheduled"/>
+        </specify_synonym_domain>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+			<!-- delete l_maxdomain-->
+			delete from l_maxdomain where ownerid=(select maxdomainid from maxdomain where domainid='WOSTATUS');
+			<!-- insert into l_maxdomain -->
+			insert into l_maxdomain (description, ownerid, langcode) values ('Arbejdsordrestatus',(select maxdomainid from maxdomain where domainid='WOSTATUS'),'DA') 
+			<!-- delete from l_synonymdomain -->
+			delete from l_synonymdomain where ownerid in (select synonymdomainid from synonymdomain where domainid='WOSTATUS');
+			<!-- insert into l_synonymdomain WOSTATUS -->
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Venter godkend', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WAPPR'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='APPR'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Venter materiel', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WMATL'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WMATL'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Afventer planlæing', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WSCH'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WSCH'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Underbehandling', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='INPRG'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='INPRG'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Godkend', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='APPR'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='APPR'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Annulleret', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='CAN'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='CAN'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Lukket', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='CLOSE'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='CLOSE'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Afsluttet', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='COMP'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='APPR'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Afventer fabrikbetingelse', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WPCOND'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WPCON'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Historik redigeret', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='HISTEDIT'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='HISTEDIT'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Udførtl', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='DONE'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='DONE'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Venter planlæing', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WPLAN'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WPLAN'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Venter anlæg', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WPLANT'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='WPLANT'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Planlagt', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='PLAN'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='PLAN'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Afvist', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='REJ'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='REJ'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Endelig Kontrol', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='FINCOMP'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='FINCOM'));
+			insert into l_synonymdomain (description, ownerid, langcode, l_synonymdomainid) values ('Entreprenør Kontrol', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='CONTCOMP'), 'DA', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value='CONTCOMP'));
+			</sql>
+        </freeform>
+    </statements>
+</script>

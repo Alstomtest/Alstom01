@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into MAXINTOBJDETAIL">
+  <description>GenInsertDbc created this script at Thu Jun 06 05:36:36 EDT 2019</description>
+  <statements>
+	<freeform description="Delete before load custum structure">
+		<sql target="sqlserver">
+			delete from MAXINTOBJDETAIL where intobjectname in ('MXASSET','MXL_COMMODITIES','MXL_FAILURECODE','MXL_FAILURELIST','MXL_LOCATION','MXL_MAXATTRIBUTECFG','MXL_ROUTES','MXL_COMPANIES','MXL_PM','MXL_PERGRP','MXL_ASSETSP','MXL_MEASUREUNIT','MXL_ASSETATTRIBUTE','MXL_CONVERSION','MXL_JOBPLAN','MXL_CURRENCY','MXL_EXCGRATES','MXL_USERGRP','MXL_CALWP','MXL_RELATION');
+		</sql>
+	</freeform>
+    <insert table="MAXINTOBJDETAIL">
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ASSET/ASSETSPEC" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="4" />
+        <columnvalue column="changedate" date="04-25-2007:12:00:34" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="4" />
+        <columnvalue column="objectorder" number="3" />
+        <columnvalue column="relation" string="ASSETSPECCLASS" />
+        <columnvalue column="objectname" string="ASSETSPEC" />
+        <columnvalue column="intobjectname" string="MXASSET" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ASSET/ASSETMETER" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="INT_ASSETMETER" />
+        <columnvalue column="objectname" string="ASSETMETER" />
+        <columnvalue column="intobjectname" string="MXASSET" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ASSET/ASSETUSERCUST" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="3" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="3" />
+        <columnvalue column="objectorder" number="2" />
+        <columnvalue column="relation" string="ASSETUSERCUST" />
+        <columnvalue column="objectname" string="ASSETUSERCUST" />
+        <columnvalue column="intobjectname" string="MXASSET" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ASSET" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="02-06-2004:00:00:00" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="ASSET" />
+        <columnvalue column="intobjectname" string="MXASSET" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="description" string="Asset Operational Schedule" />
+        <columnvalue column="hierarchypath" string="ASSET/ASSETOPSKD" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="5" />
+        <columnvalue column="changedate" date="12-04-2014:15:21:33" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="5" />
+        <columnvalue column="objectorder" number="4" />
+        <columnvalue column="relation" string="ASSETOPSKD" />
+        <columnvalue column="objectname" string="ASSETOPSKD" />
+        <columnvalue column="intobjectname" string="MXASSET" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="description" string="Asset Maintenance Schedule" />
+        <columnvalue column="hierarchypath" string="ASSET/ASSETMNTSKD" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="6" />
+        <columnvalue column="changedate" date="12-04-2014:15:21:55" />
+        <columnvalue column="changeby" string="MAXIMO" />
+        <columnvalue column="userdefined" boolean="false" />
+        <columnvalue column="processorder" number="6" />
+        <columnvalue column="objectorder" number="5" />
+        <columnvalue column="relation" string="ASSETMNTSKD" />
+        <columnvalue column="objectname" string="ASSETMNTSKD" />
+        <columnvalue column="intobjectname" string="MXASSET" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="COMMODITIES" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:00" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="COMMODITIES" />
+        <columnvalue column="intobjectname" string="MXL_COMMODITIES" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="FAILURECODE" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:00" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="FAILURECODE" />
+        <columnvalue column="intobjectname" string="MXL_FAILURECODE" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="FAILURELIST" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:00" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="FAILURELIST" />
+        <columnvalue column="intobjectname" string="MXL_FAILURELIST" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="LOCATIONS/LOCHIERARCHY" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:00" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="LOCHIERARCHY" />
+        <columnvalue column="objectname" string="LOCHIERARCHY" />
+        <columnvalue column="intobjectname" string="MXL_LOCATION" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="LOCATIONS" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:00" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="LOCATIONS" />
+        <columnvalue column="intobjectname" string="MXL_LOCATION" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="MAXATTRIBUTE" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:00" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="MAXATTRIBUTE" />
+        <columnvalue column="intobjectname" string="MXL_MAXATTRIBUTECFG" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ROUTES/ROUTE_STOP" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="06-05-2019:11:46:15" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="ROUTE_STOP" />
+        <columnvalue column="objectname" string="ROUTE_STOP" />
+        <columnvalue column="intobjectname" string="MXL_ROUTES" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="ROUTES" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="ROUTES" />
+        <columnvalue column="intobjectname" string="MXL_ROUTES" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="COMPANIES" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="COMPANIES" />
+        <columnvalue column="intobjectname" string="MXL_COMPANIES" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="PM" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="06-05-2019:11:04:51" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="PM" />
+        <columnvalue column="intobjectname" string="MXL_PM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="PERSONGROUP/PERSONGROUPTEAM" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="ALLPERSONGROUPTEAM" />
+        <columnvalue column="objectname" string="PERSONGROUPTEAM" />
+        <columnvalue column="intobjectname" string="MXL_PERGRP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="PERSONGROUP" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="PERSONGROUP" />
+        <columnvalue column="intobjectname" string="MXL_PERGRP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ASSET/SPAREPART" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="SPAREPART" />
+        <columnvalue column="objectname" string="SPAREPART" />
+        <columnvalue column="intobjectname" string="MXL_ASSETSP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="ASSET" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="ASSET" />
+        <columnvalue column="intobjectname" string="MXL_ASSETSP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="MEASUREUNIT" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="MEASUREUNIT" />
+        <columnvalue column="intobjectname" string="MXL_MEASUREUNIT" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="ASSETATTRIBUTE" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="ASSETATTRIBUTE" />
+        <columnvalue column="intobjectname" string="MXL_ASSETATTRIBUTE" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="CONVERSION" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="CONVERSION" />
+        <columnvalue column="intobjectname" string="MXL_CONVERSION" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="JOBPLAN/JOBMATERIAL" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="4" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="4" />
+        <columnvalue column="objectorder" number="3" />
+        <columnvalue column="relation" string="JOBMATERIAL" />
+        <columnvalue column="objectname" string="JOBMATERIAL" />
+        <columnvalue column="intobjectname" string="MXL_JOBPLAN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="JOBPLAN/JOBLABOR" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="3" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="3" />
+        <columnvalue column="objectorder" number="2" />
+        <columnvalue column="relation" string="JOBLABOR" />
+        <columnvalue column="objectname" string="JOBLABOR" />
+        <columnvalue column="intobjectname" string="MXL_JOBPLAN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="JOBPLAN/JOBTASK" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="JOBTASK" />
+        <columnvalue column="objectname" string="JOBTASK" />
+        <columnvalue column="intobjectname" string="MXL_JOBPLAN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="JOBPLAN" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="JOBPLAN" />
+        <columnvalue column="intobjectname" string="MXL_JOBPLAN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="CURRENCY" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="CURRENCY" />
+        <columnvalue column="intobjectname" string="MXL_CURRENCY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="EXCHANGE" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="EXCHANGE" />
+        <columnvalue column="intobjectname" string="MXL_EXCGRATES" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="MAXUSER\GROUPUSER" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="GROUPUSER" />
+        <columnvalue column="objectname" string="GROUPUSER" />
+        <columnvalue column="intobjectname" string="MXL_USERGRP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="MAXUSER" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="MAXUSER" />
+        <columnvalue column="intobjectname" string="MXL_USERGRP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="CALENDAR\WORKPERIOD" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="WORKPERIOD" />
+        <columnvalue column="objectname" string="WORKPERIOD" />
+        <columnvalue column="intobjectname" string="MXL_CALWP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="CALENDAR" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="CALENDAR" />
+        <columnvalue column="intobjectname" string="MXL_CALWP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ASSET/ASSETLOCRELATION" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="7" />
+        <columnvalue column="changedate" date="05-08-2019:10:17:29" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="7" />
+        <columnvalue column="objectorder" number="6" />
+        <columnvalue column="relation" string="ASSETLOCRELATION" />
+        <columnvalue column="objectname" string="ASSETLOCRELATION" />
+        <columnvalue column="intobjectname" string="MXASSET" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="PM/PMSEQUENCE" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="06-05-2019:09:42:34" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="PMSEQUENCE" />
+        <columnvalue column="objectname" string="PMSEQUENCE" />
+        <columnvalue column="intobjectname" string="MXL_PM" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="RELATION" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="05-28-2019:08:29:56" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="RELATION" />
+        <columnvalue column="intobjectname" string="MXL_RELATION" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="RELATION/RELATIONRULES" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="05-28-2019:08:55:21" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="RELATIONRULES" />
+        <columnvalue column="objectname" string="RELATIONRULES" />
+        <columnvalue column="intobjectname" string="MXL_RELATION" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="RELATION/RELATIONRULESEXT" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="3" />
+        <columnvalue column="changedate" date="05-28-2019:08:55:57" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="3" />
+        <columnvalue column="objectorder" number="2" />
+        <columnvalue column="relation" string="RELATIONRULESEXT" />
+        <columnvalue column="objectname" string="RELATIONRULESEXT" />
+        <columnvalue column="intobjectname" string="MXL_RELATION" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="ASSET/TLOAMASSETGRP" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="8" />
+        <columnvalue column="changedate" date="05-29-2019:07:42:07" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="8" />
+        <columnvalue column="objectorder" number="7" />
+        <columnvalue column="relation" string="TLOAMASSETPERSONGRP" />
+        <columnvalue column="objectname" string="TLOAMASSETGRP" />
+        <columnvalue column="intobjectname" string="MXASSET" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="PM/PMSEASONS" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="3" />
+        <columnvalue column="changedate" date="06-05-2019:09:42:34" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="3" />
+        <columnvalue column="objectorder" number="2" />
+        <columnvalue column="relation" string="PMSEASONS" />
+        <columnvalue column="objectname" string="PMSEASONS" />
+        <columnvalue column="intobjectname" string="MXL_PM" />
+      </insertrow>
+    </insert>
+  </statements>
+</script>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into CURRENCY">
+  <description>GenInsertDbc created this script at Wed Jul 24 13:01:05 CEST 2019</description>
+  <statements>
+	<freeform description="add freeform statements">
+		<sql target="sqlserver">		
+			delete from currency where currencycode='EUR';
+			delete from currency where currencycode='EURO';
+			update organization set basecurrency2='EUR';
+			delete from glconfigure;
+			delete from chartofaccounts;
+			delete from financialperiods;
+			update organization set clearingacct='0000-0000000-00';
+			delete from GLCOMPONENTS;
+			commit;
+		</sql>
+	</freeform>  
+    <insert table="CURRENCY">
+      <insertrow>
+        <columnvalue column="changeby" string="SOW" />
+        <columnvalue column="changedate" date="07-14-2019:18:56:17" />
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="description" string="Eur" />
+        <columnvalue column="currencycode" string="EUR" />
+      </insertrow>
+    </insert>
+    <insert table="GLCONFIGURE">
+      <insertrow>
+        <columnvalue column="gllength" number="4" />
+        <columnvalue column="gltype" string="ALN" />
+        <columnvalue column="delimiter" string="-" />
+        <columnvalue column="mandatory" boolean="true" />
+        <columnvalue column="glorder" number="0" />
+        <columnvalue column="glaccountfield" string="LEGAL ENTITY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="gllength" number="7" />
+        <columnvalue column="gltype" string="INTEGER" />
+        <columnvalue column="delimiter" string="-" />
+        <columnvalue column="mandatory" boolean="false" />
+        <columnvalue column="glorder" number="1" />
+        <columnvalue column="glaccountfield" string="PROJECT" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="gllength" number="2" />
+        <columnvalue column="gltype" string="ALN" />
+        <columnvalue column="mandatory" boolean="false" />
+        <columnvalue column="glorder" number="2" />
+        <columnvalue column="glaccountfield" string="SUBPROJECT" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="gllength" number="4" />
+        <columnvalue column="gltype" string="ALN" />
+        <columnvalue column="delimiter" string="-" />
+        <columnvalue column="mandatory" boolean="true" />
+        <columnvalue column="glorder" number="0" />
+        <columnvalue column="glaccountfield" string="LEGAL ENTITY" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="gllength" number="7" />
+        <columnvalue column="gltype" string="INTEGER" />
+        <columnvalue column="delimiter" string="-" />
+        <columnvalue column="mandatory" boolean="false" />
+        <columnvalue column="glorder" number="1" />
+        <columnvalue column="glaccountfield" string="PROJECT" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="gllength" number="2" />
+        <columnvalue column="gltype" string="ALN" />
+        <columnvalue column="mandatory" boolean="false" />
+        <columnvalue column="glorder" number="2" />
+        <columnvalue column="glaccountfield" string="SUBPROJECT" />
+      </insertrow>
+      </insert>
+      <insert table="GLCOMPONENTS">
+      <insertrow>
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="userid" string="SOW" />
+        <columnvalue column="comptext" string="LEGAL ENTITY" />
+        <columnvalue column="compvalue" string="0000" />
+        <columnvalue column="glorder" number="0" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="userid" string="SOW" />
+        <columnvalue column="comptext" string="PROJECT" />
+        <columnvalue column="compvalue" string="0000000" />
+        <columnvalue column="glorder" number="1" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="userid" string="SOW" />
+        <columnvalue column="comptext" string="SUBPROJECT" />
+        <columnvalue column="compvalue" string="00" />
+        <columnvalue column="glorder" number="2" />
+      </insertrow>
+    </insert>
+    <insert table="CHARTOFACCOUNTS">
+      <insertrow>
+        <columnvalue column="activedate" date="07-16-2019:10:10:57" />
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="accountname" string="LEGAL ENTITY + PROJECT + SUBPROJECT" />
+        <columnvalue column="glcomp03" string="00" />
+        <columnvalue column="glcomp02" string="0000000" />
+        <columnvalue column="glcomp01" string="0000" />
+        <columnvalue column="glaccount" string="0000-0000000-00" />
+      </insertrow>
+    </insert>
+        <add_attributes object="CLASSSTRUCTURE">
+            <attrdef attribute="CLASSIFICATIONID" maxtype="UPPER" title="Classification" remarks="Classification ID of the node" sameasobject="CLASSIFICATION" sameasattribute="CLASSIFICATIONID" length="192" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" classname="psdi.app.assetcatalog.FldClassStructureClassificationId" searchtype="WILDCARD"/>
+        </add_attributes>
+    	<add_attributes object="ASSET">
+            <attrdef attribute="FAILURECODE" maxtype="UPPER" title="Failure Class" remarks="Indicates Top Level Failure Hierarchy" sameasobject="FAILURECODE" sameasattribute="FAILURECODE" length="25" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" classname="psdi.app.asset.FldAssetFailureCode" searchtype="WILDCARD"/>
+        </add_attributes>
+        <add_attributes object="JOBPLAN">
+            <attrdef attribute="DESCRIPTION" maxtype="ALN" title="Description" remarks="One Line Short Description Of Job Plan" length="200" persistent="true" haslongdesc="true" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="TEXT"/>
+            <attrdef attribute="JPNUM" maxtype="UPPER" title="Job Plan" remarks="Unique Identifier For Job Plan" length="12" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="true" userdefined="false" autokey="JOBPLANNUM" searchtype="WILDCARD"/>
+        </add_attributes>
+        <add_attributes object="LOCATIONS">
+            <attrdef attribute="SBHFPOSEND" maxtype="DECIMAL" title="FPOS End Measure" remarks="Sbhfposend" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" scale="2" searchtype="EXACT"/>
+            <attrdef attribute="SBHFPOSSTART" maxtype="DECIMAL" title="FPOS Start Measure" remarks="Sbhfposstart" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" scale="2" searchtype="EXACT"/>
+        </add_attributes>
+        <add_attributes object="METER">
+            <attrdef attribute="METERNAME" maxtype="UPPER" title="Meter" remarks="Meter identifier, for example, HOURS or KILOMETERS" length="15" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" classname="psdi.app.meter.FldMeterMeterName" searchtype="WILDCARD"/>
+        </add_attributes>
+        <add_attributes object="PM">
+            <attrdef attribute="PMNUM" maxtype="UPPER" title="PM" remarks="Identifies the PM. This value must be unique for all PM records." length="31" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="true" userdefined="false" classname="psdi.app.pm.FldPMChild" defaultvalue="&amp;AUTOKEY&amp;" autokey="PMNUM" searchtype="WILDCARD"/>
+            <attrdef attribute="DESCRIPTION" maxtype="ALN" title="Description" remarks="Describes the PM. To enter or view additional information, click the Long Description button." sameasobject="WORKORDER" sameasattribute="DESCRIPTION" length="210" persistent="true" haslongdesc="true" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="TEXT"/>
+        </add_attributes>
+        <add_attributes object="RELATION">
+            <attrdef attribute="RELATIONNUM" maxtype="UPPER" title="Relationship" remarks="Relationship identifier" length="40" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+    	</add_attributes>
+    	<freeform description="add translation statements">
+			<sql target="sqlserver">		
+				delete from l_maxattrcfg where langcode ='DA' and ownerid IN(select maxattributeid from maxattribute where objectname='LOCATIONS' and attributename IN('SBHFPOSSTART','SBHFPOSEND'));
+				insert into l_maxattrcfg (remarks, title, langcode, ownerid, l_maxattrcfgid) values ('FPOS Slutmål','FPOS Slutmål','DA',(select maxattributeid from maxattribute where objectname  = 'LOCATIONS' and attributename = ('SBHFPOSEND')),(select max(l_maxattrcfgid +1) from l_maxattrcfg));
+				insert into l_maxattrcfg (remarks, title, langcode, ownerid, l_maxattrcfgid) values ('FPOS Startmåling','FPOS Startmåling','DA',(select maxattributeid from maxattribute where objectname  = 'LOCATIONS' and attributename = ('SBHFPOSSTART')),(select max(l_maxattrcfgid +1) from l_maxattrcfg));
+				commit;
+			</sql>
+		</freeform> 
+  </statements>
+</script>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="v1000_38">
+    <description>MR-966 Craft length</description>
+    <statements>
+    <modify_attribute object="CRAFT" attribute="CRAFT" length="20"/>
+    </statements>
+</script>

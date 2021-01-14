@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_128_dh">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <specify_crossover_domain domainid="SBHPMJBANE" description="PM to Work Order" overwrite="true" objectname="PM" validationwhereclause="pmnum=:pmnum and siteid=:siteid">
+            <crossovervalueinfo sourcefield="FNCONOFFSET" destfield="FNCONOFFSET"/>
+            <crossovervalueinfo sourcefield="LEAD" destfield="LEAD"/>
+            <crossovervalueinfo sourcefield="NEXTDATE" destfield="SCHEDSTART"/>
+            <crossovervalueinfo sourcefield="SBHINVCOST" destfield="SBHINVCOST"/>
+            <crossovervalueinfo sourcefield="SBHPMDOCTILKN" destfield="SBHWODOCTILKN"/>
+            <crossovervalueinfo sourcefield="SBHPMINTERVALSP" destfield="SBHWOINTERVALSP"/>
+            <crossovervalueinfo sourcefield="SBHPMKORE" destfield="SBHWOKORE"/>
+            <crossovervalueinfo sourcefield="SBHPMKORENUM" destfield="SBHWOKORENUM"/>
+            <crossovervalueinfo sourcefield="SBHPMSPSP" destfield="SBHWOSPSP"/>
+            <crossovervalueinfo sourcefield="SBHPMTRAKMSLUT" destfield="SBHWOTRAKMSLUT"/>
+            <crossovervalueinfo sourcefield="SBHPMTRAKMSTART" destfield="SBHWOTRAKMSTART"/>
+            <crossovervalueinfo sourcefield="SBHPMTRARETNING" destfield="SBHTRAWORETNING"/>
+            <crossovervalueinfo sourcefield="SBHPMTRASPOR" destfield="SBHWOTRASPOR"/>
+            <crossovervalueinfo sourcefield="SBHPMTRAVAMPLAN" destfield="SBHWOTRAVAMPLAN"/>
+            <crossovervalueinfo sourcefield="SBHPMTROLJE" destfield="SBHWOTROLJE"/>
+            <crossovervalueinfo sourcefield="SBHPMVENDOR" destfield="VENDOR"/>
+            <crossovervalueinfo sourcefield="STCONOFFSET" destfield="STCONOFFSET"/>
+        </specify_crossover_domain>
+		<modify_attribute object="WORKORDER" attribute="PMNUM" domain="SBHPMJBANE"/>
+        <add_attributes object="PM">
+            <attrdef attribute="SBHINVCOST" maxtype="YORN" title="No Invoice/Cost." remarks="Indicator for No invoice/cost" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+        <add_attributes object="WORKORDER">
+            <attrdef attribute="SBHINVCOST" maxtype="YORN" title="No Invoice/Cost." remarks="Indicator for No invoice/cost" sameasobject="PM" sameasattribute="SBHINVCOST" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+			delete from l_maxattribute where ownerid=(select maxattributeid from maxattribute where objectname ='PM'and attributename =('SBHINVCOST'));
+			delete from l_maxattrcfg where ownerid=(select maxattributeid from maxattributecfg where objectname ='WORKORDER'and attributename =('SBHINVCOST'));
+            insert into l_maxattribute(remarks,title,langcode,ownerid,l_maxattributeid) values('Ingen faktura/Omkostning','Ingen faktura/Omkostning','DA',(select maxattributeid from maxattribute where objectname ='PM'and attributename =('SBHINVCOST')), (select isnull(max(l_maxattributeid +1),1)from l_maxattribute));
+            insert into l_maxattrcfg(remarks,title,langcode,ownerid,l_maxattrcfgid) values('Ingen faktura/Omkostning','Ingen faktura/Omkostning','DA',(select maxattributeid from maxattributecfg where objectname ='WORKORDER'and attributename =('SBHINVCOST')), (select isnull(max(l_maxattrcfgid +1),1)from l_maxattrcfg));
+            </sql>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Object classes change">
+            <sql target="all"/>
+        </freeform>
+    </statements>
+</script>

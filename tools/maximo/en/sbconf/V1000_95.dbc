@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="cfg001_attr_pm_sbhinvcost">
+    <description>Auto-Generated Script</description>
+    <statements>
+		<drop_attributes object="PM">
+			<attrname name="SBHINVCOST"/>
+		</drop_attributes>
+        <add_attributes object="PM">
+            <attrdef attribute="SBHINVCOST" maxtype="YORN" title="Sbhinvcost" remarks="Sbhinvcost" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+		<drop_attributes object="WORKORDER">
+			<attrname name="SBHINVCOST"/>
+		</drop_attributes>
+        <add_attributes object="WORKORDER">
+            <attrdef attribute="SBHINVCOST" maxtype="YORN" title="Sbhinvcost" remarks="Indicator for No invoice/cost" sameasobject="PM" sameasattribute="SBHINVCOST" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+        </add_attributes>
+    </statements>
+</script>

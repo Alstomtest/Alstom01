@@ -1,0 +1,20 @@
+/* Assign Startcenters to Maximo security groups
+ 
+ 1. Extract Startcenters from Source (MM Package)
+ 2. Remove Startcenters from groups: update maxgroup set sctemplateid = NULL;
+ 3. Delete Startcenters from target(manual)
+ 4. Run DBC Scripts for the Release
+ 5. Apply MM package on target
+ 6. Apply Startcenter to groups
+*/ 
+
+update maxgroup set sctemplateid = (select sctemplateid from sctemplate where description = 'Sund & Bælt Jernbane planlægger_DK') where groupname = 'SBHPLANRAIL';
+update maxgroup set sctemplateid = (select sctemplateid from sctemplate where description = 'Sund & Bælt Vejspærring planlægger_DK') where groupname = 'SBHPLANROAD';
+update maxgroup set sctemplateid = (select sctemplateid from sctemplate where description = 'Sund & Bælt  Teknisks overvågning_DK') where groupname = 'SBHSERDESK';
+update maxgroup set sctemplateid = (select sctemplateid from sctemplate where description = 'Sund & Bælt Entreprenør Fagansvarlig_DK') where groupname = 'SBHSUPEREXT1';
+update maxgroup set sctemplateid = (select sctemplateid from sctemplate where description = 'Sund & Bælt Entreprenør Fagansvarlig_DK') where groupname = 'SBHSUPEREXT2';
+update maxgroup set sctemplateid = (select sctemplateid from sctemplate where description = 'Sund & Bælt Entreprenør holdleder_DK') where groupname = 'SBHSUPERINT';
+update maxgroup set sctemplateid = (select sctemplateid from sctemplate where description = 'Sund & Bælt System administrator_DK') where groupname = 'SBHSYSADMIN';
+update maxgroup set sctemplateid = (select sctemplateid from sctemplate where description = 'Sund & Bælt Maximo Administrator_DK') where groupname = 'SBHMAXADMIN';
+update maxgroup set sctemplateid = (select sctemplateid from sctemplate where description = 'Sund & Bælt Tekniker_DK') where groupname = 'SBHTECHINT';
+update maxgroup set sctemplateid = (select sctemplateid from sctemplate where description = 'Sund & Bælt Tekniker_DK') where groupname = 'SBHTECHEXT';

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="cfg001_SBHOWNERG - correct last deployment">
+    <description>Auto-Generated Script</description>
+    <statements>
+	    <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+			delete from maxdomain where domainid='SBHOWNERG'
+			delete from maxtabledomain where domainid='SBHOWNERG'
+			</sql>
+        </freeform>
+        <specify_table_domain domainid="SBHOWNERG" description="Owner Group Domain" overwrite="true" objectname="PERSONGROUP" validationwhereclause="persongroup=:ownergroup"/>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver"/>
+        </freeform>
+    </statements>
+</script>

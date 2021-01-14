@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into MAXINTOBJDETAIL">
+  <description>Add new detail structure for services in JobPlan - Fri Aug 23 09:36:53 CEST 2019</description>
+  <statements>
+  	<freeform description="delete custom MAXINTOBJDETAIL">
+		<sql target="sqlserver">		
+			delete from MAXINTOBJDETAIL where intobjectname in ('MXL_JOBPLAN');
+			commit;
+		</sql>
+	</freeform>   
+    <insert table="MAXINTOBJDETAIL">
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="false" />
+        <columnvalue column="deleteoncreate" boolean="false" />
+        <columnvalue column="excludeparentkey" boolean="false" />
+        <columnvalue column="hierarchypath" string="JOBPLAN" />
+        <columnvalue column="objectid" number="1" />
+        <columnvalue column="changedate" date="07-30-2019:15:46:56" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="1" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="objectname" string="JOBPLAN" />
+        <columnvalue column="intobjectname" string="MXL_JOBPLAN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="JOBPLAN/JOBTASK" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="2" />
+        <columnvalue column="changedate" date="07-30-2019:15:46:59" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="2" />
+        <columnvalue column="objectorder" number="1" />
+        <columnvalue column="relation" string="JOBTASK" />
+        <columnvalue column="objectname" string="JOBTASK" />
+        <columnvalue column="intobjectname" string="MXL_JOBPLAN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="JOBPLAN/JOBLABOR" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="3" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="3" />
+        <columnvalue column="objectorder" number="2" />
+        <columnvalue column="relation" string="JOBLABOR" />
+        <columnvalue column="objectname" string="JOBLABOR" />
+        <columnvalue column="intobjectname" string="MXL_JOBPLAN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="JOBPLAN/JOBMATERIAL" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="4" />
+        <columnvalue column="changedate" date="05-07-2019:08:58:01" />
+        <columnvalue column="changeby" string="WILSON" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="4" />
+        <columnvalue column="objectorder" number="3" />
+        <columnvalue column="relation" string="JOBMATERIAL" />
+        <columnvalue column="objectname" string="JOBMATERIAL" />
+        <columnvalue column="intobjectname" string="MXL_JOBPLAN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="excludebydefault" boolean="false" />
+        <columnvalue column="skipkeyupdate" boolean="false" />
+        <columnvalue column="invokeexecute" boolean="false" />
+        <columnvalue column="propagateevent" boolean="true" />
+        <columnvalue column="deleteoncreate" boolean="true" />
+        <columnvalue column="excludeparentkey" boolean="true" />
+        <columnvalue column="hierarchypath" string="JOBPLAN/JOBSERVICE" />
+        <columnvalue column="parentobjid" number="1" />
+        <columnvalue column="objectid" number="5" />
+        <columnvalue column="changedate" date="08-22-2019:14:30:31" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="processorder" number="5" />
+        <columnvalue column="objectorder" number="4" />
+        <columnvalue column="relation" string="JOBSERVICE" />
+        <columnvalue column="objectname" string="JOBSERVICE" />
+        <columnvalue column="intobjectname" string="MXL_JOBPLAN" />
+      </insertrow>
+    </insert>
+  </statements>
+</script>

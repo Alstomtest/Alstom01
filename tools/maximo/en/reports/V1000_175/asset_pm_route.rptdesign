@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="comments">Copyright (c) 2006 &lt;&lt;Your Company Name here>></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.8.0.v201806261756</property>
+    <html-property name="description">This template will create a report having a single header with multiple rows of data.</html-property>
+    <simple-property-list name="includeResource">
+        <value>jobplan</value>
+    </simple-property-list>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.com.ibm.tivoli.maximo.report.script);
+
+mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
+mxReportScriptContext.setDefaultLogLevel("DEBUG");
+mxReportScriptContext.setDefaultLogFile("c:/temp/myreport.log");
+
+function hyperlinkWhere(jpnum, orgid, siteid)
+{
+	var hlink = new String();
+	
+	hlink = "jobplan.jpnum='" + jpnum + "'";
+	
+	if(BirtComp.notEqual(orgid, "") &amp;&amp; BirtComp.notEqual(orgid, null)) 
+		hlink += " and jobplan.orgid='" + orgid + "'";
+	if(BirtComp.notEqual(siteid, "") &amp;&amp; BirtComp.notEqual(siteid, null)) 
+		hlink += " and jobplan.siteid='" + siteid + "'";
+	
+	return hlink;
+}]]></method>
+    <property name="theme">MaximoSystemLibrary.maximoTheme</property>
+    <property name="layoutPreference">auto layout</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">MaximoSystemLibrary.rptlibrary</property>
+            <property name="namespace">MaximoSystemLibrary</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="where" id="25">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1=1</value>
+            </simple-property-list>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="appname" id="200">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramdelimiter" id="202">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramstring" id="201">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="maximoDataSource" id="64" extends="MaximoSystemLibrary.maximoDataSource"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="dataSet" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">assetnr</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">asloc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">route</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">rutdesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">pmnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">pmdesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">pmnum_1</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">pmdesc_1</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">assetnr</property>
+                </structure>
+                <structure>
+                    <property name="columnName">asloc</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">route</property>
+                </structure>
+                <structure>
+                    <property name="columnName">rutdesc</property>
+                </structure>
+                <structure>
+                    <property name="columnName">pmnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">pmdesc</property>
+                </structure>
+                <structure>
+                    <property name="columnName">pmnum_1</property>
+                </structure>
+                <structure>
+                    <property name="columnName">pmdesc_1</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">assetnr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">asloc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">route</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">rutdesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">pmnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">pmdesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">pmnum_1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">pmdesc_1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[maximoDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+maximoDataSet.open();
+
+var sqlText = new String();
+
+// Add query to sqlText variable.
+sqlText = "SELECT  asset.assetnum, asset.description, asset.siteid, asset.location as asloc, route_stop.route, routes.description as rutdesc, "
++ " pm.pmnum, pm.description  as pmdesc , pm_1.pmnum as pmnum_1, pm_1.description as pmdesc_1"
++ " FROM "
+
++ " { oj (((asset LEFT OUTER JOIN pm pm_1 ON "
++ "       asset.assetnum = pm_1.assetnum AND "
++ "    asset.orgid = pm_1.orgid AND "
++ "    asset.siteid = pm_1.siteid) "
+
++ "    LEFT OUTER JOIN  route_stop ON "
++ "       asset.assetnum = route_stop.assetnum "
++ "     and route_stop.siteid = asset.siteid) " /// tilføjer 20-5-2015
+
++ "      LEFT OUTER JOIN routes ON "
++ "         route_stop.route = routes.route  and ROUTES.ROUTESTOPSBECOME = 'OPGAVE' and " ///AND routes.siteid = 'SBF' udelades efter ønske STR
++ "     route_stop.orgid = routes.orgid AND "
++ "     route_stop.siteid = routes.siteid) "
+
++ "      LEFT OUTER JOIN pm ON "
++ "         routes.route = pm.route AND "
++ "     routes.orgid = pm.orgid AND "
++ "     routes.siteid = pm.siteid} "
+
+// Include the Maximo where clause
++ " where " + params["where"]
+//+ " and asset.siteid = 'SBF'" udelades efter ønske STR
+//+ " and route_stop.siteid = 'SBF'"
+//+ " and routes.siteid = 'SBF'"
+//+ " and ROUTES.ROUTESTOPSBECOME = 'OPGAVE' "
+//+ " and asset.assetnum = 'AU.EL.ULYS3.000004' "
+//+ " or asset.assetnum = 'AU.EL.ADK.000002' "
+
+
++ " ORDER BY asset.assetnum ASC "
+;
+
+maximoDataSet.setQuery(sqlText);
+]]></method>
+            <method name="fetch"><![CDATA[if (!maximoDataSet.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["asloc"] = maximoDataSet.getString("asloc");	
+row["assetnr"] = maximoDataSet.getString("assetnum");	
+row["description"] = maximoDataSet.getString("description");	
+row["pmdesc"] = maximoDataSet.getString("pmdesc");	
+row["pmdesc_1"] = maximoDataSet.getString("pmdesc_1");	
+row["pmnum"] = maximoDataSet.getString("pmnum");	
+row["pmnum_1"] = maximoDataSet.getString("pmnum_1");	
+row["route"] = maximoDataSet.getString("route");	
+row["rutdesc"] = maximoDataSet.getString("rutdesc");	
+return (true);]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="maximoLandscape" id="47" extends="MaximoSystemLibrary.maximoLandscape">
+            <overridden-values>
+                <ref-entry baseId="304" name="NewGrid2" id="304"/>
+                <ref-entry baseId="305" id="305"/>
+                <ref-entry baseId="306" id="306"/>
+                <ref-entry baseId="307" id="307"/>
+                <ref-entry baseId="308" id="308"/>
+                <ref-entry baseId="309" id="309"/>
+                <ref-entry baseId="310" name="NewImage" id="310"/>
+                <ref-entry baseId="322" name="NewGrid" id="322"/>
+                <ref-entry baseId="323" id="323"/>
+                <ref-entry baseId="324" id="324"/>
+                <ref-entry baseId="325" id="325"/>
+                <ref-entry baseId="326" id="326"/>
+                <ref-entry baseId="328" name="NewText" id="328"/>
+                <ref-entry baseId="327" id="327"/>
+                <ref-entry baseId="329" name="NewGrid1" id="329"/>
+                <ref-entry baseId="330" id="330"/>
+                <ref-entry baseId="331" id="331"/>
+                <ref-entry baseId="332" id="332"/>
+                <ref-entry baseId="333" id="333"/>
+                <ref-entry baseId="334" id="334"/>
+                <ref-entry baseId="335" name="NewAutoText" id="335"/>
+                <ref-entry baseId="336" id="336"/>
+                <ref-entry baseId="337" name="NewText1" id="337"/>
+                <ref-entry baseId="338" id="338"/>
+                <ref-entry baseId="339" name="NewAutoText1" id="339"/>
+            </overridden-values>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="7">
+            <property name="width">9.96875in</property>
+            <property name="dataSet">dataSet</property>
+            <property name="pageBreakInterval">50</property>
+            <column id="91">
+                <property name="width">6.864583333333333in</property>
+            </column>
+            <header>
+                <row id="180">
+                    <property name="style">title</property>
+                    <cell id="181">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">1</property>
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <label id="364">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Asset's tilknytning til ruter i FV planer, samt tilknytning direkte til FV planer</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+        </table>
+        <table id="427">
+            <property name="dataSet">dataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">assetnr</property>
+                    <text-property name="displayName">assetnr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["assetnr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">asloc</property>
+                    <text-property name="displayName">asloc</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["asloc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">route</property>
+                    <text-property name="displayName">route</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["route"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">rutdesc</property>
+                    <text-property name="displayName">rutdesc</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["rutdesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">pmnum</property>
+                    <text-property name="displayName">pmnum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["pmnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">pmdesc</property>
+                    <text-property name="displayName">pmdesc</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["pmdesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">pmnum_1</property>
+                    <text-property name="displayName">pmnum_1</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["pmnum_1"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">pmdesc_1</property>
+                    <text-property name="displayName">pmdesc_1</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["pmdesc_1"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <text-property name="displayName">description</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <expression name="expression" type="javascript">Total.count()</expression>
+                    <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">total</property>
+                    <expression name="expression" type="javascript">Total.count()</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="476">
+                <property name="width">0.7395833333333334in</property>
+            </column>
+            <column id="477">
+                <property name="width">1.7291666666666667in</property>
+            </column>
+            <column id="478">
+                <property name="width">0.65625in</property>
+            </column>
+            <column id="479">
+                <property name="width">0.71875in</property>
+            </column>
+            <column id="480">
+                <property name="width">1.6875in</property>
+            </column>
+            <column id="481">
+                <property name="width">0.875in</property>
+            </column>
+            <column id="482">
+                <property name="width">1.3333333333333333in</property>
+            </column>
+            <column id="483">
+                <property name="width">0.5729166666666666in</property>
+            </column>
+            <column id="484">
+                <property name="width">1.6354166666666667in</property>
+            </column>
+            <header>
+                <row id="428">
+                    <property name="fontSize">9pt</property>
+                    <property name="fontWeight">bold</property>
+                    <property name="fontStyle">italic</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">medium</property>
+                    <cell id="429">
+                        <label id="506">
+                            <text-property name="text">Asset Nr.</text-property>
+                        </label>
+                    </cell>
+                    <cell id="431">
+                        <label id="507">
+                            <text-property name="text">Asset beskrivelse</text-property>
+                        </label>
+                    </cell>
+                    <cell id="433">
+                        <label id="508">
+                            <text-property name="text">Asset location</text-property>
+                        </label>
+                    </cell>
+                    <cell id="435">
+                        <label id="509">
+                            <text-property name="text">Rute nr.</text-property>
+                        </label>
+                    </cell>
+                    <cell id="437">
+                        <label id="510">
+                            <text-property name="text">Rute beskrivelse</text-property>
+                        </label>
+                    </cell>
+                    <cell id="439">
+                        <label id="511">
+                            <property name="color">green</property>
+                            <text-property name="text">FV nr. i rute</text-property>
+                        </label>
+                    </cell>
+                    <cell id="441">
+                        <label id="512">
+                            <property name="color">green</property>
+                            <text-property name="text">FV beskrivelse</text-property>
+                        </label>
+                    </cell>
+                    <cell id="443">
+                        <label id="513">
+                            <property name="color">red</property>
+                            <text-property name="text">FV nr. direkte</text-property>
+                        </label>
+                    </cell>
+                    <cell id="445">
+                        <label id="514">
+                            <property name="color">red</property>
+                            <text-property name="text">FV beskrivelse</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <group id="485">
+                <property name="groupName">GroupByAsset</property>
+                <expression name="keyExpr" type="javascript">row["assetnr"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["assetnr"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <row id="486">
+                        <cell id="487"/>
+                        <cell id="488"/>
+                        <cell id="489"/>
+                        <cell id="490"/>
+                        <cell id="491"/>
+                        <cell id="492"/>
+                        <cell id="493"/>
+                        <cell id="494"/>
+                        <cell id="495"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="496">
+                        <cell id="497"/>
+                        <cell id="498"/>
+                        <cell id="499"/>
+                        <cell id="500"/>
+                        <cell id="501"/>
+                        <cell id="502"/>
+                        <cell id="503"/>
+                        <cell id="504"/>
+                        <cell id="505"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="447">
+                    <property name="fontSize">9pt</property>
+                    <property name="borderBottomStyle">dotted</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <cell id="448">
+                        <data id="449">
+                            <property name="resultSetColumn">assetnr</property>
+                        </data>
+                    </cell>
+                    <cell id="450">
+                        <data id="516">
+                            <property name="resultSetColumn">description</property>
+                        </data>
+                    </cell>
+                    <cell id="452">
+                        <data id="515">
+                            <property name="resultSetColumn">asloc</property>
+                        </data>
+                    </cell>
+                    <cell id="454">
+                        <data id="455">
+                            <property name="resultSetColumn">route</property>
+                        </data>
+                    </cell>
+                    <cell id="456">
+                        <data id="457">
+                            <property name="resultSetColumn">rutdesc</property>
+                        </data>
+                    </cell>
+                    <cell id="458">
+                        <data id="459">
+                            <property name="color">green</property>
+                            <property name="resultSetColumn">pmnum</property>
+                        </data>
+                    </cell>
+                    <cell id="460">
+                        <data id="461">
+                            <property name="color">green</property>
+                            <property name="resultSetColumn">pmdesc</property>
+                        </data>
+                    </cell>
+                    <cell id="462">
+                        <data id="463">
+                            <property name="color">red</property>
+                            <property name="resultSetColumn">pmnum_1</property>
+                        </data>
+                    </cell>
+                    <cell id="464">
+                        <data id="465">
+                            <property name="color">red</property>
+                            <property name="resultSetColumn">pmdesc_1</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="466">
+                    <cell id="467">
+                        <label id="517">
+                            <property name="fontWeight">bold</property>
+                            <property name="textUnderline">underline</property>
+                            <text-property name="text">Totoal Records</text-property>
+                        </label>
+                    </cell>
+                    <cell id="468">
+                        <property name="colSpan">8</property>
+                        <property name="rowSpan">1</property>
+                        <data id="519">
+                            <property name="fontSize">9pt</property>
+                            <property name="resultSetColumn">total</property>
+                        </data>
+                    </cell>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

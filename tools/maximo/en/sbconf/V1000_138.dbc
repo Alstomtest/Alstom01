@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="v1000_138">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <drop_relationship name="SBHGLACCT" parent="POLINE"/>    
+        <create_relationship parent="POLINE" name="SBHGLACCT" child="CHARTOFACCOUNTS" whereclause="glaccount = :GLDEBITACCT" remarks="For PO Approval link POLINE to Chart of Accounts to get the person responsible for the GLACCT"/>
+        <drop_relationship name="SBHSUPERVISOR" parent="CHARTOFACCOUNTS"/>
+        <create_relationship parent="CHARTOFACCOUNTS" name="SBHSUPERVISOR" child="PERSON" whereclause="personid = :SBHACCTOWNER" remarks="Get Supervisor from Person for person"/>
+	    <specify_table_domain domainid="SBHVENDOR" description="Vendor information from companies" overwrite="true" objectname="COMPANIES" validationwhereclause="company=:sbhvendor"/>
+	</statements>
+</script>

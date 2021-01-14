@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into ORGANIZATION">
+  <description>GenInsertDbc created this script at Wed Jun 05 12:52:09 CEST 2019</description>
+  <statements>
+	<freeform description="Create application imports for classifications, locations and job plan (xml)">
+		<sql target="sqlserver">			
+			<!-- 60 new -->			
+			delete from maxattribute where objectname='workorder' and attributename = 'SBHWOTRAVARIGHED';
+			delete from maxattributecfg where objectname='workorder' and attributename = 'SBHWOTRAVARIGHED';
+			delete from maxattribute where objectname='woactivity' and attributename = 'SBHWOTRAVARIGHED';
+			delete from maxattributecfg where objectname='woactivity' and attributename = 'SBHWOTRAVARIGHED';
+			delete from maxattribute where objectname='wochange' and attributename = 'SBHWOTRAVARIGHED';
+			delete from maxattributecfg where objectname='wochange' and attributename = 'SBHWOTRAVARIGHED';
+			delete from maxattribute where objectname='worelease' and attributename = 'SBHWOTRAVARIGHED';
+			delete from maxattributecfg where objectname='worelease' and attributename = 'SBHWOTRAVARIGHED';
+			<!-- 114 new -->
+			update sigoption set visible=1 where app='wotrack' and optionname='sbhshownev';
+			<!-- 168 new 
+			update maxrelationship set whereclause='HISTORYFLAG = 0 AND ISTASK = 0 AND WONUM != :WONUM AND STATUS IN (''WAPPR'',''WSCH'') AND (( :worktype =''SPSP'' AND coalesce(SBHWOSPORNR,0) = coalesce(:SBHWOSPORNR,0)	AND coalesce(SBHWOSPSP,0) = coalesce(:SBHWOSPSP,0) AND SBHWOKORE IN (0, cast(CASE WHEN :SBHWOKORE = 0 THEN ''0'' ELSE ''1'' END as int))) 
+			OR ( :worktype = ''VEJSP'' AND coalesce(SBHWOTRARETNING, ''ABC'') = coalesce(:SBHWOTRARETNING, ''ABC'') AND coalesce(SBHWOTRASPOR, ''ABC'') = coalesce(:SBHWOTRASPOR, ''ABC'') AND coalesce(SBHWOTRAFIKSP, ''ABC'') = coalesce(:SBHWOTRAFIKSP, ''ABC''))) 
+			AND (schedstart >= :schedstart AND schedfinish <= coalesce(:schedfinish, getdate())
+			AND WONUM NOT IN (SELECT RELATEDRECORD.RELATEDRECKEY FROM RELATEDRECORD WHERE RELATEDRECORD.RECORDKEY = :WONUM 
+			AND RELATEDRECORD.SITEID = :SITEID AND CLASS = ''WORKORDER'')) 
+			AND ( ASSETNUM IN (SELECT ASSET.ASSETNUM FROM ASSET WHERE ASSET.ISLINEAR = 1 AND startmeasure >= (SELECT a2.startmeasure FROM asset a2 WHERE a2.assetnum = :assetnum)	AND endmeasure <= (SELECT a2.endmeasure FROM asset a2 WHERE a2.assetnum = :assetnum)) OR WONUM IN (SELECT recordkey FROM multiassetlocci 
+			WHERE (recordkey = wonum AND recordclass = ''WORKORDER'') AND multiassetlocci.ASSETNUM IN (SELECT ASSET.ASSETNUM FROM ASSET WHERE ASSET.ISLINEAR = 1 AND startmeasure >= (SELECT a2.startmeasure FROM asset a2 WHERE a2.assetnum = multiassetlocci.assetnum)	AND endmeasure <= (SELECT a2.endmeasure FROM asset a2 WHERE a2.assetnum = multiassetlocci.assetnum))) )' 
+			where name='SBHPOSSWO' and parent='workorder' and child='workorder';			
+			 180 - 183 -->
+			update l_maxdomain set description='Lokationsniveau' where ownerid=(select maxdomainid from maxdomain where domainid='SBHLOCLEVEL');
+			update l_maxdomain set description='Lokationstype' where ownerid=(select maxdomainid from maxdomain where domainid='SBHLOCTYPE');
+			update l_maxdomain set description='Tidsforskydelse på AO mellem målslut og start ikke senere end dato' where ownerid=(select maxdomainid from maxdomain where domainid='SBHFNCONOFFSET');
+			update l_maxdomain set description='AO Prioritet' where ownerid=(select maxdomainid from maxdomain where domainid='SBHWOPRIORITY');
+			update l_maxdomain set description='FV til arbejdsordre' where ownerid=(select maxdomainid from maxdomain where domainid='SBHPMJBANE');
+			update l_maxdomain set description='Kontroll af fejlkode (klassificering)' where ownerid=(select maxdomainid from maxdomain where domainid='SBHCLASSFAIL');
+			update l_maxdomain set description='Kontrollering af lokationsniveau (Asset)' where ownerid=(select maxdomainid from maxdomain where domainid='SBHASSLOCSPEC');
+			update l_maxdomain set description='Afmaerkningsplan' where ownerid=(select maxdomainid from maxdomain where domainid='SBHTRAVAMPLAN');
+			update l_maxdomain set description='Vejafspærring' where ownerid=(select maxdomainid from maxdomain where domainid='SBHTRASPOR');
+			update l_maxdomain set description='Vejafspærring retning' where ownerid=(select maxdomainid from maxdomain where domainid='SBHTRARETNING');
+			update l_maxdomain set description='Vejområdet' where ownerid=(select maxdomainid from maxdomain where domainid='SBHTRAFIKSP');
+			update l_maxdomain set description='Ejergruppe' where ownerid=(select maxdomainid from maxdomain where domainid='SBHOWNERG');
+			update l_maxdomain set description='Driftsleder' where ownerid=(select maxdomainid from maxdomain where domainid='SBHOWNER');
+			update l_maxdomain set description='Tilstand vurdering' where ownerid=(select maxdomainid from maxdomain where domainid='SBHCONDRATE');
+			update l_maxdomain set description='Kontrolleret?' where ownerid=(select maxdomainid from maxdomain where domainid='SBHCHECKED');
+			update l_maxdomain set description='Entreprenørinformation fra virksomheder' where ownerid=(select maxdomainid from maxdomain where domainid='SBHVENDOR');
+			<!-- 212 new -->
+			delete from l_maxmessages where ownerid=(select maxmessagesid from maxmessages where msgkey='SBHASSMANDFC');
+			delete from l_maxmessages where ownerid=(select maxmessagesid from maxmessages where msgkey='SBHMEMNDASSFD');
+			delete from maxmessages where msgkey in ('SBHASSMANDFC','SBHMEMNDASSFD');
+			update maxattribute set title='Enter Date', remarks='Enter Date' where objectname='WORKLOG' and attributename ='SBHENTERDATE';
+			update maxattributecfg set title='Enter Date', remarks='Enter Date' where objectname='WORKLOG' and attributename ='SBHENTERDATE';
+			update l_maxattribute set title='Indtast dato', remarks='Indtast dato' where ownerid=(select maxattributeid from maxattribute where attributename='SBHENTERDATE');
+			update l_maxattrcfg set title='Indtast dato', remarks='Indtast dato' where ownerid=(select maxattributeid from maxattributecfg where attributename='SBHENTERDATE');
+		</sql>
+	</freeform>		
+  </statements>
+</script>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="Domain update" scriptname="Update translation for Domain  SBHCONDRATE,SBHLOCLEVEL">
+  <description>Delete messages from environment</description>
+  <statements>
+  <freeform description="Delete">
+  <sql target="sqlserver">
+		delete from l_maxdomain where ownerid=(select maxdomainid from maxdomain where domainid = 'SBHCONDRATE');
+		delete from l_maxdomain where ownerid=(select maxdomainid from maxdomain where domainid = 'SBHLOCLEVEL'); 
+	</sql>
+  </freeform>
+  <freeform description="Delete before load custom structure">
+  <sql target="sqlserver">
+	insert into l_maxdomain (description,ownerid, langcode, l_maxdomainid) values ('Tilstand vurdering',(select maxdomainid from maxdomain where domainid = 'SBHCONDRATE'),'DA', (select isnull(max(l_maxdomainid + 1), 1) from l_maxdomain));
+	insert into l_maxdomain (description,ownerid, langcode, l_maxdomainid) values ('Lokationsniveau',(select maxdomainid from maxdomain where domainid = 'SBHLOCLEVEL'),'DA', (select isnull(max(l_maxdomainid + 1), 1) from l_maxdomain));
+  </sql>
+  </freeform>
+  </statements>
+</script>

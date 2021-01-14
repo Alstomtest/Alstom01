@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="som_3">
+    <description>MR-1091, MR-1035</description>
+    <statements>
+	    <freeform description="Automatically Generated - Object classes change">
+            <sql target="sqlserver">
+				update maxattributecfg set TITLE='Possession Actual  Start Date', REMARKS='Possession Actual  Start Date' where objectname = 'WORKORDER' and attributename ='SBHWOSPFAKSTART'
+				update maxattributecfg set TITLE='Possession Actual  End Date', REMARKS='Possession Actual  End Date' where objectname = 'WORKORDER' and attributename ='SBHWOSPFAKSLUT'
+			</sql>
+        </freeform>
+	    <freeform description="Automatically Generated - Object classes change">
+            <sql target="sqlserver">
+				delete from maxattribute where objectname='ASSET' and attributename in ('SBHASSSPORNR')
+				delete from maxattribute where attributename in ('SBHWOALERTLEAD','SBHWOBILLCHECK','SBHWOINSDAM','SBHWOSIKPLAN','SBHWOSRLBNR','SBHWOTIDAFSAT','SBHWOTIDPAKKE','SBHWOSPORNR')
+				delete from maxattributecfg where objectname='ASSET' and attributename in ('SBHASSSPORNR')
+				delete from maxattributecfg where objectname='WORKORDER' and attributename in ('SBHWOALERTLEAD','SBHWOBILLCHECK','SBHWOINSDAM','SBHWOSIKPLAN','SBHWOSRLBNR','SBHWOTIDAFSAT','SBHWOTIDPAKKE','SBHWOSPORNR')	
+			</sql>
+        </freeform>
+		<add_attributes object="ASSET">
+            <attrdef attribute="SBHASSSPORNR" maxtype="UPPER" title="Track No." remarks="Track no." length="30" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+        </add_attributes>
+        <add_attributes object="WORKORDER">
+            <attrdef attribute="SBHWOALERTLEAD" maxtype="DATETIME" title="WO Alert Lead" remarks="WO Alert Lead" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOBILLCHECK" maxtype="YORN" title="Cannot be billed to the Great Belt" remarks="Cannot be billed to the Great Belt" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOINSDAM" maxtype="YORN" title="Insurance Damage" remarks="Insurance Damage" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOSIKPLAN" maxtype="ALN" title="Raill Security Plan" remarks="Rail Security Plan" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOSRLBNR" maxtype="ALN" title="Serial No." remarks="Serial No." length="12" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="WILDCARD"/>
+            <attrdef attribute="SBHWOTIDAFSAT" maxtype="DATETIME" title="Last Man Dropped Off" remarks="Last Man Dropped Off" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+            <attrdef attribute="SBHWOTIDPAKKE" maxtype="DATETIME" title="Pack Up" remarks="Pack Up" length="10" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" searchtype="EXACT"/>
+			<attrdef attribute="SBHWOSPORNR" maxtype="UPPER" title="Track No." remarks="Track No." length="30" persistent="true" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="0" searchtype="WILDCARD"/>
+        </add_attributes>
+    </statements>
+</script>

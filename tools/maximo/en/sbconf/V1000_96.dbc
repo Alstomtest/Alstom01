@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="cfg001_sec_sbhsuperext1">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM securityrestrict where groupname='sbhsuperext1';
+			</sql>
+        </freeform>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPLABOR"/>
+                <columnvalue column="attributename" string="DISPLAYRATE"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1067"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="LABTRANS"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1059"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="MATUSETRANS"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORMA"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1061"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="TOOLTRANS"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORTOO"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1065"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPLABOR"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1068"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPMATERIAL"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1069"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPSERVICE"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1071"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPTOOL"/>
+                <columnvalue column="attributename" string="LINECOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORTOO"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1073"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="SERVRECTRANS"/>
+                <columnvalue column="attributename" string="LOADEDCOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORSER"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1063"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="LABTRANS"/>
+                <columnvalue column="attributename" string="PAYRATE"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1060"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPTOOL"/>
+                <columnvalue column="attributename" string="RATE"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORTOO"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1074"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="TOOLTRANS"/>
+                <columnvalue column="attributename" string="TOOLRATE"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORTOO"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1066"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="MATUSETRANS"/>
+                <columnvalue column="attributename" string="UNITCOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORMA"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1062"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="SERVRECTRANS"/>
+                <columnvalue column="attributename" string="UNITCOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDORSER"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1064"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPMATERIAL"/>
+                <columnvalue column="attributename" string="UNITCOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1070"/>
+            </insertrow>
+        </insert>
+        <insert table="securityrestrict" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="app" string="WOTRACK"/>
+                <columnvalue column="objectname" string="WPSERVICE"/>
+                <columnvalue column="attributename" string="UNITCOST"/>
+                <columnvalue column="reevaluate" number="1"/>
+                <columnvalue column="restriction" string="HIDDEN"/>
+                <columnvalue column="conditionnum" string="SBHVENDOR"/>
+                <columnvalue column="type" string="ATTR"/>
+                <columnvalue column="srestrictnum" string="1072"/>
+            </insertrow>
+        </insert>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver"/>
+        </freeform>
+    </statements>
+</script>

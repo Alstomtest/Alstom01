@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into maxapps">
+  <description>GenInsertDbc created this script at Mon Jan 13 15:30:21 CET 2020</description>
+  <statements>
+    <insert table="maxapps">
+      <insertrow>
+        <columnvalue column="lockenabled" boolean="false" />
+        <columnvalue column="apptype" string="OS" />
+        <columnvalue column="description" string="MATRECTRANS Object" />
+        <columnvalue column="app" string="MXMATRECTRANS" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="lockenabled" boolean="false" />
+        <columnvalue column="apptype" string="OS" />
+        <columnvalue column="description" string="Purchase Order Definition" />
+        <columnvalue column="app" string="MXPO" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="lockenabled" boolean="false" />
+        <columnvalue column="apptype" string="OS" />
+        <columnvalue column="description" string="MX POLINE" />
+        <columnvalue column="app" string="MXPOLINE" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="lockenabled" boolean="false" />
+        <columnvalue column="apptype" string="OS" />
+        <columnvalue column="description" string="SERVRECTRANS Object" />
+        <columnvalue column="app" string="MXSERVRECTRANS" />
+      </insertrow>
+    </insert>
+  </statements>
+</script>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_153">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+				update crossoverdomain set destfield='SBHWOTRARETNING' where domainid='SBHPMJBANE' AND SOURCEFIELD='SBHPMTRARETNING';
+				update maxgroup set authallstorerooms=1 where groupname in ('SBHSUPEREXT1','SBHSUPEREXT2','SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD');
+			</sql>
+        </freeform>
+    </statements>
+</script>

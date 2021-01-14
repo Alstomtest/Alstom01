@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_121">
+    <description>Auto-Generated Script</description>
+    <statements>
+	    <drop_domain domainid="SBHVEND2PM" />
+		<specify_table_domain domainid="SBHVEND2PM" description="Vendor to PM" overwrite="true" objectname="COMPANIES" validationwhereclause="company=:sbhpmvendor"/>
+		<drop_domain domainid="SBHOWNERCON" />
+        <specify_table_domain domainid="SBHOWNERCON" description="Contractor Supervisor" overwrite="true" objectname="PERSONGROUPVIEW" validationwhereclause="" listwhereclause="persongroup=:assignedownergroup and sbhconman=1"/>
+    </statements>
+</script>

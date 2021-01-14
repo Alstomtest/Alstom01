@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="cfg002_App">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <define_table persistent="false" type="system" object="SBREORDERITEMS" description="SB Reorder Items Non Persistant only for CRON" service="INVENTORY" classname="cust.app.inventory.virtual.SBReorderItemsSet" mainobject="false" internal="false">
+            <attrdef attribute="AGREEMENTPO" maxtype="YORN" title="Agreementpo" remarks="Checking this box enables the reorder process to consider agreement purchase orders when creating PRs/POs?" length="1" persistent="false" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" defaultvalue="0" searchtype="NONE"/>
+            <attrdef attribute="ALLITEMS" maxtype="YORN" title="Allitems" remarks="Indicates whether to reorder all of the inventory items in a selected storeroom." length="1" persistent="false" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" classname="psdi.app.inventory.virtual.FldReorderItemsAllItems" defaultvalue="0" searchtype="NONE"/>
+            <attrdef attribute="ASYNC" maxtype="YORN" title="Async" remarks="Indicates whether to run the reorder process in the background." length="1" persistent="false" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" defaultvalue="0" searchtype="NONE"/>
+            <attrdef attribute="DIRECTISSUE" maxtype="YORN" title="Directissue" remarks="DirectissueIndicates whether direct issue items can be reordered for all work orders." length="1" persistent="false" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" classname="psdi.app.inventory.virtual.FldReorderItemsDirectIssue" defaultvalue="0" searchtype="NONE"/>
+            <attrdef attribute="DIRECTORDERONLY" maxtype="YORN" title="Directorderonly" remarks="Indicates if a reorder is for direct order items only" length="1" persistent="false" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" searchtype="NONE"/>
+            <attrdef attribute="ENDPONUM" maxtype="UPPER" title="Endponum" remarks="The number of the first PO generated during the reorder process." length="8" persistent="false" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="true" searchtype="NONE"/>
+            <attrdef attribute="ENDPRNUM" maxtype="UPPER" title="Endprnum" remarks="The number of the last PR generated during the reorder process." length="8" persistent="false" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="true" searchtype="NONE"/>
+            <attrdef attribute="IGNOREPOINT" maxtype="YORN" title="Ignorepoint" remarks="Indicates whether the reorder point can be disregarded when generating order quantities." length="1" persistent="false" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" defaultvalue="0" searchtype="NONE"/>
+            <attrdef attribute="LEADTIME" maxtype="INTEGER" title="Leadtime" remarks="Allowance for extra lead time in days." length="12" persistent="false" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="true" searchtype="NONE"/>
+            <attrdef attribute="PREVIEWREORDER" maxtype="YORN" title="Previewreorder" remarks="Indicates if reorder request is submitted after preview" length="1" persistent="false" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" defaultvalue="0" searchtype="NONE"/>
+            <attrdef attribute="REORDERSOFT" maxtype="YORN" title="Reordersoft" remarks="Indicates whether to include soft reservations (APSOFT or SOFT) when selecting items for reorder." length="1" persistent="false" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" defaultvalue="0" searchtype="NONE"/>
+            <attrdef attribute="RUNREORDER" maxtype="YORN" title="Runreorder" remarks="Run the reorder process now? Or show Preview/Modify page? Y (Yes) means to run reorder. N (No) means to show Preview/Modify page." length="1" persistent="false" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" defaultvalue="0" searchtype="NONE"/>
+            <attrdef attribute="SELECTEDITEMS" maxtype="YORN" title="Selecteditems" remarks="Reorder to process selected items? Yes means to process the selected items. No means just to process current item." length="1" persistent="false" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="true" defaultvalue="0" searchtype="NONE"/>
+            <attrdef attribute="SITEID" maxtype="UPPER" title="Siteid" remarks="Siteid" length="8" persistent="false" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="true" classname="psdi.app.site.FldSiteID" searchtype="NONE"/>
+            <attrdef attribute="STARTPONUM" maxtype="UPPER" title="Startponum" remarks="The number of the first PO generated during reorder process." length="8" persistent="false" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="true" searchtype="NONE"/>
+            <attrdef attribute="STARTPRNUM" maxtype="UPPER" title="Startprnum" remarks="The number of the first PR generated during the reorder process." length="8" persistent="false" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="true" searchtype="NONE"/>
+            <attrdef attribute="STORELOC" maxtype="UPPER" title="Storeloc" remarks="StorelocThe storeroom where the reorder process takes place." length="12" persistent="false" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="true" classname="psdi.app.inventory.virtual.FldReorderItemsStoreloc" searchtype="NONE"/>
+            <attrdef attribute="TOEMAILADDR" maxtype="ALN" title="Toemailaddr" remarks="The email address of the person who receives the reorder notification." length="100" persistent="false" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="true" searchtype="NONE"/>
+            <attrdef attribute="TOTALNUM" maxtype="INTEGER" title="Totalnum" remarks="The total number of items reordered in this process." length="12" persistent="false" haslongdesc="false" required="false" mustbe="false" ispositive="false" canautonum="false" userdefined="true" searchtype="NONE"/>
+        </define_table>
+        <freeform description="Update Maxobjects to userdefined">
+            <sql target="all">
+update maxobject set userdefined=1 where objectname='SBREORDERITEMS'
+;
+update maxobjectcfg set userdefined=1 where objectname='SBREORDERITEMS'
+;</sql>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Object classes change">
+            <sql target="all"/>
+        </freeform>
+    </statements>
+</script>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="Domain update" scriptname="Update translation for Domain  SBHCONDRATE,SBHLOCLEVEL">
+  <description>Delete messages from environment</description>
+  <statements>
+  <freeform description="Delete before load custom structure">
+  <sql target="sqlserver">
+  	  delete from l_maxmessages where ownerid = (select maxmessagesid from  maxmessages where  msgkey ='SBHLOCMANDFC');
+	  delete from maxmessages where msgid ='SBHLOCMANDFC';
+  </sql>
+  </freeform>
+  </statements>
+</script>

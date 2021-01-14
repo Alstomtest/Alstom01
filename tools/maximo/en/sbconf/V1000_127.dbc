@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_123_dh">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM autoscript  where autoscript ='CREATEWO_FROM_INSPECTION';
+				delete FROM scriptlaunchpoint  where autoscript ='CREATEWO_FROM_INSPECTION';
+				delete FROM autoscriptvars  where autoscript ='CREATEWO_FROM_INSPECTION';
+			</sql>
+        </freeform>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="CREATEWO_FROM_INSPECTION"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Create WO for items that require action"/>
+                <columnvalue column="source" string="print &quot;=============== EXECUTING CREATE WO SCRIPT ===============&quot;;&#10;planned = False;&#10;if (mbo.getString(&quot;REFERENCEOBJECT&quot;)==&quot;WORKORDER&quot; or  mbo.getString(&quot;REFERENCEOBJECT&quot;)==&quot;WOACTIVITY&quot;) :&#10; planned = True;&#10;else:&#10; planned = False;&#10;# iterate through the responses &#10;resultSet = mbo.getMboSet(&quot;INSPFIELDRESULT&quot;);&#10;for i in range(0,resultSet.count()):&#10; currentResult = resultSet.getMbo(i);&#10; descriptionResult = resultSet.getMbo(i+1);&#10; # on the current response, check if it requires action (relationship INSPFIELDRESULTACT search on field options if the current response requires action)&#10; requireActionSet = currentResult.getMboSet(&quot;INSPFIELDOPTIONACT&quot;);&#10; requireAction=False;&#10; if requireActionSet.count()&gt;0:&#10;  requireAction=True;&#10; if requireAction:&#10;  # for planned (with WO) inspections that does not have any follow up actions to its results yet&#10;  desc =  descriptionResult.getString(&quot;txtresponse&quot;);&#10;  if (planned and currentResult.getString(&quot;FUPOBJECT&quot;)==&quot;&quot;):&#10;   #This will create your follow up WO, it can be part of the WO/Task itself or you can relate them to the ParentWO that contains all results&#10;   if mbo.getString(&quot;PARENT&quot;) is not None:&#10;    woSet = mbo.getMboSet(&quot;PARENTWO&quot;);&#10;   else:&#10;    woSet = mbo.getMboSet(&quot;WORKORDER&quot;);&#10;   wo = woSet.getMbo(0);&#10;   # create a follow up work order&#10;   newWO = wo.createWorkorder(); &#10;   #set WO desc based on the question response&#10;   newWOSet = mbo.getMboSet(&quot;$NewWO&quot;,&quot;WORKORDER&quot;,&quot;wonum='&quot; + newWO.getString(&quot;wonum&quot;) + &quot;' and siteid= '&quot; + newWO.getString(&quot;siteid&quot;) + &quot;'&quot;);&#10;   newWOSet.getMbo(0).setValue(&quot;description&quot;,desc);&#10;   newWOSet.getMbo(0).setValue(&quot;location&quot;,mbo.getString(&quot;location&quot;));&#10;   newWOSet.getMbo(0).setValue(&quot;assetnum&quot;,mbo.getString(&quot;asset&quot;));&#10;   currentResult.setValue(&quot;FUPOBJECT&quot;,&quot;WORKORDER&quot;);&#10;   currentResult.setValue(&quot;FUPOBJECTID&quot;,newWO.getString(&quot;wonum&quot;));&#10;   currentResult.setValue(&quot;DISPLAYMESSAGE&quot;,&quot;Workorder &quot; + str(newWO.getString(&quot;wonum&quot;)) + &quot; created&quot;);&#10;   newWOSet.save();&#10;  # if does not have a planning WO, will create a new WO and include each individual question that require action as a task   &#10;  if (planned==False and currentResult.getString(&quot;FUPOBJECT&quot;)==&quot;&quot;):&#10;   woSet = mbo.getMboSet(&quot;WORKORDER&quot;);&#10;   # if there is already a WO created for the result, just skip&#10;   if mbo.getString(&quot;FUPOBJECT&quot;)==&quot;&quot;:&#10;    newWO = woSet.add();&#10;    newWO.setValue(&quot;Description&quot;,&quot;Follow Up Work Order for Inspection &quot; + str(mbo.getString(&quot;resultnum&quot;)));&#10;    newWO.setValue(&quot;location&quot;,mbo.getString(&quot;location&quot;));&#10;    newWO.setValue(&quot;assetnum&quot;,mbo.getString(&quot;asset&quot;));&#10;    mbo.setValue(&quot;FUPOBJECT&quot;,&quot;WORKORDER&quot;);&#10;    mbo.setValue(&quot;FUPOBJECTID&quot;,newWO.getString(&quot;wonum&quot;));&#10;    mbo.setValue(&quot;DISPLAYMESSAGE&quot;,&quot;Workorder &quot; + str(newWO.getString(&quot;wonum&quot;)) + &quot; created&quot;);&#10;    print &quot;Created WO &quot; + str(newWO.getString(&quot;wonum&quot;));&#10;    woSet.save();&#10;   woSet = mbo.getMboSet(&quot;FUPWORKORDER&quot;);&#10;   newTask = woSet.getMbo(0).getMboSet(&quot;WOACTIVITY&quot;).add();&#10;   newTask.setValue(&quot;PARENT&quot;,mbo.getString(&quot;FUPOBJECTID&quot;));&#10;   print &quot;Created Task &quot; + str(newTask.getString(&quot;taskid&quot;));&#10;   newTask.setValue(&quot;description&quot;,desc);&#10;   currentResult.setValue(&quot;FUPOBJECT&quot;,&quot;WORKORDER&quot;);&#10;   currentResult.setValue(&quot;FUPOBJECTID&quot;,newTask.getString(&quot;wonum&quot;));&#10;   currentResult.setValue(&quot;DISPLAYMESSAGE&quot;,&quot;Work Order &quot; + mbo.getString(&quot;FUPOBJECTID&quot;) + &quot; Task &quot; + str(newTask.getString(&quot;taskid&quot;)) + &quot; created &quot;+ desc ); &#10;   woSet.save();&#10;resultSet.save();&#10;print &quot;=============== END CREATE WO SCRIPT ===============&quot;;"/>
+                <columnvalue column="createddate" date="11-05-2019:10:42:47"/>
+                <columnvalue column="statusdate" date="11-05-2019:10:42:47"/>
+                <columnvalue column="changedate" date="11-17-2019:22:52:58"/>
+                <columnvalue column="createdby" string="BKIX"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Object classes change">
+            <sql target="all"/>
+        </freeform>
+    </statements>
+</script>

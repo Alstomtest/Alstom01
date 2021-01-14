@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_153">
+    <description>Auto-Generated Script</description>
+/* Not longer needed
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				update sctemplate set sctemplateid=3 where name='Template-20190912001350';
+				update sctemplate set sctemplateid=703 where name='Template-20191219072708';
+				update sctemplate set sctemplateid=11 where name='Template-20190912144354';
+				update sctemplate set sctemplateid=15 where name='Template-20190912144610';
+				update sctemplate set sctemplateid=19 where name='Template-20190912144721';
+				update sctemplate set sctemplateid=405 where name='Template-20191122102920';
+				update sctemplate set sctemplateid=503 where name='Template-20191126002932';
+				update sctemplate set sctemplateid=505 where name='Template-20191126105556';
+				update sctemplate set sctemplateid=603 where name='Template-20191126125126';
+				update scconfig set sctemplateid=3 where description='Sund &amp; Baelt System Administrator';
+				update scconfig set sctemplateid=703 where description='Sund &amp; Baelt Maximo Administrator';
+				update scconfig set sctemplateid=11 where description='Sund &amp; Baelt Operations Manager';
+				update scconfig set sctemplateid=15 where description='Sund &amp; Baelt Contractor Team Lead';
+				update scconfig set sctemplateid=19 where description='Sund &amp; Baelt Technician';
+				update scconfig set sctemplateid=405 where description='Sund &amp; Bælt Contractor Supervisor';
+				update scconfig set sctemplateid=503 where description='Sund &amp; Baelt Rail Planner';
+				update scconfig set sctemplateid=505 where description='Sund &amp; Baelt Road Block Planner';
+				update scconfig set sctemplateid=603 where description='SSund &amp; Baelt Technical Surveillance';
+				update applicationauth set groupname='SBHSUPERINT' where optionname='SBHAPPROVE' and app='WOTRACK';
+			</sql>
+        </freeform>
+*/       
+    </statements>
+</script>

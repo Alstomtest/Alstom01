@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Add WOSTATUS V65">
+	<description>Missing from workorder</description>
+	<statements>
+		<modify_attribute object="WORKORDER" attribute="STATUS" domain="WOSTATUS"/>
+	</statements>
+</script>

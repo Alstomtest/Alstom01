@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_119">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+			<!-- delete for Line 95 -->
+				delete FROM maxdomvalcond where conditionnum='SBHCOHIDEVAL' and domainid='LOCASSETSTATUS' and valueid='LOCASSETSTATUS|BROKEN';
+			<!-- add update for worktype table - correct Line 109, 110, 111-->
+				update worktype set wtypedesc='Adhoc' where worktype='AOPG';
+				update worktype set wtypedesc='New Investments' where worktype='INVS';
+				update worktype set wtypedesc='Reinvestments' where worktype='RINVS';
+			<!-- update l_worktype - correct Line 112 -->
+				insert into l_worktype(langcode, ownerid, wtypedesc) values ('DA' , (select worktypeid from worktype where worktype='SPSP'),'Sporspærring');
+			</sql>
+        </freeform>
+		<!-- Line 95 add condition for LOCASSETSTATUS domain -->
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="LOCASSETSTATUS"/>
+                <columnvalue column="valueid" string="LOCASSETSTATUS|BROKEN"/>
+                <columnvalue column="conditionnum" string="SBHCOHIDEVAL"/>
+            </insertrow>
+        </insert>
+    </statements>
+</script>

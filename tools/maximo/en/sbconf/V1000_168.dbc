@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_SBHUPD">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+				delete FROM condition where conditionnum  in ( 'SBHWOAPPRUPD','SBHWOWPLTUPD');
+			</sql>
+        </freeform>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOAPPRUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME = 'MAXADMIN') or :&amp;USERNAME&amp; IN (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD','SBHSERDESK')) and :status IN('WAPPR','WPLAN')"/>
+                <columnvalue column="description" string="Work Order Approve Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOWPLTUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('MAXADMIN','SBHMAXADMIN')) or &#10;:&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPEREXT1','SBHSUPEREXT2','SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD','SBHSERDESK') and :status = 'WPLAN')"/>
+                <columnvalue column="description" string="Work Order WPLANT Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Object classes change">
+            <sql target="all"/>
+        </freeform>
+    </statements>
+</script>

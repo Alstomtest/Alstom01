@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into MAXINTOBJECT">
+  <description>GenInsertDbc created this script at Thu Aug 08 10:47:02 CEST 2019</description>
+  <statements>
+	<freeform description="delete custom MAXINTOBJECT">
+		<sql target="all">
+			delete from MAXINTOBJECT where intobjectname in ('MXL_USERGRP');		
+			commit;
+		</sql>
+	</freeform>   
+    <insert table="MAXINTOBJECT">
+      <insertrow>
+        <columnvalue column="timelineattribute" string="-1" />
+        <columnvalue column="autopagingthreshold" number="-1" />
+        <columnvalue column="loadqueryfromapp" boolean="false" />
+        <columnvalue column="authapp" string="MXL_USERGRP" />
+        <columnvalue column="aliasconflict" boolean="false" />
+        <columnvalue column="usewith" string="INTEGRATION" />
+        <columnvalue column="flatsupported" boolean="false" />
+        <columnvalue column="configurable" boolean="true" />
+        <columnvalue column="queryonly" boolean="false" />
+        <columnvalue column="changedate" date="06-27-2019:11:43:54" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="selfreferencing" boolean="false" />
+        <columnvalue column="description" string="Users Security (MxLoader)" />
+        <columnvalue column="intobjectname" string="MXL_USERGRP" />
+      </insertrow>
+    </insert>
+	<freeform description="delete custom sigoption">
+		<sql target="all">		
+			delete from sigoption where app in ('MXL_USERGRP');
+			commit;
+		</sql>
+	</freeform> 
+    <insert table="sigoption">
+      <insertrow>
+        <columnvalue column="prerequisite" string="READ" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXL_USERGRP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Delete MXL_USERGRP" />
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXL_USERGRP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="prerequisite" string="SAVE" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Insert MXL_USERGRP" />
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXL_USERGRP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="ALL" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Read MXL_USERGRP" />
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXL_USERGRP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="alsorevokes" string="DELETE,INSERT" />
+        <columnvalue column="visible" boolean="true" />
+        <columnvalue column="esigenabled" boolean="false" />
+        <columnvalue column="description" string="Save MXL_USERGRP" />
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXL_USERGRP" />
+      </insertrow>
+    </insert>    
+	<freeform description="delete custom applicationauth">
+		<sql target="all">		
+			delete from applicationauth where app in ('MXL_USERGRP') and groupname = 'MAXADMIN' ;
+			commit;
+		</sql>
+	</freeform>
+    <insert table="applicationauth">
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXL_USERGRP" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXL_USERGRP" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXL_USERGRP" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXL_USERGRP" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+    </insert>    
+  </statements>
+</script>

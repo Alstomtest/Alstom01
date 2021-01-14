@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="1188 - update SBHLOCMANDFC automation script ">
+  <description>GenInsertDbc created this script at Tue Nov 12 13:02:04 CET 2019</description>
+  <statements>
+  <freeform description="Delete automation script tables">
+  	<sql target="sqlserver">
+		delete from autoscript where autoscript='SBHLOCMANDFC';
+		delete from scriptlaunchpoint where autoscript='SBHLOCMANDFC';
+		delete from autoscriptstate where autoscript='SBHLOCMANDFC';
+		delete from launchpointvars where autoscript='SBHLOCMANDFC';
+		delete from autoscriptvars where autoscript='SBHLOCMANDFC';
+	</sql>
+	</freeform>
+    <insert table="autoscript">
+      <insertrow>
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="interface" boolean="false" />
+        <columnvalue column="loglevel" string="ERROR" />
+        <columnvalue column="userdefined" boolean="true" />
+        <columnvalue column="scriptlanguage" string="jython" />
+        <!--<columnvalue column="binaryscriptsource" />-->
+        <columnvalue column="changeby" string="SOW" />
+        <columnvalue column="createdby" string="CTIX" />
+        <columnvalue column="owner" string="CTIX" />
+        <columnvalue column="changedate" date="11-09-2019:01:51:20" />
+        <columnvalue column="statusdate" date="08-16-2019:15:13:41" />
+        <columnvalue column="createddate" date="08-16-2019:15:13:41" />
+        <columnvalue column="source" string="from psdi.mbo import MboConstants&#xA;from psdi.server import MXServer&#xA;&#xA;if  MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;LOCASSETSTATUS&quot;,STATUS, mbo) == 'OPERATING': &#xA;   vDESCRIPTION_required=True&#xA;   vLOCATION_required=True&#xA;   vCLASSIFICATION_required=True&#xA;   vSYSTEM_required=True&#xA;&#xA;   if vDESCRIPTION is None or vLOCATION is None or vCLASSIFICATION is None or vSYSTEM is None :&#xA;     errorgroup = &quot;locations&quot;&#xA;     errorkey = &quot;SBHMEMNDLOCFD&quot;" />
+        <columnvalue column="description" string="Mandatory Location Field Check for Operating Status" />
+        <columnvalue column="status" string="Draft" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+      </insertrow>
+    </insert>
+	<insert table="scriptlaunchpoint">
+      <insertrow>
+        <columnvalue column="active" boolean="true" />
+        <columnvalue column="objectevent" number="6" />
+        <columnvalue column="objectname" string="LOCATIONS" />
+        <columnvalue column="launchpointtype" string="OBJECT" />
+        <columnvalue column="description" string="Mandatory Location Field Check for Operating Status" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+        <columnvalue column="launchpointname" string="SBHLOCMANDFC" />
+      </insertrow>
+    </insert>
+	<insert table="autoscriptvars">
+      <insertrow>
+        <columnvalue column="accessflag" number="0" />
+        <columnvalue column="allowoverride" boolean="true" />
+        <columnvalue column="description" string="STATUS" />
+        <columnvalue column="vartype" string="INOUT" />
+        <columnvalue column="varbindingtype" string="ATTRIBUTE" />
+        <columnvalue column="varname" string="STATUS" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="accessflag" number="0" />
+        <columnvalue column="allowoverride" boolean="true" />
+        <columnvalue column="description" string="CLASSIFICATION" />
+        <columnvalue column="vartype" string="INOUT" />
+        <columnvalue column="varbindingtype" string="ATTRIBUTE" />
+        <columnvalue column="varname" string="vCLASSIFICATION" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="accessflag" number="0" />
+        <columnvalue column="allowoverride" boolean="true" />
+        <columnvalue column="description" string="DESCRIPTION" />
+        <columnvalue column="vartype" string="INOUT" />
+        <columnvalue column="varbindingtype" string="ATTRIBUTE" />
+        <columnvalue column="varname" string="vDESCRIPTION" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="accessflag" number="0" />
+        <columnvalue column="allowoverride" boolean="true" />
+        <columnvalue column="description" string="LOCATION" />
+        <columnvalue column="vartype" string="INOUT" />
+        <columnvalue column="varbindingtype" string="ATTRIBUTE" />
+        <columnvalue column="varname" string="vLOCATION" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="accessflag" number="0" />
+        <columnvalue column="allowoverride" boolean="true" />
+        <columnvalue column="description" string="STATUS" />
+        <columnvalue column="vartype" string="INOUT" />
+        <columnvalue column="varbindingtype" string="ATTRIBUTE" />
+        <columnvalue column="varname" string="vSTATUS" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="accessflag" number="0" />
+        <columnvalue column="allowoverride" boolean="true" />
+        <columnvalue column="description" string="SYSTEM" />
+        <columnvalue column="vartype" string="INOUT" />
+        <columnvalue column="varbindingtype" string="ATTRIBUTE" />
+        <columnvalue column="varname" string="vSYSTEM" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+      </insertrow>
+    </insert>
+	<insert table="autoscriptstate">
+      <insertrow>
+        <columnvalue column="status" string="Draft" />
+        <columnvalue column="changedate" date="08-16-2019:15:13:41" />
+        <columnvalue column="changeby" string="CTIX" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+      </insertrow>
+    </insert>
+	<insert table="launchpointvars">
+      <insertrow>
+        <columnvalue column="varbindingvalue" string="STATUS" />
+        <columnvalue column="varname" string="STATUS" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+        <columnvalue column="launchpointname" string="SBHLOCMANDFC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="varbindingvalue" string="CLASSSTRUCTUREID" />
+        <columnvalue column="varname" string="vCLASSIFICATION" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+        <columnvalue column="launchpointname" string="SBHLOCMANDFC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="varbindingvalue" string="DESCRIPTION" />
+        <columnvalue column="varname" string="vDESCRIPTION" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+        <columnvalue column="launchpointname" string="SBHLOCMANDFC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="varbindingvalue" string="LOCATION" />
+        <columnvalue column="varname" string="vLOCATION" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+        <columnvalue column="launchpointname" string="SBHLOCMANDFC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="varbindingvalue" string="STATUS" />
+        <columnvalue column="varname" string="vSTATUS" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+        <columnvalue column="launchpointname" string="SBHLOCMANDFC" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="varbindingvalue" string="LOCSYSTEM.SYSTEMID" />
+        <columnvalue column="varname" string="vSYSTEM" />
+        <columnvalue column="autoscript" string="SBHLOCMANDFC" />
+        <columnvalue column="launchpointname" string="SBHLOCMANDFC" />
+      </insertrow>
+    </insert>
+    <!-- Add attribute translation --> 		
+	<freeform description="Delete the values from suitable Tables">
+		<sql target="sqlserver">
+			delete from l_maxattribute where ownerid in (select maxattributeid from MAXATTRIBUTECFG where attributename in ('SBHWOTASKCHECKED','SBHWOTASKREMARK'));
+			insert into l_maxattrcfg(remarks,title,langcode,ownerid,l_maxattrcfgid) values ('Kontrolleret?','Kontrolleret?','DA',(select maxattributeid from maxattributecfg where objectname ='workorder'and attributename =('SBHWOTASKCHECKED')), (select isnull(max(l_maxattrcfgid +1),1)from l_maxattrcfg));												
+			insert into l_maxattrcfg(remarks,title,langcode,ownerid,l_maxattrcfgid) values ('Bemærkning','Bemærkning','DA',(select maxattributeid from maxattributecfg where objectname ='workorder'and attributename =('SBHWOTASKREMARK')), (select isnull(max(l_maxattrcfgid +1),1)from l_maxattrcfg));
+			insert into l_maxattrcfg(remarks,title,langcode,ownerid,l_maxattrcfgid) values ('Kontrolleret?','Kontrolleret?','DA',(select maxattributeid from maxattributecfg where objectname ='woactivity'and attributename =('SBHWOTASKCHECKED')), (select isnull(max(l_maxattrcfgid +1),1)from l_maxattrcfg));												
+			insert into l_maxattrcfg(remarks,title,langcode,ownerid,l_maxattrcfgid) values ('Bemærkning','Bemærkning','DA',(select maxattributeid from maxattributecfg where objectname ='woactivity'and attributename =('SBHWOTASKREMARK')), (select isnull(max(l_maxattrcfgid +1),1)from l_maxattrcfg));
+			insert into l_maxattrcfg(remarks,title,langcode,ownerid,l_maxattrcfgid) values ('Kontrolleret?','Kontrolleret?','DA',(select maxattributeid from maxattributecfg where objectname ='worelease'and attributename =('SBHWOTASKCHECKED')), (select isnull(max(l_maxattrcfgid +1),1)from l_maxattrcfg));												
+			insert into l_maxattrcfg(remarks,title,langcode,ownerid,l_maxattrcfgid) values ('Bemærkning','Bemærkning','DA',(select maxattributeid from maxattributecfg where objectname ='worelease'and attributename =('SBHWOTASKREMARK')), (select isnull(max(l_maxattrcfgid +1),1)from l_maxattrcfg));
+			insert into l_maxattrcfg(remarks,title,langcode,ownerid,l_maxattrcfgid) values ('Kontrolleret?','Kontrolleret?','DA',(select maxattributeid from maxattributecfg where objectname ='wochange'and attributename =('SBHWOTASKCHECKED')), (select isnull(max(l_maxattrcfgid +1),1)from l_maxattrcfg));												
+			insert into l_maxattrcfg(remarks,title,langcode,ownerid,l_maxattrcfgid) values ('Bemærkning','Bemærkning','DA',(select maxattributeid from maxattributecfg where objectname ='wochange'and attributename =('SBHWOTASKREMARK')), (select isnull(max(l_maxattrcfgid +1),1)from l_maxattrcfg));
+		</sql>
+	</freeform>	
+  </statements>
+</script>

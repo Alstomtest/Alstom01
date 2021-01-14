@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Crontask MeasurePointWoGenCronTask">
+  <description>GenInsertDbc created this script at Wed Nov 13 09:06:27 CET 2019</description>
+  <statements>
+  	<freeform description="Delete the values from suitable Tables">
+		<sql target="sqlserver">
+			delete from CRONTASKDEF where crontaskname='MeasurePointWoGenCronTask';
+			delete from CRONTASKINSTANCE where crontaskname='MeasurePointWoGenCronTask';
+			delete from CRONTASKPARAM where crontaskname='MeasurePointWoGenCronTask' and instancename = 'SBHCONDMONT';
+		</sql>
+	</freeform>
+    <insert table="crontaskdef">
+      <insertrow>
+        <columnvalue column="accesslevel" string="FULL" />
+        <columnvalue column="description" string="Measure Point Wogen Crontask" />
+        <columnvalue column="classname" string="psdi.app.measurement.MeasurePointWoGenCronTask" />
+        <columnvalue column="crontaskname" string="MeasurePointWoGenCronTask" />
+      </insertrow>
+    </insert>
+	    <insert table="crontaskinstance">
+      <insertrow>
+        <columnvalue column="maxhistory" number="1000" />
+        <columnvalue column="keephistory" boolean="false" />
+        <columnvalue column="autoremoval" boolean="false" />
+        <columnvalue column="runasuserid" string="MAXADMIN" />
+        <columnvalue column="description" string="Measure Point Wogen Crontask" />
+        <columnvalue column="active" boolean="false" />
+        <columnvalue column="schedule" string="5m,*,*,*,*,*,*,*,*,*" />
+        <columnvalue column="reloadreqtime" date="10-03-2019:15:20:49" />
+        <columnvalue column="instancename" string="SBHCONDMONT" />
+        <columnvalue column="crontaskname" string="MeasurePointWoGenCronTask" />
+      </insertrow>
+    </insert>
+	 <insert table="crontaskparam">
+      <insertrow>
+        <columnvalue column="parameter" string="emailto" />
+        <columnvalue column="instancename" string="SBHCONDMONT" />
+        <columnvalue column="crontaskname" string="MeasurePointWoGenCronTask" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="parameter" string="logfile" />
+        <columnvalue column="instancename" string="SBHCONDMONT" />
+        <columnvalue column="crontaskname" string="MeasurePointWoGenCronTask" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="value" string="SBH" />
+        <columnvalue column="parameter" string="orgid" />
+        <columnvalue column="instancename" string="SBHCONDMONT" />
+        <columnvalue column="crontaskname" string="MeasurePointWoGenCronTask" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="value" string="SB" />
+        <columnvalue column="parameter" string="siteid" />
+        <columnvalue column="instancename" string="SBHCONDMONT" />
+        <columnvalue column="crontaskname" string="MeasurePointWoGenCronTask" />
+      </insertrow>
+    </insert>
+  </statements>
+</script>

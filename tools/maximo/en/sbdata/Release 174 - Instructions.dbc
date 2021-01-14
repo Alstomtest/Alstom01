@@ -1,0 +1,11 @@
+/* How to install Release 174
+ *  
+ 1. Update custom attributes:
+	 	update maxattribute set userdefined = 0 where objectname like 'SBH%';
+		update maxattributecfg set userdefined = 0 where objectname like 'SBH%';
+		update maxattribute set userdefined = 0 where attributename like 'SBH%';
+		update maxattributecfg set userdefined = 0 where attributename like 'SBH%';
+ 2. Run DBC script for release 174
+ 4. Import CHRTACCT.XML
+*/ 
+

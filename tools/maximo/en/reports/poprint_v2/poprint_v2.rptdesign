@@ -1,0 +1,2840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="comments">Copyright (c) 2006 &lt;&lt;Your Company Name here>></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.8.0.v201806261756</property>
+    <html-property name="description">This template will create a report with one or more subreports, each having different data fields.</html-property>
+    <simple-property-list name="includeResource">
+        <value>po</value>
+    </simple-property-list>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.com.ibm.tivoli.maximo.report.script);
+
+mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
+
+mxReportScriptContext.setDefaultLogLevel("DEBUG");
+mxReportScriptContext.setDefaultLogFile("c:/temp/poprint.log");
+]]></method>
+    <method name="afterFactory"><![CDATA[MXReportScriptContext.close();]]></method>
+    <property name="theme">MaximoSystemLibrary.maximoTheme</property>
+    <property name="layoutPreference">fixed layout</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">MaximoSystemLibrary.rptlibrary</property>
+            <property name="namespace">MaximoSystemLibrary</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="where" id="25">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1=1</value>
+            </simple-property-list>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="appname" id="731">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramdelimiter" id="733">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramstring" id="732">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="maximoDataSource" id="64" extends="MaximoSystemLibrary.maximoDataSource"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="mainDataSet" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ponum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">orderdate</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">requireddate</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">vendor</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">contractrefnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">address1</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">address2</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">address3</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">address4</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">phone</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">currencycode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">contact</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">paymentterms</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">freightterms</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">shipvia</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">fob</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">purchaseagent</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">siteid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">21</property>
+                    <property name="name">siteadd1</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
+                    <property name="name">siteadd2</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">23</property>
+                    <property name="name">siteadd3</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">24</property>
+                    <property name="name">siteadd4</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">25</property>
+                    <property name="name">billtolaborcode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">26</property>
+                    <property name="name">fax</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">27</property>
+                    <property name="name">orgid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">28</property>
+                    <property name="name">longdesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">29</property>
+                    <property name="name">poid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">30</property>
+                    <property name="name">revisionnum</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">31</property>
+                    <property name="name">sitecount</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">32</property>
+                    <property name="name">billto</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">33</property>
+                    <property name="name">shipto</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">34</property>
+                    <property name="name">shipaddr1</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">35</property>
+                    <property name="name">shipaddr2</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">36</property>
+                    <property name="name">shipaddr3</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">37</property>
+                    <property name="name">shipaddr4</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">ponum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderdate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">requireddate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">vendor</property>
+                </structure>
+                <structure>
+                    <property name="columnName">contractrefnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                </structure>
+                <structure>
+                    <property name="columnName">address1</property>
+                </structure>
+                <structure>
+                    <property name="columnName">address2</property>
+                </structure>
+                <structure>
+                    <property name="columnName">address3</property>
+                </structure>
+                <structure>
+                    <property name="columnName">address4</property>
+                </structure>
+                <structure>
+                    <property name="columnName">phone</property>
+                </structure>
+                <structure>
+                    <property name="columnName">currencycode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">contact</property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentterms</property>
+                </structure>
+                <structure>
+                    <property name="columnName">freightterms</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shipvia</property>
+                </structure>
+                <structure>
+                    <property name="columnName">fob</property>
+                </structure>
+                <structure>
+                    <property name="columnName">purchaseagent</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteadd1</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteadd2</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteadd3</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteadd4</property>
+                </structure>
+                <structure>
+                    <property name="columnName">billtolaborcode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">fax</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orgid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">longdesc</property>
+                </structure>
+                <structure>
+                    <property name="columnName">poid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">revisionnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">sitecount</property>
+                </structure>
+                <structure>
+                    <property name="columnName">billto</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shipto</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shipaddr1</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shipaddr2</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shipaddr3</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shipaddr4</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">ponum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">orderdate</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">requireddate</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">vendor</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">contractrefnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">address1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">address2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">address3</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">address4</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">phone</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">currencycode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">contact</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">paymentterms</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">freightterms</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">shipvia</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">fob</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">purchaseagent</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">siteid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">siteadd1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">siteadd2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">23</property>
+                        <property name="name">siteadd3</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">24</property>
+                        <property name="name">siteadd4</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">25</property>
+                        <property name="name">billtolaborcode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">26</property>
+                        <property name="name">fax</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">27</property>
+                        <property name="name">orgid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">28</property>
+                        <property name="name">longdesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">29</property>
+                        <property name="name">poid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">30</property>
+                        <property name="name">revisionnum</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">31</property>
+                        <property name="name">sitecount</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">32</property>
+                        <property name="name">billto</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">33</property>
+                        <property name="name">shipto</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">34</property>
+                        <property name="name">shipaddr1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">35</property>
+                        <property name="name">shipaddr2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">36</property>
+                        <property name="name">shipaddr3</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">37</property>
+                        <property name="name">shipaddr4</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[maximoDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+maximoDataSet.open();
+
+var sqlText = new String();
+
+// Add query to sqlText variable.
+sqlText = " select po.ponum, po.siteid, po.description, po.orderdate, po.requireddate, "
+ + " po.poid, po.vendor, po.contractrefnum, companies.name, companies.address1, "
+ + " companies.address2, companies.address3, companies.address4, companies.phone, "
+ + " po.currencycode, po.contact, po.paymentterms, po.freightterms, po.shipvia, "
+ + " po.fob, po.purchaseagent, po.billto, po.shipto, companies.fax, companies.orgid, "
+ + " po.revisionnum, address.address1 as siteadd1, address.address2 as siteadd2, "
+ + " address.address3 as siteadd3, address.address4 as siteadd4, "
+ + " shipaddr.address1 as shipaddr1, shipaddr.address2 as shipaddr2, "
+ + " shipaddr.address3 as shipaddr3, shipaddr.address4 as shipaddr4, longdescription.ldtext "
+ + " from po "
+ + " left outer join companies "
+ + " on po.vendor = companies.company "
+ + " and po.orgid = companies.orgid "
+ + " left outer join address "
+ + " on po.billto = address.addresscode "
+ + " and po.orgid = address.orgid "
+  + " left outer join address shipaddr "
+ + " on po.shipto = shipaddr.addresscode "
+ + " and po.orgid = shipaddr.orgid "
+ + " left outer join longdescription "
+ + " on longdescription.ldownertable='PO' "
+ + " and longdescription.ldownercol='DESCRIPTION' "
+ + " and longdescription.ldkey=po.poid "
+ + " where " + params["where"]
+ + " and po.revisionnum = (select max(p.revisionnum) "
+ + " from po p "
+ + " where p.ponum = po.ponum "
+ + " and p.siteid = po.siteid "
+ + " and p.status in (select synonymdomain.value from synonymdomain where synonymdomain.domainid = "
+ + " 'POSTATUS' and synonymdomain.maxvalue not in ('CAN','PNDREV')) "
+ + " group by p.ponum) "
+ + " order by po.ponum "
+;
+
+maximoDataSet.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!maximoDataSet.fetch())
+	return (false);
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["ponum"] = maximoDataSet.getString("ponum");	
+row["description"] = maximoDataSet.getString("description");	
+row["orderdate"] = maximoDataSet.getTimestamp("orderdate");	
+row["requireddate"] = maximoDataSet.getTimestamp("requireddate");	
+row["vendor"] = maximoDataSet.getString("vendor");	
+row["contractrefnum"] = maximoDataSet.getString("contractrefnum");	
+row["name"] = maximoDataSet.getString("name");	
+row["address1"] = maximoDataSet.getString("address1");	
+row["address2"] = maximoDataSet.getString("address2");	
+row["address3"] = maximoDataSet.getString("address3");	
+row["address4"] = maximoDataSet.getString("address4");	
+row["phone"] = maximoDataSet.getString("phone");	
+row["currencycode"] = maximoDataSet.getString("currencycode");	
+row["contact"] = maximoDataSet.getString("contact");	
+row["paymentterms"] = maximoDataSet.getString("paymentterms");	
+row["freightterms"] = maximoDataSet.getString("freightterms");	
+row["shipvia"] = maximoDataSet.getString("shipvia");	
+row["fob"] = maximoDataSet.getString("fob");	
+row["purchaseagent"] = maximoDataSet.getString("purchaseagent");	
+row["siteid"] = maximoDataSet.getString("siteid");	
+row["fax"] = maximoDataSet.getString("fax");
+row["orgid"] = maximoDataSet.getString("orgid");
+row["poid"] = maximoDataSet.getString("poid");
+row["billto"] = maximoDataSet.getString("billto");
+row["revisionnum"] = maximoDataSet.getInteger("revisionnum");
+row["siteadd1"] = maximoDataSet.getString("siteadd1");	
+row["siteadd2"] = maximoDataSet.getString("siteadd2");	
+row["siteadd3"] = maximoDataSet.getString("siteadd3");	
+row["siteadd4"] = maximoDataSet.getString("siteadd4");
+row["shipto"] = maximoDataSet.getString("shipto");
+row["shipaddr1"] = maximoDataSet.getString("shipaddr1");	
+row["shipaddr2"] = maximoDataSet.getString("shipaddr2");	
+row["shipaddr3"] = maximoDataSet.getString("shipaddr3");	
+row["shipaddr4"] = maximoDataSet.getString("shipaddr4");
+
+row["longdesc"] = maximoDataSet.getHtmlString("ldtext");
+
+return (true);]]></method>
+        </script-data-set>
+        <script-data-set name="subDataSet" id="239">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">termid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">ldtext</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">ponum</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">termid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">ldtext</property>
+                </structure>
+                <structure>
+                    <property name="columnName">ponum</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">siteid</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">ponum</property>
+                    <property name="dataType">string</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">revisionnum</property>
+                    <property name="dataType">integer</property>
+                    <property name="position">3</property>
+                    <expression name="defaultValue" type="javascript">0</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">termid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">ldtext</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">ponum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[subDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+subDataSet.open();
+
+var sqlText = new String();
+
+// Add query to sqlText variable.
+sqlText = " select poterm.termid, poterm.description, poterm.ponum, poterm.potermid "
+ + " from poterm inner join "
+ + " term on "
+ + " poterm.orgid = term.orgid "
+ + " and poterm.termid = term.termid " 
+ + " where poterm.siteid = ? "
+ + " and poterm.ponum = ? "
+ + " and poterm.revisionnum = ? "
+ + " and poterm.sendtovendor = 1 "
+ + " order by poterm.ponum, poterm.seqnum "
+ ;
+
+subDataSet.setQuery(sqlText);
+subDataSet.setQueryParameterValue(1, inputParams["siteid"]);
+subDataSet.setQueryParameterValue(2, inputParams["ponum"]);
+subDataSet.setQueryParameterValue(3, inputParams["revisionnum"]);]]></method>
+            <method name="fetch"><![CDATA[if (!subDataSet.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["termid"] = subDataSet.getString("termid");	
+row["description"] = subDataSet.getString("description");
+
+// Long Description
+	longDescDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), "longDescDataSet");
+	longDescDataSet.open();
+	
+	longDescSQL = "select longdescription.ldtext  "
+	+ "from longdescription "
+    + "where longdescription.ldownertable='POTERM' and longdescription.ldownercol='DESCRIPTION' "
+    + "and longdescription.ldkey=" + subDataSet.getString("potermid");
+	
+	
+	longDescDataSet.setQuery(longDescSQL);
+
+	if(longDescDataSet.fetch()) {
+		if (longDescDataSet.getString("ldtext") != null){
+			row["ldtext"] = longDescDataSet.getString("ldtext").replace('&amp;amp;lt;',"<")
+			.replace('&amp;amp;gt;', ">").replace('&amp;amp;quot;', "'");
+		}
+	}
+	
+	longDescDataSet.close();
+// End Long Description
+
+row["ponum"] = subDataSet.getString("ponum");	
+
+
+return (true);]]></method>
+        </script-data-set>
+        <script-data-set name="polineDataSet" id="829">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">polinenum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">catalogcode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">itemnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">conditioncode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">currencycode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">totalcost</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">orderqty</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">orderunit</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">unitcost</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">linecost</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">tax1</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">inclusive1</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">manufacturer</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">modelnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">shipto</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">siteaddr1</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">siteaddr2</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">siteaddr3</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">siteaddr4</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">21</property>
+                    <property name="name">shiptoattention</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
+                    <property name="name">refwo</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">23</property>
+                    <property name="name">displayname</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">polinenum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">catalogcode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">itemnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">conditioncode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">currencycode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalcost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderqty</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderunit</property>
+                </structure>
+                <structure>
+                    <property name="columnName">unitcost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">linecost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">tax1</property>
+                </structure>
+                <structure>
+                    <property name="columnName">inclusive1</property>
+                </structure>
+                <structure>
+                    <property name="columnName">manufacturer</property>
+                </structure>
+                <structure>
+                    <property name="columnName">modelnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shipto</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteaddr1</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteaddr2</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteaddr3</property>
+                </structure>
+                <structure>
+                    <property name="columnName">siteaddr4</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiptoattention</property>
+                </structure>
+                <structure>
+                    <property name="columnName">refwo</property>
+                </structure>
+                <structure>
+                    <property name="columnName">displayname</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">siteid</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">ponum</property>
+                    <property name="dataType">string</property>
+                    <property name="position">2</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">revisionnum</property>
+                    <property name="dataType">integer</property>
+                    <property name="position">3</property>
+                    <expression name="defaultValue" type="javascript">0</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">polinenum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">catalogcode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">itemnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">conditioncode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">currencycode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">totalcost</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">orderqty</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">orderunit</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">unitcost</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">linecost</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">tax1</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">inclusive1</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">manufacturer</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">modelnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">shipto</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">siteaddr1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">siteaddr2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">siteaddr3</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">siteaddr4</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">shiptoattention</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">refwo</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">23</property>
+                        <property name="name">displayname</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[polineDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+polineDataSet.open();
+
+var sqlText = new String();
+
+// Add query to sqlText variable.
+sqlText = " select poline.polinenum, poline.catalogcode, poline.itemnum, poline.manufacturer,poline.refwo, "
+ + " poline.conditioncode, po.currencycode,poline.description, po.totalcost, "
+ + " poline.orderqty, poline.orderunit, poline.modelnum, poline.unitcost, "
+ + " poline.linecost, po.inclusive1, poline.linecost, poline.tax1, "
+ + " address.address1 as siteaddr1, address.address2 as siteaddr2, " 
+ + " address.address3 as siteaddr3, address.address4 as siteaddr4, poline.shipto, poline.shiptoattn "
+ //+ " person.displayname "
+ + " from po, poline "
+ + " left outer join site "
+ + " on poline.tositeid = site.siteid "
+ + " and poline.orgid = site.orgid "
+ + " left outer join billtoshipto "
+ + " on site.siteid = billtoshipto.siteid "
+ + " and site.orgid = billtoshipto.orgid "
+ + " and poline.shipto = billtoshipto.addresscode "
+ + " left outer join address "
+ + " on billtoshipto.addresscode = address.addresscode "
+ + " and billtoshipto.orgid = address.orgid "
+ //+ " inner join chartofaccounts on poline.gldebitacct = chartofaccounts.glaccount "
+ //+ " inner join person on person.personid=chartofaccounts.sbhacctowner " 
+ + " where po.ponum = poline.ponum "
+ + " and po.siteid = poline.siteid "
+ + " and po.siteid = ? "
+ + " and po.ponum = ? "
+ + " and po.revisionnum = poline.revisionnum "
+ + " and po.revisionnum = ? "
+ + " order by poline.polinenum "
+;
+
+polineDataSet.setQuery(sqlText);
+polineDataSet.setQueryParameterValue(1, inputParams["siteid"]);
+polineDataSet.setQueryParameterValue(2, inputParams["ponum"]);
+polineDataSet.setQueryParameterValue(3, inputParams["revisionnum"]);]]></method>
+            <method name="fetch"><![CDATA[if (!polineDataSet.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["polinenum"] = polineDataSet.getString("polinenum");	
+row["catalogcode"] = polineDataSet.getString("catalogcode");	
+row["itemnum"] = polineDataSet.getString("itemnum");	
+row["conditioncode"] = polineDataSet.getString("conditioncode");	
+row["currencycode"] = polineDataSet.getString("currencycode");	
+row["description"] = polineDataSet.getString("description");	
+row["totalcost"] = polineDataSet.getDouble("totalcost");	
+row["orderqty"] = polineDataSet.getString("orderqty");	
+row["orderunit"] = polineDataSet.getString("orderunit");
+row["manufacturer"] = polineDataSet.getString("manufacturer");
+row["modelnum"] = polineDataSet.getString("modelnum");	
+row["unitcost"] = polineDataSet.getDouble("unitcost");	
+row["linecost"] = polineDataSet.getDouble("linecost");	
+row["tax1"] = polineDataSet.getDouble("tax1");	
+row["shipto"] = polineDataSet.getString("shipto");
+row["shiptoattention"] = polineDataSet.getString("shiptoattn");
+row["inclusive1"] = polineDataSet.getDouble("inclusive1");	
+row["siteaddr1"] = polineDataSet.getString("siteaddr1");	
+row["siteaddr2"] = polineDataSet.getString("siteaddr2");	
+row["siteaddr3"] = polineDataSet.getString("siteaddr3");	
+row["siteaddr4"] = polineDataSet.getString("siteaddr4");		
+row["refwo"] = polineDataSet.getString("refwo");	
+//row["displayname"] = polineDataSet.getString("displayname");
+return (true);]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="maximoLandscape" id="47" extends="MaximoSystemLibrary.maximoLandscape">
+            <property name="leftMargin">0.13541666666666666in</property>
+            <property name="rightMargin">0in</property>
+            <overridden-values>
+                <ref-entry baseId="304" name="NewGrid2" id="304"/>
+                <ref-entry baseId="305" id="305"/>
+                <ref-entry baseId="306" id="306"/>
+                <ref-entry baseId="307" id="307"/>
+                <ref-entry baseId="308" id="308"/>
+                <ref-entry baseId="309" id="309"/>
+                <ref-entry baseId="310" name="NewImage" id="310">
+                    <property name="source">embed</property>
+                    <property name="imageName">S&amp;B_image_colo.jpg</property>
+                    <property name="height">90px</property>
+                    <property name="width">200px</property>
+                </ref-entry>
+                <ref-entry baseId="322" name="NewGrid" id="322"/>
+                <ref-entry baseId="323" id="323"/>
+                <ref-entry baseId="324" id="324"/>
+                <ref-entry baseId="325" id="325"/>
+                <ref-entry baseId="326" id="326"/>
+                <ref-entry baseId="328" name="NewText" id="328"/>
+                <ref-entry baseId="327" id="327"/>
+                <ref-entry baseId="329" name="NewGrid1" id="329"/>
+                <ref-entry baseId="330" id="330"/>
+                <ref-entry baseId="331" id="331"/>
+                <ref-entry baseId="332" id="332"/>
+                <ref-entry baseId="333" id="333"/>
+                <ref-entry baseId="334" id="334"/>
+                <ref-entry baseId="335" name="NewAutoText" id="335"/>
+                <ref-entry baseId="336" id="336"/>
+                <ref-entry baseId="337" name="NewText1" id="337"/>
+                <ref-entry baseId="338" id="338"/>
+                <ref-entry baseId="339" name="NewAutoText1" id="339"/>
+            </overridden-values>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="7">
+            <property name="width">10.6875in</property>
+            <property name="dataSet">mainDataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">ponum</property>
+                    <expression name="expression">dataSetRow["ponum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <expression name="expression">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderdate</property>
+                    <expression name="expression">dataSetRow["orderdate"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">requireddate</property>
+                    <expression name="expression">dataSetRow["requireddate"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">vendor</property>
+                    <expression name="expression">dataSetRow["vendor"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">contractrefnum</property>
+                    <expression name="expression">dataSetRow["contractrefnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">name</property>
+                    <expression name="expression">dataSetRow["name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">address1</property>
+                    <expression name="expression">dataSetRow["address1"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">address2</property>
+                    <expression name="expression">row["vendorAddress"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">address3</property>
+                    <expression name="expression">dataSetRow["address3"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">address4</property>
+                    <expression name="expression">dataSetRow["address4"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">phone</property>
+                    <expression name="expression">dataSetRow["phone"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">currencycode</property>
+                    <expression name="expression">dataSetRow["currencycode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">contact</property>
+                    <expression name="expression">dataSetRow["contact"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentterms</property>
+                    <expression name="expression">dataSetRow["paymentterms"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">freightterms</property>
+                    <expression name="expression">dataSetRow["freightterms"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shipvia</property>
+                    <expression name="expression">dataSetRow["shipvia"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">fob</property>
+                    <expression name="expression">dataSetRow["fob"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">purchaseagent</property>
+                    <expression name="expression">dataSetRow["purchaseagent"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">siteid</property>
+                    <expression name="expression">dataSetRow["siteid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">siteadd1</property>
+                    <expression name="expression">dataSetRow["siteadd1"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">siteadd2</property>
+                    <expression name="expression">row["siteAddress"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">siteadd3</property>
+                    <expression name="expression">dataSetRow["siteadd3"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">siteadd4</property>
+                    <expression name="expression">dataSetRow["siteadd4"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">billtolaborcode</property>
+                    <expression name="expression">dataSetRow["billtolaborcode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">fax</property>
+                    <expression name="expression">dataSetRow["fax"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orgid</property>
+                    <expression name="expression">dataSetRow["orgid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">longdesc</property>
+                    <expression name="expression">dataSetRow["longdesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">poid</property>
+                    <expression name="expression">dataSetRow["poid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">po_desc</property>
+                    <expression name="expression">if (rows[0]["description"] == null || rows[0]["description"] == "")
+rows[0]["ponum"] 
+else
+rows[0]["ponum"] + ": " + rows[0]["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ponum_desc</property>
+                    <expression name="expression">row["po_desc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">posite_key</property>
+                    <expression name="expression">row["ponum"]+row["siteid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vendorAddress</property>
+                    <expression name="expression">if (((dataSetRow["address3"] == null) || (dataSetRow["address3"] == "")) &amp;&amp;
+((dataSetRow["address4"] == null) || (dataSetRow["address4"] == "")))
+dataSetRow["address2"]
+else if ((dataSetRow["address4"] == null) || (dataSetRow["address4"] == ""))
+dataSetRow["address2"] + ", " + dataSetRow["address3"]
+else
+dataSetRow["address2"] + ", " + dataSetRow["address3"] + " " +dataSetRow["address4"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">siteAddress</property>
+                    <expression name="expression">if (((dataSetRow["siteadd3"] == null) || (dataSetRow["siteadd3"] == "")) &amp;&amp;
+((dataSetRow["siteadd4"] == null) || (dataSetRow["siteadd4"] == "")))
+dataSetRow["siteadd2"]
+else if ((dataSetRow["siteadd4"] == null) || (dataSetRow["siteadd4"] == ""))
+dataSetRow["siteadd2"] + ", " + dataSetRow["siteadd3"]
+else
+dataSetRow["siteadd2"] + ", " + dataSetRow["siteadd3"] + " " +dataSetRow["siteadd4"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">address2_1</property>
+                    <expression name="expression">dataSetRow["address2"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">siteadd2_1</property>
+                    <expression name="expression">dataSetRow["siteadd2"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">revisionnum</property>
+                    <expression name="expression" type="javascript">dataSetRow["revisionnum"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">setSiteCount</property>
+                    <expression name="expression">siteCount = Total.count(rows[0]["siteid"] != null);</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>pogroup</value>
+                    </simple-property-list>
+                </structure>
+                <structure>
+                    <property name="name">sitecount</property>
+                    <expression name="expression">dataSetRow["sitecount"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">billto</property>
+                    <expression name="expression">dataSetRow["billto"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <expression name="expression" type="javascript">dataSetRow["billto"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">_billto</property>
+                    <expression name="expression" type="javascript">dataSetRow["billto"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">_siteadd1</property>
+                    <expression name="expression" type="javascript">dataSetRow["siteadd1"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">_billtoaddr1</property>
+                    <expression name="expression" type="javascript">dataSetRow["siteadd1"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">_billtoaddr2</property>
+                    <expression name="expression" type="javascript">if (((dataSetRow["siteadd3"] == null) || (dataSetRow["siteadd3"] == "")) &amp;&amp;&#13;
+((dataSetRow["siteadd4"] == null) || (dataSetRow["siteadd4"] == "")))&#13;
+dataSetRow["siteadd2"]&#13;
+else if ((dataSetRow["siteadd4"] == null) || (dataSetRow["siteadd4"] == ""))&#13;
+dataSetRow["siteadd2"] + ", " + dataSetRow["siteadd3"]&#13;
+else&#13;
+dataSetRow["siteadd2"] + ", " + dataSetRow["siteadd3"] + " " +dataSetRow["siteadd4"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">shipto</property>
+                    <text-property name="displayName">shipto</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shipto"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shipaddr1</property>
+                    <text-property name="displayName">shipaddr1</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shipaddr1"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shipaddr2</property>
+                    <text-property name="displayName">shipaddr2</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shipaddr2"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shipaddr3</property>
+                    <text-property name="displayName">shipaddr3</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shipaddr3"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shipaddr4</property>
+                    <text-property name="displayName">shipaddr4</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shipaddr4"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">_shipaddr2</property>
+                    <expression name="expression" type="javascript">if (((dataSetRow["shipaddr3"] == null) || (dataSetRow["shipaddr3"] == "")) &amp;&amp;&#13;
+((dataSetRow["shipaddr4"] == null) || (dataSetRow["shipaddr4"] == "")))&#13;
+dataSetRow["shipaddr2"]&#13;
+else if ((dataSetRow["shipaddr4"] == null) || (dataSetRow["shipaddr4"] == ""))&#13;
+dataSetRow["shipaddr2"] + ", " + dataSetRow["shipaddr3"]&#13;
+else&#13;
+dataSetRow["shipaddr2"] + ", " + dataSetRow["shipaddr3"] + " " +dataSetRow["shipaddr4"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">50</property>
+            <column id="83">
+                <property name="width">2.5104166666666665in</property>
+            </column>
+            <column id="79">
+                <property name="width">2.5104166666666665in</property>
+            </column>
+            <column id="87">
+                <property name="width">2.8020833333333335in</property>
+            </column>
+            <column id="17">
+                <property name="width">2.0416666666666665in</property>
+            </column>
+            <header>
+                <row id="2072">
+                    <cell id="2073">
+                        <property name="colSpan">4</property>
+                        <property name="rowSpan">1</property>
+                        <label id="2077">
+                            <property name="fontSize">15pt</property>
+                            <property name="fontWeight">bold</property>
+                            <property name="textAlign">left</property>
+                            <text-property name="text">Indkøbsordre</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <group id="1225">
+                <property name="groupName">pogroup</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr" type="javascript">row["ponum"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["ponum"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">always-excluding-last</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+                <footer>
+                    <row id="1515">
+                        <property name="pageBreakInside">auto</property>
+                        <property name="height">2.3020833333333335in</property>
+                        <cell id="1516">
+                            <property name="colSpan">4</property>
+                            <property name="rowSpan">1</property>
+                            <grid id="1350">
+                                <property name="height">2.1770833333333335in</property>
+                                <property name="width">10.822916666666666in</property>
+                                <column id="1351">
+                                    <property name="width">2.4791666666666665in</property>
+                                </column>
+                                <column id="1352">
+                                    <property name="width">3.6979166666666665in</property>
+                                </column>
+                                <column id="1353">
+                                    <property name="width">4.541666666666667in</property>
+                                </column>
+                                <row id="1392">
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <cell id="1393">
+                                        <property name="colSpan">1</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                    </cell>
+                                    <cell id="1862"/>
+                                    <cell id="1863">
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <label id="1939">
+                                            <text-property name="text">underskrives af en person hos leverandøren med bemyndigelse til at underskrive denne indkøbsordre</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                                <row id="1388">
+                                    <cell id="1389">
+                                        <property name="colSpan">2</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">thick</property>
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                    </cell>
+                                    <cell id="1861">
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <property name="paddingTop">40pt</property>
+                                    </cell>
+                                </row>
+                                <row id="1354">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="height">0.7604166666666666in</property>
+                                    <cell id="1355">
+                                        <property name="colSpan">2</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <label id="1941">
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Godkendt af &lt;S&amp;B GL account owner>                                                          Dato</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1357">
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <property name="borderTopStyle">solid</property>
+                                        <property name="borderTopWidth">thick</property>
+                                        <label id="1940">
+                                            <text-property name="text">Laverandøren                                                                           Dato</text-property>
+                                        </label>
+                                        <label id="1942">
+                                            <text-property name="text">Returner underskrevet indkøbsordre via e-mail</text-property>
+                                        </label>
+                                        <label id="1943">
+                                            <text-property name="text">Sund &amp; Bælt er arbejdsmiljøcertificeret.Vi forventer , at arbejdsmiljølovgivning såvel som relevant miljølovgivning forbundet med laverancen er overholdt</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                                <row id="1358">
+                                    <property name="height">0.4375in</property>
+                                    <cell id="1359">
+                                        <property name="colSpan">1</property>
+                                        <property name="rowSpan">1</property>
+                                        <label id="2018">
+                                            <text-property name="text">Faktura udstedes til :</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2012">
+                                        <data id="2026">
+                                            <property name="resultSetColumn">siteadd1</property>
+                                        </data>
+                                        <data id="2027">
+                                            <property name="resultSetColumn">siteadd2</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1361"/>
+                                </row>
+                                <row id="1362">
+                                    <property name="height">0.3in</property>
+                                    <cell id="2013">
+                                        <label id="2019">
+                                            <text-property name="text">Sendes elektronisk til EANnr :</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2014">
+                                        <label id="2061">
+                                            <property name="color">red</property>
+                                            <text-property name="text">&lt;S&amp;B purchasing org. EAN number></text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1365"/>
+                                </row>
+                                <row id="1366">
+                                    <property name="height">0.3in</property>
+                                    <cell id="2015">
+                                        <label id="2020">
+                                            <text-property name="text">Faktura skal indeholde indkøbsordrenr :</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2016">
+                                        <data id="2021">
+                                            <property name="resultSetColumn">ponum</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1369"/>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                    <row id="1445">
+                        <property name="pageBreakInside">auto</property>
+                        <property name="height">1.1145833333333333in</property>
+                        <cell id="1446">
+                            <property name="colSpan">4</property>
+                            <property name="rowSpan">1</property>
+                            <table id="777">
+                                <property name="pageBreakBefore">always</property>
+                                <property name="pageBreakInside">auto</property>
+                                <property name="width">100%</property>
+                                <property name="dataSet">subDataSet</property>
+                                <list-property name="visibility">
+                                    <structure>
+                                        <property name="format">all</property>
+                                        <expression name="valueExpr">Total.count(row["termid"] != null) == 0</expression>
+                                    </structure>
+                                </list-property>
+                                <list-property name="paramBindings">
+                                    <structure>
+                                        <property name="paramName">siteid</property>
+                                        <simple-property-list name="expression">
+                                            <value type="javascript">row["siteid"]</value>
+                                        </simple-property-list>
+                                    </structure>
+                                    <structure>
+                                        <property name="paramName">ponum</property>
+                                        <simple-property-list name="expression">
+                                            <value type="javascript">row["ponum"]</value>
+                                        </simple-property-list>
+                                    </structure>
+                                    <structure>
+                                        <property name="paramName">revisionnum</property>
+                                        <simple-property-list name="expression">
+                                            <value type="javascript">row["revisionnum"]</value>
+                                        </simple-property-list>
+                                    </structure>
+                                </list-property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">termid</property>
+                                        <expression name="expression">dataSetRow["termid"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                    <structure>
+                                        <property name="name">description</property>
+                                        <expression name="expression">dataSetRow["description"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                    <structure>
+                                        <property name="name">ldtext</property>
+                                        <expression name="expression">dataSetRow["ldtext"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                    <structure>
+                                        <property name="name">ponum</property>
+                                        <expression name="expression">dataSetRow["ponum"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                </list-property>
+                                <property name="pageBreakInterval">50</property>
+                                <column id="806">
+                                    <property name="width">1in</property>
+                                </column>
+                                <column id="807">
+                                    <property name="width">9in</property>
+                                </column>
+                                <header>
+                                    <row id="1684">
+                                        <property name="style">reportheaderlabel</property>
+                                        <property name="backgroundColor">#7E90BF</property>
+                                        <cell id="1685">
+                                            <property name="colSpan">2</property>
+                                            <property name="rowSpan">1</property>
+                                            <property name="style">tabledetailslabelcell</property>
+                                            <label id="1687">
+                                                <property name="color">#FFFFFF</property>
+                                                <property name="textAlign">left</property>
+                                                <text-property name="text" key="terms_and_conditions"></text-property>
+                                            </label>
+                                        </cell>
+                                    </row>
+                                    <row id="788">
+                                        <property name="style">tabledetailslabel</property>
+                                        <cell id="789">
+                                            <property name="style">tabledetailslabelcell</property>
+                                            <label id="790">
+                                                <property name="textAlign">left</property>
+                                                <text-property name="text" key="termid">Term (ID)</text-property>
+                                            </label>
+                                        </cell>
+                                        <cell id="791">
+                                            <property name="style">tabledetailslabelcell</property>
+                                            <label id="954">
+                                                <property name="textAlign">left</property>
+                                                <text-property name="text" key="description">Description</text-property>
+                                            </label>
+                                        </cell>
+                                    </row>
+                                </header>
+                                <detail>
+                                    <row id="796">
+                                        <property name="style">tabledetailsdatarow</property>
+                                        <cell id="797">
+                                            <property name="style">tabledetailsdatacell</property>
+                                            <data id="1199">
+                                                <property name="textAlign">left</property>
+                                                <property name="resultSetColumn">termid</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="799">
+                                            <property name="style">tabledetailsdatacell</property>
+                                            <data id="1200">
+                                                <property name="textAlign">left</property>
+                                                <property name="resultSetColumn">description</property>
+                                            </data>
+                                        </cell>
+                                    </row>
+                                    <row id="951">
+                                        <property name="style">tabledetailsdatarow</property>
+                                        <property name="pageBreakInside">auto</property>
+                                        <cell id="952">
+                                            <property name="colSpan">2</property>
+                                            <property name="rowSpan">1</property>
+                                            <property name="style">tabledetailsdatacell</property>
+                                            <text-data id="1690">
+                                                <property name="textAlign">left</property>
+                                                <property name="pageBreakInside">auto</property>
+                                                <expression name="valueExpr">row["ldtext"]</expression>
+                                                <property name="contentType">html</property>
+                                            </text-data>
+                                        </cell>
+                                    </row>
+                                </detail>
+                            </table>
+                        </cell>
+                    </row>
+                </footer>
+            </group>
+            <group id="1693">
+                <property name="groupName">tositegrouppo</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr" type="javascript">row["siteid"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["siteid"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">always-excluding-last</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <group id="1708">
+                <property name="groupName">tositegroupdesc</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr" type="javascript">row["siteid"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["siteid"]</expression>
+                </structure>
+                <property name="repeatHeader">false</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">always-excluding-last</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <group id="1317">
+                <property name="groupName">tositegroup</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr" type="javascript">row["siteid"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["siteid"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+            </group>
+            <detail>
+                <row id="1839">
+                    <property name="style">reportheaderlabel</property>
+                    <property name="borderBottomStyle">double</property>
+                    <property name="borderBottomWidth">medium</property>
+                    <property name="borderTopStyle">double</property>
+                    <property name="borderTopWidth">medium</property>
+                    <property name="pageBreakInside">auto</property>
+                    <cell id="1840">
+                        <property name="colSpan">1</property>
+                        <property name="rowSpan">1</property>
+                        <label id="1869">
+                            <property name="fontSize">10pt</property>
+                            <property name="fontWeight">normal</property>
+                            <property name="textAlign">left</property>
+                            <text-property name="text">Indkøbsordrenr.:</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1864">
+                        <data id="1870">
+                            <property name="fontSize">10pt</property>
+                            <property name="fontWeight">normal</property>
+                            <property name="textAlign">left</property>
+                            <property name="resultSetColumn">ponum</property>
+                        </data>
+                    </cell>
+                    <cell id="1866">
+                        <label id="1871">
+                            <property name="fontSize">10pt</property>
+                            <property name="fontWeight">normal</property>
+                            <text-property name="text">S&amp;B kontonr.</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1867">
+                        <label id="2059">
+                            <property name="fontWeight">normal</property>
+                            <property name="color">red</property>
+                            <property name="textAlign">left</property>
+                            <text-property name="text">&lt;GL acnt number></text-property>
+                        </label>
+                    </cell>
+                </row>
+                <row id="1818">
+                    <property name="pageBreakInside">auto</property>
+                    <cell id="1819">
+                        <property name="colSpan">4</property>
+                        <property name="rowSpan">1</property>
+                        <grid id="830">
+                            <property name="pageBreakInside">auto</property>
+                            <property name="height">1.0208333333333333in</property>
+                            <property name="width">11.145833333333334in</property>
+                            <column id="831">
+                                <property name="style">reportheaderlabel</property>
+                                <property name="width">1in</property>
+                            </column>
+                            <column id="832">
+                                <property name="style">reportheaderdata</property>
+                                <property name="width">2.5in</property>
+                            </column>
+                            <column id="833">
+                                <property name="style">reportheaderlabel</property>
+                                <property name="width">1.46875in</property>
+                            </column>
+                            <column id="1879">
+                                <property name="style">reportheaderlabel</property>
+                                <property name="width">1.4375in</property>
+                            </column>
+                            <column id="1884">
+                                <property name="style">reportheaderlabel</property>
+                                <property name="width">1.8854166666666667in</property>
+                            </column>
+                            <column id="834">
+                                <property name="style">reportheaderdata</property>
+                                <property name="width">2.8541666666666665in</property>
+                            </column>
+                            <row id="860">
+                                <cell id="861">
+                                    <label id="1873">
+                                        <property name="fontWeight">normal</property>
+                                        <property name="textAlign">left</property>
+                                        <text-property name="text">Laverandør:</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="862">
+                                    <data id="1172">
+                                        <property name="resultSetColumn">vendor</property>
+                                        <list-property name="action">
+                                            <structure>
+                                                <property name="formatType">html</property>
+                                                <property name="linkType">drill-through</property>
+                                                <property name="reportName">../COMPANY/vendor_contacts.rptdesign</property>
+                                                <property name="targetWindow">_self</property>
+                                                <property name="targetFileType">report-design</property>
+                                                <list-property name="paramBindings">
+                                                    <structure>
+                                                        <property name="paramName">where</property>
+                                                        <simple-property-list name="expression">
+                                                            <value>"companies.company = '" + row["vendor"] + "' and companies.orgid = '" + row["orgid"] + "'"</value>
+                                                        </simple-property-list>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="paramName">appname</property>
+                                                        <simple-property-list name="expression">
+                                                            <value>"COMPANY"</value>
+                                                        </simple-property-list>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="paramName">paramdelimiter</property>
+                                                        <simple-property-list name="expression">
+                                                            <value>params["paramdelimiter"]</value>
+                                                        </simple-property-list>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="paramName">paramstring</property>
+                                                        <simple-property-list name="expression">
+                                                            <value>params["paramstring"]</value>
+                                                        </simple-property-list>
+                                                    </structure>
+                                                </list-property>
+                                            </structure>
+                                        </list-property>
+                                    </data>
+                                </cell>
+                                <cell id="863">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <label id="1885">
+                                        <property name="fontWeight">normal</property>
+                                        <text-property name="text">CVR nr.</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="1875">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <label id="2060">
+                                        <property name="fontWeight">normal</property>
+                                        <property name="color">red</property>
+                                        <property name="textAlign">left</property>
+                                        <text-property name="text">&lt;S&amp;B purchasing org. VAT no></text-property>
+                                    </label>
+                                </cell>
+                                <cell id="1880">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <label id="1890">
+                                        <property name="fontWeight">normal</property>
+                                        <text-property name="text">Lavering</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="864">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <data id="1891">
+                                        <property name="resultSetColumn">requireddate</property>
+                                    </data>
+                                </cell>
+                            </row>
+                            <row id="960">
+                                <cell id="961">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                </cell>
+                                <cell id="962">
+                                    <data id="1173">
+                                        <property name="resultSetColumn">address1</property>
+                                    </data>
+                                </cell>
+                                <cell id="963">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <label id="1886">
+                                        <property name="fontWeight">normal</property>
+                                        <text-property name="text">Rekvirent</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="1876">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <data id="1889">
+                                        <property name="fontWeight">normal</property>
+                                        <property name="textAlign">left</property>
+                                        <property name="resultSetColumn">purchaseagent</property>
+                                    </data>
+                                </cell>
+                                <cell id="1881">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">3</property>
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <label id="1892">
+                                        <property name="fontWeight">normal</property>
+                                        <text-property name="text">Laveringsadresse</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="964">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">3</property>
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <data id="2045">
+                                        <property name="resultSetColumn">shipaddr1</property>
+                                    </data>
+                                    <data id="2046">
+                                        <property name="resultSetColumn">shipaddr2</property>
+                                    </data>
+                                    <data id="2047">
+                                        <property name="resultSetColumn">shipaddr3</property>
+                                    </data>
+                                    <data id="2048">
+                                        <property name="resultSetColumn">shipaddr4</property>
+                                    </data>
+                                </cell>
+                            </row>
+                            <row id="865">
+                                <cell id="867">
+                                    <data id="1174">
+                                        <property name="resultSetColumn">address2</property>
+                                    </data>
+                                </cell>
+                                <cell id="868">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <label id="1887">
+                                        <property name="fontWeight">normal</property>
+                                        <text-property name="text">Rekvirent tlf. nr.</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="1877">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <data id="1888">
+                                        <property name="fontWeight">normal</property>
+                                        <property name="textAlign">left</property>
+                                        <property name="resultSetColumn">phone</property>
+                                    </data>
+                                </cell>
+                            </row>
+                            <row id="880">
+                                <property name="height">0.3541666666666667in</property>
+                                <cell id="881">
+                                    <label id="1874">
+                                        <property name="fontWeight">normal</property>
+                                        <property name="textAlign">left</property>
+                                        <text-property name="text">E-mail:</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="882">
+                                    <data id="1177">
+                                        <property name="fontWeight">normal</property>
+                                        <property name="textAlign">left</property>
+                                        <property name="resultSetColumn">contact</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+                <row id="1501">
+                    <property name="pageBreakInside">auto</property>
+                    <cell id="1502">
+                        <property name="colSpan">4</property>
+                        <property name="rowSpan">1</property>
+                        <table id="546">
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="width">100%</property>
+                            <property name="dataSet">polineDataSet</property>
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr">Total.count(row["polinenum"] != null) == 0</expression>
+                                </structure>
+                            </list-property>
+                            <list-property name="paramBindings">
+                                <structure>
+                                    <property name="paramName">siteid</property>
+                                    <simple-property-list name="expression">
+                                        <value type="javascript">row["siteid"]</value>
+                                    </simple-property-list>
+                                </structure>
+                                <structure>
+                                    <property name="paramName">ponum</property>
+                                    <simple-property-list name="expression">
+                                        <value type="javascript">row["ponum"]</value>
+                                    </simple-property-list>
+                                </structure>
+                                <structure>
+                                    <property name="paramName">revisionnum</property>
+                                    <simple-property-list name="expression">
+                                        <value type="javascript">row["revisionnum"]</value>
+                                    </simple-property-list>
+                                </structure>
+                            </list-property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">polinenum</property>
+                                    <expression name="expression">dataSetRow["polinenum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">catalogcode</property>
+                                    <expression name="expression">dataSetRow["catalogcode"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">itemnum</property>
+                                    <expression name="expression">dataSetRow["itemnum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">conditioncode</property>
+                                    <expression name="expression">dataSetRow["conditioncode"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">currencycode</property>
+                                    <expression name="expression">dataSetRow["currencycode"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">description</property>
+                                    <expression name="expression">dataSetRow["description"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">totalcost</property>
+                                    <expression name="expression">dataSetRow["totalcost"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">orderqty</property>
+                                    <expression name="expression">dataSetRow["orderqty"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">orderunit</property>
+                                    <expression name="expression">dataSetRow["orderunit"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">unitcost</property>
+                                    <expression name="expression">dataSetRow["unitcost"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">linecost</property>
+                                    <expression name="expression">dataSetRow["linecost"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">tax1</property>
+                                    <expression name="expression">dataSetRow["tax1"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">inclusive1</property>
+                                    <expression name="expression">dataSetRow["inclusive1"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">manufacturer</property>
+                                    <expression name="expression">dataSetRow["manufacturer"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">modelnum</property>
+                                    <expression name="expression">dataSetRow["modelnum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">total</property>
+                                    <expression name="expression">row["rowtotalcost"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">rowtotalcost</property>
+                                    <expression name="expression">if (row["inclusive1"] == 0)
+row["linecost"]
+else
+row["linecost"]+row["tax1"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">totallinecost</property>
+                                    <property name="dataType">float</property>
+                                    <simple-property-list name="aggregateOn">
+                                        <value>shiptoGrp</value>
+                                    </simple-property-list>
+                                    <property name="aggregateFunction">SUM</property>
+                                    <list-property name="arguments">
+                                        <structure>
+                                            <property name="name">Expression</property>
+                                            <expression name="value" type="javascript">row["rowtotalcost"]</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="allowExport">true</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">siteCounter</property>
+                                    <expression name="expression">siteCount</expression>
+                                    <property name="dataType">integer</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">shipto</property>
+                                    <expression name="expression">dataSetRow["shipto"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">siteAddress</property>
+                                    <expression name="expression">if (((dataSetRow["siteaddr3"] == null) || (dataSetRow["siteaddr3"] == "")) &amp;&amp;
+((dataSetRow["siteaddr4"] == null) || (dataSetRow["siteaddr4"] == "")))
+dataSetRow["siteaddr2"]
+else if ((dataSetRow["siteaddr4"] == null) || (dataSetRow["siteaddr4"] == ""))
+dataSetRow["siteaddr2"] + ", " + dataSetRow["siteaddr3"]
+else
+dataSetRow["siteaddr2"] + ", " + dataSetRow["siteaddr3"] + " " +dataSetRow["siteaddr4"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">siteadd2</property>
+                                    <expression name="expression">row["siteAddress"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">siteaddr1</property>
+                                    <expression name="expression">dataSetRow["siteaddr1"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">siteaddr2</property>
+                                    <expression name="expression">dataSetRow["siteaddr2"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">siteaddr3</property>
+                                    <expression name="expression">dataSetRow["siteaddr3"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">siteaddr4</property>
+                                    <expression name="expression">dataSetRow["siteaddr4"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">billto</property>
+                                    <expression name="expression">row._outer["billto"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">billtoaddr1</property>
+                                    <expression name="expression">row._outer["siteadd1"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">billtoaddr2</property>
+                                    <expression name="expression">row._outer["siteAddress"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">Column Binding</property>
+                                    <expression name="expression" type="javascript">"?"+row["totallinecost"]</expression>
+                                    <property name="dataType">string</property>
+                                    <property name="allowExport">true</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">shiptoattention</property>
+                                    <text-property name="displayName">shiptoattention</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["shiptoattention"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">refwo</property>
+                                    <text-property name="displayName">refwo</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["refwo"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">displayname</property>
+                                    <text-property name="displayName">displayname</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["displayname"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="pageBreakInterval">50</property>
+                            <column id="568">
+                                <property name="width">1in</property>
+                            </column>
+                            <column id="1924">
+                                <property name="width">2in</property>
+                            </column>
+                            <column id="569">
+                                <property name="width">2in</property>
+                            </column>
+                            <column id="570">
+                                <property name="width">0.8in</property>
+                            </column>
+                            <column id="571">
+                                <property name="width">0.8in</property>
+                            </column>
+                            <column id="572">
+                                <property name="width">1in</property>
+                            </column>
+                            <column id="923">
+                                <property name="width">0.8in</property>
+                            </column>
+                            <column id="927">
+                                <property name="width">0.8in</property>
+                            </column>
+                            <header>
+                                <row id="2050">
+                                    <property name="backgroundColor">#7E90BF</property>
+                                    <property name="color">white</property>
+                                    <cell id="2051">
+                                        <label id="1919">
+                                            <text-property name="text">Arbejdsordre</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2052">
+                                        <label id="1925">
+                                            <text-property name="text">Vare</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2053">
+                                        <label id="1926">
+                                            <text-property name="text">Beskrivelse</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2054">
+                                        <label id="1927">
+                                            <text-property name="text">Antal</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2055">
+                                        <label id="1928">
+                                            <text-property name="text">Enhed</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2056">
+                                        <label id="1929">
+                                            <text-property name="text">Enhedpris</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2057">
+                                        <label id="1930">
+                                            <text-property name="text">Beløb</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2058"/>
+                                </row>
+                            </header>
+                            <group id="1590">
+                                <property name="groupName">shiptoGrp</property>
+                                <property name="interval">none</property>
+                                <property name="sortDirection">asc</property>
+                                <expression name="keyExpr" type="javascript">row["polinenum"]</expression>
+                                <structure name="toc">
+                                    <expression name="expressionValue" type="javascript">row["polinenum"]</expression>
+                                </structure>
+                                <property name="repeatHeader">true</property>
+                                <property name="hideDetail">false</property>
+                                <property name="pageBreakAfter">auto</property>
+                                <property name="pageBreakBefore">auto</property>
+                                <property name="pageBreakInside">auto</property>
+                                <list-property name="sort">
+                                    <structure>
+                                        <expression name="key">row["polinenum"]</expression>
+                                        <property name="direction">asc</property>
+                                    </structure>
+                                </list-property>
+                                <footer>
+                                    <row id="1604">
+                                        <cell id="1605">
+                                            <property name="colSpan">1</property>
+                                            <property name="rowSpan">1</property>
+                                        </cell>
+                                        <cell id="1931">
+                                            <property name="colSpan">5</property>
+                                            <property name="rowSpan">1</property>
+                                        </cell>
+                                        <cell id="1936"/>
+                                        <cell id="1937"/>
+                                    </row>
+                                </footer>
+                            </group>
+                            <detail>
+                                <row id="554">
+                                    <property name="style">tabledetailsdatarow</property>
+                                    <property name="textAlign">center</property>
+                                    <cell id="555">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="1918">
+                                            <property name="resultSetColumn">refwo</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1921">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="1189">
+                                            <property name="resultSetColumn">itemnum</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="556">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="1190">
+                                            <property name="resultSetColumn">description</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="557">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="1193">
+                                            <property name="resultSetColumn">orderqty</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="558">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="1194">
+                                            <property name="resultSetColumn">orderunit</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="559">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="1195">
+                                            <structure name="numberFormat">
+                                                <property name="category">Currency</property>
+                                                <property name="pattern">###0.00</property>
+                                            </structure>
+                                            <property name="resultSetColumn">unitcost</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="922">
+                                        <property name="style">tabledetailsdatacell</property>
+                                        <data id="1196">
+                                            <structure name="numberFormat">
+                                                <property name="category">Currency</property>
+                                                <property name="pattern">###0.00</property>
+                                            </structure>
+                                            <property name="resultSetColumn">linecost</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="926">
+                                        <property name="style">tabledetailsdatacell</property>
+                                    </cell>
+                                </row>
+                            </detail>
+                            <footer>
+                                <row id="2000">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">medium</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">medium</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">medium</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">medium</property>
+                                    <cell id="2001"/>
+                                    <cell id="2002">
+                                        <property name="colSpan">5</property>
+                                        <property name="rowSpan">1</property>
+                                        <label id="1938">
+                                            <text-property name="text">Pris i alt ekskl. moms</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="2007">
+                                        <data id="1306">
+                                            <structure name="numberFormat">
+                                                <property name="category">Currency</property>
+                                                <property name="pattern">###0.00</property>
+                                            </structure>
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">totalcost</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="2008">
+                                        <data id="1307">
+                                            <property name="textAlign">left</property>
+                                            <property name="resultSetColumn">currencycode</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                                <row id="1709">
+                                    <cell id="1710">
+                                        <property name="colSpan">8</property>
+                                        <property name="rowSpan">1</property>
+                                    </cell>
+                                </row>
+                            </footer>
+                        </table>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">S&amp;B_image_colo.jpg</property>
+            <property name="data">
+                /9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw8QEhUREhAVFhUXGBcWFhgYFxgYFxkWGhgXGhYbGhgY
+                ICggGBolHxgXITEhJSkrMC4uHR8zODMsNygtLisBCgoKDg0OGhAQGy0lICUtMS0tLS0tLS0rLS0tLS0t
+                LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAHkBoQMBEQACEQEDEQH/xAAcAAEA
+                AgMBAQEAAAAAAAAAAAAABQYDBAcBAgj/xABLEAABAwIDBAYECQoEBQUAAAABAAIDBBEFEiEGMUFRBxMi
+                YXGBMpGhsRQ1UnJzsrPB0RYjMzRCYoOSovAkU8LhFYLD0uIXQ3ST8f/EABoBAQADAQEBAAAAAAAAAAAA
+                AAACAwQFAQb/xAAyEQACAgEDAgQEBgIDAQEAAAAAAQIDEQQSITFBEzIzUSJhcYEUQpGhwfCx0SNS8eFi
+                /9oADAMBAAIRAxEAPwDuKAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAg
+                CAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAID5c8AXJsO9AYI6+Bxs2WMnkHtJ9QK92v2PMo2V4ehA
+                EAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBALoAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgCAIAgC
+                AgtsNo2YfB1hGZ7jljZzdzPJo3nyHFW00u2WCq21VxyQGB7MOr42VWJSvlMgD2QhxbExp1b2Wnfa3uN9
+                6vsu8KThUsY79yqFW9brHn5EzUbC4W9uX4IxvItu1w/5gbqpaq1fmLHp62uhSNsMPxHDYy2KrmfSPIbq
+                bvjPBpdvDTzbYHcRz2USqtfxJbv8ma2M61w+C49GTy7DoS4km8upNz+mk4lZdWsWv+9jRpnmtZ/vJaVm
+                LwgCAIAgCAIAgCAIAgNevgdJG9jZHRlwID2+k08xfivU8PJ41lYOZ7dNrsObEWYlUP6wuBzEC2UDdlHe
+                uhpvDtbzBGO7fWliTIXYnF6qXEKcSVMzwXOuHSvc0/m3/sk2V2orhGp4SKqpydiyztwXIOkEAQBAEAQG
+                ji+FxVUfVSZstwey4sNxu1bqpQm4PKIyipLDOJ7ZwmlrZoIpJAxmTKDI8ntRscdSeZK7Gne+tSaX6I5t
+                q2zaX+SR6OsNbXTyRzvlLWx5haV7dcwG8HvVeql4cU4pfoToiptp5/UvdT0fUjmkMkqGOto4TPNjw0cS
+                CFiWqmnyl+iNT08fd/qcww3anEKN5Dah7spIcyQl7DY2Is43HkQujOiuxZa/QxRtnB9Tsmym0EdfAJmj
+                K4HK9l75Xi1xfiCCCDyK5V1TqltZ0KrFOOUTKqLAgCAIAgI/GsPknYGR1EkBDg7PHbMRYi2vDX2KcJKL
+                y1khOLawng5HtdidfSVL6YV9Q5rQ05i7KTmaD+zbmupRCucN21GG2U4SxuZYeiGummfVdbNJJZsNs73P
+                tcy3tmJtuCo10IxUcL3LNLJtyy/Y6PLM1gu5waO8ge9c/Gehszg1n4tTBzWGoiDnENa3O25JNgAL3JKl
+                sl1webl7m6okggCAIAgCAIAgCAIAgCA5J0ySONRA0+iIiR4l5DvqtXT0GNrZh1XmRs7JdI8cMLIKmN/Y
+                AY2RlnXaNG5m7wQLC4vdRu0bcnKB7VqUliRcqDbTDZvRqmA8n3jP9YF1klp7Y9UaI3Ql0ZJYpRR1cEkR
+                ILZGltxrvGhHgbHyVcJOEk/YnJKccGtspgxoaVlMZA8sLzmDct8z3O3XNvStvU7rPEm5Eaq9kdpLqosP
+                LhDzJ6h6LoMngKA9QHlwgyCQNSgPGPB3EHwN0awMn0gCA+c4va4vy4pgZOcdM/oU3zpPc1b9B1kY9X0R
+                Tuj/AOMab5zvs3rZqfSkZ6fUR3pcQ6gQBAEAQBAEBwrpJ+Mqj+F9jGuzpPSX97nM1HqP+9iY6HP1qb6H
+                /W1Va/yL6lmk8zOurlm8/NuJOBmlI3GSQjwzld+HlX0Rx5dWdN6Gqd4hnkN8jntDe8tBzEfzAeS52va3
+                JG3SJ7WzoqwmsIAgCAIAgOG9JvxjN4R/ZtXY0npI5uo9Rk/0LenVfNh98qp1/SP3/gs0nWX2/klOmQf4
+                SL6cfZyKrQ+o/oT1flX1ObbKj/G0v08P12roXenL6MyVL419T9DhcI6x6gCAIAgCAIAgCAIAgCApXSbs
+                2+riZLC3NLFm7I3uYbZgObgQCB4rXpLlXLD6MzaityWV1Rxoi2h3jQjiDxuusc88XoNzC8VqKV2aCZ8Z
+                32aeyfFp7LvMKE64z8yJRnKPRnYtkdoGYrTSRytAkAyTNaSAWvBAc3iAdfAg9y5N9LpnldOx0KrPFjhl
+                J6SsApqHqPg7XNz9Zmu97r5clvSJt6RWvSWyszuM19ahjb/ki+jZo/4lTmwv+c+ykVur9F/3uQ0/qI6z
+                juylHVv66Zji8NDQRI9osCSNGkDeSuXXdOCwjdZVGfLOAg5gL66Dfqu5g5ecncNhKRkuFRRPHYeyVjgC
+                R2XPkBsRqNDwXG1LaubR0qUnWkULpJwOnopIWQBzQ9jy673OuQQB6RPNbtJZKxNyMuogoNKJHbBVxp6o
+                ujjzyvjdFE3cHSPczLmPBosSTyBU9TFShz0IUy2zyi+bQ7Dungklnq5ZahrHPGoEIcATlbHbst4X38Vi
+                r1O2SUYpL9zVOjMW2+f2OUUNXJA4SQvdG8ahzTY+fMdx0XUlFSWGYYyceUfobBq7rqaKd1m54mSHkMzQ
+                T5Lgzjtk4/M60JbopnKdsdvZ6h7oqZ5jgFxmabPk7829rTwAt38h06NJGKzPlmG7UOXEehbtndhMPdTR
+                SSRF8sjGSOkzvD8zmh3ZLSMtr/istmps3NJ8exohRDbl9fcqPSQyog6qlle6VjS58MrtXlhABY8/tOaQ
+                O1xBC1aRxlmS4fcz6jKxF/Yiuj/4xpvnO+zertT6Uiun1Ed5XEOocgrMHx6slkN5gzO8NzydU3LmOWzL
+                jS1tcq6kbNPXFe5gcLpvuYvyHxqLtMfr+5OQfbb3r38TQ+q/Y88C1f8Apkh2wxjDiGVUZeOHXNIJ+bK3
+                R39S8enpt5g/0HjWw4kiRPSybaUQv9Np9RQ/Af8A6/Yl+L+RFS7RYvizuqhaWsJs4RAtaB+/KfdcX5FT
+                8GmlZl1+f+iPiW28I7I0Llm84X0k/GVR/C+xjXZ0npL+9zm6j1H/AHsbHRtiMlPPI5lNJOTHYtjtcDM0
+                3OYjRR1cFKKy8EtPJxbwslxx7bStZE7JhlRGSCOskaS1n7xyAjTvIWSvTwb5mi+d8kuIspmymztBUOb1
+                +IR/RtzMc48s8ob/AEg9xWu66yC+GP3KKq4SfxSO0UVJHCxsUbA1jRZrRuA/viuS5OTyzoJJLCKn0ibW
+                SULWRwgdbJc5iLhjRYXtxcSdL6aFadLQrW2+iKL7nBYXUh9h4Dicckk9dVmVjrFrJTGwAi7SAwcdfVuV
+                uofgySjFY+hXSvEWZN5+pG4/i1bhFZ1UVVJNHlbJlnOfQlwLSd49E6iysqrhfDLWH8iuc5VTwnn6k5sw
+                6fGRLUTVE0UbZOrZFA8xgWa113OAzPPaHqOnAU2qNGIxSfzZbXm7Lk/0I7aXEazBqiNsVVJNE9pdknOc
+                ixsRn3juI87qdMIaiLysNexGyUqZLDyi+bNY7FXQiaPTXK9p3scN4PPgQeIKx21OuW1mmuxTjlHI+k34
+                xm8I/s2rqaT0kYdR6jJ/oW9Oq+bD75VTr+kfv/BZpOsvt/J50m7OUtLCyaFjg981nEve4WLXuOjiQNQN
+                y80dspSw/YamuMVle5R8Bp2y1MEbxdr5Y2uFyLtc8A6jUaFbbW1BtexnrSckmd1wPZyloi50DHNLwA67
+                3u0F7ekTbeVxbLZ2eY6cK4w6EuqyYQBAEAQBAEAQBAEAQHiAhsZ2Voas5poGl/y23a/zc2xPndW132Q8
+                rK51Ql1RU67oohN+pqpG9z2teP6cpWqOul+ZFD0i7MqW0GwtbRtMhDZIxqXRkktHNzSLgd4vZaqtVCbx
+                0ZRPTzjyb3RFKRXOaNzoX38nMIPv9ar1yzXn5ktK/j+xLdNO+l/jf9JVaD832J6vsVno2+Mqf+J9lItO
+                r9J/3uU6f1Edzk3HwK4yOmz8yReiPAL6I4q6I7x0cfF1P4P+0euJqvVZ1KPTRTemb9NT/Mk+s1bNB5ZG
+                bV+ZEX0UxNdiAJHoxSOHcey33OKs1r/4vuQ03qfY7Biv6CX6N/1SuVDzI6EujPzc3cvoDkdjr2LVjosA
+                jLd7qeCPyeGNd/SSuTCO7Uv6s3Slij7I5EusYT9FbOfqlP8AQxfUauBZ539Trw8qKN0ztGWmPHNKPIhl
+                /cFt0HWRl1fRFP6P/jGm+c77N616n0pGen1Ed5XEOoctxnpSmZI9kNPG3K5zbyFzr5SRezctt3NdGvQp
+                pNsxT1Ty0kR8PSrXA9uOncOQa9p8jnPuVj0MOzZWtXJdcFlw3pJoahuSqiMV99x1sZ8wL+tqzz0dkeYv
+                JfHUwl5jZNTs2O3ai5/o2E/y2+5R26np8X7nuaOvBH4z0l00Leroos53Bxbkib4N0c7wsPFTho5Pmb/2
+                RlqYriB0Nqws1HDOkn4yqP4X2Ma7Ok9Jf3uc3Ueo/wC9iY6HP1qb6H/W1Va/yL6lmk8zOuWXLN5wDbaj
+                ZDXVEbAA0PuANwzta8gDldxXb08m6k2cq5JTaLb0VbSymT4FK4uaWkxEm5aW6lt/k2uRyt3rLrKElvRo
+                01rztZYukXAKapjZLLUtpzHcB7hdpDtS3LcEnS4t3rPpbZQbSWclt9akk28EFsdjeG0DXRQuqKmR5Dnm
+                OB2ttAGsOoaLnffer76rbXulhL5sqqshBYWW/oVnpExH4TViTqZYvzTG5ZWZH6Oeb2ueyb7+4rTpYbYY
+                ynz2Kb5bp5wWDozxSohp5GxUMs4MxJcx8bQD1cYy2eQb2APmqNXCMpJuSXBbp5NJ4WeT524w/EcRkjez
+                DpWZGuaQ58Rvcg8HJp511JpyX7nlynY01F/sSPRdgtdSSTdfC6Nj2ttctN3Am1spPAlV6y2E0trLNNCU
+                W8oqXSb8YzeEf2bVq0npIo1HqMn+hb06r5sPvlVOv6R+/wDBZpOsvt/JK9Mf6pF9OPs5FVofUf0/0Wav
+                yr6nNtlv12l+nh+0auhd6cvozHV519T9DBcI6x6gCAIAgCAIAgCAIAgCA5b0iYo+kxSnnZc5ImEtvo5p
+                fKHDzBI9S6GlrU6ZRfuYr5uNiZ0jDK+KoibNE7Mx4uD7weRG4jgsMouDwzXGSkso2lEkauJ1EcUUkkpG
+                RrXF191rajz3L2EW5JIjJpJtnOehzCHfnKtws0jqo+/UGQ+ALWjxvyW/XWdIIyaWHWR700jWl/jf9Je6
+                D832Gr7FZ6NvjKn/AIn2Ui0av0n/AHuU6f1EdoxmvZTwSTPOjGk+J3NaO8kgDvK5EIuUkkdGclGLbPzg
+                wWAC+gOQd36OPi6n8H/aPXE1Xqs6dHpopvTN+mp/mSfWatmg8sjNq/MiO6Jf18/QyfWjU9b6X3I6bz/Y
+                67iv6CX6N/1SuXDzI3y6M/Nzdy+gOR2Ozy4W6qwOKJgu/wCDQuYObmNY4DztbzXIU9mobfuzobd1KXyO
+                MrrHPP0Vs5+qU/0MX1Grg2ed/U68PKig9M9S29NFftDrHkcgcob6yHepbtBF/EzJq30RVOj/AOMab5zv
+                s3rVqfSkUU+ojvK4h1Cny7RYHRPcGmIPuc3Vxl7s1zmu9oOt77ytSpvsXfBndlUD5/8AUPCZOy9zrH5c
+                LiPYCn4S5dP8j8TW/wDw+J9lMHxFvWU5a08XQOAt85moB8gV6r7qniX7h1V2cx/YjP8A0niv+uPty6tt
+                /Xf7lZ+Pf/VEPwi9yRjwPB8IAllIdJ+yZDneT+5GBa/eBpzVbtuu4X7ElCqrll3aVjNBwvpJ+Mqj+F9j
+                Gu1pPSX97nN1HqP+9iY6HP1qb6H/AFtVWv8AIvqWaTzM66uWbzg/SIQcRqLc2fZMXa0vpR/vc5l/qMkO
+                irDXy1omA7ELXEnhmc0ta3xsSfJV62aVe3uyWmi3PPsYulDEHy174yTlhDWtHAZmNe425nN7AvdHBRrT
+                9zzUSzNr2Lz0TwRtoQ9oGdz5OsPG4cQ0H/ly6d/esWsb8U06VLYUrpZeDX2B9GGMHuN3m3qIPmtmhWKv
+                uZ9T6n2LX0Nfqk3/AMh32USza/zr6fyy7SeV/X+EX5YjWRdHjAlqZqdrbiFrM776Z33OS1t4aAd/FWOt
+                qKk+5BTzJxXY5D0m/GM3hH9m1dTSekjBqPUZP9C3p1XzYffKqdf0j9/4LNJ1l9v5JXpiH+Ei+nH2ciq0
+                PqP6Fmr8q+pzfZO3w2lv/nxfXFvauhf6cvoZKvOvqdu2lx5tExjiwvdJI2JjGkAlzr7r+HuXGqqdjaXZ
+                ZOjZYoImAqywIAgCAIAgCAIAgCAICh7b7F1GIVccrHxsjEbWOLsxcCHPJs0Cx9IcQtmn1MaoNNc5Mt1M
+                pyyuh9U+x1ZQHNh1XobZ4pxdjiBvu0aHwAPfZHqIWepH7o9VMoeR/qb7cRxzccPgv8r4RZv8trqvZR/2
+                f6Et13/Vfr/8NebZmuryP+IVDBEDfqKfMGkjdme7U/3YjepK6Ffprn3Z54c5+d8eyLdTU7ImNjY0Na0A
+                NaBYADcAszbbyy9JJYRX9utmTiELWscGyMdmYTfKbixabagHTXuCu093hSz2KrqvERz7DticYppmSxRM
+                zsN2u6xhbuINwTcggkbuK3T1NM47WZY0WxeUXuiwKtqHslxCaN3VnNHBECIg/g95Or3DgNwKxu2EVitf
+                d9TQq5y5m/t2KYzoprAB/iIf6/8AtWv8fD2ZR+El7l22Pwevo2thmlgdAxrg0Ma/PmLs2pOhGrvYsd9l
+                c+Yp5NNUJw4bWCB2j2MxSvc1009N2AQ3K2QaE310NzorqtTVUsJMqspsm+WjDgWwmJUUvXQ1FNnylnaE
+                hFiQTpYa6BSs1VdixJM8hp5weU0WvFqTFJI42RS04JjyzlzXkF5ADjHbc30t/cssJVptyT+RfNWNcNfM
+                oY6Kqz/Ph/r/AO1bvx8PZmX8JL3Lts1huJ0/VxTS07oI2BgDGv6yzW2ZqdOAusVsqpZcU8s01xnHhtYI
+                fbDo7bUPdPSuayR2r2OuGOdxII1aTx0IPdqrqNY4LbPlFdum3cxNvBH43DCymNJBdjQxsr5uzlAs27GA
+                uJAtxF+5Qs8By3Zf0wSh4qWML65NLaHYCapa13XtdOXF00jwQDoAxrGtBysbrYeepKnVqlBtY47IjZp3
+                JLnkjsK6OsQppmTxz0+dhJbmDyNQRqLciVZPWVzi4tMhHTTi8po6LhDakRAVLo3S3NzGCGWv2bB2u6yw
+                T25+Hoa47sfF1KfF0YUznvkmnlcXOc6zcrGjMSbagk2vvuFq/GywlFGdaWOctmeboww4iwMzTzDwfrNI
+                Xi1ti9j16WBXMS6M6uB3WUc+cjdqYpB4OGh9bVfHWwksTRTLSyXMWaZwzaQ9i9Vbd+nb9bOp79L14/Q8
+                239Of1N/BujKokf1lZLlBNy1pzyO+c86D+pQs1sUsQX+iUNNJvMmdJxVlSYiKZ0bZLixkDiy19bhut7L
+                nw25+Lp8jZJPHwnPMY6PcQq5n1Es9PnflvlEgb2WhosCDwaOK3V6uuuO1JmSWnnJ5bRsbPbFYnQPdJDP
+                TZnNynOJHC1weFtdF5bqarViSZ7CiyDymidfTY8Rb4RRDvEclx4XJCozR7P9i3F3uiApui98khkqqwvL
+                iXOyNs5xJue246fyq963CxCOCpaVt5ky/YVhsNLGIoWBjBwHPiSTqT3lYpTc3mRqjFRWEUzbvYOSrlNT
+                TuaHkAPY64DrCwcHAGxtYWOmg3cden1SrW2XQz3adye6JD7ObJ47TOIimZTtce1dzXg94ZZwv6vFW26i
+                ifVZK66bo9Hgs9XsDTy05ifI90znGQ1B1kMhFiSPkWAGTkBx1WaOqlGWV09uxc9PFxw+vuRWzeFYthRf
+                GynjqYnuzdmUMIda1+3zAFxru3q22yq7DbwyFcLKsrGUTklRjNQMjKeKkB0Mj5BM8DmxjBlv84qlKmPL
+                efl0LG7ZdFg3IMFkpaUw0bmiUnMZJruzvLgZHPtqXEX9ig7FOeZ9PkSUNscRKbjPR/iNXK6eWop87rA5
+                Q8DQADSx4BbK9XXXHakzPLTzk8to2dndjsVoC8wVFLeQNDs7ZHejmtawFvSKjbqarcbk+CUKLIeVouGK
+                4MKyl+D1BBcWtzOZpaQAdpl+/geGiyQsdc90TRKG+OGczqOjLEI33ikieAbtdmcxwI3G1jlPgSuitbW1
+                8SMT000+C14JsrWvmjqMRqRKYdYo26tDvlOOVtyLA7t4Guiy2XwUXGpYz1ZfCqWU7GXdZDSEAQBAEAQB
+                AEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQB
+                AEAQBAEAQBAEAQGCrq44m5nuDR38fAbyvUm+h45JdTQixGafWCIBvy5NAfBo1Km4qPVkFNy8pl+BVDvS
+                qnDuYxrR7blebo9ke7Zd2aOJNq6dvWtn6xo9Jr2jd4j/AGU4bJPDRCW+KymfFJtFJMWsigu4+kS7sjmd
+                BuSVSjy2eRtcuEiwhUl56gCAIAgCAIAgCAIAgCA16oy6dWGE8cxI9VgV6sdyLz2IGv2jmheYzGzMLXs5
+                xGoB5Dmro0qSzkplc4vGDa2exeWoc8Oa0BoG697k957io2VqHQlXY5vknFUXBAEAQBAEBhqxJlPVlodp
+                bMCW9+7VerHc8eccFfxXFqymLQ4QnMCQQ13Dfvd3hXQrhP3KJznHrg1qXaWoe9rD1TcxAvlcbX3ftKTp
+                ilnkirpN4LB1dX/mQ/8A1u/71R8HzL8T+RE1uO1NO/JLEw8QW5gCO691bGqMllMqlZKLw0SOFY5FUHKL
+                tf8AJPHwPFQnW4lkLFIlFWWBAEAQBAYKqcxi+R7+5oBPqJC9SyeN4I2qx8Ri7qeYDdctAF/WrFVnuiuV
+                uOzMNJtTE94a5hYD+0SLX4X5DvXsqWlk8jem8E+qS48c4DeUBhlrIm+lIweLgF6otnjkkZgbrw9PUAQB
+                AEAQBAEAQEdjWKNp2X3uOjW8zzPcFOEHJkJzUUUaqq3yuzyHMfZbkOQWxRSWEY3Jt5ZbqPaSmIAN4+Fi
+                NB4FvD1LLKmSNMboslqepjkF2Pa7wIKraa6lqafQ1sappJYjHGWjMQHEk6Nvc2sNSvYNJ5ZGabWEYYIo
+                6Nga2OR5PpFjcxJ5ngB3KTbm8tniSgsJGCXaeFpLXRygjeC0A+9SVMmRd0UZ8MxoVDi1kbwBqXG1hy3c
+                SozrcVyyULNz4Rs12ICK145HaXJY24A7yoxjklKWCNdtXT8GyHyH4qzwJFfjxJehqetYH5S0O1ANr24H
+                RVNYeC2LysmrX4s2EnNHKQLXcGjLr3khSjDd0ZGU9vUj3bWQ8I5PU38VPwJFfjxJSXE4o2gyOyEi+U6u
+                HkNVWoNvgsc0lyaB2ppv3/HL/up+DIh40SVo6tkzQ9huD5a+CrknF4ZbGSayj2pqo4hme8NHf93NEm+g
+                bS6kazaGN7ssUckh/dbp7SLean4TSyyvxU3hG1BibXODHNfG47g8WvzsRcFRcH1RJTXRlCrZ+ske/wCU
+                4nyvp7FtisLBjk8vJaNio+xI7m4D1C/+pZ73yjRQuGT9RM2Nrnu3NBJ8AqUsvBc3hZIGXa2IejG8+Nh+
+                KuVD7spd67I+Y9ro+MTh4EH8EdD9zzx17EjS49TSf+5lPJ/Z9p09qrdcl2LFbFm8Khm/O23iFDDJ5Rp1
+                eN00e+QE8m9o+zd5qarkyLsijLhde2oZ1jQRqRY79D+FivJR2vB7CW5ZNDa2mzwZuLCD5HQ+8HyU6XiR
+                C6OYlJWwxnRMIq+uhY/iRZ3zhoVgnHbLBvhLdHJq7T0Ykgc7iztA+HpDzH3KVUsSIWxzEpuHh/WsyAl2
+                YEW8fctc8bXkyxzlYOkhYDeRtZjkETshcXO3ZWi5vy5X7lONcmslcrIp4Pl2Mhou6Cdo5lmg8bHRPD9m
+                h4numZYMYp3guErbAXN9CB4HVeOuS7Hqsi+5iZjbXC7IZnt+U1mh8LlS8Nrq0eeJnomIsfpycrnFjuT2
+                lvr4BHVLqFbE3p4WSsLXAOa4f2QfvUE2mTaUkULF8MdTvynVp9F3MfiFshNTRinDYyW2cx3LaGU9nc1x
+                4dx7u/h7q7avzItqsxwyzVcDJGFrxdp3/wB81nTafBoaTXJz7EKdkb7Mka9p3EEX8COa2wk2uTDOKT4J
+                TZ/HTDaOQ3j4Hi3/AMfcq7as8osrtxwyzsxamcQ0TMudALjes+yS7GjfH3N1RJhAEAQBAEAQFY2qwyaR
+                wkYC4BtiBvGpNwOO/hyV9M0lhme6DbyirOaQbEWPI6FaVyZzxenhnoXSCRvVkh9wBb+9yjLGHklHOVg6
+                UsBvIXaHGRA3Iw/nHDT90cz38lbXXueSq2zasFPpad8zwxurnHj7SStTaismVJyeC/4bQsgYGN8zxJ4l
+                YpScnlm2MVFYIHarFt8DD88j6v4+rmrqa/zMpus/KiL2fwzr5NR2G6u7+TfP3Ky2e1FVUNzL4FjNpUNr
+                cRzv6lp0bq7vdy8vee5aqYYW5mW6eXhGlgGGPnfcGzWkEutfXgBfS/uUrZqKIVwcmW6cx0sT5A3cLknV
+                znbhdx1JJssqzJpGp4isnPnuLiSd5N/Mrd0MXUvVM1tHTXd+yLu73nh6yAsb+OZsXwQKXW1b5nF7zc+w
+                DkBwC1xiorCMkpOTyy27H0+WEv4vcT5DQe26zXPMsGmlYjk29oWNNO8ngMwPEOG6yhX5kSsXwsoC3GIv
+                WysWWnaflFx9tvuWK15mbaViJJVUbHNLX+iRrc2FvFQTeeCbSa5IsTYdHoDD5AOPrF1PFj9yvNa9j34b
+                h79CYvNoHvCbbEN1bMc2z9JKMzOz3sdcerUepeq2cep46oS6GmdkB/nf0f7qX4j5Efw/zNql2Xp2avLn
+                +Js31D8V475PoSVMV1JSimgN2RFvZtcNtYXvy04FVtPqyyLXRGaohD2uYdzgQfMWXieHk9aysHNJGFpL
+                TvBIPiNCt6eeTA1jgm9l2dYXR9dKz9oBjgAeDr3B13Km7jDwXVc8ZJqqwDOLfCZj3Pdmb5gWVStx2LXV
+                nuRH/EZaJ5jMMXi0FpcOBzfiFbsVizkq3ut4wTeF49DOcurH/JPHwPFUzqcS6NilwQ2PYDLndJEMzXEu
+                IHpAnfpxF+StrtWMMpsqecoldmZagsc2ZrhltlLgQTvuNdTbTXvVdqjn4S2pyx8RB7TYWIn9Yy2Rx1Hy
+                XfgVdVPKwym2GHlGxsti4Z+ZkNmn0CdwPEHuP971G6vPxIlTPHwsktoaWKdl2vZ1jdW9oa82/wB8VXXJ
+                xZOyKkis4Xi0tOeybt4sO7y5HvWidakjPCxxZcnNhrIebXbubXfcQsvMJGvicSj4hRPgeWPHgeBHAha4
+                yUllGOUXF4ZObOY7a0Mp03MceHce7kVTbV3RdVb2ZZZqWN4LXMBB36KhSaNDimUjG8IdTu4lh9F33Hv9
+                6112KSMdle0+8DxfqTle0OjPdct7xzHd/Z8sr3co9rs28MvEUjXAOaQQRcEbrLJjHU1p5PtD0IAgCAhM
+                fx0QdhljJ7Gjv7+7+zbXXu5fQqss28LqS1LnyNz2zWGa26/FVvGeCxZxyZV4emCppI5BZ7Gu8QD/APi9
+                Umuh44p9SkY3Rxsm6uC53XaNbO10HsWuuTccyMdkUpYiWLZ/A+p/OPsZD6mjkO/vVFlm7hdC+uvbyzcx
+                rE208ebe46NHM8/AKMIbnglZPaihSyOkcXOJc5x8yT/e5bUkkY222XbZ/CRTsu4fnHel3D5IWOye5/I1
+                1w2o+MextsLSxhBkOmmuXvPf3L2upyfPQWWKK46lLijdI4NFy5x9ZK1tpIyLlnQsKoWwRhg8XHm7iVhn
+                Lc8m6EdqwfGNV4giL/2jo0fvHd6t69hHc8HlktsclAY1z3ADVzj5kkrblJGLDbOh4ZRCCNsY4bzzdxKw
+                ylueTdGO1YK/tlW3LYQd3ad4/sj3nzCuoj+Yovl+Uj9maLrZgSOyztHx/ZHr18lZdLESFUcyLBtc0mn0
+                4OaT4aj3kKinzl93kKSAthjOlUMHVxsZ8loHnbVc+Ty8m+KwsEXtdOGwFt9XOA8gbn3KylZkQueIlJWw
+                xnR8KiyQxt5Mb67arBJ5bN8ViKPMUo+vjMebLe1za+4g/ckZbXkTjuWCLj2Upxvc8+YHuCsd8itURPp+
+                y1OdxePBw+8Lzx5DwImnLsxKw5oZrHvu0/zN/BTVyfmRF0teVmE0eKDTM4/xG/eV7uqPNtobgNZL+lls
+                P3nl3sGntTxYLojzwpvqydwjB2U1y1ziTYEndpyA3Kmdjl1LoVqBJKBYUXaimyTk8HgO89x9ov5rZTLM
+                THcsSNPCavqZWP4A2PzTofYpTjui0RhLEsnRQsJuILa2izxCQDVm/wCad/q0PrV1MsSwU3RyslMBtqtZ
+                kLxLiEjaMTWu/K3f3kDN96xKKc8GxyahkqFRXzSenI4919PUNAtagl0Rlc2+rLhSYTRyRhzIwQ4b9S71
+                ncVkc5p8mpQg1wVDE6F0Ehjd4g828CtUJ7lkyzjteCxbNywTNyPij6xv7je03nu381RapRecmipxksNE
+                3/w6D/Jj/kb+Cq3y9y3ZH2EskNO29gxtxezbC50ubeWq85kw2ooxYvhrKhmU6OGrXcj+HNShNxeTycFJ
+                FCqad0bix4sRv/viFsi01lGJpp4ZYtnMdtaGV2m5jj7ifcVRbV3Roqt7MstRA2RpY8Xad4Kzp45Re1nh
+                lFxrCXU7ubD6LvuPf71trsUkY7K3Fn3gmMupzY3MZ3jl3t7+7ivLK1L6ntdjiXennbI0PYbtO4hZGmuG
+                a00+UfUUrXei4HhoQdfJeDJ9oemriPXFhEOXMdLuO7vGhuVKOM8kZZxwVuXZWXKXdaHP321sefaPHyV6
+                vXTHBQ6HjOeSVpcUmaA2amlzDQlgDge/Q6KtwT5TLFNrhoynF3H0aacnvaGj1kqOz3aPfE9kzDKytn0O
+                WBvGxzP9Y0HsUlsj8zxqcvkbeGYTFB6Iu7i46uP4eSjKbl1JQgo9DfUCZXNocEmnkzsc0iwGUm1t+5X1
+                WKKwyi2tyeUR1Js/VseHgMBabgk3HqsVOVsGsFcapp5J/wCBVDgetmvp6EYyA9xf6VvUqN0eyL9sn1ZX
+                5tnapxJysHcHaAcgr1dBIodUjbwnCKmncX9UxxtYXfa3PhvUZ2RksZJQrlF5wT75JwwERtL+Lc1mj/mt
+                r6lQksl+XggcXw2sqXAlrGgCwaH38Tu8PUr4ThApnCcj5wjBqiCQPMbHcBd9rX3ndqbJZZGSwjyFcovJ
+                YaySYW6uNrud3ZbcuBuqFjuXyb7FXq8Aq5HukcGXcb+l6h5blpjbBLBnlVNvJJ4DQ1FP2TGyzjdzs+tr
+                aAC393Vdkoy5yWVxlHgnJYw5pa4XBFiOYKpXBc1kqtVs1LG8Phs8Ahwa42Ohva50IWlXJrDMzpaeUTXw
+                yqdoKXKebpG5R/LclU7Y+5bul7EXi+B1EuV2cPfrm1ytaNLBo9eqsrtjErnVKRHfkxVcmfzf7KzxokPB
+                kW2hfMbiSNrALWyuzX9gtwWaWOxpjnuYcbZO5gEBs4uFzcCzbG+p77bl7BxT+I8s3Y+Eg/yerH6vnH87
+                yrfFguiKfCm+rPfybqm+jOP5nj3L3xo+w8KXZi+Jwc5G+T//ACXn/FL5D/lj8x+VUrdHwC/i5vsN174C
+                7MeM/Y8/KKqk0jhHk1zv9k8KC6seLN9EbOF0Va6Vs0z7AX7JO8EEaNboN6jOUEsRJQjNvMixqgvKzi+H
+                VlTlzRxgtvqHHjbn4K+E4RM84TkR35M1XJn8ys8aJX4MiepjXsY1nVxHKALl5ubKl+G3nJevESxg8q2V
+                8rCzLC0OFiczibHfbRE4J55DU2sGrQbKtabyvzfujQeZ3n2KUr2+hCNCXUsTo2luUgZbWtwtysqC/CKv
+                X7KuuTC4W+S7ePA8fNaI3+5nlR7GGgoMRgP5tuh3guYWnyuvZSrl1PIxsj0JVuEyTuD6rJo0ta1lxv4k
+                81XvUeIFmxyeZmlJs1LE8SQS6g3GbQ+saH2KauTWJIh4LTzFklHiFW0WfSEnm17SD5cFW4x7MsUpd0YK
+                2OpqwIzD1UZILi5wLiBwAG5epxhznLPJbp8YwTyqLiAx3DZqjdEwEei/rNS3kW5fv0V1c1HuU2QcuxD/
+                AJL1P7n83+yt8eJT4Midw5tbEwMcxj7biZCDbkeybqmWxvKL470sMkOq62MtmjAvoW3zDusbBV5w+CeM
+                rkrNfstI03iIcORNnDz3H2LTG9Y5M8qH2PjDqbEKcnJGbHeCWlt+e/ek3XLqxCNkehMYFRTtfJLKGtz2
+                7I589NB6+KqslFpJFtcZJtsm1UWhAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAE
+                AQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAE
+                AQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAEAQBAf//Z
+</property>
+        </structure>
+    </list-property>
+</report>

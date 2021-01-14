@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="v1000_40 - redeploy WOSTATUS">
+    <description>Auto-Generated Script</description>
+    <statements>
+	        <freeform description="Automatically Generated - Object classes change">
+            <sql target="sqlserver">
+			</sql>
+        </freeform>
+        <specify_synonym_domain domainid="WOSTATUS" description="WO Status" overwrite="true" maxtype="UPPER" length="16">
+            <synonymvalueinfo value="APPR" maxvalue="APPR" defaults="true" description="Approved"/>
+            <synonymvalueinfo value="WPCOND" maxvalue="APPR" defaults="false" description="Waiting on Plant Cond"/>
+            <synonymvalueinfo value="WPLANT" maxvalue="APPR" defaults="false" description="Waiting on Plant Condition"/>
+            <synonymvalueinfo value="CAN" maxvalue="CAN" defaults="true" description="Canceled"/>
+            <synonymvalueinfo value="CLOSE" maxvalue="CLOSE" defaults="true" description="Closed"/>
+            <synonymvalueinfo value="COMP" maxvalue="COMP" defaults="true" description="Completed"/>
+            <synonymvalueinfo value="DONE" maxvalue="COMP" defaults="false" description="Done"/>
+            <synonymvalueinfo value="HISTEDIT" maxvalue="HISTEDIT" defaults="true" description="Edited in History"/>
+            <synonymvalueinfo value="INPRG" maxvalue="INPRG" defaults="true" description="In Progress"/>
+            <synonymvalueinfo value="WAPPR" maxvalue="WAPPR" defaults="true" description="Waiting on Approval"/>
+            <synonymvalueinfo value="WPLAN" maxvalue="WAPPR" defaults="false" description="Waiting on Planning"/>
+            <synonymvalueinfo value="WMATL" maxvalue="WMATL" defaults="true" description="Waiting on Material"/>
+            <synonymvalueinfo value="WSCH" maxvalue="WSCH" defaults="true" description="Waiting to be Scheduled"/>
+        </specify_synonym_domain>
+        <freeform description="Automatically Generated - Object classes change">
+            <sql target="sqlserver"/>
+        </freeform>
+    </statements>
+</script>

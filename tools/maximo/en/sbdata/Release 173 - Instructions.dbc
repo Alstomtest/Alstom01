@@ -1,0 +1,10 @@
+/* How to install Release 173
+ *  
+ 1. Change GLAccount configuration in Database config (Change and apply)
+ 2. Run DBC script for release 173
+ 3. Import MM package for WF
+ 4. Import PM.XML
+ 5.	Deactivate current WF and activate Release 2
+ 6. Assign user D365-maximo to SBHD365
+*/ 
+

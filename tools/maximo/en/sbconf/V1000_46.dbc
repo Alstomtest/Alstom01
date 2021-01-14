@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="Correct">
+    <description>Auto-Generated Script</description>
+    <statements>
+    	<modify_attribute object="WORKORDER" attribute="DESCRIPTION" length="210"/>
+    </statements>
+</script>

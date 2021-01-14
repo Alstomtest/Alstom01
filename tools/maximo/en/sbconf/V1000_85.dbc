@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Apply several fixes">
+<!-- After V1000_83 deployment -->
+  <description>GenInsertDbc created this script at Wed Jun 05 12:52:09 CEST 2019</description>
+  <statements>
+<!-- SigOption SBHAPPROVE -->   
+        <freeform description="Delete the values from suitable Tables">
+            <sql target="sqlserver">
+                delete from sigoption where optionname = ('SBHAPPROVE');        
+                delete from sigoptflag where optionname = ('SBHAPPROVE');   
+                </sql>
+        </freeform>
+        <insert table="sigoption">
+          <insertrow>
+            <columnvalue column="visible" boolean="true" />
+            <columnvalue column="esigenabled" boolean="false" />
+            <columnvalue column="description" string="Approve labor transaction" />
+            <columnvalue column="optionname" string="SBHAPPROVE" />
+            <columnvalue column="app" string="WOTRACK" />
+          </insertrow>
+        </insert>                
+<!-- Create applicationauth for SBHAPPROVE -->
+        <freeform description="Delete the values from suitable Tables">
+            <sql target="sqlserver">
+                delete from applicationauth where optionname = ('SBHAPPROVE');      
+            </sql>
+        </freeform>
+        <insert table="applicationauth">
+          <insertrow>
+            <columnvalue column="optionname" string="SBHAPPROVE" />
+            <columnvalue column="app" string="WOTRACK" />
+            <columnvalue column="groupname" string="MAXEVERYONE" />
+          </insertrow>
+        </insert>   
+<!-- Create missing relationships -->
+        <create_relationship parent="WORKORDER" name="SBHPOSSWO" child="WORKORDER" whereclause="HISTORYFLAG =0 AND ISTASK =0 AND WONUM != :WONUM AND STATUS IN ('WAPPR','WSCH') AND NVL(SBHWOSPORNR,0) = NVL(:SBHWOSPORNR,0) AND NVL(SBHWOSPSP,0) = NVL(:SBHWOSPSP,0) AND SBHWOKORE IN (0, to_number(CASE WHEN :SBHWOKORE = 0 THEN '0' ELSE '1' END))  ND (schedstart &gt;= :schedstart AND schedfinish &lt;= NVL(:schedfinish, SYSDATE) AND WONUM NOT IN (SELECT RELATEDRECORD.RELATEDRECKEY FROM RELATEDRECORD WHERE RELATEDRECORD.RECORDKEY = :WONUM AND RELATEDRECORD.SITEID = :SITEID AND CLASS ='WORKORDER' )) AND ASSETNUM IN (SELECT ASSET.ASSETNUM FROM ASSET WHERE ASSET.ISLINEAR = 1 AND startmeasure &gt;= (SELECT a2.startmeasure FROM asset a2 WHERE a2.assetnum = :assetnum) AND endmeasure &lt;= (SELECT a2.endmeasure FROM asset a2 WHERE a2.assetnum = :assetnum))" remarks="Relationship to WORKORDER object to select potential Candidate records to be related to the 'Possession' Work Order."/>
+        <create_relationship parent="CRAFT" name="SBHCOMPCRAF" child="COMPANIES" whereclause="company=:vendor and orgid=:orgid" remarks="ADD A REMARK HERE"/>
+        <create_relationship parent="LABORCRAFTRATE" name="SBHCOMPLABCR" child="LABORCRAFTRATE" whereclause="company=:vendor and orgid=:orgid" remarks="ADD A REMARK HERE"/>
+        <create_relationship parent="PM" name="SBHCOMPANIES" child="COMPANIES" whereclause="company=:sbhpmvendor and orgid=:orgid" remarks="ADD A REMARK HERE"/>
+        <create_relationship parent="WORKORDER" name="SBHROUTES" child="ROUTES" whereclause="route = :route and siteid=:siteid" remarks="ADD A REMARK HERE"/>
+        <create_relationship parent="SERVICEITEMS" name="SBHCOMPSERV" child="INVVENDOR" whereclause="itemnum=:itemnum and  itemsetid =:itemsetid" remarks="ADD A REMARK HERE"/>
+<!-- Add domin to attribute -->
+            <modify_attribute object="ASSET" attribute="CLASSSTRUCTUREID" domain="CLASS2ASSET"/>
+            <modify_attribute object="WORKORDER" attribute="WOPRIORITY" domain="SBHWOPRIORITY"/>
+<!-- Update remarks and title -->
+        <freeform description="Delete the values from suitable Tables">
+            <sql target="sqlserver">
+                update maxattributecfg set title='Billable to Sund &amp; Bælt', remarks='Billable to Sund &amp; Bælt' where objectname = 'WORKORDER' and attributename ='SBHWOBILLCHECK';       
+            </sql>
+        </freeform> 
+ </statements>
+</script>   

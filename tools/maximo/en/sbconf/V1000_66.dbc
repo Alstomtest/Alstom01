@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="v1000_dom_LOCASSETSTATUS">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <modify_attribute object="ASSET" attribute="STATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="BIMCOMMISSION" attribute="CURRENTASSETSTATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="BIMCOMMISSION" attribute="CURRENTLOCSTATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="BIMCOMMISSION" attribute="NEWASSETSTATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="BIMCOMMISSION" attribute="NEWLOCSTATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="BIMCONFIGURATION" attribute="INITASSETSTATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="BIMCONFIGURATION" attribute="INITLOCSTATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="BIMSESSION" attribute="INITASSETSTATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="BIMSESSION" attribute="INITLOCSTATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="LOCATIONS" attribute="STATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="PLUSCDASSETDATA" attribute="STATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="PLUSCPREGENASSET" attribute="STATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="TLOAMPRMDFLT" attribute="STATUS" domain="LOCASSETSTATUS"/>
+        <modify_attribute object="TLOAMPRMVALUE" attribute="STATUS" domain="LOCASSETSTATUS" />
+        <modify_attribute object="TLOAMPROMOTE" attribute="STATUS" domain="LOCASSETSTATUS"/>
+    </statements>
+</script>

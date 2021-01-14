@@ -1,0 +1,10 @@
+Asset_hierarchy_SB.rptdesign,asset_pm_route.rptdesign,jobplan_pm_routedetails.rptdesign,jobplan_print_SB.rptdesign,loc_hierarchy_SB.rptdesign,wo_cost_report.rptdesign,posession_wotrack.rptdesign,wo_labor_hour_report.rptdesign
+
+Asset_hierarchy_SB.rptdesign    	Sund & Baelt Asset Register (Asset)
+asset_pm_route.rptdesign       		Sund & Baelt Asset & Route Details Report
+jobplan_pm_routedetails.rptdesign 	Sund & Baelt Job Plan PM & Route Details Report
+jobplan_print_SB.rptdesign       	Sund & Baelt Job Plan Print Report
+loc_hierarchy_SB.rptdesign      	Sund & Baelt Asset Register (Location)
+wo_cost_report.rptdesign        	Sund & Baelt Work Order Cost Report
+posession_wotrack.rptdesign     	Sund & Baelt Possession Work Order Report
+wo_labor_hour_report.rptdesign   	Sund & Baelt Work Order Labor Hour Report

@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="comments">Copyright (c) 2006 &lt;&lt;Your Company Name here>></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.8.0.v201806261756</property>
+    <html-property name="description">This template will create a report having a single header with multiple rows of data.</html-property>
+    <simple-property-list name="includeResource">
+        <value>jobplan</value>
+    </simple-property-list>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.com.ibm.tivoli.maximo.report.script);
+
+mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
+mxReportScriptContext.setDefaultLogLevel("DEBUG");
+mxReportScriptContext.setDefaultLogFile("c:/temp/myreport.log");
+
+function hyperlinkWhere(jpnum, orgid, siteid)
+{
+	var hlink = new String();
+	
+	hlink = "jobplan.jpnum='" + jpnum + "'";
+	
+	if(BirtComp.notEqual(orgid, "") &amp;&amp; BirtComp.notEqual(orgid, null)) 
+		hlink += " and jobplan.orgid='" + orgid + "'";
+	if(BirtComp.notEqual(siteid, "") &amp;&amp; BirtComp.notEqual(siteid, null)) 
+		hlink += " and jobplan.siteid='" + siteid + "'";
+	
+	return hlink;
+}]]></method>
+    <method name="afterFactory"><![CDATA[MXReportScriptContext.close();]]></method>
+    <property name="theme">MaximoSystemLibrary.maximoTheme</property>
+    <text-property name="displayName">Job PLan PM Route Details</text-property>
+    <property name="layoutPreference">auto layout</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">MaximoSystemLibrary.rptlibrary</property>
+            <property name="namespace">MaximoSystemLibrary</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="where" id="25">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1=1</value>
+            </simple-property-list>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="appname" id="200">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramdelimiter" id="202">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramstring" id="201">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="maximoDataSource" id="64" extends="MaximoSystemLibrary.maximoDataSource"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="dataSet" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">jpnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">pmnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">assetnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">jpnum</property>
+                    <text-property name="displayName">Job Plan</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">pmnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">assetnum</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">jpnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">pmnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">assetnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[maximoDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+maximoDataSet.open();
+
+var sqlText = new String();
+
+// Add query to sqlText variable.
+//sqlText = "select textfield, datefield from table"
+
+sqlText = " SELECT jobplan.jpnum, pm.pmnum,route_stop.assetnum"
+ + " FROM "
+ + "    { oj (jobplan INNER JOIN  pm ON "
+ + "        jobplan.jpnum = pm.jpnum) "
+ + "     INNER JOIN route_stop ON " 
+ + "       pm.route = route_stop.route} "
+
+
+
+// Include the Maximo where clause
++ " where " + params["where"]
++ " and PM.SITEID = 'SB' "
++ " and JOBPLAN.STATUS = 'ACTIV' "
++ " and pm.STATUS = 'ACTIV' "
+//+ " and  pm.pmnum = 'TI6.11-B10.1-S14' "
+
++ " order by jobplan.jpnum, pm.pmnum , route_stop.assetnum"
+;
+
+maximoDataSet.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!maximoDataSet.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["jpnum"] = maximoDataSet.getString("jpnum");	
+row["pmnum"] = maximoDataSet.getString("pmnum");	
+row["assetnum"] = maximoDataSet.getString("assetnum");	
+
+return (true);]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="maximoLandscape" id="47" extends="MaximoSystemLibrary.maximoLandscape">
+            <overridden-values>
+                <ref-entry baseId="304" name="NewGrid2" id="304"/>
+                <ref-entry baseId="305" id="305"/>
+                <ref-entry baseId="306" id="306"/>
+                <ref-entry baseId="307" id="307"/>
+                <ref-entry baseId="308" id="308"/>
+                <ref-entry baseId="309" id="309"/>
+                <ref-entry baseId="310" name="NewImage" id="310"/>
+                <ref-entry baseId="322" name="NewGrid" id="322"/>
+                <ref-entry baseId="323" id="323"/>
+                <ref-entry baseId="324" id="324"/>
+                <ref-entry baseId="325" id="325"/>
+                <ref-entry baseId="326" id="326"/>
+                <ref-entry baseId="328" name="NewText" id="328"/>
+                <ref-entry baseId="327" id="327"/>
+                <ref-entry baseId="329" name="NewGrid1" id="329"/>
+                <ref-entry baseId="330" id="330"/>
+                <ref-entry baseId="331" id="331"/>
+                <ref-entry baseId="332" id="332"/>
+                <ref-entry baseId="333" id="333"/>
+                <ref-entry baseId="334" id="334"/>
+                <ref-entry baseId="335" name="NewAutoText" id="335"/>
+                <ref-entry baseId="336" id="336"/>
+                <ref-entry baseId="337" name="NewText1" id="337"/>
+                <ref-entry baseId="338" id="338"/>
+                <ref-entry baseId="339" name="NewAutoText1" id="339"/>
+            </overridden-values>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="7">
+            <property name="width">100%</property>
+            <property name="dataSet">dataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">total_rec</property>
+                    <expression name="expression">Total.count()</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">jpnum</property>
+                    <expression name="expression">dataSetRow["jpnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">pmnum</property>
+                    <text-property name="displayName">pmnum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["pmnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">assetnum</property>
+                    <text-property name="displayName">assetnum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["assetnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">SunTotal</property>
+                    <expression name="expression" type="javascript">Total.count()</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Sun_Total</property>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>jobplan</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">COUNT</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">50</property>
+            <column id="83">
+                <property name="width">1.5in</property>
+            </column>
+            <column id="79">
+                <property name="width">3.9in</property>
+            </column>
+            <column id="91">
+                <property name="width">1in</property>
+            </column>
+            <header>
+                <row id="180">
+                    <property name="style">title</property>
+                    <cell id="181">
+                        <property name="colSpan">3</property>
+                        <property name="rowSpan">1</property>
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <label id="348">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Assets tilknyttet en jobplan</text-property>
+                        </label>
+                    </cell>
+                </row>
+                <row id="8">
+                    <property name="style">tabledetailslabel</property>
+                    <property name="fontStyle">italic</property>
+                    <property name="textAlign">center</property>
+                    <cell id="80">
+                        <property name="style">tabledetailslabelcell</property>
+                        <label id="347">
+                            <text-property name="text">Jobplan</text-property>
+                        </label>
+                    </cell>
+                    <cell id="76">
+                        <property name="style">tabledetailslabelcell</property>
+                        <label id="346">
+                            <text-property name="text">FV plan</text-property>
+                        </label>
+                    </cell>
+                    <cell id="88">
+                        <property name="style">tabledetailslabelcell</property>
+                        <label id="345">
+                            <text-property name="text">Asset nr</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <group id="349">
+                <property name="groupName">jobplan</property>
+                <expression name="keyExpr" type="javascript">row["jpnum"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["jpnum"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <row id="350">
+                        <cell id="351"/>
+                        <cell id="352"/>
+                        <cell id="353"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="354">
+                        <cell id="355">
+                            <label id="359">
+                                <text-property name="text">SubCount</text-property>
+                            </label>
+                        </cell>
+                        <cell id="356">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <data id="363">
+                                <property name="resultSetColumn">Sun_Total</property>
+                            </data>
+                        </cell>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="11">
+                    <property name="style">tabledetailsdatarow</property>
+                    <property name="textAlign">center</property>
+                    <cell id="81">
+                        <property name="style">tabledetailsdatacell</property>
+                        <data id="227">
+                            <property name="resultSetColumn">jpnum</property>
+                            <list-property name="action">
+                                <structure>
+                                    <property name="formatType">html</property>
+                                    <property name="linkType">drill-through</property>
+                                    <property name="reportName">jobplan_print.rptdesign</property>
+                                    <property name="targetWindow">_self</property>
+                                    <property name="targetFileType">report-design</property>
+                                    <list-property name="paramBindings">
+                                        <structure>
+                                            <property name="paramName">where</property>
+                                            <simple-property-list name="expression">
+                                                <value>hyperlinkWhere(row["jpnum"], row["orgid"], row["siteid"])</value>
+                                            </simple-property-list>
+                                        </structure>
+                                        <structure>
+                                            <property name="paramName">appname</property>
+                                            <simple-property-list name="expression">
+                                                <value>params["appname"]</value>
+                                            </simple-property-list>
+                                        </structure>
+                                    </list-property>
+                                </structure>
+                            </list-property>
+                        </data>
+                    </cell>
+                    <cell id="77">
+                        <property name="style">tabledetailsdatacell</property>
+                        <data id="342">
+                            <property name="resultSetColumn">pmnum</property>
+                        </data>
+                    </cell>
+                    <cell id="89">
+                        <property name="style">tabledetailsdatacell</property>
+                        <data id="343">
+                            <property name="resultSetColumn">assetnum</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="207">
+                    <cell id="208">
+                        <property name="colSpan">3</property>
+                        <property name="rowSpan">1</property>
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <grid id="216">
+                            <property name="width">100%</property>
+                            <column id="217">
+                                <property name="style">summarylabel</property>
+                                <property name="width">1.4479166667in</property>
+                            </column>
+                            <column id="218">
+                                <property name="style">summarydata</property>
+                                <property name="width">8.46875in</property>
+                            </column>
+                            <row id="219">
+                                <cell id="220">
+                                    <label id="222">
+                                        <text-property name="text" key="jobplan_selected">Number of Records:</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="221">
+                                    <data id="223">
+                                        <property name="resultSetColumn">total_rec</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

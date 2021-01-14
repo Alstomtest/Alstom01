@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="v1000_83_SBHCLSFAILREQ">
+    <description>Auto-Generated Script</description>
+    <statements>
+	    <freeform description="delete from maxmessages">
+            <sql target="sqlserver">
+				delete from maxmessages where msggroup='workorder' and msgkey='SBHWOPERSGCHK';
+				delete l_maxmessages where ownerid=(select maxmessagesid from maxmessages where msggroup='workorder' and msgkey='SBHWOPERSGCHK')
+			</sql>
+        </freeform>
+    	<drop_attributes object='CLASSSTRUCTURE'>
+			<attrname name="SBHCLSFAILREQ"/>
+		</drop_attributes>
+        <add_attributes object="CLASSSTRUCTURE">
+            <attrdef attribute="SBHCLSFAILREQ" maxtype="YORN" title="Failure Code Required" remarks="Failure Code Required" length="1" persistent="true" haslongdesc="false" required="true" mustbe="false" ispositive="false" canautonum="false" userdefined="false" defaultvalue="1" searchtype="EXACT"/>
+        </add_attributes>
+		<insert table="maxmessages">
+		  <insertrow>
+			<columnvalue column="overlaidmsg" boolean="false" />
+			<columnvalue column="prefix" boolean="true" />
+			<columnvalue column="msgid" string="BMXZZ0007E" />
+			<columnvalue column="options" number="2" />
+			<columnvalue column="displaymethod" string="MSGBOX" />
+			<columnvalue column="value" string="Please populate the 'Lead' field accordingly." />
+			<columnvalue column="msggroup" string="workorder" />
+			<columnvalue column="msgkey" string="SBHWOPERSGCHK" />
+		  </insertrow>
+		</insert>
+		<drop_view name="SBHASSLOCSPEC"/>
+		<define_view name="SBHASSLOCSPEC" description="Custom Application Service"
+			service="CUSTAPP" classname="psdi.mbo.custapp.CustomMboSet" extends="locationspec" type="system">
+			<view_column table="ALNDOMAIN" column="VALUE" view_column="ALNVALUE" />
+			<view_column table="ASSETATTRIBUTE" column="ASSETATTRID" view_column="ASSETATTRID"/>
+			<view_column table="PERSON"  column="PERSONID" view_column="CHANGEBY"/>
+			<view_column table="LOCATIONSPEC" column="CHANGEDATE" view_column="CHANGEDATE"/>
+			<view_column table="CLASSSTRUCTURE"  column="CLASSSTRUCTUREID" view_column="CLASSSTRUCTUREID"/>
+			<view_column table="LOCATIONSPEC"  column="DISPLAYSEQUENCE" view_column="DISPLAYSEQUENCE"/>
+			<view_column table="LOCATIONSPEC"  column="INHERITEDFROMITEM" view_column="INHERITEDFROMITEM"/>
+			<view_column table="LOCATIONSPEC"  column="ITEMSPECVALCHANGED" view_column="ITEMSPECVALCHANGED"/>
+			<view_column table="ASSETATTRIBUTE" column="ASSETATTRID" view_column="LINKEDTOATTRIBUTE"/>
+			<view_column table="CLASSSPEC" column="LINKEDTOSECTION" view_column="LINKEDTOSECTION"/>
+			<view_column table="LOCATIONS"  column="LOCATION" view_column="LOCATION"/>
+			<view_column table="LOCATIONSPEC"  column="LOCATIONSPECID" view_column="LOCATIONSPECID"/>
+			<view_column table="LOCATIONSPEC" column="LS01" view_column="LS01"/>
+			<view_column table="LOCATIONSPEC" column="LS02" view_column="LS02"/>
+			<view_column table="LOCATIONSPEC" column="LS03" view_column="LS03"/>
+			<view_column table="LOCATIONSPEC" column="LS04" view_column="LS04"/>
+			<view_column table="LOCATIONSPEC" column="LS05" view_column="LS05"/>
+			<view_column table="LOCATIONSPEC" column="MANDATORY" view_column="MANDATORY"/>
+			<view_column table="MEASUREUNIT" column="MEASUREUNITID" view_column="MEASUREUNITID"/>
+			<view_column table="NUMERICDOMAIN" column="VALUE" view_column="NUMVALUE"/>
+			<view_column table="ORGANIZATION"  column="ORGID" view_column="ORGID"/>
+			<view_column table="CLASSSPEC" column="SECTION" view_column="SECTION"/>
+			<view_column table="SITE"  column="SITEID" view_column="SITEID"/>
+			<view_column table="LOCATIONSPEC" column="TABLEVALUE" view_column="TABLEVALUE"/>
+			<view_select>SELECT locationspec.location as location, locationspec.rowstamp as rowstamp</view_select>
+			<view_from>FROM LOCATIONSPEC</view_from>
+			<view_where>WHERE EXISTS
+			  (SELECT 1
+			  FROM locationspec a
+			  WHERE a.ALNVALUE NOT IN('L0','L1','L2','L3') 
+			  and  a.ASSETATTRID='SBHLOCLEVEL'
+			  and a.location = locationspec.location
+			  )
+			UNION ALL
+			SELECT location, 1
+			FROM locations
+			WHERE NOT EXISTS
+			  (SELECT 1
+			  FROM locationspec
+			 WHERE ALNVALUE IN('L0','L1','L2','L3') 
+			  and ASSETATTRID='SBHLOCLEVEL'
+			  and locations.location = locationspec.location
+			    )
+			and locations.type = 'OPERATING'</view_where>
+	</define_view>
+		    <freeform description="update maxobject and maxattribute">
+            <sql target="sqlserver">
+				update maxobjectcfg set userdefined=1 where objectname='SBHASSLOCSPEC';
+				update maxobject set userdefined=1 where objectname='SBHASSLOCSPEC';
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='ALNVALUE'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='ASSETATTRID'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='CHANGEBY'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='CHANGEDATE'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='CLASSSTRUCTUREID'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='DISPLAYSEQUENCE'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='INHERITEDFROMITEM'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='ITEMSPECVALCHANGED'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='LINKEDTOATTRIBUTE'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='LINKEDTOSECTION'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='LOCATION'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='LOCATIONSPECID'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='LS01'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='LS02'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='LS03'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='LS04'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='LS05'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='MANDATORY'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='MEASUREUNITID'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='NUMVALUE'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='ORGID'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='SECTION'
+				update maxattributecfg set required=1 where objectname='SBHASSLOCSPEC' and attributename='SITEID'
+				update maxattributecfg set required=0 where objectname='SBHASSLOCSPEC' and attributename='TABLEVALUE'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='ALNVALUE'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='ASSETATTRID'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='CHANGEBY'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='CHANGEDATE'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='CLASSSTRUCTUREID'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='DISPLAYSEQUENCE'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='INHERITEDFROMITEM'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='ITEMSPECVALCHANGED'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='LINKEDTOATTRIBUTE'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='LINKEDTOSECTION'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='LOCATION'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='LOCATIONSPECID'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='LS01'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='LS02'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='LS03'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='LS04'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='LS05'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='MANDATORY'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='MEASUREUNITID'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='NUMVALUE'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='ORGID'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='SECTION'
+				update maxattribute set required=1 where objectname='SBHASSLOCSPEC' and attributename='SITEID'
+				update maxattribute set required=0 where objectname='SBHASSLOCSPEC' and attributename='TABLEVALUE'
+			</sql>
+        </freeform>
+    </statements>
+</script>

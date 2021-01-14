@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into WPEDITSETTING">
+  <description>Add AUTOKEY and WPEDITSETTING for SBH Organisation - GenInsertDbc created this script at Wed Aug 21 13:09:02 CEST 2019</description>
+  <statements>
+ 	<freeform description="custom delelte and insert">
+		<sql target="sqlserver">
+			delete from WPEDITSETTING;
+		  	delete from autokey where orgid is not null;
+		  	commit;
+		  	insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'ADDRESSCODEID',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'ASSETNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'BUDGET',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'CALNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'COMPANIES',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'CONTRACTNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'DEPRECIATIONNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'DEPSCHEDNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'FAILURECODE',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'FINCNTRLID',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'HAZARDID',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'INSPECTIONFIELDNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'INSPECTIONFORMNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'INSPECTIONQUESTIONNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'INSPECTIONRESULTNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'INSPECTIONRESULTSTATUSNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'INVLOTNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'INVOICENUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'INVUSENUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'LABORCODE',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'LOCATION',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'MEASUREPOINTNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'MRNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'PLUSCWODSWODSNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'PMNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'PONUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'PRECAUTIONID',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'PRODUCTID',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'RFQNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'ROUTE',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'SAFETYPLANID',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'SHIPMENTNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'TAGOUTID',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'WORKORDERNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'WPLABORID',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			insert into autokey (prefix, seed, orgid, siteid, autokeyname,setid,langcode,autokeyid) values (NULL,1000,'SBH',NULL,'PRNUM',NULL, 'EN', (select (select max(autokeyid +1) from autokey)));
+			commit;
+		</sql>
+	</freeform> 	  
+    <insert table="WPEDITSETTING">
+      <insertrow>
+        <columnvalue column="plusceditpoint" boolean="false" />
+        <columnvalue column="plusceditds" boolean="false" />
+        <columnvalue column="plusceditafal" boolean="false" />
+        <columnvalue column="editwpser" boolean="false" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="editsafety" boolean="false" />
+        <columnvalue column="editwptool" boolean="false" />
+        <columnvalue column="editwpmat" boolean="false" />
+        <columnvalue column="editwplab" boolean="false" />
+        <columnvalue column="editloc" boolean="false" />
+        <columnvalue column="editasset" boolean="false" />
+        <columnvalue column="editglaccount" boolean="false" />
+        <columnvalue column="status" string="APPR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="plusceditpoint" boolean="false" />
+        <columnvalue column="plusceditds" boolean="false" />
+        <columnvalue column="plusceditafal" boolean="false" />
+        <columnvalue column="editwpser" boolean="false" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="editsafety" boolean="false" />
+        <columnvalue column="editwptool" boolean="false" />
+        <columnvalue column="editwpmat" boolean="false" />
+        <columnvalue column="editwplab" boolean="false" />
+        <columnvalue column="editloc" boolean="false" />
+        <columnvalue column="editasset" boolean="false" />
+        <columnvalue column="editglaccount" boolean="false" />
+        <columnvalue column="status" string="COMP" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="plusceditpoint" boolean="false" />
+        <columnvalue column="plusceditds" boolean="false" />
+        <columnvalue column="plusceditafal" boolean="false" />
+        <columnvalue column="editwpser" boolean="false" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="editsafety" boolean="false" />
+        <columnvalue column="editwptool" boolean="false" />
+        <columnvalue column="editwpmat" boolean="false" />
+        <columnvalue column="editwplab" boolean="false" />
+        <columnvalue column="editloc" boolean="false" />
+        <columnvalue column="editasset" boolean="false" />
+        <columnvalue column="editglaccount" boolean="false" />
+        <columnvalue column="status" string="INPRG" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="plusceditpoint" boolean="false" />
+        <columnvalue column="plusceditds" boolean="false" />
+        <columnvalue column="plusceditafal" boolean="false" />
+        <columnvalue column="editwpser" boolean="true" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="editsafety" boolean="true" />
+        <columnvalue column="editwptool" boolean="true" />
+        <columnvalue column="editwpmat" boolean="true" />
+        <columnvalue column="editwplab" boolean="true" />
+        <columnvalue column="editloc" boolean="true" />
+        <columnvalue column="editasset" boolean="true" />
+        <columnvalue column="editglaccount" boolean="true" />
+        <columnvalue column="status" string="WAPPR" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="plusceditpoint" boolean="false" />
+        <columnvalue column="plusceditds" boolean="false" />
+        <columnvalue column="plusceditafal" boolean="false" />
+        <columnvalue column="editwpser" boolean="false" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="editsafety" boolean="false" />
+        <columnvalue column="editwptool" boolean="false" />
+        <columnvalue column="editwpmat" boolean="false" />
+        <columnvalue column="editwplab" boolean="false" />
+        <columnvalue column="editloc" boolean="false" />
+        <columnvalue column="editasset" boolean="false" />
+        <columnvalue column="editglaccount" boolean="false" />
+        <columnvalue column="status" string="WMATL" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="plusceditpoint" boolean="false" />
+        <columnvalue column="plusceditds" boolean="false" />
+        <columnvalue column="plusceditafal" boolean="false" />
+        <columnvalue column="editwpser" boolean="false" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="editsafety" boolean="false" />
+        <columnvalue column="editwptool" boolean="false" />
+        <columnvalue column="editwpmat" boolean="false" />
+        <columnvalue column="editwplab" boolean="false" />
+        <columnvalue column="editloc" boolean="false" />
+        <columnvalue column="editasset" boolean="false" />
+        <columnvalue column="editglaccount" boolean="false" />
+        <columnvalue column="status" string="WSCH" />
+      </insertrow>
+    </insert>
+  </statements>
+</script>

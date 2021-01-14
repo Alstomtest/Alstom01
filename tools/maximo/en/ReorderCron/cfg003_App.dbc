@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="cfg002_App">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <create_relationship parent="SBREORDERPAD" name="ITEMCONDITION" child="ITEMCONDITION" whereclause="itemnum = :itemnum and itemsetid=:itemsetid and conditioncode=:conditioncode" remarks="Relationship to the itemcondition table, used to find the itemcondition records for a given Reorder record. (itemcondition.itemnum = reorderpad.itemnum and itemcondition.itemsetid=reorderpad.itemsetid and itemcondition.conditioncode=reorderpad.conditioncode). The resulting set will contain zero or one object."/>
+        <create_relationship parent="SBREORDERITEMS" name="LOCATION" child="LOCATIONS" whereclause="location = : storeloc and siteid = :siteid" remarks="ADD A REMARK HERE"/>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Object classes change">
+            <sql target="all"/>
+        </freeform>
+    </statements>
+</script>

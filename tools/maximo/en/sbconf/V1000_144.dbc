@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_144">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM maxgroup where groupname='SBHTECHINT';
+			</sql>
+        </freeform>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHTECHINT"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Technician Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="1"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="19"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="1"/>
+            </insertrow>
+        </insert>
+    </statements>
+</script>

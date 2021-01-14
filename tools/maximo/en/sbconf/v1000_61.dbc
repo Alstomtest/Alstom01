@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="v1000_61 ATTRIBUTES">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <drop_attributes object="WORKORDER">
+        	<attrname name="SBHWOKORKARAKTER"/>
+        </drop_attributes>
+        <drop_attributes object="WORKORDER">
+        	<attrname name="SBHWOJERNBANEREGEL"/>
+        </drop_attributes>
+        <drop_attributes object="WORKORDER">
+        	<attrname name="SBHWOTRAVAMPLAN"/>
+        </drop_attributes>
+        <drop_attributes object="WORKORDER">
+        	<attrname name="SBHWOSPORNR"/>
+        </drop_attributes>
+        <drop_attributes object="WORKORDER">
+        	<attrname name="SBHWOALERTLEAD"/>
+        </drop_attributes>
+        <drop_attributes object="WORKORDER">
+        	<attrname name="SBHWOINVESTKODE"/>
+        </drop_attributes>
+        <drop_attributes object="WORKORDER">
+        	<attrname name="SBHWOTILLADARB"/>
+        </drop_attributes>
+        <drop_attributes object="WORKORDER">
+        	<attrname name="SBHWOREMARK"/>
+        </drop_attributes>
+        <drop_attributes object="WORKORDER">
+        	<attrname name="SBHWOBILLCHECK"/>
+        </drop_attributes>
+        <drop_attributes object="WORKORDER">
+        	<attrname name="SBHWOTRASPOR"/>
+        </drop_attributes>
+    </statements>
+</script>

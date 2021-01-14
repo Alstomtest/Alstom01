@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into condition">
+  <description>GenInsertDbc created this script at Tue Oct 15 14:03:31 CEST 2019</description>
+  <statements>
+      <freeform description="Automatically Generated - Object classes change">
+            <sql target="sqlserver">
+				delete from condition where conditionnum in ('SBHWOWORKT','SBHWOAPPRCHK','SBHASSFCODE','SBHOWNCHK2','SBHPERGCHK','SBHPLANCHK','SBHCLSFAILCH');
+				delete from securityrestrict where app='WOTRACK' and attributename='OWNERGROUP' and objectname='WORKORDER' and restriction='REQUIRED' and type='ATTR';
+				delete from securityrestrict where app='WOTRACK' and attributename='PERSONGROUP' and objectname='WORKORDER' and restriction='REQUIRED' and type='ATTR';
+				delete from maxlookupmap where target='classstructure' and targetattr='sbhfailurecode' and lookupattr='sbhfailurecode' and sourcekey='failurecode';
+				delete from securityrestrict where app='ASSETCAT' and attributename='SBHFAILURECODE' and objectname='CLASSSTRUCTURE' and restriction='REQUIRED' and type='ATTR';
+				delete from securityrestrict where app='WOTRACK' and attributename='OWNERGROUP' and objectname='WORKORDER' and restriction='REQUIRED' and type='ATTR';
+				delete from securityrestrict where app='WOTRACK' and attributename='PERSONGROUP' and objectname='WORKORDER' and restriction='REQUIRED' and type='ATTR';
+				insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHCLSFAILCH','REQUIRED',1,'SBHFAILURECODE','CLASSSTRUCTURE','ASSETCAT',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+				insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHOWNCHK2','REQUIRED',1,'OWNERGROUP','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+				insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHPERGCHK','REQUIRED',1,'PERSONGROUP','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))		
+			</sql>
+    </freeform>
+    <insert table="condition">
+      <insertrow>
+        <columnvalue column="nocaching" number="1" />
+        <columnvalue column="description" string="Work Order Work Type Check" />
+        <columnvalue column="expression" string=":worktype ='VEJSP'" />
+        <columnvalue column="type" string="EXPRESSION" />
+        <columnvalue column="conditionnum" string="SBHWOWORKT" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="nocaching" number="1" />
+        <columnvalue column="description" string="WO Approval Status Check" />
+        <columnvalue column="expression" string=":status in(select value from synonymdomain where maxvalue ='APPR' and domainid='WOSTATUS')" />
+        <columnvalue column="type" string="EXPRESSION" />
+        <columnvalue column="conditionnum" string="SBHWOAPPRCHK" />
+      </insertrow>
+       <insertrow>
+        <columnvalue column="nocaching" number="1" />
+        <columnvalue column="description" string="Check Failure Code Read Only if Asset specified" />
+        <columnvalue column="expression" string=":assetnum is null or :worktype NOT IN('AKUT','UDSV')" />
+        <columnvalue column="type" string="EXPRESSION" />
+        <columnvalue column="conditionnum" string="SBHASSFCODE" />
+      </insertrow>
+       <insertrow>
+        <columnvalue column="nocaching" number="1" />
+        <columnvalue column="description" string="WO Approval Status Check for Owner field" />
+        <columnvalue column="expression" string=":owner is null" />
+        <columnvalue column="type" string="EXPRESSION" />
+        <columnvalue column="conditionnum" string="SBHOWNCHK2" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="nocaching" number="1" />
+        <columnvalue column="description" string="Work Order Person Group Check" />
+        <columnvalue column="expression" string=":lead='-' and :status in(select value from synonymdomain where maxvalue ='APPR' and domainid='WOSTATUS')" />
+        <columnvalue column="type" string="EXPRESSION" />
+        <columnvalue column="conditionnum" string="SBHPERGCHK" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="nocaching" number="1" />
+        <columnvalue column="description" string="Work Order Planned Status Check" />
+        <columnvalue column="expression" string=":status in(select value from synonymdomain where maxvalue ='WAPPR' and value ='PLAN' and domainid='WOSTATUS')" />
+        <columnvalue column="type" string="EXPRESSION" />
+        <columnvalue column="conditionnum" string="SBHPLANCHK" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="nocaching" number="1" />
+        <columnvalue column="description" string="Classification Failure Code Required Check" />
+        <columnvalue column="expression" string=":sbhclsfailreq = 0" />
+        <columnvalue column="type" string="EXPRESSION" />
+        <columnvalue column="conditionnum" string="SBHCLSFAILCH" />
+      </insertrow>
+    </insert>
+    <insert table="maxlookupmap">
+      <insertrow>
+        <columnvalue column="source" string="FAILURECODE" />
+        <columnvalue column="allownull" boolean="true" />
+        <columnvalue column="seqnum" number="1" />
+        <columnvalue column="sourcekey" string="FAILURECODE" />
+        <columnvalue column="targetattr" string="SBHFAILURECODE" />
+        <columnvalue column="lookupattr" string="SBHFAILURECODE" />
+        <columnvalue column="target" string="CLASSSTRUCTURE" />
+      </insertrow>
+    </insert>
+  </statements>
+</script>

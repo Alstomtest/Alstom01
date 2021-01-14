@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into MAXINTOBJECT">
+  <description>GenInsertDbc created this script at Tue Jun 18 10:10:18 CEST 2019</description>
+  <statements>
+	<freeform description="Delete before load custom structure">
+		<sql target="sqlserver">
+			delete from locsystem where systemid in ('SBF') or description ='Oresund System';
+		</sql>
+	</freeform>  
+     <insert table="LOCSYSTEM">
+      <insertrow>
+        <columnvalue column="address" boolean="false" />
+        <columnvalue column="primarysystem" boolean="false" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="siteid" string="SB" />
+        <columnvalue column="network" boolean="false" />
+        <columnvalue column="description" string="Oresund System" />
+        <columnvalue column="systemid" string="AS˜Ø" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="address" boolean="false" />
+        <columnvalue column="primarysystem" boolean="false" />
+        <columnvalue column="orgid" string="SBH" />
+        <columnvalue column="siteid" string="SB" />
+        <columnvalue column="network" boolean="false" />
+        <columnvalue column="description" string="Storebælt System" />
+        <columnvalue column="systemid" string="SBF" />
+      </insertrow>
+     </insert>
+  </statements>
+</script>

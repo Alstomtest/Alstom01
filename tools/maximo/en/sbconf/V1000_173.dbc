@@ -1,0 +1,2365 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_173">
+	<description>Auto-Generated Script</description>
+	<statements>
+    	<!-- Add security group for D365 -->
+     	<!--  Insert Integrationobjects for D365 -->
+     	<!--  Grand access -->
+     	<!--  MR-1447 -->
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="sqlserver">
+			delete FROM maxgroup  where groupname = 'SBHD365';
+			</sql>
+		</freeform>
+		<insert table="maxgroup" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHD365"/>
+				<columnvalue column="description" string="Integration to D365"/>
+				<columnvalue column="passwordduration" number="90"/>
+				<columnvalue column="passwordwarning" number="5"/>
+				<columnvalue column="independent" number="1"/>
+				<columnvalue column="authallsites" number="1"/>
+				<columnvalue column="authallgls" number="0"/>
+				<columnvalue column="authallstorerooms" number="0"/>
+				<columnvalue column="authlaborall" number="0"/>
+				<columnvalue column="authlaborcrew" number="0"/>
+				<columnvalue column="authlaborself" number="0"/>
+				<columnvalue column="authlaborsuper" number="0"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="authpersongroup" number="0"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="nullrepfac" number="1"/>
+				<columnvalue column="authallrepfacs" number="0"/>
+				<columnvalue column="sidenav" number="0"/>
+			</insertrow>
+		</insert>	
+		<freeform description="delete OBJECTS">
+			<sql target="sqlserver">		
+			delete from MAXINTOBJECT where intobjectname in ('MXPO','MXSERVRECTRANS','MXMATRECTRANS','MXPOLINE');
+			delete from MAXINTOBJDETAIL where intobjectname in ('MXPO','MXSERVRECTRANS','MXMATRECTRANS','MXPOLINE');
+			delete from maxintobjcols where intobjectname in ('MXPO','MXSERVRECTRANS','MXMATRECTRANS','MXPOLINE');
+			delete from sigoption where app  in ('MXPO','MXSERVRECTRANS','MXMATRECTRANS','MXPOLINE');
+			delete from applicationauth where app in ('MXPO','MXSERVRECTRANS','MXMATRECTRANS','MXPOLINE') and groupname in ('SBHD365');
+			delete from MAXAPPS where apptype = 'OS' and app  in ('MXPO','MXSERVRECTRANS','MXMATRECTRANS','MXPOLINE');
+			delete from OBJECTAPPAUTH where authapp in ('PO');
+			commit;
+			</sql>
+		</freeform>  
+		<insert table="MAXINTOBJECT">
+			<insertrow>
+				<columnvalue column="timelineattribute" string="-1" />
+				<columnvalue column="autopagingthreshold" number="-1" />
+				<columnvalue column="loadqueryfromapp" boolean="false" />
+				<columnvalue column="authapp" string="MXMATRECTRANS" />
+				<columnvalue column="aliasconflict" boolean="false" />
+				<columnvalue column="usewith" string="OSLC" />
+				<columnvalue column="flatsupported" boolean="false" />
+				<columnvalue column="configurable" boolean="true" />
+				<columnvalue column="queryonly" boolean="false" />
+				<columnvalue column="changedate" date="10-10-2019:10:34:43" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="userdefined" boolean="true" />
+				<columnvalue column="selfreferencing" boolean="false" />
+				<columnvalue column="description" string="MATRECTRANS Object" />
+				<columnvalue column="intobjectname" string="MXMATRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="loadqueryfromapp" boolean="false" />
+				<columnvalue column="authapp" string="MXPO" />
+				<columnvalue column="aliasconflict" boolean="false" />
+				<columnvalue column="usewith" string="INTEGRATION" />
+				<columnvalue column="flatsupported" boolean="false" />
+				<columnvalue column="configurable" boolean="true" />
+				<columnvalue column="queryonly" boolean="false" />
+				<columnvalue column="procclass" string="psdi.iface.app.po.MaxPOProcess" />
+				<columnvalue column="changedate" date="09-29-2019:11:33:58" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="userdefined" boolean="false" />
+				<columnvalue column="selfreferencing" boolean="false" />
+				<columnvalue column="description" string="Purchase Order Definition" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="timelineattribute" string="-1" />
+				<columnvalue column="autopagingthreshold" number="-1" />
+				<columnvalue column="loadqueryfromapp" boolean="false" />
+				<columnvalue column="authapp" string="MXPOLINE" />
+				<columnvalue column="aliasconflict" boolean="false" />
+				<columnvalue column="usewith" string="OSLC" />
+				<columnvalue column="flatsupported" boolean="false" />
+				<columnvalue column="configurable" boolean="true" />
+				<columnvalue column="queryonly" boolean="false" />
+				<columnvalue column="changedate" date="11-07-2019:09:48:44" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="userdefined" boolean="true" />
+				<columnvalue column="selfreferencing" boolean="false" />
+				<columnvalue column="description" string="MX POLINE" />
+				<columnvalue column="intobjectname" string="MXPOLINE" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="timelineattribute" string="-1" />
+				<columnvalue column="autopagingthreshold" number="-1" />
+				<columnvalue column="loadqueryfromapp" boolean="false" />
+				<columnvalue column="authapp" string="MXSERVRECTRANS" />
+				<columnvalue column="aliasconflict" boolean="false" />
+				<columnvalue column="usewith" string="OSLC" />
+				<columnvalue column="flatsupported" boolean="false" />
+				<columnvalue column="configurable" boolean="true" />
+				<columnvalue column="queryonly" boolean="false" />
+				<columnvalue column="changedate" date="10-10-2019:12:48:36" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="userdefined" boolean="true" />
+				<columnvalue column="selfreferencing" boolean="false" />
+				<columnvalue column="description" string="SERVRECTRANS Object" />
+				<columnvalue column="intobjectname" string="MXSERVRECTRANS" />
+			</insertrow>
+		</insert>
+		<insert table="maxintobjdetail">
+			<insertrow>
+				<columnvalue column="excludebydefault" boolean="false" />
+				<columnvalue column="skipkeyupdate" boolean="false" />
+				<columnvalue column="invokeexecute" boolean="false" />
+				<columnvalue column="propagateevent" boolean="false" />
+				<columnvalue column="deleteoncreate" boolean="false" />
+				<columnvalue column="excludeparentkey" boolean="false" />
+				<columnvalue column="hierarchypath" string="MATRECTRANS" />
+				<columnvalue column="objectid" number="1" />
+				<columnvalue column="changedate" date="10-10-2019:10:33:18" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="userdefined" boolean="true" />
+				<columnvalue column="processorder" number="1" />
+				<columnvalue column="objectorder" number="1" />
+				<columnvalue column="objectname" string="MATRECTRANS" />
+				<columnvalue column="intobjectname" string="MXMATRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="excludebydefault" boolean="false" />
+				<columnvalue column="skipkeyupdate" boolean="false" />
+				<columnvalue column="invokeexecute" boolean="false" />
+				<columnvalue column="propagateevent" boolean="false" />
+				<columnvalue column="deleteoncreate" boolean="true" />
+				<columnvalue column="excludeparentkey" boolean="true" />
+				<columnvalue column="hierarchypath" string="PO" />
+				<columnvalue column="objectid" number="1" />
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="userdefined" boolean="false" />
+				<columnvalue column="processorder" number="1" />
+				<columnvalue column="objectorder" number="1" />
+				<columnvalue column="objectname" string="PO" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="excludebydefault" boolean="false" />
+				<columnvalue column="skipkeyupdate" boolean="false" />
+				<columnvalue column="invokeexecute" boolean="false" />
+				<columnvalue column="propagateevent" boolean="false" />
+				<columnvalue column="deleteoncreate" boolean="true" />
+				<columnvalue column="excludeparentkey" boolean="true" />
+				<columnvalue column="hierarchypath" string="PO/POLINE" />
+				<columnvalue column="parentobjid" number="1" />
+				<columnvalue column="objectid" number="2" />
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="userdefined" boolean="false" />
+				<columnvalue column="processorder" number="2" />
+				<columnvalue column="objectorder" number="1" />
+				<columnvalue column="relation" string="POLINE" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="excludebydefault" boolean="false" />
+				<columnvalue column="skipkeyupdate" boolean="false" />
+				<columnvalue column="invokeexecute" boolean="false" />
+				<columnvalue column="propagateevent" boolean="false" />
+				<columnvalue column="deleteoncreate" boolean="false" />
+				<columnvalue column="excludeparentkey" boolean="false" />
+				<columnvalue column="hierarchypath" string="POLINE" />
+				<columnvalue column="objectid" number="1" />
+				<columnvalue column="changedate" date="11-07-2019:09:47:29" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="userdefined" boolean="true" />
+				<columnvalue column="processorder" number="1" />
+				<columnvalue column="objectorder" number="1" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPOLINE" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="excludebydefault" boolean="false" />
+				<columnvalue column="skipkeyupdate" boolean="false" />
+				<columnvalue column="invokeexecute" boolean="false" />
+				<columnvalue column="propagateevent" boolean="false" />
+				<columnvalue column="deleteoncreate" boolean="true" />
+				<columnvalue column="excludeparentkey" boolean="true" />
+				<columnvalue column="hierarchypath" string="PO/POLINE/POCOST" />
+				<columnvalue column="parentobjid" number="2" />
+				<columnvalue column="objectid" number="3" />
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="userdefined" boolean="false" />
+				<columnvalue column="processorder" number="3" />
+				<columnvalue column="objectorder" number="1" />
+				<columnvalue column="relation" string="POCOST" />
+				<columnvalue column="objectname" string="POCOST" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="excludebydefault" boolean="false" />
+				<columnvalue column="skipkeyupdate" boolean="false" />
+				<columnvalue column="invokeexecute" boolean="false" />
+				<columnvalue column="propagateevent" boolean="false" />
+				<columnvalue column="deleteoncreate" boolean="true" />
+				<columnvalue column="excludeparentkey" boolean="true" />
+				<columnvalue column="hierarchypath" string="PO/POTERM" />
+				<columnvalue column="parentobjid" number="1" />
+				<columnvalue column="objectid" number="4" />
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="userdefined" boolean="false" />
+				<columnvalue column="processorder" number="4" />
+				<columnvalue column="objectorder" number="2" />
+				<columnvalue column="relation" string="POTERM" />
+				<columnvalue column="objectname" string="POTERM" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="excludebydefault" boolean="false" />
+				<columnvalue column="skipkeyupdate" boolean="false" />
+				<columnvalue column="invokeexecute" boolean="false" />
+				<columnvalue column="propagateevent" boolean="false" />
+				<columnvalue column="deleteoncreate" boolean="false" />
+				<columnvalue column="excludeparentkey" boolean="false" />
+				<columnvalue column="hierarchypath" string="SERVRECTRANS" />
+				<columnvalue column="objectid" number="1" />
+				<columnvalue column="changedate" date="10-10-2019:12:47:56" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="userdefined" boolean="true" />
+				<columnvalue column="processorder" number="1" />
+				<columnvalue column="objectorder" number="1" />
+				<columnvalue column="objectname" string="SERVRECTRANS" />
+				<columnvalue column="intobjectname" string="MXSERVRECTRANS" />
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols">
+			<insertrow>
+				<columnvalue column="changedate" date="10-10-2019:10:33:42" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="HASLD" />
+				<columnvalue column="objectname" string="MATRECTRANS" />
+				<columnvalue column="intobjectname" string="MXMATRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="10-10-2019:10:33:42" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="LANGCODE" />
+				<columnvalue column="objectname" string="MATRECTRANS" />
+				<columnvalue column="intobjectname" string="MXMATRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="05-09-2019:06:29:16" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="ALLOWRECEIPT" />
+				<columnvalue column="objectname" string="PO" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="DESCRIPTION_LONGDESCRIPTION" />
+				<columnvalue column="objectname" string="PO" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="FREIGHTTERMS_LONGDESCRIPTION" />
+				<columnvalue column="objectname" string="PO" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-04-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="HASLD" />
+				<columnvalue column="objectname" string="PO" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="LANGCODE" />
+				<columnvalue column="objectname" string="PO" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="NP_STATUSMEMO" />
+				<columnvalue column="objectname" string="PO" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="04-16-2007:12:19:10" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="STATUSIFACE" />
+				<columnvalue column="objectname" string="PO" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="FCPROJECTID" />
+				<columnvalue column="objectname" string="POCOST" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="FCTASKID" />
+				<columnvalue column="objectname" string="POCOST" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="DESCRIPTION_LONGDESCRIPTION" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="FCPROJECTID" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="FCTASKID" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-04-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="HASLD" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="LANGCODE" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="PRLINENUM" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="PRNUM" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+				<columnvalue column="name" string="REMARK_LONGDESCRIPTION" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-04-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="HASLD" />
+				<columnvalue column="objectname" string="POTERM" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="02-06-2004:00:00:00" />
+				<columnvalue column="changeby" string="MAXIMO" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="LANGCODE" />
+				<columnvalue column="objectname" string="POTERM" />
+				<columnvalue column="intobjectname" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="11-07-2019:09:47:42" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="HASLD" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPOLINE" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="11-07-2019:09:47:42" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="LANGCODE" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="intobjectname" string="MXPOLINE" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="10-10-2019:12:48:12" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="HASLD" />
+				<columnvalue column="objectname" string="SERVRECTRANS" />
+				<columnvalue column="intobjectname" string="MXSERVRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="changedate" date="10-10-2019:12:48:12" />
+				<columnvalue column="changeby" string="CTIX" />
+				<columnvalue column="intobjfldtype" string="EXCLUDE" />
+				<columnvalue column="name" string="LANGCODE" />
+				<columnvalue column="objectname" string="SERVRECTRANS" />
+				<columnvalue column="intobjectname" string="MXSERVRECTRANS" />
+			</insertrow>
+		</insert>
+		<insert table="maxapps">
+			<insertrow>
+				<columnvalue column="lockenabled" boolean="false" />
+				<columnvalue column="apptype" string="OS" />
+				<columnvalue column="description" string="MATRECTRANS Object" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="lockenabled" boolean="false" />
+				<columnvalue column="apptype" string="OS" />
+				<columnvalue column="description" string="Purchase Order Definition" />
+				<columnvalue column="app" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="lockenabled" boolean="false" />
+				<columnvalue column="apptype" string="OS" />
+				<columnvalue column="description" string="MX POLINE" />
+				<columnvalue column="app" string="MXPOLINE" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="lockenabled" boolean="false" />
+				<columnvalue column="apptype" string="OS" />
+				<columnvalue column="description" string="SERVRECTRANS Object" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+			</insertrow>
+		</insert>    
+		<insert table="sigoption">
+			<insertrow>
+				<columnvalue column="prerequisite" string="READ" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+				<columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="SAVE" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Delete MXMATRECTRANS" />
+				<columnvalue column="optionname" string="DELETE" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="SAVE" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Insert MXMATRECTRANS" />
+				<columnvalue column="optionname" string="INSERT" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="alsorevokes" string="ALL" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Read MXMATRECTRANS" />
+				<columnvalue column="optionname" string="READ" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="alsorevokes" string="DELETE,INSERT" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Save MXMATRECTRANS" />
+				<columnvalue column="optionname" string="SAVE" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="READ" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+				<columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+				<columnvalue column="app" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="SAVE" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Delete MXPO" />
+				<columnvalue column="optionname" string="DELETE" />
+				<columnvalue column="app" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="SAVE" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Insert MXPO" />
+				<columnvalue column="optionname" string="INSERT" />
+				<columnvalue column="app" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="alsorevokes" string="ALL" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Read MXPO" />
+				<columnvalue column="optionname" string="READ" />
+				<columnvalue column="app" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="alsorevokes" string="DELETE,INSERT" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Save MXPO" />
+				<columnvalue column="optionname" string="SAVE" />
+				<columnvalue column="app" string="MXPO" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="READ" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+				<columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+				<columnvalue column="app" string="MXPOLINE" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="SAVE" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Delete MXPOLINE" />
+				<columnvalue column="optionname" string="DELETE" />
+				<columnvalue column="app" string="MXPOLINE" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="SAVE" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Insert MXPOLINE" />
+				<columnvalue column="optionname" string="INSERT" />
+				<columnvalue column="app" string="MXPOLINE" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="alsorevokes" string="ALL" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Read MXPOLINE" />
+				<columnvalue column="optionname" string="READ" />
+				<columnvalue column="app" string="MXPOLINE" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="alsorevokes" string="DELETE,INSERT" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Save MXPOLINE" />
+				<columnvalue column="optionname" string="SAVE" />
+				<columnvalue column="app" string="MXPOLINE" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="READ" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Sigoption to control the visibility of SQL clause in apimeta and querymeta." />
+				<columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="SAVE" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Delete MXSERVRECTRANS" />
+				<columnvalue column="optionname" string="DELETE" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="prerequisite" string="SAVE" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Insert MXSERVRECTRANS" />
+				<columnvalue column="optionname" string="INSERT" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="alsorevokes" string="ALL" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Read MXSERVRECTRANS" />
+				<columnvalue column="optionname" string="READ" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="alsorevokes" string="DELETE,INSERT" />
+				<columnvalue column="visible" boolean="true" />
+				<columnvalue column="esigenabled" boolean="false" />
+				<columnvalue column="description" string="Save MXSERVRECTRANS" />
+				<columnvalue column="optionname" string="SAVE" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+			</insertrow>
+		</insert>
+		<insert table="applicationauth">
+			<insertrow>
+				<columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="DELETE" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="INSERT" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="READ" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="SAVE" />
+				<columnvalue column="app" string="MXMATRECTRANS" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+				<columnvalue column="app" string="MXPO" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="DELETE" />
+				<columnvalue column="app" string="MXPO" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="INSERT" />
+				<columnvalue column="app" string="MXPO" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="READ" />
+				<columnvalue column="app" string="MXPO" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="SAVE" />
+				<columnvalue column="app" string="MXPO" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+				<columnvalue column="app" string="MXPOLINE" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="DELETE" />
+				<columnvalue column="app" string="MXPOLINE" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="INSERT" />
+				<columnvalue column="app" string="MXPOLINE" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="READ" />
+				<columnvalue column="app" string="MXPOLINE" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="SAVE" />
+				<columnvalue column="app" string="MXPOLINE" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="DELETE" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="INSERT" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="READ" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+			<insertrow>
+				<columnvalue column="optionname" string="SAVE" />
+				<columnvalue column="app" string="MXSERVRECTRANS" />
+				<columnvalue column="groupname" string="SBHD365" />
+			</insertrow>
+		</insert>            
+		<insert table="OBJECTAPPAUTH">
+			<insertrow>
+				<columnvalue column="authapp" string="PO" />
+				<columnvalue column="objectname" string="POLINE" />
+				<columnvalue column="context" string="/maxrest/oslc/os" />
+			</insertrow>
+		</insert>
+		
+		<!--  MR-1638 -->
+		
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="sqlserver">
+				delete FROM autoscript where autoscript = 'SBHWOPERGRPCHK';
+				delete FROM scriptlaunchpoint where autoscript = 'SBHWOPERGRPCHK';		
+				delete FROM autoscriptvars where autoscript = 'SBHWOPERGRPCHK';		
+				delete FROM LAUNCHPOINTVARS where autoscript = 'SBHWOPERGRPCHK';
+			</sql>
+		</freeform>
+		<insert table="autoscript" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="autoscript" string="SBHWOPERGRPCHK"/>
+				<columnvalue column="status" string="Draft"/>
+				<columnvalue column="description" string="Person Group Mandatory Check"/>
+				<columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;&#10;if MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;WOSTATUS&quot;,vSTATUS, mbo) == &quot;INPRG&quot;:&#10;    vLEAD_required=True&#10;    if vLEAD==&quot;-&quot;:&#10;        errorgroup = &quot;workorder&quot;&#10;        errorkey = &quot;SBHWOPERSGCHK&quot;"/>
+				<columnvalue column="createddate" date="10-01-2019:19:31:52"/>
+				<columnvalue column="statusdate" date="10-01-2019:19:31:52"/>
+				<columnvalue column="changedate" date="01-28-2020:11:54:25"/>
+				<columnvalue column="createdbyemail" string="somayina@uk.ibm.com"/>
+				<columnvalue column="owner" string="CTIX"/>
+				<columnvalue column="createdby" string="SOW"/>
+				<columnvalue column="changeby" string="SOW"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="scriptlanguage" string="jython"/>
+				<columnvalue column="userdefined" number="1"/>
+				<columnvalue column="loglevel" string="ERROR"/>
+				<columnvalue column="interface" number="0"/>
+				<columnvalue column="active" number="1"/>
+			</insertrow>
+		</insert>
+		<insert table="scriptlaunchpoint" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="launchpointname" string="SBHPERGRPCHK"/>
+				<columnvalue column="autoscript" string="SBHWOPERGRPCHK"/>
+				<columnvalue column="description" string="Person Group Mandatory Check"/>
+				<columnvalue column="launchpointtype" string="OBJECT"/>
+				<columnvalue column="objectname" string="WORKORDER"/>
+				<columnvalue column="objectevent" number="1024"/>
+				<columnvalue column="active" number="1"/>
+			</insertrow>
+		</insert>
+		<insert table="autoscriptvars" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="autoscript" string="SBHWOPERGRPCHK"/>
+				<columnvalue column="varname" string="vLEAD"/>
+				<columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+				<columnvalue column="vartype" string="INOUT"/>
+				<columnvalue column="description" string="vLEAD"/>
+				<columnvalue column="allowoverride" number="1"/>
+				<columnvalue column="accessflag" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="autoscriptvars" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="autoscript" string="SBHWOPERGRPCHK"/>
+				<columnvalue column="varname" string="vPERSGRP"/>
+				<columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+				<columnvalue column="vartype" string="INOUT"/>
+				<columnvalue column="description" string="vPERSONGROUP"/>
+				<columnvalue column="allowoverride" number="1"/>
+				<columnvalue column="accessflag" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="autoscriptvars" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="autoscript" string="SBHWOPERGRPCHK"/>
+				<columnvalue column="varname" string="vSTATUS"/>
+				<columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+				<columnvalue column="vartype" string="INOUT"/>
+				<columnvalue column="description" string="STATUS"/>
+				<columnvalue column="allowoverride" number="1"/>
+				<columnvalue column="accessflag" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="launchpointname" string="SBHPERGRPCHK"/>
+				<columnvalue column="autoscript" string="SBHWOPERGRPCHK"/>
+				<columnvalue column="varname" string="vLEAD"/>
+				<columnvalue column="varbindingvalue" string="LEAD"/>
+			</insertrow>
+		</insert>
+		<insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="launchpointname" string="SBHPERGRPCHK"/>
+				<columnvalue column="autoscript" string="SBHWOPERGRPCHK"/>
+				<columnvalue column="varname" string="vPERSGRP"/>
+				<columnvalue column="varbindingvalue" string="PERSONGROUP"/>
+			</insertrow>
+		</insert>
+		<insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="launchpointname" string="SBHPERGRPCHK"/>
+				<columnvalue column="autoscript" string="SBHWOPERGRPCHK"/>
+				<columnvalue column="varname" string="vSTATUS"/>
+				<columnvalue column="varbindingvalue" string="STATUS"/>
+			</insertrow>
+		</insert>
+		
+		<!--  MR-1626 -->
+	
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="sqlserver">
+				delete from securityrestrict where groupname = 'SBHTECHEXT' and conditionnum = 'SBHWOTECH';
+			</sql>
+		</freeform>        
+		
+		<!--  MR-1350 -->
+		
+		<specify_aln_domain domainid="SBHLOCTYPE" description="Location Type" overwrite="true" maxtype="ALN" length="15">
+			<alnvalueinfo value="FGRP" description="Functional Group"/>
+			<alnvalueinfo value="FPOS" description="Functional Position"/>
+			<alnvalueinfo value="TOPLEVEL" description="Top Level"/>
+		</specify_aln_domain>
+		<freeform description="Update Maxobjects to userdefined">
+			<sql target="sqlserver">		
+			delete from  l_alndomain where ownerid=  (select alndomainid from alndomain where domainid='SBHLOCTYPE' and value='FGRP');
+			insert into l_alndomain (description, ownerid, langcode ) values ('Funktionel gruppe', (select alndomainid from alndomain where domainid='SBHLOCTYPE' and value='FGRP'),'DA');
+			delete from  l_alndomain where ownerid=  (select alndomainid from alndomain where domainid='SBHLOCTYPE' and value='FPOS');
+			insert into l_alndomain (description, ownerid, langcode ) values ('Funktionel position', (select alndomainid from alndomain where domainid='SBHLOCTYPE' and value='FPOS'),'DA');
+			delete from  l_alndomain where ownerid=  (select alndomainid from alndomain where domainid='SBHLOCTYPE' and value='TOPLEVEL');
+			insert into l_alndomain (description, ownerid, langcode ) values ('Toplevel', (select alndomainid from alndomain where domainid='SBHLOCTYPE' and value='TOPLEVEL'),'DA');
+			</sql>
+		</freeform>
+		
+		<!--  MR-1595 (Remove users from security group. Should be managed by MXLoader Templates) -->
+		
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="sqlserver">
+				delete FROM groupuser where groupname='SBHPURCHREQEXT' and userid in ('IBM-EXTLEAD_1','IBM-EXTLEAD_2','IBM-EXTLEAD_3','IBM-EXTLEAD_4','IBM-EXTLEAD_5','IBM-EXTLEAD_6');
+			</sql>
+		</freeform>
+		
+		<!--  MR-1641 -->
+		         
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="all">
+				delete FROM MAXINTOBJECT  where intobjectname in ('MXAPIINSPFORMSTATUS','MXAPIINSPFORM','MXAPIINSPRESULT','MXAPIINSPFORMUSEWITH');		
+				delete FROM MAXINTOBJDETAIL where intobjectname in ('MXAPIINSPFORMSTATUS','MXAPIINSPFORM','MXAPIINSPRESULT','MXAPIINSPFORMUSEWITH');			
+				delete FROM maxintobjcols where intobjectname in ('MXAPIINSPFORMSTATUS','MXAPIINSPFORM','MXAPIINSPRESULT','MXAPIINSPFORMUSEWITH');			
+				delete FROM sigoption where app in ('MXAPIINSPFORMSTATUS','MXAPIINSPFORM','MXAPIINSPRESULT','MXAPIINSPFORMUSEWITH');			
+				delete FROM applicationauth where app in ('MXAPIINSPFORMSTATUS','MXAPIINSPFORM','MXAPIINSPRESULT','MXAPIINSPFORMUSEWITH');			
+				delete FROM MAXAPPS where apptype = 'OS' and APP in ('MXAPIINSPFORMSTATUS','MXAPIINSPFORM','MXAPIINSPRESULT','MXAPIINSPFORMUSEWITH');
+			</sql>
+		</freeform>
+		<insert table="MAXINTOBJECT" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="description" string="Object Structure to retrieve Inspection form"/>
+				<columnvalue column="selfreferencing" number="0"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="queryonly" number="0"/>
+				<columnvalue column="configurable" number="1"/>
+				<columnvalue column="flatsupported" number="0"/>
+				<columnvalue column="usewith" string="INTEGRATION"/>
+				<columnvalue column="aliasconflict" number="0"/>
+				<columnvalue column="authapp" string="MXAPIINSPFORM"/>
+				<columnvalue column="loadqueryfromapp" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJECT" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="description" string="Object structure to retrieve inspection form status history"/>
+				<columnvalue column="selfreferencing" number="0"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="queryonly" number="0"/>
+				<columnvalue column="configurable" number="1"/>
+				<columnvalue column="flatsupported" number="0"/>
+				<columnvalue column="usewith" string="INTEGRATION"/>
+				<columnvalue column="aliasconflict" number="0"/>
+				<columnvalue column="authapp" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="loadqueryfromapp" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJECT" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="description" string="Inspection Form Use With table integration Endpoint"/>
+				<columnvalue column="selfreferencing" number="0"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:25:40"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="queryonly" number="0"/>
+				<columnvalue column="configurable" number="0"/>
+				<columnvalue column="flatsupported" number="0"/>
+				<columnvalue column="usewith" string="INTEGRATION"/>
+				<columnvalue column="aliasconflict" number="0"/>
+				<columnvalue column="authapp" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="loadqueryfromapp" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJECT" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="description" string="Object Structure to retrieve Inspection result"/>
+				<columnvalue column="selfreferencing" number="0"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:48"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="queryonly" number="0"/>
+				<columnvalue column="configurable" number="1"/>
+				<columnvalue column="flatsupported" number="0"/>
+				<columnvalue column="usewith" string="INTEGRATION"/>
+				<columnvalue column="aliasconflict" number="0"/>
+				<columnvalue column="authapp" string="MXAPIINSPRESULT"/>
+				<columnvalue column="loadqueryfromapp" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="objectorder" number="1"/>
+				<columnvalue column="processorder" number="1"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+				<columnvalue column="objectid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONFORM"/>
+				<columnvalue column="excludeparentkey" number="0"/>
+				<columnvalue column="deleteoncreate" number="0"/>
+				<columnvalue column="propagateevent" number="0"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="objectname" string="INSPECTIONFORMSTATUS"/>
+				<columnvalue column="objectorder" number="1"/>
+				<columnvalue column="processorder" number="1"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+				<columnvalue column="objectid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONFORMSTATUS"/>
+				<columnvalue column="excludeparentkey" number="0"/>
+				<columnvalue column="deleteoncreate" number="0"/>
+				<columnvalue column="propagateevent" number="0"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPECTIONFORMSTATUS"/>
+				<columnvalue column="relation" string="INSPECTIONFORMSTATUS"/>
+				<columnvalue column="objectorder" number="2"/>
+				<columnvalue column="processorder" number="2"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+				<columnvalue column="objectid" number="2"/>
+				<columnvalue column="parentobjid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONFORM/INSPECTIONFORMSTATUS"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPQUESTION"/>
+				<columnvalue column="relation" string="INSPQUESTION"/>
+				<columnvalue column="objectorder" number="3"/>
+				<columnvalue column="processorder" number="3"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+				<columnvalue column="objectid" number="3"/>
+				<columnvalue column="parentobjid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONFORM/INSPQUESTION"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPFIELD"/>
+				<columnvalue column="relation" string="INSPFIELD"/>
+				<columnvalue column="objectorder" number="4"/>
+				<columnvalue column="processorder" number="4"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+				<columnvalue column="objectid" number="4"/>
+				<columnvalue column="parentobjid" number="3"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONFORM/INSPQUESTION/INSPFIELD"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPFIELDOPTION"/>
+				<columnvalue column="relation" string="INSPFIELDOPTION"/>
+				<columnvalue column="objectorder" number="5"/>
+				<columnvalue column="processorder" number="5"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+				<columnvalue column="objectid" number="5"/>
+				<columnvalue column="parentobjid" number="4"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONFORM/INSPQUESTION/INSPFIELD/INSPFIELDOPTION"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPECTIONRESULT"/>
+				<columnvalue column="objectorder" number="1"/>
+				<columnvalue column="processorder" number="1"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:48"/>
+				<columnvalue column="objectid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT"/>
+				<columnvalue column="excludeparentkey" number="0"/>
+				<columnvalue column="deleteoncreate" number="0"/>
+				<columnvalue column="propagateevent" number="0"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPRESULTSTATUS"/>
+				<columnvalue column="relation" string="INSPRESULTSTATUS"/>
+				<columnvalue column="objectorder" number="2"/>
+				<columnvalue column="processorder" number="2"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:48"/>
+				<columnvalue column="objectid" number="2"/>
+				<columnvalue column="parentobjid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT/INSPRESULTSTATUS"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPFIELDRESULT"/>
+				<columnvalue column="relation" string="INSPFIELDRESULT"/>
+				<columnvalue column="objectorder" number="3"/>
+				<columnvalue column="processorder" number="3"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:48"/>
+				<columnvalue column="objectid" number="3"/>
+				<columnvalue column="parentobjid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT/INSPFIELDRESULT"/>
+				<columnvalue column="excludeparentkey" number="0"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="relation" string="INSPECTIONFORM"/>
+				<columnvalue column="objectorder" number="4"/>
+				<columnvalue column="processorder" number="4"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:48"/>
+				<columnvalue column="objectid" number="4"/>
+				<columnvalue column="parentobjid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT/INSPECTIONFORM"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPQUESTION"/>
+				<columnvalue column="relation" string="INSPQUESTION"/>
+				<columnvalue column="objectorder" number="5"/>
+				<columnvalue column="processorder" number="5"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:48"/>
+				<columnvalue column="objectid" number="5"/>
+				<columnvalue column="parentobjid" number="4"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT/INSPECTIONFORM/INSPQUESTION"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPFIELD"/>
+				<columnvalue column="relation" string="INSPFIELD"/>
+				<columnvalue column="objectorder" number="6"/>
+				<columnvalue column="processorder" number="6"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:48"/>
+				<columnvalue column="objectid" number="6"/>
+				<columnvalue column="parentobjid" number="5"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT/INSPECTIONFORM/INSPQUESTION/INSPFIELD"/>
+				<columnvalue column="excludeparentkey" number="0"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPFIELDRESULT"/>
+				<columnvalue column="relation" string="INSPFIELDRESULT"/>
+				<columnvalue column="objectorder" number="7"/>
+				<columnvalue column="processorder" number="7"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:48"/>
+				<columnvalue column="objectid" number="7"/>
+				<columnvalue column="parentobjid" number="6"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT/INSPECTIONFORM/INSPQUESTION/INSPFIELD/INSPFIELDRESULT"/>
+				<columnvalue column="excludeparentkey" number="0"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPFIELDOPTION"/>
+				<columnvalue column="relation" string="INSPFIELDOPTION"/>
+				<columnvalue column="objectorder" number="8"/>
+				<columnvalue column="processorder" number="8"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:48"/>
+				<columnvalue column="objectid" number="8"/>
+				<columnvalue column="parentobjid" number="6"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT/INSPECTIONFORM/INSPQUESTION/INSPFIELD/INSPFIELDOPTION"/>
+				<columnvalue column="excludeparentkey" number="0"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPECTIONRESULT"/>
+				<columnvalue column="relation" string="INSPECTIONRESULT"/>
+				<columnvalue column="objectorder" number="6"/>
+				<columnvalue column="processorder" number="6"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="WILSON"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:54"/>
+				<columnvalue column="objectid" number="6"/>
+				<columnvalue column="parentobjid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONFORM/INSPECTIONRESULT"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="DOCTYPES"/>
+				<columnvalue column="relation" string="DOCTYPES"/>
+				<columnvalue column="objectorder" number="7"/>
+				<columnvalue column="processorder" number="7"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:55"/>
+				<columnvalue column="objectid" number="7"/>
+				<columnvalue column="parentobjid" number="4"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONFORM/INSPQUESTION/INSPFIELD/DOCTYPES"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="APPDOCTYPE"/>
+				<columnvalue column="relation" string="APPDOCTYPE"/>
+				<columnvalue column="objectorder" number="8"/>
+				<columnvalue column="processorder" number="8"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:55"/>
+				<columnvalue column="objectid" number="8"/>
+				<columnvalue column="parentobjid" number="7"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONFORM/INSPQUESTION/INSPFIELD/DOCTYPES/APPDOCTYPE"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="relation" string="DOCLINKS"/>
+				<columnvalue column="objectorder" number="9"/>
+				<columnvalue column="processorder" number="9"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:55"/>
+				<columnvalue column="objectid" number="9"/>
+				<columnvalue column="parentobjid" number="3"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT/INSPFIELDRESULT/DOCLINKS"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="relation" string="DOCLINKS"/>
+				<columnvalue column="objectorder" number="10"/>
+				<columnvalue column="processorder" number="10"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:55"/>
+				<columnvalue column="objectid" number="10"/>
+				<columnvalue column="parentobjid" number="7"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT/INSPECTIONFORM/INSPQUESTION/INSPFIELD/INSPFIELDRESULT/DOCLINKS"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPFORMSCRIPT"/>
+				<columnvalue column="relation" string="INSPFORMSCRIPT"/>
+				<columnvalue column="objectorder" number="7"/>
+				<columnvalue column="processorder" number="9"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:11:04"/>
+				<columnvalue column="objectid" number="9"/>
+				<columnvalue column="parentobjid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONFORM/INSPFORMSCRIPT"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPFORMSCRIPT"/>
+				<columnvalue column="relation" string="INSPFORMSCRIPT"/>
+				<columnvalue column="objectorder" number="11"/>
+				<columnvalue column="processorder" number="11"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:25:39"/>
+				<columnvalue column="objectid" number="11"/>
+				<columnvalue column="parentobjid" number="4"/>
+				<columnvalue column="hierarchypath" string="INSPECTIONRESULT/INSPECTIONFORM/INSPFORMSCRIPT"/>
+				<columnvalue column="excludeparentkey" number="1"/>
+				<columnvalue column="deleteoncreate" number="1"/>
+				<columnvalue column="propagateevent" number="1"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="objectname" string="INSPFORMUSEWITH"/>
+				<columnvalue column="objectorder" number="1"/>
+				<columnvalue column="processorder" number="1"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:25:40"/>
+				<columnvalue column="objectid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPFORMUSEWITH"/>
+				<columnvalue column="excludeparentkey" number="0"/>
+				<columnvalue column="deleteoncreate" number="0"/>
+				<columnvalue column="propagateevent" number="0"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXINTOBJDETAIL" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="relation" string="INSPECTIONFORM"/>
+				<columnvalue column="objectorder" number="2"/>
+				<columnvalue column="processorder" number="2"/>
+				<columnvalue column="userdefined" number="0"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:25:40"/>
+				<columnvalue column="objectid" number="2"/>
+				<columnvalue column="parentobjid" number="1"/>
+				<columnvalue column="hierarchypath" string="INSPFORMUSEWITH/INSPECTIONFORM"/>
+				<columnvalue column="excludeparentkey" number="0"/>
+				<columnvalue column="deleteoncreate" number="0"/>
+				<columnvalue column="propagateevent" number="0"/>
+				<columnvalue column="invokeexecute" number="0"/>
+				<columnvalue column="skipkeyupdate" number="0"/>
+				<columnvalue column="excludebydefault" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="name" string="CHANGEBY"/>
+				<columnvalue column="intobjfldtype" string="RESTRICTED"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="name" string="CHANGEDATE"/>
+				<columnvalue column="intobjfldtype" string="RESTRICTED"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="name" string="CREATEDATE"/>
+				<columnvalue column="intobjfldtype" string="RESTRICTED"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="name" string="CREATEDBY"/>
+				<columnvalue column="intobjfldtype" string="RESTRICTED"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="name" string="DESCRIPTION_LONGDESCRIPTION"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="name" string="ISREVISION"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPQUESTION"/>
+				<columnvalue column="name" string="DESCRIPTION_LONGDESCRIPTION"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORM"/>
+				<columnvalue column="objectname" string="INSPQUESTION"/>
+				<columnvalue column="name" string="REQUIRED"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="name" string="HASLD"/>
+				<columnvalue column="intobjfldtype" string="EXCLUDE"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:25:40"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="name" string="LANGCODE"/>
+				<columnvalue column="intobjfldtype" string="EXCLUDE"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:25:40"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="name" string="ADDINFO"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:56"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="name" string="APP"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:56"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="name" string="DESCRIPTION"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:56"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="name" string="DMSNAME"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:56"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="name" string="DOCUMENTDATA"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:56"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="name" string="SHOW"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:56"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="name" string="UPLOAD"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:56"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="name" string="URLNAME"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:56"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="DOCLINKS"/>
+				<columnvalue column="name" string="URLTYPE"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:56"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPECTIONFORM"/>
+				<columnvalue column="name" string="DESCRIPTION_LONGDESCRIPTION"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:49"/>
+			</insertrow>
+		</insert>
+		<insert table="maxintobjcols" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="intobjectname" string="MXAPIINSPRESULT"/>
+				<columnvalue column="objectname" string="INSPQUESTION"/>
+				<columnvalue column="name" string="DESCRIPTION_LONGDESCRIPTION"/>
+				<columnvalue column="intobjfldtype" string="NONPERSISTENT"/>
+				<columnvalue column="changeby" string="MAXADMIN"/>
+				<columnvalue column="changedate" date="05-23-2019:10:10:46"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="DELETE"/>
+				<columnvalue column="description" string="Delete MXAPIINSPFORM"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="prerequisite" string="SAVE"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="INSERT"/>
+				<columnvalue column="description" string="Insert MXAPIINSPFORM"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="prerequisite" string="SAVE"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="READ"/>
+				<columnvalue column="description" string="Read MXAPIINSPFORM"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="alsorevokes" string="ALL"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="SAVE"/>
+				<columnvalue column="description" string="Save MXAPIINSPFORM"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="alsorevokes" string="DELETE,INSERT"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="STATUS"/>
+				<columnvalue column="description" string="Change Status"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="prerequisite" string="SAVE"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="DELETE"/>
+				<columnvalue column="description" string="Delete MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="prerequisite" string="SAVE"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="INSERT"/>
+				<columnvalue column="description" string="Insert MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="prerequisite" string="SAVE"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="READ"/>
+				<columnvalue column="description" string="Read MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="alsorevokes" string="ALL"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="SAVE"/>
+				<columnvalue column="description" string="Save MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="alsorevokes" string="DELETE,INSERT"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="DELETE"/>
+				<columnvalue column="description" string="Delete MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="0"/>
+				<columnvalue column="prerequisite" string="SAVE"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="INSERT"/>
+				<columnvalue column="description" string="Insert MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="0"/>
+				<columnvalue column="prerequisite" string="SAVE"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="READ"/>
+				<columnvalue column="description" string="Read MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="alsorevokes" string="ALL"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="SAVE"/>
+				<columnvalue column="description" string="Save MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="0"/>
+				<columnvalue column="alsorevokes" string="DELETE,INSERT"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="DELETE"/>
+				<columnvalue column="description" string="Delete MXAPIINSPRESULT"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="prerequisite" string="SAVE"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="INSERT"/>
+				<columnvalue column="description" string="Insert MXAPIINSPRESULT"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="prerequisite" string="SAVE"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="READ"/>
+				<columnvalue column="description" string="Read MXAPIINSPRESULT"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="alsorevokes" string="ALL"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="sigoption" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="SAVE"/>
+				<columnvalue column="description" string="Save MXAPIINSPRESULT"/>
+				<columnvalue column="esigenabled" number="0"/>
+				<columnvalue column="visible" number="1"/>
+				<columnvalue column="alsorevokes" string="DELETE,INSERT"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="hasld" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="DELETE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="INSERT"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="READ"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="SAVE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="DELETE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="INSERT"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="READ"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="SAVE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="DELETE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="INSERT"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="READ"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="SAVE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="DELETE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="INSERT"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="READ"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSUPERINT"/>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="SAVE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="DELETE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="INSERT"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="READ"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="optionname" string="SAVE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="DELETE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="INSERT"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="READ"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="optionname" string="SAVE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="DELETE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="INSERT"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="READ"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="optionname" string="SAVE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="DELETE"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="INSERT"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="READ"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHSYSADMIN"/>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="optionname" string="SAVE"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXAPPS" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORM"/>
+				<columnvalue column="description" string="UI Definition of the Inspection Form table"/>
+				<columnvalue column="apptype" string="OS"/>
+				<columnvalue column="lockenabled" number="0"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="langcode" string="EN"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXAPPS" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORMSTATUS"/>
+				<columnvalue column="description" string="UI Definition of the inspection form status history"/>
+				<columnvalue column="apptype" string="OS"/>
+				<columnvalue column="lockenabled" number="0"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="langcode" string="EN"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXAPPS" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPFORMUSEWITH"/>
+				<columnvalue column="description" string="UI Inspection Form Use With Definition"/>
+				<columnvalue column="apptype" string="OS"/>
+				<columnvalue column="lockenabled" number="0"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="langcode" string="EN"/>
+			</insertrow>
+		</insert>
+		<insert table="MAXAPPS" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="MXAPIINSPRESULT"/>
+				<columnvalue column="description" string="UI Definition of the Inspection Result table"/>
+				<columnvalue column="apptype" string="OS"/>
+				<columnvalue column="lockenabled" number="0"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="langcode" string="EN"/>
+			</insertrow>
+		</insert>
+		
+		<!--  MR-1651 -->
+		        
+		<create_relationship parent="PM" name="SBHPMWOSTATUS" child="SYNONYMDOMAIN" whereclause="domainid='WOSTATUS' and value=:wostatus" remarks="ADD A REMARK HERE"/>
+		
+		<!--  MR-1652 -->
+		   
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="all">
+				delete FROM condition where conditionnum in ('SBHWOWPLTUPD');			
+				delete FROM maxdomvalcond where valueid='WOSTATUS|WMATL' and conditionnum='SBHWOWPLTUPD' and objectname='WORKORDER';
+			</sql>
+		</freeform>
+		<insert table="condition" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="conditionnum" string="SBHWOWPLTUPD"/>
+				<columnvalue column="type" string="EXPRESSION"/>
+				<columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('MAXADMIN')) or &#10;:&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME IN ('SBHSUPERINT','SBHPLANRAIL','SBHPLANROAD','SBHSERDESK','SBHSYSADMIN') and :status IN('WPLAN','WAPPR','PLAN'))"/>
+				<columnvalue column="description" string="Work Order WPLANT Status Update Check"/>
+				<columnvalue column="nocaching" number="1"/>
+			</insertrow>
+		</insert>
+		<insert table="maxdomvalcond" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="domainid" string="WOSTATUS"/>
+				<columnvalue column="valueid" string="WOSTATUS|WMATL"/>
+				<columnvalue column="conditionnum" string="SBHWOWPLTUPD"/>
+				<columnvalue column="objectname" string="WORKORDER"/>
+			</insertrow>
+		</insert>
+		
+		<!--  MR-1653 -->
+		       
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="all">
+				delete FROM maxgroup where groupname = 'SBH15000';
+				delete FROM limittolerance where groupname = 'SBH15000' and prlimit = '15000';
+				delete FROM applicationauth where groupname = 'SBHPURCHREQ' and app = 'PR' and optionname = 'APPROVE';
+			</sql>
+		</freeform>
+		<insert table="maxgroup" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBH15000"/>
+				<columnvalue column="description" string="Sund &amp; Baelt 15.000  PR/PO Limit Group"/>
+				<columnvalue column="passwordduration" number="90"/>
+				<columnvalue column="passwordwarning" number="5"/>
+				<columnvalue column="independent" number="0"/>
+				<columnvalue column="authallsites" number="0"/>
+				<columnvalue column="authallgls" number="0"/>
+				<columnvalue column="authallstorerooms" number="0"/>
+				<columnvalue column="authlaborall" number="0"/>
+				<columnvalue column="authlaborcrew" number="0"/>
+				<columnvalue column="authlaborself" number="0"/>
+				<columnvalue column="authlaborsuper" number="0"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="authpersongroup" number="0"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="nullrepfac" number="1"/>
+				<columnvalue column="authallrepfacs" number="0"/>
+				<columnvalue column="sidenav" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="limittolerance" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBH15000"/>
+				<columnvalue column="orgid" string="SBH"/>
+				<columnvalue column="prlimit" number="15000"/>
+				<columnvalue column="polimit" number="0"/>
+				<columnvalue column="mrlimit" number="0"/>
+				<columnvalue column="invoicelimit" number="0"/>
+				<columnvalue column="contractlimit" number="0"/>
+				<columnvalue column="lowerinvoiceamt" number="0.00"/>
+				<columnvalue column="upperinvoiceamt" number="0.00"/>
+				<columnvalue column="lowerinvoicepct" number="0.0000"/>
+				<columnvalue column="upperinvoicepct" number="0.0000"/>
+				<columnvalue column="lowerserviceamt" number="0.00"/>
+				<columnvalue column="upperserviceamt" number="0.00"/>
+				<columnvalue column="lowerservicepct" number="0.0000"/>
+				<columnvalue column="upperservicepct" number="0.0000"/>
+				<columnvalue column="lowertaxamt" number="0.00"/>
+				<columnvalue column="uppertaxamt" number="0.00"/>
+				<columnvalue column="lowertaxpct" number="0.0000"/>
+				<columnvalue column="uppertaxpct" number="0.0000"/>
+			</insertrow>
+		</insert>
+		<insert table="applicationauth" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHPURCHREQ"/>
+				<columnvalue column="app" string="PR"/>
+				<columnvalue column="optionname" string="APPROVE"/>
+			</insertrow>
+		</insert>
+		
+		<!--  MR-1655 -->
+		        
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="all">
+				delete FROM securityrestrict where groupname = 'SBHPURCHREQEXT' and objectname ='CRAFTRATE'  and attributename='standardrate' and app='WOTRACK' and RESTRICTION='HIDDEN' and conditionnum='SBHVENDOR';
+			</sql>
+		</freeform>
+		<insert table="securityrestrict" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="groupname" string="SBHPURCHREQEXT"/>
+				<columnvalue column="app" string="WOTRACK"/>
+				<columnvalue column="objectname" string="CRAFTRATE"/>
+				<columnvalue column="attributename" string="STANDARDRATE"/>
+				<columnvalue column="reevaluate" number="1"/>
+				<columnvalue column="restriction" string="HIDDEN"/>
+				<columnvalue column="conditionnum" string="SBHVENDOR"/>
+				<columnvalue column="type" string="ATTR"/>
+				<columnvalue column="srestrictnum" string="1135"/>
+			</insertrow>
+		</insert>
+		
+		<!--  MR-1656 -->
+		<!--  GLCONFIGURE has to be a manual task in database configuration --> 
+		 <!--  Maxmessages -->
+ 		    
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="sqlserver">
+				delete FROM maxmessages where msgkey = 'SBHWOGLACCTCHK' and  msggroup='workorder';
+			</sql>
+		</freeform>
+		<insert table="maxmessages" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="msgkey" string="SBHWOGLACCTCHK"/>
+				<columnvalue column="msggroup" string="workorder"/>
+				<columnvalue column="value" string="GL account field is partially populated. Please specify in the GL account field the required GL components e.g. Legal Entity, Project and Sub Project Codes."/>
+				<columnvalue column="displaymethod" string="MSGBOX"/>
+				<columnvalue column="options" number="2"/>
+				<columnvalue column="msgid" string="BMXZZ0012E"/>
+				<columnvalue column="prefix" number="1"/>
+				<columnvalue column="overlaidmsg" number="0"/>
+			</insertrow>
+		</insert>        
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="sqlserver">
+				delete FROM l_maxmessages where ownerid = (select maxmessagesid from maxmessages where msgkey = 'SBHWOGLACCTCHK' and  msggroup='workorder');
+				insert into l_maxmessages (value, langcode, ownerid) values ('GL-kontofeltet er delvist befolket. Angiv i GL-konto-feltet de krævede GL-komponenter f.eks. Juridisk enhed, projekt og delprojektkoder', 'DA', (select maxmessagesid from maxmessages where msgkey = 'SBHWOGLACCTCHK' and  msggroup='workorder'));
+			</sql>
+		</freeform>        
+	
+		 <!--  Global restriction -->
+		
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="all">
+				delete FROM securityrestrict where objectname ='WORKORDER'  and attributename='GLACCOUNT' and app='WOTRACK' and RESTRICTION='REQUIRED' and conditionnum='SBHWOAPPRCHK';
+			</sql>
+		</freeform>
+		<insert table="securityrestrict" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="app" string="WOTRACK"/>
+				<columnvalue column="objectname" string="WORKORDER"/>
+				<columnvalue column="attributename" string="GLACCOUNT"/>
+				<columnvalue column="reevaluate" number="1"/>
+				<columnvalue column="restriction" string="REQUIRED"/>
+				<columnvalue column="conditionnum" string="SBHWOAPPRCHK"/>
+				<columnvalue column="type" string="ATTR"/>
+				<columnvalue column="srestrictnum" string="1139"/>
+			</insertrow>
+		</insert>
+		
+		<!--  Automationscript -->
+		
+		<freeform description="Automatically Generated - Delete Queries">
+			<sql target="all">
+				delete FROM autoscript where autoscript = 'SBHWOGLACCTCHK';			
+				delete FROM scriptlaunchpoint where autoscript = 'SBHWOGLACCTCHK';			
+				delete FROM autoscriptvars where autoscript = 'SBHWOGLACCTCHK';			
+				delete FROM LAUNCHPOINTVARS where autoscript = 'SBHWOGLACCTCHK';
+			</sql>
+		</freeform>
+		<insert table="autoscript" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+				<columnvalue column="status" string="Draft"/>
+				<columnvalue column="description" string="Work Order GL Account  Mandatory Check"/>
+				<columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;&#10;if MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;WOSTATUS&quot;,vSTATUS, mbo) == &quot;APPR&quot;:&#10; glaccount= mbo.getString(&quot;GLACCOUNT&quot;) &#10; splitglaccount = glaccount.split(&quot;.&quot;)&#10; for temp in splitglaccount:&#10;   if '?' in temp: &#10;        errorgroup = &quot;workorder&quot;&#10;        errorkey = &quot;SBHWOGLACCTCHK&quot;"/>
+				<columnvalue column="createddate" date="01-28-2020:14:20:35"/>
+				<columnvalue column="statusdate" date="01-28-2020:14:20:35"/>
+				<columnvalue column="changedate" date="01-29-2020:04:51:52"/>
+				<columnvalue column="createdbyemail" string="somayina@uk.ibm.com"/>
+				<columnvalue column="owner" string="CTIX"/>
+				<columnvalue column="createdby" string="SOW"/>
+				<columnvalue column="changeby" string="CTIX"/>
+				<columnvalue column="hasld" number="0"/>
+				<columnvalue column="langcode" string="EN"/>
+				<columnvalue column="scriptlanguage" string="jython"/>
+				<columnvalue column="userdefined" number="1"/>
+				<columnvalue column="loglevel" string="ERROR"/>
+				<columnvalue column="interface" number="0"/>
+				<columnvalue column="active" number="1"/>
+			</insertrow>
+		</insert>
+		<insert table="scriptlaunchpoint" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="launchpointname" string="SBHWOGLACCTCHKB"/>
+				<columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+				<columnvalue column="description" string="Work Order GL Account Validation Check"/>
+				<columnvalue column="launchpointtype" string="OBJECT"/>
+				<columnvalue column="objectname" string="WORKORDER"/>
+				<columnvalue column="objectevent" number="6"/>
+				<columnvalue column="active" number="1"/>
+			</insertrow>
+		</insert>
+		<insert table="autoscriptvars" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+				<columnvalue column="varname" string="vGLACCOUNT"/>
+				<columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+				<columnvalue column="vartype" string="INOUT"/>
+				<columnvalue column="description" string="vGLACCOUNT"/>
+				<columnvalue column="allowoverride" number="1"/>
+				<columnvalue column="accessflag" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="autoscriptvars" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+				<columnvalue column="varname" string="vSTATUS"/>
+				<columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+				<columnvalue column="vartype" string="INOUT"/>
+				<columnvalue column="description" string="vSTATUS"/>
+				<columnvalue column="allowoverride" number="1"/>
+				<columnvalue column="accessflag" number="0"/>
+			</insertrow>
+		</insert>
+		<insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="launchpointname" string="SBHWOGLACCTCHKB"/>
+				<columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+				<columnvalue column="varname" string="vGLACCOUNT"/>
+				<columnvalue column="varbindingvalue" string="GLACCOUNT"/>
+			</insertrow>
+		</insert>
+		<insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+			<insertrow>
+				<columnvalue column="launchpointname" string="SBHWOGLACCTCHKB"/>
+				<columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+				<columnvalue column="varname" string="vSTATUS"/>
+				<columnvalue column="varbindingvalue" string="STATUS"/>
+			</insertrow>
+		</insert>
+	</statements>
+</script>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_133_dh">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+				delete FROM ESCNOTIFICATION where escalation in('SBHWOWFINIT','SBHCREATEINVC');
+				delete FROM ESCALATION where escalation in('SBHWOWFINIT','SBHCREATEINVC');
+				delete FROM ESCREFPOINT where escalation in('SBHWOWFINIT','SBHCREATEINVC');
+				delete FROM ACTIONGROUP where member in('SBHWOWFINIT','SBHCREATEINVC');
+				delete FROM ACTION where action in('1008','1012','1013');
+				delete FROM action where action in ('SBHCREATEINVC','SBHWOWFINIT');
+			</sql>
+        </freeform>
+        <insert table="ESCALATION" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="description" string="Initiate WO Workflow"/>
+                <columnvalue column="active" number="1"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+                <columnvalue column="condition" string="status ='DONE'  and istask = 0 and workorderid not in(select ownerid from wfinstance where active =1 and workorder.workorderid = wfinstance.ownerid)"/>
+                <columnvalue column="changeby" string="BKIX"/>
+                <columnvalue column="changedate" date="12-03-2019:15:16:25"/>
+                <columnvalue column="crontaskname" string="ESCALATION"/>
+                <columnvalue column="instancename" string="ESCSBHWOWFINIT"/>
+                <columnvalue column="escalation" string="SBHWOWFINIT"/>
+                <columnvalue column="schedule" string="1h,*,0,*,*,*,*,*,*,*"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="escstatusflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="ESCALATION" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="description" string="Create Invoice from LabTrans (run on site to not block table)"/>
+                <columnvalue column="active" number="0"/>
+                <columnvalue column="objectname" string="SITE"/>
+                <columnvalue column="condition" string="1=1"/>
+                <columnvalue column="changeby" string="BKIX"/>
+                <columnvalue column="changedate" date="12-03-2019:14:39:35"/>
+                <columnvalue column="crontaskname" string="ESCALATION"/>
+                <columnvalue column="instancename" string="ESCSBHCREATEINVC"/>
+                <columnvalue column="escalation" string="SBHCREATEINVC"/>
+                <columnvalue column="schedule" string="2m,*,*,*,*,*,*,*,*,*"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="escstatusflag" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="ESCREFPOINT" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="escalation" string="SBHCREATEINVC"/>
+                <columnvalue column="refpointnum" number="1"/>
+                <columnvalue column="repeat" number="0"/>
+                <columnvalue column="action" string="1013"/>
+            </insertrow>
+        </insert>
+        <insert table="ESCREFPOINT" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="escalation" string="SBHWOWFINIT"/>
+                <columnvalue column="refpointnum" number="1"/>
+                <columnvalue column="eventcondition" string="1=1"/>
+                <columnvalue column="repeat" number="1"/>
+                <columnvalue column="action" string="1008"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTIONGROUP" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1008"/>
+                <columnvalue column="member" string="SBHWOWFINIT"/>
+                <columnvalue column="sequence" number="10"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTIONGROUP" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1012"/>
+                <columnvalue column="member" string="SBHCREATEINVC"/>
+                <columnvalue column="sequence" number="10"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTIONGROUP" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1013"/>
+                <columnvalue column="member" string="SBHCREATEINVC"/>
+                <columnvalue column="sequence" number="10"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTION" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1008"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+                <columnvalue column="type" string="GROUP"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="usewith" string="ESCALATION"/>
+                <columnvalue column="hasld" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTION" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1012"/>
+                <columnvalue column="objectname" string="LABTRANS"/>
+                <columnvalue column="type" string="GROUP"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="usewith" string="ESCALATION"/>
+                <columnvalue column="hasld" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="ACTION" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="1013"/>
+                <columnvalue column="objectname" string="SITE"/>
+                <columnvalue column="type" string="GROUP"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="usewith" string="ESCALATION"/>
+                <columnvalue column="hasld" number="0"/>
+            </insertrow>
+        </insert>
+		        <insert table="action" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="SBHCREATEINVC"/>
+                <columnvalue column="description" string="Create INVOICE"/>
+                <columnvalue column="objectname" string="SITE"/>
+                <columnvalue column="type" string="CUSTOM"/>
+                <columnvalue column="value" string="com.ibm.tivoli.maximo.script.ScriptAction"/>
+                <columnvalue column="parameter" string="SBHCREATEINVC,SBHCREATEINVC,SBHCREATEINVC"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="usewith" string="ALL"/>
+                <columnvalue column="hasld" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="action" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="action" string="SBHWOWFINIT"/>
+                <columnvalue column="description" string="Initiate Workflow for work order 2"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+                <columnvalue column="type" string="APPACTION"/>
+                <columnvalue column="parameter" string="SBHWOREV"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="usewith" string="ALL"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="value2" string="WFINITIATE"/>
+            </insertrow>
+        </insert>
+        <freeform description="CronTaskInstance">
+            <sql target="all">
+				delete FROM crontaskinstance  where crontaskname = 'ESCALATION' and instancename = 'ESCSBHWOWFINIT';
+			</sql>
+        </freeform>
+        <insert table="crontaskinstance" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="crontaskname" string="ESCALATION"/>
+                <columnvalue column="instancename" string="ESCSBHWOWFINIT"/>
+                <columnvalue column="reloadreqtime" date="12-10-2019:17:24:40"/>
+                <columnvalue column="schedule" string="1h,*,0,*,*,*,*,*,*,*"/>
+                <columnvalue column="active" number="1"/>
+                <columnvalue column="description" string="Initiate WO Workflow"/>
+                <columnvalue column="runasuserid" string="MAXADMIN"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="autoremoval" number="0"/>
+                <columnvalue column="keephistory" number="1"/>
+                <columnvalue column="maxhistory" number="1000"/>
+            </insertrow>
+        </insert>
+        <freeform description="CronTaskInstance">
+            <sql target="all">
+				delete FROM crontaskinstance  where crontaskname = 'ESCALATION' and instancename = 'ESCSBHCREATEINVC';
+			</sql>
+        </freeform>
+        <insert table="crontaskinstance" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="crontaskname" string="ESCALATION"/>
+                <columnvalue column="instancename" string="ESCSBHCREATEINVC"/>
+                <columnvalue column="reloadreqtime" date="01-13-2020:14:08:44"/>
+                <columnvalue column="schedule" string="2m,*,*,*,*,*,*,*,*,*"/>
+                <columnvalue column="active" number="1"/>
+                <columnvalue column="description" string="Create Invoice from LabTrans (run on site to not block table)"/>
+                <columnvalue column="runasuserid" string="MAXADMIN"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="autoremoval" number="0"/>
+                <columnvalue column="keephistory" number="1"/>
+                <columnvalue column="maxhistory" number="1000"/>
+            </insertrow>
+        </insert>
+    </statements>
+</script>

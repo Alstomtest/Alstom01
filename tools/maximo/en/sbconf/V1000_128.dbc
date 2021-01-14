@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_122_dh">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM autoscript  where autoscript ='SBHCREATEINV2PO';
+				delete FROM scriptlaunchpoint  where autoscript ='SBHCREATEINV2PO';
+				delete FROM autoscriptvars  where autoscript ='SBHCREATEINV2PO';
+			</sql>
+        </freeform>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHCREATEINV2PO"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Create PO from Invoice"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants;&#10;from psdi.server import MXServer&#10;from psdi.security import UserInfo&#10;&#10;&#10;#&#10;debug = False&#10;&#10;#&#10;#DESCRIPTION:Script to demonstrate usage of Run-Script function from GUI&#10;#&#10;#&#10;from psdi.server import MXServer&#10;from psdi.iface.mic import MicService&#10;&#10;#################################################&#10;if debug: &#10;   mxServer = MXServer.getMXServer()&#10;   micService = MicService(mxServer)&#10;   micService.init()&#10;   userInfo = mxServer .getUserInfo(&quot;DHIX&quot;)&#10;&#10;   # Example: Loop over all Users....&#10;   invSet = mxServer.getMboSet(&quot;INVOICE&quot;, userInfo)&#10;   invSet.setWhere(&quot;INVOICENUM = '1083'&quot;)&#10;   invSet.reset()&#10;   mbo = invSet.getMbo(0)&#10;vInvoicenum  = mbo.getString(&quot;Invoicenum&quot;)&#10;#################################################&#10;&#10;list_inv = []&#10;list_det = []&#10;prefix = &quot;LT-&quot;&#10;&#10;#invlineSet = mbo.getMboSet(&quot;INVOICELINE&quot;, &quot;invoicenum='&quot; + vInvoicenum + &quot;'&quot;)&#10;if debug:&#10;      invlineSet = mbo.getMboSet(&quot;INVOICELINE&quot;)&#10;&#10;      #invlineSet = MXServer.getMXServer().getMboSet(&quot;INVOICELINE&quot; , userInfo);&#10;else:&#10;      invlineSet = MXServer.getMXServer().getMboSet(&quot;INVOICELINE&quot; , MXServer.getMXServer().getUserInfo(user));&#10;      &#10;      &#10;invlineSet.setWhere(&quot;invoicenum='&quot; + vInvoicenum + &quot;'&quot;)&#10;invlineSet.reset()&#10;if debug:&#10;      poSet = MXServer.getMXServer().getMboSet(&quot;PO&quot; ,userInfo);&#10;else:&#10;      poSet = MXServer.getMXServer().getMboSet(&quot;PO&quot; , MXServer.getMXServer().getUserInfo(user));&#10;print(&quot;Get PO Set&quot;)&#10;&#10;&#10;po = poSet.add()&#10;print(&quot; Setting Desc and ORG&quot;)&#10;po.setValue(&quot;description&quot;,mbo.getString(&quot;Description&quot;))&#10;po.setValue(&quot;VENDOR&quot;,mbo.getString(&quot;VENDOR&quot;))&#10;po.setValue(&quot;ORGID&quot;,&quot;SBH&quot;)&#10;po.setValue(&quot;ponum&quot;,prefix  + vInvoicenum )&#10;ponum = po.getString(&quot;PONUM&quot;)&#10;poSet.save()&#10;poSet.setWhere(&quot;PONUM = '&quot;+ponum+&quot;'&quot;)&#10;poSet.reset()&#10;po = poSet.getMbo(0)&#10;polineSet = po.getMboSet(&quot;POLINE&quot;);&#10;print(&quot;Po Desc&quot;, mbo.getString(&quot;Description&quot;))&#10;&#10;if invlineSet != None:&#10;&#10;&#10; count  = invlineSet.count()&#10; print(&quot;Count :&quot;,count)&#10; for i in range(count):&#10;&#10;        invline =  invlineSet.getMbo(i)&#10;        poline = polineSet.add(MboConstants.NOACCESSCHECK) &#10;        poline.setValue(&quot;taxexempt&quot;,0)&#10;        poline.setValue(&quot;LINETYPE&quot;,invline.getString(&quot;LINETYPE&quot;))&#10;        print(&quot;LINETYPE :&quot;,invline.getString(&quot;LINETYPE&quot;).replace(u&quot;\xa0&quot;, ''))&#10;        if (invline.getString(&quot;LINETYPE&quot;) == &quot;ITEM&quot;):&#10;             poline.setValue(&quot;ITEMNUM&quot;,invline.getString(&quot;ITEMNUM&quot;))&#10;             poline.setValue(&quot;ITEMSETID&quot;, invline.getString(&quot;ITEMSETID&quot;));&#10;        desc = invline.getString(&quot;description&quot;)&#10;        if (desc != None or desc != &quot;&quot;):&#10;                 poline.setValue(&quot;description&quot;, desc.replace(u&quot;\xa0&quot;, '') ,MboConstants.NOVALIDATION)&#10;                 print(&quot;infLine DESC&quot;, desc)&#10;        else:&#10;                 poline.setValue(&quot;description&quot;, &quot;Created from Invoice: &quot;+vInvoicenum, MboConstants.NOVALIDATION)&#10;                 print(&quot;infLine DESC: is FIX Coded&quot;)        &#10;        &#10;        poline.setValue(&quot;CLASSSTRUCTUREID&quot;, invline.getString(&quot;CLASSSTRUCTUREID&quot;));&#10;        poline.setValue(&quot;COMMODITY&quot;, invline.getString(&quot;COMMODITY&quot;));&#10;        poline.setValue(&quot;COMMODITYGROUP&quot;, invline.getString(&quot;COMMODITYGROUP&quot;));&#10;        poline.setValue(&quot;CONDITIONCODE&quot;, invline.getString(&quot;CONDITIONCODE&quot;));&#10;&#10;    &#10;&#10;        poline.setValue(&quot;DESCRIPTION_LONGDESCRIPTION&quot;, invline.getString(&quot;DESCRIPTION_LONGDESCRIPTION&quot;));&#10;        poline.setValue(&quot;ENTERBY&quot;, invline.getString(&quot;ENTERBY&quot;));&#10;        poline.setValue(&quot;ENTERDATE&quot;, invline.getString(&quot;ENTERDATE&quot;));&#10;        poline.setValue(&quot;HASLD&quot;, invline.getInt(&quot;HASLD&quot;));&#10;&#10;&#10;&#10;        poline.setValue(&quot;LANGCODE&quot;, invline.getString(&quot;LANGCODE&quot;));&#10;        poline.setValue(&quot;LINECOST&quot;, invline.getString(&quot;LINECOST&quot;));&#10;        poline.setValue(&quot;LINECOST2&quot;, invline.getDouble(&quot;LINECOST2&quot;));&#10;&#10;&#10;        poline.setValue(&quot;ORGID&quot;, invline.getString(&quot;ORGID&quot;));&#10;        invoicelinenum= invline.getString(&quot;invoicelinenum&quot;).replace(u'\xa0', '')&#10;        poline.setValue(&quot;polinenum&quot;,  invoicelinenum)&#10;        poline.setValue(&quot;PONUM&quot;, ponum);&#10;        poline.setValue(&quot;PRORATECOST&quot;, invline.getDouble(&quot;PRORATECOST&quot;));&#10;&#10;        poline.setValue(&quot;RECEIPTREQD&quot;, invline.getString(&quot;RECEIPTREQD&quot;));&#10;        poline.setValue(&quot;SITEID&quot;, invline.getString(&quot;SITEID&quot;));&#10;        poline.setValue(&quot;TAX1&quot;, invline.getString(&quot;TAX1&quot;));&#10;        poline.setValue(&quot;TAX1CODE&quot;, invline.getString(&quot;TAX1CODE&quot;));&#10;        poline.setValue(&quot;TAX2&quot;, invline.getString(&quot;TAX2&quot;));&#10;        poline.setValue(&quot;TAX2CODE&quot;, invline.getString(&quot;TAX2CODE&quot;));&#10;        poline.setValue(&quot;TAX3&quot;, invline.getString(&quot;TAX3&quot;));&#10;        poline.setValue(&quot;TAX3CODE&quot;, invline.getString(&quot;TAX3CODE&quot;));&#10;        poline.setValue(&quot;TAX4&quot;, invline.getString(&quot;TAX4&quot;));&#10;        poline.setValue(&quot;TAX4CODE&quot;, invline.getString(&quot;TAX4CODE&quot;));&#10;        poline.setValue(&quot;TAX5&quot;, invline.getString(&quot;TAX5&quot;));&#10;        poline.setValue(&quot;TAX5CODE&quot;, invline.getString(&quot;TAX5CODE&quot;));&#10;        poline.setValue(&quot;TAXEXEMPT&quot;, invline.getString(&quot;TAXEXEMPT&quot;));&#10;        poline.setValue(&quot;UNITCOST&quot;, invline.getDouble(&quot;UNITCOST&quot;));&#10;   &#9;&#9;&#10;poSet.save()"/>
+                <columnvalue column="createddate" date="11-26-2019:15:34:31"/>
+                <columnvalue column="statusdate" date="11-26-2019:15:34:31"/>
+                <columnvalue column="changedate" date="12-02-2019:12:08:36"/>
+                <columnvalue column="owner" string="DHIX"/>
+                <columnvalue column="createdby" string="DHIX"/>
+                <columnvalue column="changeby" string="DHIX"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="scriptlaunchpoint" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHCREATEINV2PO"/>
+                <columnvalue column="autoscript" string="SBHCREATEINV2PO"/>
+                <columnvalue column="description" string="Create PO from Invoice"/>
+                <columnvalue column="launchpointtype" string="OBJECT"/>
+                <columnvalue column="objectname" string="INVOICE"/>
+                <columnvalue column="objectevent" number="128"/>
+                <columnvalue column="condition" string="status = 'APPR'"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Object classes change">
+            <sql target="all"/>
+        </freeform>
+    </statements>
+</script>

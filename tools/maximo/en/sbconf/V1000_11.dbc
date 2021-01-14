@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into maxintobjcols">
+  <description>GenInsertDbc created this script at Tue Jun 18 10:16:41 CEST 2019</description>
+  <statements>
+ 	<freeform description="Delete before load custom structure">
+		<sql target="all">
+			delete from maxintobjcols where intobjectname in ('MXLASSET_L');
+		</sql>
+	</freeform>     
+    <insert table="maxintobjcols">
+      <insertrow>
+        <columnvalue column="changedate" date="06-18-2019:09:25:05" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="CHANGEPMSTATUS" />
+        <columnvalue column="objectname" string="ASSET" />
+        <columnvalue column="intobjectname" string="MXLASSET_L" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="06-18-2019:09:25:05" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="DESCRIPTION_LONGDESCRIPTION" />
+        <columnvalue column="objectname" string="ASSET" />
+        <columnvalue column="intobjectname" string="MXLASSET_L" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="06-18-2019:09:05:14" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="HASLD" />
+        <columnvalue column="objectname" string="ASSET" />
+        <columnvalue column="intobjectname" string="MXLASSET_L" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="06-18-2019:09:25:05" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="intobjfldtype" string="NONPERSISTENT" />
+        <columnvalue column="name" string="HIERARCHYPATH" />
+        <columnvalue column="objectname" string="ASSET" />
+        <columnvalue column="intobjectname" string="MXLASSET_L" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="changedate" date="06-18-2019:09:05:14" />
+        <columnvalue column="changeby" string="TBUX" />
+        <columnvalue column="intobjfldtype" string="EXCLUDE" />
+        <columnvalue column="name" string="LANGCODE" />
+        <columnvalue column="objectname" string="ASSET" />
+        <columnvalue column="intobjectname" string="MXLASSET_L" />
+      </insertrow>
+    </insert>
+  </statements>
+</script>

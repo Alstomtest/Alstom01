@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_134_1035">
+    <description>Auto-Generated Script</description>
+    <statements>
+		<!-- MR-1178 bug fix -->
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete FROM securityrestrict where conditionnum='SBHWOAPPRCHK' and objectname='WORKORDER' and attributename='PROBLEMCODE' and app='WOTRACK' and groupname is null and restriction='REQUIRED' and type='ATTR';
+				insert into securityrestrict (type, conditionnum, restriction, reevaluate, attributename, objectname, app, srestrictnum, securityrestrictid) values
+				('ATTR','SBHWOPROBCHK','REQUIRED',1,'PROBLEMCODE','WORKORDER','WOTRACK',(select (max(srestrictnum)+1) from securityrestrict where srestrictnum not like '%[^0-9]%'),(select (max(securityrestrictid)+1) from securityrestrict))
+			</sql>
+        </freeform>
+    </statements>
+</script>

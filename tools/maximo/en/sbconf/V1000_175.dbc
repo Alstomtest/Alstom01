@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_174">
+    <description>Auto-Generated Script</description>
+    <statements>
+	<!-- remove userdefined flag before start deployment -->
+        <freeform description="Automatically Generated - Delete Records">
+            <sql target="all">
+    	 	update maxattribute set userdefined = 0 where objectname like 'SBH%';
+			update maxattributecfg set userdefined = 0 where objectname like 'SBH%';
+			update maxattribute set userdefined = 0 where attributename like 'SBH%';
+			update maxattributecfg set userdefined = 0 where attributename like 'SBH%';
+			</sql>
+        </freeform>
+
+<!-- MR-1647 -->
+	<!-- BIRT reports -->
+	<!-- Manual load Reports from ..\reports\V1000_175 -->
+
+<!-- MR-1684 -->
+	<!-- Expose attributes on workorder screen -->
+	<!-- Manual load WOTRACK.xml from ..\presentations\V1000_175 -->
+
+<!-- MR-1675 -->
+	<!-- Add relationships -->
+        <create_relationship parent="FAILUREREPORT" name="SBHFAILTYPEDESCRIPTION" child="SYNONYMDOMAIN" whereclause="VALUE =:TYPE and DOMAINID = 'FAILTYPE'" remarks="Get's the description from the failtype Domain."/>
+        <create_relationship parent="FAILURELIST" name="SBHFAILTYPEDESCRIPTION" child="SYNONYMDOMAIN" whereclause="VALUE =:TYPE and DOMAINID = 'FAILTYPE'" remarks="Select the decription from the FAILTYPE domain"/>	
+	<!-- Manual load WOTRACK.xml from ..presentations\V1000_175 -->
+	<!-- Manual load SYSTEM.xml from ..presentations\V1000_175 -->
+
+<!-- MR-1683 -->
+	<!-- Add domain -->
+        <specify_aln_domain domainid="SBHTRARETNING" description="Road Block Direction" overwrite="true" maxtype="ALN" length="10">
+            <alnvalueinfo value="V" description="West"/>
+            <alnvalueinfo value="Ø" description="East"/>
+            <alnvalueinfo value="Ø-V" description="East and West"/>
+        </specify_aln_domain>
+        <freeform description="Add translation for ALN Domain">
+            <sql target="sqlserver">
+			delete from l_alndomain where ownerid = (select alndomainid from alndomain where domainid='SBHTRARETNING' and value='V');
+			insert into l_alndomain (description, ownerid, langcode) values ('Vest', (select alndomainid from alndomain where domainid='SBHTRARETNING' and value='V'),'DA');
+
+			delete from l_alndomain where ownerid = (select alndomainid from alndomain where domainid='SBHTRARETNING' and value='Ø');
+			insert into l_alndomain (description, ownerid, langcode) values ('Øst', (select alndomainid from alndomain where domainid='SBHTRARETNING' and value='Ø'),'DA');
+
+			delete from l_alndomain where ownerid = (select alndomainid from alndomain where domainid='SBHTRARETNING' and value='Ø-V');
+			insert into l_alndomain (description, ownerid, langcode) values ('Øst og Vest', (select alndomainid from alndomain where domainid='SBHTRARETNING' and value='Ø-V'),'DA');
+			</sql>
+        </freeform>
+
+<!-- MR-1689 -->
+	<!-- Add translation -->        
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete from l_maxattribute where ownerid in (select maxattributeid from maxattribute where attributename='FR1CODE' and objectname in ('WMASSIGNMENT','WORKORDER','WOACTIVITY','WOCHANGE','WORELEASE'))
+				delete from l_maxattrcfg where ownerid in (select maxattributeid from maxattributecfg where attributename='FR1CODE' and objectname in ('WMASSIGNMENT','WORKORDER','WOACTIVITY','WOCHANGE','WORELEASE'))
+				delete from l_maxattribute where ownerid in (select maxattributeid from maxattribute where attributename='FR2CODE' and objectname in ('WMASSIGNMENT','WORKORDER','WOACTIVITY','WOCHANGE','WORELEASE'))
+				delete from l_maxattrcfg where ownerid in (select maxattributeid from maxattributecfg where attributename='FR2CODE' and objectname in ('WMASSIGNMENT','WORKORDER','WOACTIVITY','WOCHANGE','WORELEASE'))
+
+				insert into l_maxattribute (remarks, title, ownerid, langcode) values ('FR1CODE','Årsagskode',(select maxattributeid from maxattribute where objectname='WMASSIGNMENT' and attributename='FR1CODE'),'DA');
+				insert into l_maxattribute (remarks, title, ownerid, langcode) values ('FR1CODE','Årsagskode',(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='FR1CODE'),'DA');
+				insert into l_maxattribute (remarks, title, ownerid, langcode) values ('FR1CODE','Årsagskode',(select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='FR1CODE'),'DA');
+				insert into l_maxattribute (remarks, title, ownerid, langcode) values ('FR1CODE','Årsagskode',(select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='FR1CODE'),'DA');
+				insert into l_maxattribute (remarks, title, ownerid, langcode) values ('FR1CODE','Årsagskode',(select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='FR1CODE'),'DA');
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode) values ('FR1CODE','Årsagskode',(select maxattributeid from maxattribute where objectname='WMASSIGNMENT' and attributename='FR1CODE'),'DA');
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode) values ('FR1CODE','Årsagskode',(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='FR1CODE'),'DA');
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode) values ('FR1CODE','Årsagskode',(select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='FR1CODE'),'DA');
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode) values ('FR1CODE','Årsagskode',(select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='FR1CODE'),'DA');
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode) values ('FR1CODE','Årsagskode',(select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='FR1CODE'),'DA');
+
+				insert into l_maxattribute (remarks, title, ownerid, langcode) values ('FR2CODE','Løsningskode',(select maxattributeid from maxattribute where objectname='WMASSIGNMENT' and attributename='FR2CODE'),'DA');
+				insert into l_maxattribute (remarks, title, ownerid, langcode) values ('FR2CODE','Løsningskode',(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='FR2CODE'),'DA');
+				insert into l_maxattribute (remarks, title, ownerid, langcode) values ('FR2CODE','Løsningskode',(select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='FR2CODE'),'DA');
+				insert into l_maxattribute (remarks, title, ownerid, langcode) values ('FR2CODE','Løsningskode',(select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='FR2CODE'),'DA');
+				insert into l_maxattribute (remarks, title, ownerid, langcode) values ('FR2CODE','Løsningskode',(select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='FR2CODE'),'DA');
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode) values ('FR2CODE','Løsningskode',(select maxattributeid from maxattribute where objectname='WMASSIGNMENT' and attributename='FR2CODE'),'DA');
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode) values ('FR2CODE','Løsningskode',(select maxattributeid from maxattribute where objectname='WORKORDER' and attributename='FR2CODE'),'DA');
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode) values ('FR2CODE','Løsningskode',(select maxattributeid from maxattribute where objectname='WOACTIVITY' and attributename='FR2CODE'),'DA');
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode) values ('FR2CODE','Løsningskode',(select maxattributeid from maxattribute where objectname='WOCHANGE' and attributename='FR2CODE'),'DA');
+				insert into l_maxattrcfg (remarks, title, ownerid, langcode) values ('FR2CODE','Løsningskode',(select maxattributeid from maxattribute where objectname='WORELEASE' and attributename='FR2CODE'),'DA');
+			</sql>
+        </freeform> 
+
+        <!-- MR-1692 -->
+	<!-- Add sigoption -->
+        <add_sigoption app="WOTRACK" optionname="SBHHIDESP" description="Hide the safety plan tab"  visible="true" alsogrants="" alsorevokes="" prerequisite=""/>
+
+        <!-- MR-1691 -->
+	<!-- Add security settings -->
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+				delete FROM applicationauth where groupname = 'SBHSUPERINT' and app = 'ASSET';
+			</sql>
+        </freeform>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPERINT"/>
+                <columnvalue column="app" string="ASSET"/>
+                <columnvalue column="optionname" string="IFEXPORT"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPERINT"/>
+                <columnvalue column="app" string="ASSET"/>
+                <columnvalue column="optionname" string="IFIMPORT"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPERINT"/>
+                <columnvalue column="app" string="ASSET"/>
+                <columnvalue column="optionname" string="METHISTUPD"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPERINT"/>
+                <columnvalue column="app" string="ASSET"/>
+                <columnvalue column="optionname" string="METREADNEW"/>
+            </insertrow>
+        </insert>
+        <insert table="applicationauth" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPERINT"/>
+                <columnvalue column="app" string="ASSET"/>
+                <columnvalue column="optionname" string="METREADOLD"/>
+            </insertrow>
+        </insert>
+        <!-- MR-1695 -->
+        <!-- change condition for WOSTATUS -->
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+				delete FROM condition where conditionnum  = 'SBHWOSSCHUPD';
+			</sql>
+        </freeform>
+        <insert table="condition" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="conditionnum" string="SBHWOSSCHUPD"/>
+                <columnvalue column="type" string="EXPRESSION"/>
+                <columnvalue column="expression" string=":&amp;USERNAME&amp; in (SELECT USERID FROM GROUPUSER WHERE GROUPNAME = 'MAXADMIN')"/>
+                <columnvalue column="description" string="Work Order WSCHD Status Update Check"/>
+                <columnvalue column="nocaching" number="1"/>
+            </insertrow>
+        </insert>       
+        <!-- apply condition for WOSTATUS --> 
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+				delete FROM maxdomvalcond  where domainid='WOSTATUS';
+			</sql>
+        </freeform>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|APPR"/>
+                <columnvalue column="conditionnum" string="SBHWOAPPRUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|CAN"/>
+                <columnvalue column="conditionnum" string="SBHWOCANCUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|CLOSE"/>
+                <columnvalue column="conditionnum" string="SBHWOCLOSUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|COMP"/>
+                <columnvalue column="conditionnum" string="SBHWOCOMPUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|CONTCOMP"/>
+                <columnvalue column="conditionnum" string="SBHWOCCMPUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|DONE"/>
+                <columnvalue column="conditionnum" string="SBHWODONEUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|FINCOMP"/>
+                <columnvalue column="conditionnum" string="SBHWOFCOMUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|HISTEDIT"/>
+                <columnvalue column="conditionnum" string="SBHWOHDITUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|INPRG"/>
+                <columnvalue column="conditionnum" string="SBHINPRGUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|PLAN"/>
+                <columnvalue column="conditionnum" string="SBHWOPLANUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|REJ"/>
+                <columnvalue column="conditionnum" string="SBHWOREJUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WAPPR"/>
+                <columnvalue column="conditionnum" string="SBHWOWAPPUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WMATL"/>
+                <columnvalue column="conditionnum" string="SBHWOWPLTUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WPCOND"/>
+                <columnvalue column="conditionnum" string="SBHWOWPLTUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WPLAN"/>
+                <columnvalue column="conditionnum" string="SBHWOWPLNUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WPLANT"/>
+                <columnvalue column="conditionnum" string="SBHWOWPLTUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <insert table="maxdomvalcond" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="domainid" string="WOSTATUS"/>
+                <columnvalue column="valueid" string="WOSTATUS|WSCH"/>
+                <columnvalue column="conditionnum" string="SBHWOSSCHUPD"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+            </insertrow>
+        </insert>
+        <!-- Translation for WOSTATUS --> 
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="sqlserver">
+				delete from l_synonymdomain where ownerid = (select synonymdomainid from synonymdomain where domainid ='WOSTATUS' and value = 'WPLAN');
+				insert into l_synonymdomain (description, ownerid, langcode) values ('Afventer ressourceplanlægning', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value = 'WPLAN'), 'DA');
+
+				delete from l_synonymdomain where ownerid = (select synonymdomainid from synonymdomain where domainid ='WOSTATUS' and value = 'WSCH');
+				insert into l_synonymdomain (description, ownerid, langcode) values ('Afventer planlægning af spærring', (select synonymdomainid from synonymdomain where domainid='WOSTATUS' and value = 'WSCH'), 'DA');
+			</sql>
+        </freeform>
+        <!-- MR-1698 --> 
+        <!-- Automationscript -->    
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+				delete FROM autoscript  where autoscript = 'SBHASSMANDFC';
+				delete FROM scriptlaunchpoint  where autoscript = 'SBHASSMANDFC';			
+				delete FROM autoscriptvars  where autoscript = 'SBHASSMANDFC';			
+				delete FROM LAUNCHPOINTVARS  where autoscript = 'SBHASSMANDFC';
+			</sql>
+        </freeform>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Mandatory Asset Field Check for Operating Status"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;&#10;if MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;LOCASSETSTATUS&quot;,STATUS, mbo) == &quot;OPERATING&quot;:&#10;    vDESCRIPTION_required==True&#10;    vLOCATION_required==True&#10;    vCLASSIFICATION_required==True    &#10;    vFAILURECODE_required==True&#10;    vGLACCOUNT_required==True&#10;    if vCLASSFAIL==1:&#10;        vFAILURECODE_required==True&#10;        if vDESCRIPTION is None or vLOCATION is None or vGLACCOUNT is None or vCLASSIFICATION is None  or  vFAILURECODE is None:&#10;          errorgroup = &quot;asset&quot;&#10;          errorkey = &quot;SBHMEMNDASSFC&quot;&#10;    elif vCLASSFAIL==0:&#10;       vFAILURECODE_required==False&#10;       vFAILURECODE=''&#10;       if vDESCRIPTION is None or vLOCATION is None or vGLACCOUNT is None or vCLASSIFICATION is None:&#10;         vFAILURECODE=''&#10;         errorgroup = &quot;asset&quot;&#10;         errorkey = &quot;SBHMEMNDASSFC&quot;"/>
+                <columnvalue column="createddate" date="08-16-2019:15:58:12"/>
+                <columnvalue column="statusdate" date="08-16-2019:15:58:12"/>
+                <columnvalue column="changedate" date="02-05-2020:08:37:05"/>
+                <columnvalue column="owner" string="CTIX"/>
+                <columnvalue column="createdby" string="CTIX"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="scriptlaunchpoint" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="description" string="Mandatory Asset Field Check for Operating Status"/>
+                <columnvalue column="launchpointtype" string="OBJECT"/>
+                <columnvalue column="objectname" string="ASSET"/>
+                <columnvalue column="objectevent" number="1024"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="STATUS"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="STATUS"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vCLASSFAIL"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="vCLASSFAIL"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vCLASSIFICATION"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="CLASSIFICATION"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vDESCRIPTION"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="DESCRIPTION"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vFAILURECODE"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="FAILURECODE"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vGLACCOUNT"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="GLACCOUNT"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vLOCATION"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="LOCATION"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vSCADATAG"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="SCADATAG"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vSTATUS"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="STATUS"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vTRACK"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="STATUS"/>
+                <columnvalue column="varbindingvalue" string="STATUS"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vCLASSFAIL"/>
+                <columnvalue column="varbindingvalue" string="CLASSSTRUCTURE.SBHCLSFAILREQ"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vCLASSIFICATION"/>
+                <columnvalue column="varbindingvalue" string="CLASSSTRUCTUREID"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vDESCRIPTION"/>
+                <columnvalue column="varbindingvalue" string="DESCRIPTION"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vFAILURECODE"/>
+                <columnvalue column="varbindingvalue" string="FAILURECODE"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vGLACCOUNT"/>
+                <columnvalue column="varbindingvalue" string="GLACCOUNT"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vLOCATION"/>
+                <columnvalue column="varbindingvalue" string="LOCATION"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vSCADATAG"/>
+                <columnvalue column="varbindingvalue" string="SBHSROID"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vSTATUS"/>
+                <columnvalue column="varbindingvalue" string="STATUS"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHASSMANDFC"/>
+                <columnvalue column="autoscript" string="SBHASSMANDFC"/>
+                <columnvalue column="varname" string="vTRACK"/>
+                <columnvalue column="varbindingvalue" string="SBHASSSPORNR"/>
+            </insertrow>
+        </insert>
+        <!-- MR-1699 --> 
+        <!-- Automationscript -->          
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+				delete FROM autoscript  where autoscript = 'SBHWOGLACCTCHK';
+				delete FROM scriptlaunchpoint  where autoscript = 'SBHWOGLACCTCHK';
+				delete FROM autoscriptvars  where autoscript = 'SBHWOGLACCTCHK';
+				delete FROM LAUNCHPOINTVARS  where autoscript = 'SBHWOGLACCTCHK';
+			</sql>
+        </freeform>
+        <insert table="autoscript" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+                <columnvalue column="status" string="Draft"/>
+                <columnvalue column="description" string="Work Order GL Account  Mandatory Check"/>
+                <columnvalue column="source" string="from psdi.mbo import MboConstants&#10;from psdi.server import MXServer&#10;vStatus = MXServer.getMXServer().getMaximoDD().getTranslator().toInternalString(&quot;WOSTATUS&quot;, mbo.getString(&quot;STATUS&quot;), mbo)&#10;if vStatus==&quot;APPR&quot; or vStatus==&quot;WMATL&quot;:&#10;&#10; glaccount= mbo.getString(&quot;GLACCOUNT&quot;) &#10; splitglaccount = glaccount.split(&quot;.&quot;)&#10; for temp in splitglaccount:&#10;   if '?' in temp: &#10;        errorgroup = &quot;workorder&quot;&#10;        errorkey = &quot;SBHWOGLACCTCHK&quot;"/>
+                <columnvalue column="createddate" date="01-28-2020:14:20:35"/>
+                <columnvalue column="statusdate" date="01-28-2020:14:20:35"/>
+                <columnvalue column="changedate" date="02-04-2020:20:54:20"/>
+                <columnvalue column="createdbyemail" string="somayina@uk.ibm.com"/>
+                <columnvalue column="owner" string="CTIX"/>
+                <columnvalue column="createdby" string="SOW"/>
+                <columnvalue column="changeby" string="SOW"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="scriptlanguage" string="jython"/>
+                <columnvalue column="userdefined" number="1"/>
+                <columnvalue column="loglevel" string="ERROR"/>
+                <columnvalue column="interface" number="0"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="scriptlaunchpoint" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHWOGLACCTCHKB"/>
+                <columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+                <columnvalue column="description" string="Work Order GL Account Validation Check"/>
+                <columnvalue column="launchpointtype" string="OBJECT"/>
+                <columnvalue column="objectname" string="WORKORDER"/>
+                <columnvalue column="objectevent" number="6"/>
+                <columnvalue column="active" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+                <columnvalue column="varname" string="vGLACCOUNT"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="vGLACCOUNT"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="autoscriptvars" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+                <columnvalue column="varname" string="vSTATUS"/>
+                <columnvalue column="varbindingtype" string="ATTRIBUTE"/>
+                <columnvalue column="vartype" string="INOUT"/>
+                <columnvalue column="description" string="vSTATUS"/>
+                <columnvalue column="allowoverride" number="1"/>
+                <columnvalue column="accessflag" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHWOGLACCTCHKB"/>
+                <columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+                <columnvalue column="varname" string="vGLACCOUNT"/>
+                <columnvalue column="varbindingvalue" string="GLACCOUNT"/>
+            </insertrow>
+        </insert>
+        <insert table="LAUNCHPOINTVARS" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="launchpointname" string="SBHWOGLACCTCHKB"/>
+                <columnvalue column="autoscript" string="SBHWOGLACCTCHK"/>
+                <columnvalue column="varname" string="vSTATUS"/>
+                <columnvalue column="varbindingvalue" string="STATUS"/>
+            </insertrow>
+        </insert>        
+    </statements>
+</script>

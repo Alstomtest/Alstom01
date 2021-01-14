@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<product>
+	<name>Sund and Baelt specific configurations</name>
+	<version>
+		<major>1</major>
+		<minor>0</minor>
+		<modlevel>0</modlevel>
+		<patch>0</patch>
+		<build>BUILDXXX</build>
+	</version>
+	<dbmaxvarname>SBCONF</dbmaxvarname>
+	<dbscripts>sbconf</dbscripts>	
+	<dbversion>V1000-62</dbversion>	
+	<depends>tpae</depends>
+	<lastdbversion>V1000-00</lastdbversion>
+</product>

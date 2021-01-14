@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="view.dbc">
+    <description>Auto-Generated Script</description>
+    <statements>
+			<drop_view name="SBHASSLOCSPEC" />
+			<define_view name="SBHASSLOCSPEC" classname="psdi.mbo.custapp.CustomMboSet" service="CUSTAPP" extends="LOCATIONSPEC" type="system" description="LocationSpec View">
+			<view_column table="locationspec" column="alnvalue" view_column="alnvalue"/>
+			<view_column table="locationspec" column="LOCATION" view_column="LOCATION"/>
+			<view_column table="locationspec" column="ASSETATTRID" view_column="ASSETATTRID"/>
+			<view_column table="locationspec" column="CHANGEBY" view_column="CHANGEBY"/>
+			<view_column table="locationspec" column="CHANGEDATE" view_column="CHANGEDATE"/>
+			<view_column table="locationspec" column="CLASSSTRUCTUREID" view_column="CLASSSTRUCTUREID"/>
+			<view_column table="locationspec" column="DISPLAYSEQUENCE" view_column="DISPLAYSEQUENCE"/>
+			<view_column table="locationspec" column="INHERITEDFROMITEM" view_column="INHERITEDFROMITEM"/>
+			<view_column table="locationspec" column="ITEMSPECVALCHANGED" view_column="ITEMSPECVALCHANGED"/>
+			<view_column table="locationspec" column="LINKEDTOATTRIBUTE" view_column="LINKEDTOATTRIBUTE"/>
+			<view_column table="locationspec" column="LINKEDTOSECTION" view_column="LINKEDTOSECTION"/>
+			<view_column table="locationspec" column="LOCATIONSPECID" view_column="LOCATIONSPECID"/>
+			<view_column table="locationspec" column="LS01" view_column="LS01"/>
+			<view_column table="locationspec" column="LS02" view_column="LS02"/>
+			<view_column table="locationspec" column="LS03" view_column="LS03"/>
+			<view_column table="locationspec" column="LS04" view_column="LS04"/>
+			<view_column table="locationspec" column="LS05" view_column="LS05"/>
+			<view_column table="locationspec" column="MANDATORY" view_column="MANDATORY"/>
+			<view_column table="locationspec" column="MEASUREUNITID" view_column="MEASUREUNITID"/>
+			<view_column table="locationspec" column="NUMVALUE" view_column="NUMVALUE"/>
+			<view_column table="locationspec" column="ORGID" view_column="ORGID"/>
+			<view_column table="locationspec" column="SECTION" view_column="SECTION"/>
+			<view_column table="locationspec" column="SITEID" view_column="SITEID"/>
+			<view_column table="locationspec" column="TABLEVALUE" view_column="TABLEVALUE"/>			
+				<view_select>
+				SELECT locationspec.location as location, locationspec.rowstamp as rowstamp
+				</view_select>
+					<view_from>
+					LOCATIONSPEC
+					</view_from>
+						<view_where>
+							WHERE EXISTS
+							  (SELECT 1
+							  FROM locationspec a
+							  WHERE a.ALNVALUE NOT IN('L0','L1','L2','L3') 
+							  and  a.ASSETATTRID='SBHLOCLEVEL'
+							  and a.location = locationspec.location
+							  )
+							UNION ALL
+							SELECT location, 1
+							FROM locations
+							WHERE NOT EXISTS
+							  (SELECT 1
+							  FROM locationspec
+							 WHERE ALNVALUE IN('L0','L1','L2','L3') 
+							  and ASSETATTRID='SBHLOCLEVEL'
+							  and locations.location = locationspec.location
+								)
+							and locations.type = 'OPERATING'
+						</view_where>
+			</define_view>
+    </statements>
+</script>

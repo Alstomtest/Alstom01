@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="V1000_160">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all">
+				delete FROM maxgroup where groupname like 'SBH%';
+				delete FROM maxgroup where groupname='MAXADMIN';
+			</sql>
+        </freeform>
+		<insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="MAXADMIN"/>
+                <columnvalue column="description" string="Maximo Administrators (Super Users)"/>
+                <columnvalue column="independent" number="1"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="1"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="15"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="1"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSTOREEXT"/>
+                <columnvalue column="description" string="Contractor Storeroom Manager"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHFINANCE"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Finance"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="1"/>
+                <columnvalue column="authallsites" number="0"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHCONTRAMMGR"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Contract Manager"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="1"/>
+                <columnvalue column="authallsites" number="0"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPLANEXT"/>
+                <columnvalue column="description" string="Contractor Planners"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHTECHEXT"/>
+                <columnvalue column="description" string="Contractor Technician Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="1"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="19"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHTECHINT"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Technician Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="1"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="19"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHVIEWER"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Viewer Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHREPADMIN"/>
+                <columnvalue column="description" string="Sund  Baelt Report Admin Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBH150000"/>
+                <columnvalue column="description" string="Sund &amp; Baelt 150.000  PR/PO Limit Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="0"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBH50000000"/>
+                <columnvalue column="description" string="Sund &amp; Baelt 50.000.000  PR/PO Limit Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="0"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPERINT"/>
+                <columnvalue column="description" string="SBH Operatons Manager"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="11"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT1"/>
+                <columnvalue column="description" string="Contractor Supervisor Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="405"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSUPEREXT2"/>
+                <columnvalue column="description" string="Contractor Team Lead Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="15"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSTOREINT"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Storeroom Manager Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="1"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHASSETMGR"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Asset Manager"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="0"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPLANRAIL"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Rail Planners"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="1"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="503"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHITEMMGR"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Manager"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="0"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHTECHSUPP"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Secretaries"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHASE"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Purchasing Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="1"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="1"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPURCHREQ"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Purchase Requestor"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSCHEDULE"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Scheduling Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHTOOLMAN"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Tool Manager Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSYSADMIN"/>
+                <columnvalue column="description" string="Sund &amp; Baelt System Administrators"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="1"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="3"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="1"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBH1000000"/>
+                <columnvalue column="description" string="Sund &amp; Baelt 1.000.000  PR/PO Limit Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="0"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBH10000000"/>
+                <columnvalue column="description" string="Sund &amp; Baelt 10.000.000  PR/PO Limit Group"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="0"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHSERDESK"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Service Desk"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="1"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="603"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPLANROAD"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Road Block Planners"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="1"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="505"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHINSPECT"/>
+                <columnvalue column="description" string="SBH Inspector"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="0"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="dfltapp" string="INSPECTOR"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHINSPESUP"/>
+                <columnvalue column="description" string="SBH Inspector Supervisor"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="0"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHVIEWERINT"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Viewer Group (Internal)"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHVIEWEREXT"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Viewer Group (External)"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="0"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHPLANINT"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Planners"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHMANAGE"/>
+                <columnvalue column="description" string="Sund &amp; Baelt Planners"/>
+                <columnvalue column="passwordduration" number="90"/>
+                <columnvalue column="passwordwarning" number="5"/>
+                <columnvalue column="independent" number="0"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="0"/>
+                <columnvalue column="authallstorerooms" number="0"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="0"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+        <insert table="maxgroup" ignore_duplicates="false">
+            <insertrow>
+                <columnvalue column="groupname" string="SBHMAXADMIN"/>
+                <columnvalue column="description" string="Sund &amp; Maximo Administrators (Super Users)"/>
+                <columnvalue column="independent" number="1"/>
+                <columnvalue column="authallsites" number="1"/>
+                <columnvalue column="authallgls" number="1"/>
+                <columnvalue column="authallstorerooms" number="1"/>
+                <columnvalue column="authlaborall" number="1"/>
+                <columnvalue column="authlaborcrew" number="0"/>
+                <columnvalue column="authlaborself" number="0"/>
+                <columnvalue column="authlaborsuper" number="0"/>
+                <columnvalue column="langcode" string="EN"/>
+                <columnvalue column="sctemplateid" number="703"/>
+                <columnvalue column="authpersongroup" number="0"/>
+                <columnvalue column="hasld" number="0"/>
+                <columnvalue column="nullrepfac" number="1"/>
+                <columnvalue column="authallrepfacs" number="1"/>
+                <columnvalue column="sidenav" number="0"/>
+            </insertrow>
+        </insert>
+    </statements>
+</script>

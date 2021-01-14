@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="GenInsertDbc app" scriptname="Inserts into applicationauth">
+  <description>GenInsertDbc created this script at Mon Jan 13 15:29:50 CET 2020</description>
+  <statements>
+    <insert table="applicationauth">
+      <insertrow>
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXMATRECTRANS" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXMATRECTRANS" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXMATRECTRANS" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXMATRECTRANS" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXMATRECTRANS" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXPO" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXPO" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXPO" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXPO" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXPO" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXPOLINE" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXPOLINE" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXPOLINE" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXPOLINE" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXPOLINE" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="BMXVIEWMANAGEWHER" />
+        <columnvalue column="app" string="MXSERVRECTRANS" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="DELETE" />
+        <columnvalue column="app" string="MXSERVRECTRANS" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="INSERT" />
+        <columnvalue column="app" string="MXSERVRECTRANS" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="READ" />
+        <columnvalue column="app" string="MXSERVRECTRANS" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+      <insertrow>
+        <columnvalue column="optionname" string="SAVE" />
+        <columnvalue column="app" string="MXSERVRECTRANS" />
+        <columnvalue column="groupname" string="MAXADMIN" />
+      </insertrow>
+    </insert>
+  </statements>
+</script>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="cfg004_App">
+    <description>Auto-Generated Script</description>
+    <statements>
+        <create_relationship parent="INVENTORY" name="SBREORDERITEMS" child="SBREORDERITEMS" whereclause="storeloc = :location" remarks="Relationship to the non-persistent ReorderItems table. (ReorderItems.storeloc = inventory.location). The resulting set will contain zero objects. This relationship is used only for the Reorder Items action page on the Inventory application."/>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Delete Queries">
+            <sql target="all"/>
+        </freeform>
+        <freeform description="Automatically Generated - Object classes change">
+            <sql target="all"/>
+        </freeform>
+    </statements>
+</script>

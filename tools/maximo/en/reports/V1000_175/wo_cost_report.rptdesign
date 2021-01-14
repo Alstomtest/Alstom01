@@ -1,0 +1,2495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="comments">IBM Confidential
+
+OCO Source Materials
+
+5724-M19
+
+(C) COPYRIGHT IBM CORP. 2006
+
+The source code for this program is not published or otherwise
+divested of its trade secrets, irrespective of what has been
+deposited with the U.S. Copyright Office.
+
+09-19764@000</property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.8.0.v201806261756</property>
+    <html-property name="description">This template will create a report with one or more subreports, each having different data fields.</html-property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.com.ibm.tivoli.maximo.report.script);
+
+mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
+
+var total = 0;
+var total_per_ao  = 0;
+var total_timer = 0;]]></method>
+    <method name="beforeFactory"><![CDATA[// Remove page break intervals from PDF output
+if ( (reportContext.getParameterValue("usepagebreaks") == "false")|| reportContext.getOutputFormat() == "pdf" ) {
+	// Give each table in the report a name, and add the names to the list below, e.g. ["mainTable", "childTable1"]
+	var tableListing = ["mainTable", "childTable1", "childTable2"];
+	for each(var tableName in tableListing) {
+		var table = reportContext.getReportRunnable().designHandle.getDesignHandle().findElement(tableName)
+		if (table != null)
+		{
+			table.setProperty("pageBreakInterval", 0);
+		}
+	}
+}]]></method>
+    <method name="afterFactory"><![CDATA[MXReportScriptContext.close();]]></method>
+    <property name="theme">MaximoSystemLibrary.maximoTheme</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">MaximoSystemLibrary.rptlibrary</property>
+            <property name="namespace">MaximoSystemLibrary</property>
+        </structure>
+    </list-property>
+    <template-parameter-definitions>
+        <template-parameter-definition name="NewTemplateParameterDefinition" id="71">
+            <property name="allowedType">Label</property>
+            <text-property name="description">Double-click to enter the report title.</text-property>
+            <default>
+                <label id="72">
+                    <text-property name="text">Report Title</text-property>
+                </label>
+            </default>
+        </template-parameter-definition>
+    </template-parameter-definitions>
+    <parameters>
+        <scalar-parameter name="where" id="25">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1=1</value>
+            </simple-property-list>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="appname" id="731">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramdelimiter" id="733">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramstring" id="732">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="usepagebreaks" id="829">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">true</value>
+            </simple-property-list>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="startDate" id="900">
+            <text-property name="promptText">startDate</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">2019-01-01</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="endDate" id="901">
+            <text-property name="promptText">endDate</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">2020-02-01</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="persongroup" id="1820">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1001</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="maximoDataSource" id="64" extends="MaximoSystemLibrary.maximoDataSource"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="mainDataSet" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">wonum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">glaccount</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">persongroup</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">status</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">changedate</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">accountname</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">GLACCTYPE</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">contract</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">sbhwobillcheck</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">sbhwoinsdam</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">wonum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">glaccount</property>
+                </structure>
+                <structure>
+                    <property name="columnName">persongroup</property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                </structure>
+                <structure>
+                    <property name="columnName">changedate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">accountname</property>
+                </structure>
+                <structure>
+                    <property name="columnName">GLACCTYPE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">contract</property>
+                </structure>
+                <structure>
+                    <property name="columnName">sbhwobillcheck</property>
+                </structure>
+                <structure>
+                    <property name="columnName">sbhwoinsdam</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">wonum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">glaccount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">persongroup</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">changedate</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">accountname</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">GLACCTYPE</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">contract</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">sbhwobillcheck</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">sbhwoinsdam</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[maximoDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+maximoDataSet.open();
+
+var sqlText = new String();
+
+// Add query to sqlText variable.
+// sqlText = "select textfield, datefield from table"
+sqlText = "SELECT workorder.wonum, "
++ " workorder.description,  workorder.glaccount, workorder.contract,"
+ + " workorder.persongroup,"
+ + " workorder.sbhwobillcheck,  workorder.sbhwoinsdam,"
+ // workorder.wo2, workorder.wo6, workorder.wo8, workorder.wo9,  "
+ + " wostatus.status,"
+ + " wostatus.changedate,"
+ + " chartofaccounts.accountname, CHARTOFACCOUNTS.GLACCTYPE"
+
++ "  FROM "
++ "  { oj (wostatus  INNER JOIN workorder ON"
++ "  wostatus.wonum = workorder.wonum)"
++ " LEFT OUTER JOIN chartofaccounts ON "
++ "  workorder.glaccount = chartofaccounts.glaccount} "
+
+// Include the Maximo where clause
++ " where " + params["where"]
++ " and wostatus.changedate >=" 
++ MXReportSqlFormat.getStartDayTimestampFunction(params["startDate"])
++ " and wostatus.changedate -1 <=" /// dato er til kl 00:00 derfor tillægges 1 dag til = + 24 timer
++ MXReportSqlFormat.getStartDayTimestampFunction(params["endDate"])
+//+ " and " + MXReportSqlFormat.createParamWhereClause("workorder.persongroup",params["persongroup"])
+if (params["persongroup"].value)
+	sqlText += " and " + MXReportSqlFormat.createParamWhereClause("workorder.persongroup",params["persongroup"]);
+//+ " and workorder.persongroup='" + params["persongroup"] + "'"
+//
+//+ " and wostatus.status in('COMP','FINCOMP') "
+//+ " and workorder.persongroup = 'TRAFIK'  "
+//+ " and workorder.siteid = 'SBF' " //tilføjet 
+//+ " and workorder.wo6 <> 1  "
+
+//+ " and workorder.wonum = '513409'"
+//+ " and CHARTOFACCOUNTS.GLACCTYPE = 'PEA' "
+//+ " and workorder.glaccount = '1531030' "
+;
+
+maximoDataSet.setQuery(sqlText);
+]]></method>
+            <method name="fetch"><![CDATA[if (!maximoDataSet.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["glaccount"] = maximoDataSet.getString("glaccount");
+row["GLACCTYPE"] = maximoDataSet.getString("GLACCTYPE");
+row["wonum"] = maximoDataSet.getString("wonum");
+//row["wo9"] = maximoDataSet.getString("wo9");
+//row["wo8"] = maximoDataSet.getString("wo8");
+//row["wo2"] = maximoDataSet.getBooleanString("wo2");
+//row["wo6"] = maximoDataSet.getBooleanString("wo6");
+row["description"] = maximoDataSet.getString("description");
+row["persongroup"] = maximoDataSet.getString("persongroup");
+row["contract"] = maximoDataSet.getString("contract");
+
+row["changedate"] = maximoDataSet.getTimestamp("changedate");	
+row["sbhwobillcheck"] = maximoDataSet.getBooleanString("sbhwobillcheck");
+row["sbhwobillcheck"] = maximoDataSet.getBooleanString("sbhwoinsdam");
+
+return (true);]]></method>
+        </script-data-set>
+        <script-data-set name="subDataSet" id="239">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">craft</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">linecost</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">wonum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">statusdate</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">regularhrs</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">premiumpayhours</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">PREMIUMPAYRATE</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">PAYRATE</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">TRAFIK_UDFAKT</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">craft</property>
+                </structure>
+                <structure>
+                    <property name="columnName">linecost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">wonum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">statusdate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">regularhrs</property>
+                </structure>
+                <structure>
+                    <property name="columnName">premiumpayhours</property>
+                </structure>
+                <structure>
+                    <property name="columnName">PREMIUMPAYRATE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">PAYRATE</property>
+                </structure>
+                <structure>
+                    <property name="columnName">TRAFIK_UDFAKT</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">craft</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">linecost</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">wonum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">statusdate</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">regularhrs</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">premiumpayhours</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">PREMIUMPAYRATE</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">PAYRATE</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">TRAFIK_UDFAKT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[subDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+subDataSet.open();
+
+var sqlText = new String();
+//var wonum = new String();
+
+// Add query to sqlText variable.
+// sqlText = "select textfield, datefield from table"
+sqlText = "SELECT distinct workorder.wonum, workorder.description, workorder.statusdate,  labtrans.craft, labtrans.laborcode,  labtrans.regularhrs,  "
+ + " labtrans.premiumpayhours, labtrans.linecost, LABTRANS.PAYRATE, LABTRANS.PREMIUMPAYRATE, "
+ //+" LABTRANS.TRAFIK_UDFAKT  , "
+ + " labtrans.premiumpaycode, labtrans.refwo, workorder.description  "
+
++ "  FROM labtrans, workorder "
+// Include the Maximo where clause
+ + " where labtrans.refwo = '" + rows[0]["wonum"] + "'"
+ + "  and labtrans.refwo = workorder.wonum "
+ // 2016-29-02
+//+ " and LABTRANS.TRAFIK_UDFAKT  = 1 "
+//  + " and workorder.jpnum is  null "
+
+ //+ " and  LABTRANS.laborcode = LABOR.laborcode "
+
+//workorder.jpnum = jobplan.jpnum
+;
+
+subDataSet.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!subDataSet.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["craft"] = subDataSet.getString("craft");	
+row["linecost"] = subDataSet.getString("linecost");
+row["wonum"] = subDataSet.getString("wonum");
+row["description"] = subDataSet.getString("description");
+row["regularhrs"] = subDataSet.getString("regularhrs");
+row["premiumpayhours"] = subDataSet.getString("premiumpayhours");
+row["PREMIUMPAYRATE"] = subDataSet.getString("PREMIUMPAYRATE");
+row["PAYRATE"] = subDataSet.getString("PAYRATE");
+row["statusdate"] = subDataSet.getTimestamp("statusdate");	
+//row["TRAFIK_UDFAKT "] = subDataSet.getString("TRAFIK_UDFAKT")
+
+
+
+return (true);]]></method>
+        </script-data-set>
+        <script-data-set name="subDataSet2" id="834">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">itemnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">linecost</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">refwo</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">linetype</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">unitcost</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">quantity</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">wonum</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">itemnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">linecost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">refwo</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">linetype</property>
+                </structure>
+                <structure>
+                    <property name="columnName">unitcost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">quantity</property>
+                </structure>
+                <structure>
+                    <property name="columnName">wonum</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">itemnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">linecost</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">refwo</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">linetype</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">unitcost</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">quantity</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">wonum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[subDataSet2 = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+subDataSet2.open();
+
+var sqlText = new String();
+//var wonum = new String();
+
+// Add query to sqlText variable.
+// sqlText = "select textfield, datefield from table"
+sqlText = "SELECT  workorder.wonum, " 
++ "    servrectrans.description, servrectrans.itemnum, servrectrans.linetype,"
++ " servrectrans.linecost, servrectrans.quantity,  "// servrectrans.DESCRIPTION,"
++ " servrectrans.unitcost , servrectrans.refwo" 
+
++ "  FROM servrectrans, workorder "
+
+// Include the Maximo where clause
+ + " where servrectrans.refwo = '" + rows[0]["wonum"] + "'"
+// + " and servrectrans.PONUM is not null"
+ + " and workorder.wonum = servrectrans.refwo "
+// + " and servrectrans.quantity <> 0 "
+
+;
+
+subDataSet2.setQuery(sqlText);
+
+
+]]></method>
+            <method name="fetch"><![CDATA[if (!subDataSet2.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["itemnum"] = subDataSet2.getString("itemnum");	
+row["unitcost"] = subDataSet2.getString("unitcost");	
+row["quantity"] = subDataSet2.getString("quantity");	
+row["wonum"] = subDataSet2.getString("wonum");	
+row["linecost"] = subDataSet2.getString("linecost");
+row["refwo"] = subDataSet2.getString("refwo");
+row["wonum"] = subDataSet2.getString("wonum");
+row["description"] = subDataSet2.getString("description");
+row["linetype"] = subDataSet2.getString("linetype")
+
+
+return (true);]]></method>
+        </script-data-set>
+        <script-data-set name="subDataSet1" id="1389">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">itemnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">quantity</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">linetype</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">unitcost</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">linecost</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">wonum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">refwo</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">itemnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">quantity</property>
+                </structure>
+                <structure>
+                    <property name="columnName">linetype</property>
+                </structure>
+                <structure>
+                    <property name="columnName">unitcost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">linecost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">wonum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">refwo</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">itemnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">quantity</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">linetype</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">unitcost</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">linecost</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">wonum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">refwo</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[subDataSet1 = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+subDataSet1.open();
+
+var sqlText = new String();
+// Add query to sqlText variable.
+// sqlText = "select textfield, datefield from table"
+sqlText = "SELECT  workorder.wonum,  "
++ "  matusetrans.description,matusetrans.linetype, matusetrans.quantity, matusetrans.unitcost,"
++ "  matusetrans.linecost, matusetrans.itemnum,  "
++ "  matusetrans.refwo" 
+
++ "  FROM matusetrans, workorder "
+
+// Include the Maximo where clause
+ + " where matusetrans.refwo = '" + rows[0]["wonum"] + "'"
+// + " and matusetrans.PONUM is not null"
+ + " and workorder.wonum = matusetrans.refwo "
+// + " and mausetrans.quantity <> 0 "
+
+;
+
+subDataSet1.setQuery(sqlText);
+]]></method>
+            <method name="fetch"><![CDATA[if (!subDataSet1.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["itemnum"] = subDataSet1.getString("itemnum");	
+row["unitcost"] = subDataSet1.getString("unitcost");	
+row["quantity"] = subDataSet1.getString("quantity");	
+row["wonum"] = subDataSet1.getString("wonum");	
+row["linecost"] = subDataSet1.getString("linecost");
+row["refwo"] = subDataSet1.getString("refwo");
+row["description"] = subDataSet1.getString("description");
+row["linetype"] = subDataSet1.getString("linetype");	
+
+
+return (true);]]></method>
+        </script-data-set>
+        <script-data-set name="subDataSet3" id="1704">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">itemnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">toolqty</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">toolhrs</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">toolrate</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">linecost</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">refwo</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">wonum</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">itemnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">toolqty</property>
+                </structure>
+                <structure>
+                    <property name="columnName">toolhrs</property>
+                </structure>
+                <structure>
+                    <property name="columnName">toolrate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">linecost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">refwo</property>
+                </structure>
+                <structure>
+                    <property name="columnName">wonum</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">itemnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">toolqty</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">toolhrs</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">toolrate</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">linecost</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">refwo</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">wonum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[subDataSet3 = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+subDataSet3.open();
+
+var sqlText = new String();
+//var wonum = new String();
+
+// Add query to sqlText variable.
+// sqlText = "select textfield, datefield from table"
+sqlText = "SELECT  workorder.wonum, "
++ "    tooltrans.toolrate, tooltrans.toolqty, tooltrans.toolhrs,"
++ "  tooltrans.linecost, tooltrans.itemnum, "
+//tooltrans.description, "
++ "  tooltrans.refwo"
+
++ "  FROM tooltrans,workorder "
+
+// Include the Maximo where clause
+ + " where tooltrans.refwo = '" + rows[0]["wonum"] + "'"
+ + " and workorder.wonum = tooltrans.refwo "
+// + " and tooltrans.toolqty <> 0 "
+
+;
+
+subDataSet3.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!subDataSet3.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["itemnum"] = subDataSet3.getString("itemnum");	
+row["toolhrs"] = subDataSet3.getString("toolhrs");	
+row["toolqty"] = subDataSet3.getString("toolqty");
+row["toolrate"] = subDataSet3.getString("toolrate");	
+row["wonum"] = subDataSet3.getString("wonum");	
+row["linecost"] = subDataSet3.getString("linecost");
+row["refwo"] = subDataSet3.getString("refwo");
+row["wonum"] = subDataSet2.getString("wonum");
+//row["description"] = subDataSet3.getString("description");
+row["linetype"] = subDataSet3.getString("linetype")
+
+return (true);]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="crosstab" id="831">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab-cell" id="832">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="maximoPortrait" id="830" extends="MaximoSystemLibrary.maximoPortrait">
+            <property name="orientation">portrait</property>
+            <overridden-values>
+                <ref-entry baseId="342" name="NewGrid21" id="342"/>
+                <ref-entry baseId="343" id="343"/>
+                <ref-entry baseId="344" id="344"/>
+                <ref-entry baseId="345" id="345"/>
+                <ref-entry baseId="346" id="346"/>
+                <ref-entry baseId="348" id="348"/>
+                <ref-entry baseId="349" name="NewImage2" id="349">
+                    <property name="height">7px</property>
+                    <property name="width">6px</property>
+                </ref-entry>
+                <ref-entry baseId="350" name="NewGrid3" id="350"/>
+                <ref-entry baseId="351" id="351"/>
+                <ref-entry baseId="352" id="352"/>
+                <ref-entry baseId="353" id="353"/>
+                <ref-entry baseId="354" id="354"/>
+                <ref-entry baseId="355" name="NewText2" id="355"/>
+                <ref-entry baseId="356" id="356"/>
+                <ref-entry baseId="357" name="NewGrid11" id="357"/>
+                <ref-entry baseId="358" id="358">
+                    <property name="width">2.2083333333333335in</property>
+                </ref-entry>
+                <ref-entry baseId="359" id="359"/>
+                <ref-entry baseId="360" id="360"/>
+                <ref-entry baseId="361" id="361"/>
+                <ref-entry baseId="362" id="362"/>
+                <ref-entry baseId="363" name="NewAutoText2" id="363"/>
+                <ref-entry baseId="364" id="364"/>
+                <ref-entry baseId="365" name="NewText11" id="365"/>
+                <ref-entry baseId="366" id="366"/>
+                <ref-entry baseId="367" name="NewAutoText11" id="367"/>
+            </overridden-values>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table name="mainTable" id="7">
+            <property name="height">11.125in</property>
+            <property name="width">6.71875in</property>
+            <property name="dataSet">mainDataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">GLACCTYPE</property>
+                    <text-property name="displayName">GLACCTYPE</text-property>
+                    <expression name="expression">dataSetRow["GLACCTYPE"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">wonum</property>
+                    <text-property name="displayName">wonum</text-property>
+                    <expression name="expression">dataSetRow["wonum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">glaccount</property>
+                    <text-property name="displayName">glaccount</text-property>
+                    <expression name="expression">dataSetRow["glaccount"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <text-property name="displayName">description</text-property>
+                    <expression name="expression">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">changedate</property>
+                    <text-property name="displayName">changedate</text-property>
+                    <expression name="expression">dataSetRow["changedate"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <expression name="expression">BirtDateTime.now()</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">contract</property>
+                    <text-property name="displayName">contract</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["contract"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">50</property>
+            <column id="83">
+                <property name="width">1.3958333333333333in</property>
+            </column>
+            <column id="79">
+                <property name="width">0.96875in</property>
+            </column>
+            <column id="91">
+                <property name="width">1.28125in</property>
+            </column>
+            <column id="87">
+                <property name="width">0.6875in</property>
+            </column>
+            <column id="17">
+                <property name="width">1.3854166666666667in</property>
+            </column>
+            <column id="18">
+                <property name="width">0.46875in</property>
+            </column>
+            <header>
+                <row id="209">
+                    <property name="style">title</property>
+                    <cell id="210">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <label id="1122">
+                            <property name="fontSize">12pt</property>
+                            <property name="textAlign">center</property>
+                            <property name="refTemplateParameter">NewTemplateParameterDefinition</property>
+                            <text-property name="text">Rapport om arbjeidorderomkostninger</text-property>
+                        </label>
+                    </cell>
+                </row>
+                <row id="219">
+                    <property name="height">0.25in</property>
+                    <cell id="220">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <text id="1127">
+                            <property name="fontSize">10pt</property>
+                            <property name="color">#444E68</property>
+                            <property name="contentType">html</property>
+                            <text-property name="content"><![CDATA[AO 'AFSLUTTET' i perioden : <VALUE-OF   format="dd-MM-yyyy" >params["startDate"]</VALUE-OF> til <VALUE-OF   format="dd-MM-yyyy" >params["endDate"]</VALUE-OF> ]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+            </header>
+            <group id="1278">
+                <property name="groupName">Group By GLATYPE</property>
+                <expression name="keyExpr" type="javascript">row["GLACCTYPE"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["GLACCTYPE"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <row id="1279">
+                        <cell id="1280">
+                            <property name="colSpan">6</property>
+                            <property name="rowSpan">1</property>
+                            <data id="1293">
+                                <property name="fontSize">9pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="resultSetColumn">GLACCTYPE</property>
+                            </data>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="1286">
+                        <cell id="1287"/>
+                        <cell id="1288"/>
+                        <cell id="1289"/>
+                        <cell id="1290"/>
+                        <cell id="1291"/>
+                        <cell id="1292"/>
+                    </row>
+                </footer>
+            </group>
+            <group id="923">
+                <property name="groupName">NewTableGroup2</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr" type="javascript">row["glaccount"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["glaccount"]</expression>
+                    <property name="TOCStyle">reportheaderdata</property>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+                <header>
+                    <row id="924">
+                        <cell id="925">
+                            <property name="colSpan">5</property>
+                            <property name="rowSpan">1</property>
+                            <text-data id="1214">
+                                <property name="fontSize">11pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="color">black</property>
+                                <property name="marginTop">0pt</property>
+                                <property name="textAlign">left</property>
+                                <expression name="valueExpr">"Konto nr.: " + row["glaccount"] + "      ";</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="930"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="931">
+                        <cell id="932"/>
+                        <cell id="933"/>
+                        <cell id="934"/>
+                        <cell id="935"/>
+                        <cell id="936"/>
+                        <cell id="937"/>
+                    </row>
+                </footer>
+            </group>
+            <group id="939">
+                <property name="groupName">NewTableGroup3</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["wonum"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["wonum"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+                <header>
+                    <row id="940">
+                        <property name="height">0.2in</property>
+                        <cell id="941">
+                            <property name="colSpan">5</property>
+                            <property name="rowSpan">1</property>
+                            <property name="textAlign">center</property>
+                            <text-data id="1213">
+                                <property name="fontSize">9pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="color">maroon</property>
+                                <property name="marginTop">0pt</property>
+                                <property name="textAlign">left</property>
+                                <expression name="valueExpr">"AO nr.:"    +     row["wonum"] + "             " + row["description"] ;</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="946">
+                            <text id="1193">
+                                <property name="fontSize">6pt</property>
+                                <property name="color">maroon</property>
+                                <property name="textAlign">left</property>
+                                <property name="contentType">html</property>
+                                <text-property name="content"><![CDATA[<VALUE-OF   format="dd-MM-yy" >row["changedate"]</VALUE-OF>]]></text-property>
+                            </text>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="947">
+                        <property name="height">0.2604166666666667in</property>
+                        <cell id="948">
+                            <property name="colSpan">6</property>
+                            <property name="rowSpan">1</property>
+                            <property name="borderBottomColor">#000000</property>
+                            <property name="borderBottomStyle">double</property>
+                            <property name="borderBottomWidth">2px</property>
+                            <text-data id="1212">
+                                <property name="fontSize">9pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="color">maroon</property>
+                                <property name="textAlign">right</property>
+                                <expression name="valueExpr">"Total for AO nr.:  " + row["wonum"] +"  kr.:   "+ parseFloat(total_per_ao).toFixed(2).replace(".",",") + "   " ;</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                    </row>
+                    <row id="1203">
+                        <cell id="1204"/>
+                        <cell id="1205"/>
+                        <cell id="1206"/>
+                        <cell id="1207">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <text-data id="1198">
+                                <property name="fontSize">14pt</property>
+                                <property name="color">red</property>
+                                <expression name="valueExpr">var total_per_ao= 0;</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="1209"/>
+                    </row>
+                </footer>
+            </group>
+            <group id="1371">
+                <property name="groupName">NewTableGroup4</property>
+                <expression name="keyExpr" type="javascript">row["contract"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["contract"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <row id="1372">
+                        <cell id="1373">
+                            <property name="colSpan">6</property>
+                            <property name="rowSpan">1</property>
+                            <data id="1387">
+                                <property name="fontSize">9pt</property>
+                                <property name="resultSetColumn">contract</property>
+                            </data>
+                        </cell>
+                    </row>
+                </header>
+            </group>
+            <group id="1325">
+                <property name="groupName">Group By Contract</property>
+                <expression name="keyExpr" type="javascript">row["wonum"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["wonum"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+            </group>
+            <detail>
+                <row id="539">
+                    <cell id="540">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <table name="childTable2" id="777">
+                            <property name="comments">09-19764@000</property>
+                            <property name="width">100%</property>
+                            <property name="dataSet">subDataSet</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">craft</property>
+                                    <text-property name="displayName">craft</text-property>
+                                    <expression name="expression">dataSetRow["craft"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">linecost</property>
+                                    <text-property name="displayName">linecost</text-property>
+                                    <expression name="expression">dataSetRow["linecost"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">wonum</property>
+                                    <text-property name="displayName">wonum</text-property>
+                                    <expression name="expression">dataSetRow["wonum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">description</property>
+                                    <text-property name="displayName">description</text-property>
+                                    <expression name="expression">dataSetRow["description"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">statusdate</property>
+                                    <text-property name="displayName">statusdate</text-property>
+                                    <expression name="expression">dataSetRow["statusdate"]</expression>
+                                    <property name="dataType">date-time</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">regularhrs</property>
+                                    <text-property name="displayName">regularhrs</text-property>
+                                    <expression name="expression">dataSetRow["regularhrs"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">premiumpayhours</property>
+                                    <text-property name="displayName">premiumpayhours</text-property>
+                                    <expression name="expression">dataSetRow["premiumpayhours"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">Aggregation</property>
+                                    <property name="dataType">float</property>
+                                    <simple-property-list name="aggregateOn">
+                                        <value>NewTableGroup2</value>
+                                    </simple-property-list>
+                                    <property name="aggregateFunction">SUM</property>
+                                    <list-property name="arguments">
+                                        <structure>
+                                            <property name="name">Expression</property>
+                                            <expression name="value">dataSetRow["regularhrs"]</expression>
+                                        </structure>
+                                    </list-property>
+                                </structure>
+                                <structure>
+                                    <property name="name">Aggregation_1</property>
+                                    <property name="dataType">float</property>
+                                    <simple-property-list name="aggregateOn">
+                                        <value>NewTableGroup2</value>
+                                    </simple-property-list>
+                                    <property name="aggregateFunction">SUM</property>
+                                    <list-property name="arguments">
+                                        <structure>
+                                            <property name="name">Expression</property>
+                                            <expression name="value">row["premiumpayhours"]</expression>
+                                        </structure>
+                                    </list-property>
+                                </structure>
+                                <structure>
+                                    <property name="name">Aggregation_2</property>
+                                    <property name="dataType">float</property>
+                                    <simple-property-list name="aggregateOn">
+                                        <value>NewTableGroup2</value>
+                                    </simple-property-list>
+                                    <property name="aggregateFunction">SUM</property>
+                                    <list-property name="arguments">
+                                        <structure>
+                                            <property name="name">Expression</property>
+                                            <expression name="value">row["linecost"]</expression>
+                                        </structure>
+                                    </list-property>
+                                </structure>
+                                <structure>
+                                    <property name="name">PREMIUMPAYRATE</property>
+                                    <text-property name="displayName">PREMIUMPAYRATE</text-property>
+                                    <expression name="expression">dataSetRow["PREMIUMPAYRATE"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">PAYRATE</property>
+                                    <text-property name="displayName">PAYRATE</text-property>
+                                    <expression name="expression">dataSetRow["PAYRATE"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="pageBreakInterval">50</property>
+                            <column id="806"/>
+                            <column id="807"/>
+                            <column id="808"/>
+                            <column id="809"/>
+                            <column id="810"/>
+                            <column id="1188"/>
+                            <column id="811"/>
+                            <header>
+                                <row id="780">
+                                    <property name="style">tableheaderrow</property>
+                                    <property name="backgroundColor">green</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr">row["Aggregation_2"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="781">
+                                        <property name="colSpan">7</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="style">tableheaderlabel</property>
+                                        <label id="782">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Labor details</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                                <row id="788">
+                                    <property name="style">tabledetailslabel</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr">row["Aggregation_2"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="789">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="721">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Fag</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="791">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="722">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Normal timer</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="792">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="1189">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="textAlign">left</property>
+                                            <text-property name="text">Sats</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="793">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="723">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Overtimer</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="794">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="1190">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Sats</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1182">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="751">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="textAlign">right</property>
+                                            <text-property name="text">Omkost. kr</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="795">
+                                        <property name="style">tabledetailslabelcell</property>
+                                    </cell>
+                                </row>
+                            </header>
+                            <group id="968">
+                                <property name="groupName">NewTableGroup1</property>
+                                <property name="interval">none</property>
+                                <property name="sortDirection">asc</property>
+                                <expression name="keyExpr" type="javascript">row["wonum"]</expression>
+                                <structure name="toc">
+                                    <expression name="expressionValue" type="javascript">row["wonum"]</expression>
+                                </structure>
+                                <property name="repeatHeader">true</property>
+                                <property name="hideDetail">false</property>
+                                <property name="pageBreakAfter">auto</property>
+                                <property name="pageBreakBefore">auto</property>
+                                <property name="pageBreakInside">auto</property>
+                                <header>
+                                    <row id="969">
+                                        <cell id="970">
+                                            <data id="983">
+                                                <property name="resultSetColumn">wonum</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="971">
+                                            <property name="colSpan">3</property>
+                                            <property name="rowSpan">1</property>
+                                            <data id="967">
+                                                <property name="textAlign">left</property>
+                                                <property name="resultSetColumn">description</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="974">
+                                            <data id="984">
+                                                <property name="textAlign">center</property>
+                                                <property name="resultSetColumn">statusdate</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="1183"/>
+                                        <cell id="975"/>
+                                    </row>
+                                </header>
+                            </group>
+                            <group id="985">
+                                <property name="groupName">NewTableGroup2</property>
+                                <property name="interval">none</property>
+                                <property name="sortDirection">asc</property>
+                                <expression name="keyExpr" type="javascript">row["craft"]</expression>
+                                <structure name="toc">
+                                    <expression name="expressionValue" type="javascript">row["craft"]</expression>
+                                </structure>
+                                <property name="repeatHeader">true</property>
+                                <property name="hideDetail">false</property>
+                                <property name="pageBreakAfter">auto</property>
+                                <property name="pageBreakBefore">auto</property>
+                                <property name="pageBreakInside">auto</property>
+                                <header>
+                                    <row id="986">
+                                        <cell id="987">
+                                            <data id="1000">
+                                                <property name="fontSize">7pt</property>
+                                                <property name="textAlign">center</property>
+                                                <property name="resultSetColumn">craft</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="988">
+                                            <data id="1006">
+                                                <property name="textAlign">center</property>
+                                                <property name="resultSetColumn">regularhrs</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="989">
+                                            <data id="1192">
+                                                <property name="resultSetColumn">PAYRATE</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="990">
+                                            <data id="1007">
+                                                <property name="textAlign">center</property>
+                                                <property name="resultSetColumn">premiumpayhours</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="991">
+                                            <data id="1191">
+                                                <property name="resultSetColumn">PREMIUMPAYRATE</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="1184">
+                                            <data id="1008">
+                                                <structure name="numberFormat">
+                                                    <property name="category">Fixed</property>
+                                                    <property name="pattern">#,##0.00</property>
+                                                </structure>
+                                                <property name="textAlign">right</property>
+                                                <method name="onCreate"><![CDATA[total += Number(this.getValue())
+total_per_ao += Number(this.getValue())]]></method>
+                                                <property name="resultSetColumn">linecost</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="992"/>
+                                    </row>
+                                </header>
+                            </group>
+                        </table>
+                        <table name="childTable22" id="869">
+                            <property name="comments">09-19764@000</property>
+                            <property name="width">100%</property>
+                            <property name="dataSet">subDataSet1</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">itemnum</property>
+                                    <text-property name="displayName">itemnum</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["itemnum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">description</property>
+                                    <text-property name="displayName">description</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">quantity</property>
+                                    <text-property name="displayName">quantity</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["quantity"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">linetype</property>
+                                    <text-property name="displayName">linetype</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["linetype"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">unitcost</property>
+                                    <text-property name="displayName">unitcost</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["unitcost"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">linecost</property>
+                                    <text-property name="displayName">linecost</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["linecost"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">wonum</property>
+                                    <text-property name="displayName">wonum</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["wonum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">refwo</property>
+                                    <text-property name="displayName">refwo</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["refwo"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="pageBreakInterval">50</property>
+                            <column id="894"/>
+                            <column id="895"/>
+                            <column id="896"/>
+                            <column id="897"/>
+                            <column id="898"/>
+                            <column id="899"/>
+                            <header>
+                                <row id="872">
+                                    <property name="style">tableheaderrow</property>
+                                    <property name="backgroundColor">maroon</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr">row["itemnum"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="873">
+                                        <property name="colSpan">6</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="style">tableheaderlabel</property>
+                                        <label id="874">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text"> Materiel leje</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                                <row id="879">
+                                    <property name="style">tabledetailslabel</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr">row["itemnum"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="880">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="1045">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="color">#444E68</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">VAM/Materiel</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="882">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="1254">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="color">#444E68</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Beskrivelse</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="883">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="1047">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="color">#444E68</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">antal materiel</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="884">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="1050">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="color">#444E68</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Type</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="885">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="1046">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="color">#444E68</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Unit cost</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="886">
+                                        <property name="style">tabledetailslabelcell</property>
+                                        <label id="1048">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="color">#444E68</property>
+                                            <property name="textAlign">right</property>
+                                            <text-property name="text">Omkost.  kr</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                            </header>
+                            <group id="1070">
+                                <property name="groupName">MaterialGroup</property>
+                                <property name="interval">none</property>
+                                <property name="sortDirection">asc</property>
+                                <expression name="keyExpr" type="javascript">row["refwo"]</expression>
+                                <structure name="toc">
+                                    <expression name="expressionValue" type="javascript">row["refwo"]</expression>
+                                </structure>
+                                <property name="repeatHeader">true</property>
+                                <property name="hideDetail">false</property>
+                                <property name="pageBreakAfter">auto</property>
+                                <property name="pageBreakBefore">auto</property>
+                                <property name="pageBreakInside">auto</property>
+                                <header>
+                                    <row id="1071">
+                                        <list-property name="visibility">
+                                            <structure>
+                                                <property name="format">all</property>
+                                                <expression name="valueExpr" type="javascript">row["itemnum"] == null</expression>
+                                            </structure>
+                                        </list-property>
+                                        <cell id="1072">
+                                            <data id="1102">
+                                                <property name="textAlign">center</property>
+                                                <property name="dataSet">subDataSet1</property>
+                                                <list-property name="boundDataColumns">
+                                                    <structure>
+                                                        <property name="name">itemnum</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["itemnum"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">description</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">quantity</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["quantity"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">linetype</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["linetype"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">unitcost</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["unitcost"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">linecost</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["linecost"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">wonum</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["wonum"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">refwo</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["refwo"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                </list-property>
+                                                <property name="resultSetColumn">itemnum</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="1073">
+                                            <data id="1255">
+                                                <property name="textAlign">left</property>
+                                                <property name="dataSet">subDataSet1</property>
+                                                <list-property name="boundDataColumns">
+                                                    <structure>
+                                                        <property name="name">itemnum</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["itemnum"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">description</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">quantity</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["quantity"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">linetype</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["linetype"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">unitcost</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["unitcost"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">linecost</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["linecost"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">wonum</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["wonum"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">refwo</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["refwo"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                </list-property>
+                                                <property name="resultSetColumn">description</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="1074">
+                                            <data id="1103">
+                                                <structure name="numberFormat">
+                                                    <property name="category">Fixed</property>
+                                                    <property name="pattern">#,##0</property>
+                                                </structure>
+                                                <property name="textAlign">center</property>
+                                                <property name="dataSet">subDataSet1</property>
+                                                <list-property name="boundDataColumns">
+                                                    <structure>
+                                                        <property name="name">itemnum</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["itemnum"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">description</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">quantity</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["quantity"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">linetype</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["linetype"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">unitcost</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["unitcost"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">linecost</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["linecost"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">wonum</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["wonum"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">refwo</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["refwo"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                </list-property>
+                                                <property name="resultSetColumn">quantity</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="1075">
+                                            <data id="1104">
+                                                <structure name="numberFormat">
+                                                    <property name="category">Fixed</property>
+                                                    <property name="pattern">#,##0.00</property>
+                                                </structure>
+                                                <property name="textAlign">center</property>
+                                                <property name="dataSet">subDataSet1</property>
+                                                <list-property name="boundDataColumns">
+                                                    <structure>
+                                                        <property name="name">itemnum</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["itemnum"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">description</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">quantity</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["quantity"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">linetype</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["linetype"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">unitcost</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["unitcost"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">linecost</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["linecost"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">wonum</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["wonum"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">refwo</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["refwo"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                </list-property>
+                                                <property name="resultSetColumn">linetype</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="1076">
+                                            <data id="1105">
+                                                <structure name="numberFormat">
+                                                    <property name="category">Fixed</property>
+                                                    <property name="pattern">#,##0.00</property>
+                                                </structure>
+                                                <property name="textAlign">center</property>
+                                                <property name="dataSet">subDataSet1</property>
+                                                <list-property name="boundDataColumns">
+                                                    <structure>
+                                                        <property name="name">itemnum</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["itemnum"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">description</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">quantity</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["quantity"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">linetype</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["linetype"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">unitcost</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["unitcost"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">linecost</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["linecost"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">wonum</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["wonum"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                    <structure>
+                                                        <property name="name">refwo</property>
+                                                        <expression name="expression" type="javascript">dataSetRow["refwo"]</expression>
+                                                        <property name="dataType">string</property>
+                                                    </structure>
+                                                </list-property>
+                                                <property name="resultSetColumn">unitcost</property>
+                                            </data>
+                                        </cell>
+                                        <cell id="1077">
+                                            <data id="1177">
+                                                <structure name="numberFormat">
+                                                    <property name="category">Fixed</property>
+                                                    <property name="pattern">#,##0.00</property>
+                                                </structure>
+                                                <property name="textAlign">center</property>
+                                                <method name="onCreate"><![CDATA[total += Number(this.getValue())
+total_per_ao += Number(this.getValue())]]></method>
+                                                <property name="resultSetColumn">linecost</property>
+                                            </data>
+                                        </cell>
+                                    </row>
+                                </header>
+                            </group>
+                        </table>
+                        <table id="1629">
+                            <property name="dataSet">subDataSet2</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">itemnum</property>
+                                    <text-property name="displayName">itemnum</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["itemnum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">linecost</property>
+                                    <text-property name="displayName">linecost</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["linecost"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">refwo</property>
+                                    <text-property name="displayName">refwo</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["refwo"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">description</property>
+                                    <text-property name="displayName">description</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">linetype</property>
+                                    <text-property name="displayName">linetype</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["linetype"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">unitcost</property>
+                                    <text-property name="displayName">unitcost</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["unitcost"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">quantity</property>
+                                    <text-property name="displayName">quantity</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["quantity"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">wonum</property>
+                                    <text-property name="displayName">wonum</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["wonum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <column id="1668"/>
+                            <column id="1669"/>
+                            <column id="1671"/>
+                            <column id="1672"/>
+                            <column id="1673"/>
+                            <column id="1674"/>
+                            <header>
+                                <row id="1693">
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["itemnum"]==null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="1694">
+                                        <property name="colSpan">6</property>
+                                        <property name="rowSpan">1</property>
+                                        <label id="1701">
+                                            <property name="backgroundColor">maroon</property>
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="color">white</property>
+                                            <text-property name="text">Service</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                                <row id="1630">
+                                    <property name="fontSize">8pt</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="fontStyle">italic</property>
+                                    <property name="color">#444E68</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["itemnum"]==null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="1631">
+                                        <label id="1632">
+                                            <text-property name="text">itemnum</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1633">
+                                        <label id="1638">
+                                            <text-property name="text">description</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1637">
+                                        <label id="1703">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="color">#444E68</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">antal materiel</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1639">
+                                        <label id="1640">
+                                            <text-property name="text">linetype</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1641">
+                                        <label id="1642">
+                                            <text-property name="text">unitcost</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1643">
+                                        <label id="1702">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="color">#444E68</property>
+                                            <property name="textAlign">right</property>
+                                            <text-property name="text">Omkost.  kr</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                            </header>
+                            <detail>
+                                <row id="1776">
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["itemnum"]==null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="1777">
+                                        <data id="1805">
+                                            <property name="resultSetColumn">refwo</property>
+                                        </data>
+                                        <data id="1806">
+                                            <property name="resultSetColumn">wonum</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1778">
+                                        <data id="1784">
+                                            <property name="resultSetColumn">description</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1779">
+                                        <data id="1785">
+                                            <property name="resultSetColumn">quantity</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1780">
+                                        <data id="1786">
+                                            <property name="resultSetColumn">linetype</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1781">
+                                        <data id="1787">
+                                            <property name="resultSetColumn">unitcost</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1782">
+                                        <data id="1788">
+                                            <property name="resultSetColumn">linecost</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </detail>
+                        </table>
+                        <table id="1705">
+                            <property name="dataSet">subDataSet3</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">itemnum</property>
+                                    <text-property name="displayName">itemnum</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["itemnum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">description</property>
+                                    <text-property name="displayName">description</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">toolqty</property>
+                                    <text-property name="displayName">toolqty</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["toolqty"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">toolhrs</property>
+                                    <text-property name="displayName">toolhrs</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["toolhrs"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">toolrate</property>
+                                    <text-property name="displayName">toolrate</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["toolrate"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">linecost</property>
+                                    <text-property name="displayName">linecost</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["linecost"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">refwo</property>
+                                    <text-property name="displayName">refwo</text-property>
+                                    <expression name="expression" type="javascript">dataSetRow["refwo"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <column id="1744"/>
+                            <column id="1745"/>
+                            <column id="1746"/>
+                            <column id="1747"/>
+                            <column id="1748"/>
+                            <column id="1749"/>
+                            <header>
+                                <row id="1751">
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["itemnumm"]==null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="1752">
+                                        <property name="colSpan">6</property>
+                                        <property name="rowSpan">1</property>
+                                        <label id="1759">
+                                            <property name="backgroundColor">maroon</property>
+                                            <property name="fontSize">8pt</property>
+                                            <property name="color">white</property>
+                                            <text-property name="text">Tools(Rentals)</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                                <row id="1706">
+                                    <property name="fontSize">8pt</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="fontStyle">italic</property>
+                                    <property name="color">#444E68</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["itemnum"]==null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="1707">
+                                        <label id="1708">
+                                            <text-property name="text">itemnum</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1709">
+                                        <label id="1710">
+                                            <text-property name="text">description</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1711">
+                                        <label id="1712">
+                                            <text-property name="text">toolqty</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1713">
+                                        <label id="1714">
+                                            <text-property name="text">toolhrs</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1715">
+                                        <label id="1716">
+                                            <text-property name="text">toolrate</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="1717">
+                                        <label id="1718">
+                                            <text-property name="text">linecost</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                            </header>
+                            <detail>
+                                <row id="1807">
+                                    <property name="textAlign">center</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["itemnum"]==null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="1808">
+                                        <data id="1815">
+                                            <property name="resultSetColumn">itemnum</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1809">
+                                        <data id="1814">
+                                            <property name="resultSetColumn">description</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1810">
+                                        <data id="1816">
+                                            <property name="resultSetColumn">toolqty</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1811">
+                                        <data id="1817">
+                                            <property name="resultSetColumn">toolhrs</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1812">
+                                        <data id="1818">
+                                            <property name="resultSetColumn">toolrate</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="1813">
+                                        <data id="1819">
+                                            <property name="resultSetColumn">linecost</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </detail>
+                        </table>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="1145">
+                    <cell id="1146">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <label id="1152">
+                            <text-property name="text">Rapport kriterier:  Datoperiode med dato for AO statusskift til "AFSLUTTET" --- alle timer hvor medarbejder initialer starter med NCC  --- Driftsområde på arbejdsordre = "TRAFIK"  --- alle jobplaner uanset driftsområde --- Feltet:  ' Kan ikke udfaktureres til Storebælt = 'blank'.    "Fastpris job, forebyggende vedligehold"  vises hvis der er et jobplan nummer og Driftsområde = 'TRAFIK'.  ---- 'Time forbrug ' vises hvis omkostningerne  er forskellig fra 0 --- , samt at det ikke er fastpris, altså feltet jobplan er 'blankt' -----'Afspærringer, VAM og Materiel leje' viser hvis der findes et VAM eller materiel nummer.</text-property>
+                        </label>
+                    </cell>
+                </row>
+                <row id="1217">
+                    <cell id="1218">
+                        <label id="1224">
+                            <text-property name="text">2015-09-18 - Felt 'leje' tilføjet</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1219"/>
+                    <cell id="1220"/>
+                    <cell id="1221"/>
+                    <cell id="1222"/>
+                    <cell id="1223"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

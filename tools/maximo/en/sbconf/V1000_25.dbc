@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script SYSTEM "script.dtd">
+<script author="IBM" scriptname="thom_fc">
+    <description>Failure code length increase to 25 (MR-916)</description>
+    <statements>
+        <modify_attribute object="FAILURECODE" attribute="FAILURECODE" length="25"/>
+    </statements>
+</script>
