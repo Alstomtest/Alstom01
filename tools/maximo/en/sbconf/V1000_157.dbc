@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE script SYSTEM "script.dtd">
-<script author="GenInsertDbc app" scriptname="V1000_157">
-  <description>Re-apply domain on FNCONOFFSET. First applied in V1000_23</description>
-  <statements>
-    <modify_attribute object="JOBPLAN" attribute="FNCONOFFSET" domain="SBHFNCONOFFSET"/>
-  </statements>
-</script>

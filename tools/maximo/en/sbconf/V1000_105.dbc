@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE script SYSTEM "script.dtd">
-<script author="IBM" scriptname="V109_dh">
-    <description>Auto-Generated Script</description>
-    <statements>
-        <drop_relationship name="SBHPOSSWO" parent="WORKORDER"/>
-        <create_relationship parent="WORKORDER" name="SBHPOSSWO" child="WORKORDER" whereclause="HISTORYFLAG = 0 AND ISTASK = 0 AND WONUM != :WONUM AND STATUS IN ('WAPPR','WSCH') AND (( :worktype ='SPSP' AND coalesce(SBHWOSPORNR,0) = coalesce(:SBHWOSPORNR,0) AND coalesce(SBHWOSPSP,0) = coalesce(:SBHWOSPSP,0) AND SBHWOKORE IN (0, cast(CASE WHEN :SBHWOKORE = 0 THEN '0' ELSE '1' END as int))) OR ( :worktype = 'VEJSP' AND coalesce(SBHWOTRARETNING, 'ABC') = coalesce(:SBHWOTRARETNING, 'ABC') AND coalesce(SBHWOTRASPOR, 'ABC') = coalesce(:SBHWOTRASPOR, 'ABC') AND coalesce(SBHWOTRAFIKSP, 'ABC') = coalesce(:SBHWOTRAFIKSP, 'ABC'))) AND (schedstart &gt;= :schedstart AND schedfinish &lt;= coalesce(:schedfinish, getdate()) AND WONUM NOT IN (SELECT RELATEDRECORD.RELATEDRECKEY FROM RELATEDRECORD WHERE RELATEDRECORD.RECORDKEY = :WONUM AND RELATEDRECORD.SITEID = :SITEID AND CLASS = 'WORKORDER')) AND ( ASSETNUM IN (SELECT ASSET.ASSETNUM FROM ASSET WHERE ASSET.ISLINEAR = 1 AND startmeasure &gt;= (SELECT a2.startmeasure FROM asset a2 WHERE a2.assetnum = :assetnum) AND endmeasure &lt;= (SELECT a2.endmeasure FROM asset a2 WHERE a2.assetnum = :assetnum)) OR WONUM IN (SELECT recordkey FROM multiassetlocci WHERE (recordkey = wonum AND recordclass = 'WORKORDER') AND multiassetlocci.ASSETNUM IN (SELECT ASSET.ASSETNUM FROM ASSET WHERE ASSET.ISLINEAR = 1 AND startmeasure &gt;= (SELECT a2.startmeasure FROM asset a2 WHERE a2.assetnum = multiassetlocci.assetnum) AND endmeasure &lt;= (SELECT a2.endmeasure FROM asset a2 WHERE a2.assetnum = multiassetlocci.assetnum))) )" remarks="Relationship to WORKORDER object to select potential Candidate records to be related to the 'Possession' Work Order."/>
-    </statements>
-</script>

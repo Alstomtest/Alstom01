@@ -10,7 +10,7 @@
 	</version>
 	<dbmaxvarname>SBCONF</dbmaxvarname>
 	<dbscripts>sbconf</dbscripts>	
-	<dbversion>V1000-169</dbversion>	
+	<dbversion>V1000-1</dbversion>	
 	<depends>tpae</depends>
 	<lastdbversion>V1000-00</lastdbversion>
 </product>

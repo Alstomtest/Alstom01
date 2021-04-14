@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE script SYSTEM "script.dtd">
-<script author="GenInsertDbc app" scriptname="Inserts into maxdomvalcond">
-  <description>GenInsertDbc created this script at Sat Oct 26 12:18:11 CEST 2019</description>
-  <statements>
-    <modify_attribute object="PM" attribute="SBHPMTRAFIKSP" domain="SBHTRAFIKSP"/>
-  </statements>
-</script>

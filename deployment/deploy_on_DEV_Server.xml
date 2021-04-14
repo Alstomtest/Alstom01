@@ -14,14 +14,14 @@
 	<target name="init" description="Initializes the directories and file names">
 		<echo>Init Started</echo>
 
-		<property name="maximo.dir" value="C:/IBM/SMP/maximo" />
+		<property name="maximo.dir" value="E:/IBM/SMP/maximo" />
 		<property name="productxml.target.dir" value="${maximo.dir}/applications/maximo/properties/product" />
 		<property name="dbc.target.dir" value="${maximo.dir}/tools/maximo/en" />
 		<property name="businessObjectPath" value="${maximo.dir}/applications/maximo/businessobjects/classes" />
 		<!-- Edit the following property to specify the directory to be synced. -->
 		<!--<property name="maximo.database.backup.dir" value="E:\MaximoArtifacts" /> -->
-		<property name="dest.env.ihs.dir" value="C:/IBM/HTTPServer/conf" />
-		<property name="maximo.websphere.basedir" value="C:/IBM/WebSphere/AppServer" />
+		<property name="dest.env.ihs.dir" value="E:/IBM/HTTPServer/conf" />
+		<property name="maximo.websphere.basedir" value="E:/IBM/WebSphere/AppServer" />
 		<property name="maximo.websphere.appserver.profilename" value="ctgAppSrv01" />
 		<property name="maximo.websphere.deploymentmanager.profilename" value="ctgDmgr01" />
 		<property name="maximo.websphere.cell.name" value="ctgCell01" />
@@ -53,10 +53,10 @@
 		<property name="cleanall.automationscripts.flag" value="Y" />
 
 		<!-- Work Space Varibles -->
-		<property name="workspace.dir" value="C:\Users\ctix\git\S-BMaximoR1" />
+		<property name="workspace.dir" value="C:\Users\Administrator\git\S-BMaximoR1" />
 		<property name="productxml.source.dir" value="${workspace.dir}/applications/maximo/properties/product" />
 		<property name="dbc.source.dir" value="${workspace.dir}/tools/maximo/en" />
-		<property name="java.customclasses.output.dir" value="C:\Users\ctix\git\S-BMaximoR1/build/classes" />
+		<property name="java.customclasses.output.dir" value="C:\Users\Administrator\git\S-BMaximoR1/build/classes" />
 
 		<!-- Post Deployment Scripts -->
 		<property name="maximo.postdeploydbscript.source.dir" value="${workspace.dir}/backups/deployment/post-deploy-scripts" />
@@ -200,14 +200,14 @@
 		<echo>Stop Maximo WebServer</echo>
 		<exec executable="cmd">
 			<arg value="/c" />
-			<arg value="C:/IBM/WebSphere/AppServer/profiles/ctgAppSrv01/bin/stopServer webserver1 -username wasadmin -password Maximo75" />
+			<arg value="E:/IBM/WebSphere/AppServer/profiles/ctgAppSrv01/bin/stopServer webserver1 -username wasadmin -password Maximo75" />
 		</exec>
 
 
 		<echo>Stop Maximo Servers</echo>
 		<exec executable="cmd">
 			<arg value="/c" />
-			<arg value="C:/IBM/WebSphere/AppServer/profiles/ctgAppSrv01/bin/stopServer MXServer -username wasadmin -password Maximo75" />
+			<arg value="E:/IBM/WebSphere/AppServer/profiles/ctgAppSrv01/bin/stopServer MXServer -username wasadmin -password Maximo75" />
 		</exec>
 
 
