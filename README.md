@@ -1,2 +1,2 @@
-# S-BMaximoR1
-Sund and Baelt Maximo Release 1 Implementation
+# Alstom 
+AMER Maximo Release 1 Implementation
